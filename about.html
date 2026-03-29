@@ -1,0 +1,2195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About — Rankine Innovation Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+
+/* ══════════════════════════════════════════════════════════════════════
+   DESIGN TOKENS — exact match to homepage
+══════════════════════════════════════════════════════════════════════ */
+:root {
+  --chocolate:   #180c06;
+  --espresso:    #241208;
+  --brown:       #3a1c0e;
+  --mahogany:    #5c2d18;
+  --copper:      #a05c38;
+  --copper-lt:   #c47a52;
+  --sand:        #c9ab84;
+  --sand-lt:     #ddc9a8;
+  --cream:       #f4ede0;
+  --cream-lt:    #faf6ef;
+  --sage:        #687558;
+  --sage-lt:     #8e9e78;
+  --white:       #fffcf8;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-label:   'Cinzel', serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-circ: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+
+  --section-pad: clamp(5rem, 10vw, 9rem);
+}
+
+/* ── RESET ─────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--cream-lt);
+  color: var(--espresso);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--copper); border-radius: 3px; }
+
+/* ── UTILITIES ─────────────────────────────────────────────────────── */
+.container { width: min(1340px, 100%); margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3.5rem); }
+
+/* ── REVEAL SYSTEM (identical to homepage) ──────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.10s; }
+.d2 { transition-delay: 0.22s; }
+.d3 { transition-delay: 0.34s; }
+.d4 { transition-delay: 0.46s; }
+.d5 { transition-delay: 0.58s; }
+.d6 { transition-delay: 0.70s; }
+
+/* Fade-left variant for alternating layouts */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-28px);
+  transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out);
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+/* ── SHARED TYPOGRAPHY PRIMITIVES ───────────────────────────────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 1.5rem;
+}
+.eyebrow-line {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--copper);
+  flex-shrink: 0;
+}
+.eyebrow--sand { color: var(--sand); }
+.eyebrow--sand .eyebrow-line { background: var(--sand); }
+.eyebrow--cream { color: rgba(244,237,224,0.55); }
+.eyebrow--cream .eyebrow-line { background: rgba(244,237,224,0.3); }
+
+.display-heading {
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.display-heading em { font-style: italic; color: var(--copper); }
+.display-heading--light { color: var(--cream); }
+.display-heading--light em { color: var(--sand); }
+.display-heading--dark { color: var(--espresso); }
+
+.body-prose {
+  font-size: clamp(0.95rem, 1.35vw, 1.05rem);
+  line-height: 1.85;
+  color: var(--brown);
+  font-weight: 300;
+}
+.body-prose--muted { color: rgba(244,237,224,0.52); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   NAVIGATION — identical to homepage
+══════════════════════════════════════════════════════════════════════ */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  transition: background 0.45s var(--ease-circ), box-shadow 0.45s var(--ease-circ);
+}
+.nav.transparent { background: transparent; }
+.nav.solid {
+  background: rgba(24,12,6,0.97);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 1px 0 rgba(201,171,132,0.15);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: clamp(60px, 7vw, 76px);
+}
+.nav-logo { display: flex; flex-direction: column; line-height: 1; }
+.nav-logo-mark {
+  font-family: var(--font-label);
+  font-size: clamp(0.82rem, 1.1vw, 0.92rem);
+  letter-spacing: 0.25em;
+  color: var(--copper);
+  text-transform: uppercase;
+}
+.nav-logo-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  color: var(--cream);
+  letter-spacing: 0.02em;
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.2vw, 2rem);
+  list-style: none;
+}
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(244,237,224,0.72);
+  transition: color 0.3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0; right: 0;
+  height: 1px;
+  background: var(--copper);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-out);
+}
+.nav-links a:hover { color: var(--cream); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-links a.active-page { color: var(--sand); }
+.nav-links a.active-page::after { transform: scaleX(1); background: var(--sand); }
+.nav-cta {
+  font-size: 0.78rem !important;
+  letter-spacing: 0.12em !important;
+  font-weight: 600 !important;
+  padding: 0.55rem 1.4rem;
+  border: 1px solid var(--copper);
+  border-radius: 2px;
+  color: var(--cream) !important;
+  background: transparent;
+  transition: background 0.3s !important;
+}
+.nav-cta:hover { background: var(--copper) !important; }
+.nav-cta::after { display: none !important; }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+.hamburger span { display: block; width: 26px; height: 2px; background: var(--cream); transition: all 0.3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-menu {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(24,12,6,0.98);
+  backdrop-filter: blur(20px);
+  z-index: 999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  transform: translateY(-100%);
+  transition: transform 0.5s var(--ease-out);
+}
+.mobile-menu.open { display: flex; transform: translateY(0); }
+.mobile-menu a {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 6vw, 3rem);
+  font-weight: 300;
+  color: var(--cream);
+  transition: color 0.3s;
+}
+.mobile-menu a:hover { color: var(--copper); }
+
+/* ── CTA BUTTONS (shared) ───────────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-family: var(--font-body); font-size: 0.82rem; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 1rem 2.2rem;
+  background: var(--copper); color: var(--white);
+  border: 1px solid var(--copper); border-radius: 2px;
+  transition: background 0.35s, transform 0.35s, box-shadow 0.35s;
+}
+.btn-primary:hover {
+  background: var(--copper-lt); border-color: var(--copper-lt);
+  transform: translateY(-2px); box-shadow: 0 12px 40px rgba(160,92,56,0.35);
+}
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-family: var(--font-body); font-size: 0.82rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 1rem 2.2rem;
+  background: transparent; color: var(--espresso);
+  border: 1px solid rgba(58,28,14,0.3); border-radius: 2px;
+  transition: border-color 0.35s, color 0.35s, transform 0.35s;
+}
+.btn-ghost:hover { border-color: var(--copper); color: var(--copper); transform: translateY(-2px); }
+.btn-ghost--light {
+  color: var(--cream);
+  border-color: rgba(244,237,224,0.3);
+}
+.btn-ghost--light:hover { border-color: var(--sand); color: var(--sand); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   1. HERO — inner page, cinematic but restrained
+══════════════════════════════════════════════════════════════════════ */
+.about-hero {
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  background: var(--chocolate);
+  overflow: hidden;
+}
+
+/* Multi-layer gradient composition unique to about page */
+.about-hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 75% 65% at 85% 20%,  rgba(94,44,18,0.45)   0%, transparent 60%),
+    radial-gradient(ellipse 55% 50% at 10% 80%,  rgba(72,90,58,0.22)   0%, transparent 55%),
+    radial-gradient(ellipse 40% 35% at 55% 55%,  rgba(160,92,56,0.08)  0%, transparent 50%),
+    linear-gradient(150deg, #0e0806 0%, #1e1008 35%, #180c04 70%, #0c0e08 100%);
+}
+
+/* Fine ruled-line texture — gives scholarly, document-like depth */
+.about-hero-lines {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 59px,
+    rgba(201,171,132,0.035) 59px,
+    rgba(201,171,132,0.035) 60px
+  );
+  pointer-events: none;
+}
+
+/* Vertical column grid, architectural */
+.about-hero-cols {
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent calc(100% / 12 - 1px),
+    rgba(201,171,132,0.025) calc(100% / 12 - 1px),
+    rgba(201,171,132,0.025) calc(100% / 12)
+  );
+  pointer-events: none;
+}
+
+/* Large decorative R watermark */
+.about-hero-watermark {
+  position: absolute;
+  right: -2vw;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-size: clamp(22rem, 38vw, 52rem);
+  font-weight: 700;
+  line-height: 1;
+  color: rgba(244,237,224,0.025);
+  pointer-events: none;
+  user-select: none;
+  letter-spacing: -0.06em;
+}
+
+/* Grain overlay */
+.about-hero-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* Copper accent bar — left edge decoration */
+.about-hero-edge {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, var(--copper) 30%, var(--copper) 70%, transparent);
+  opacity: 0.6;
+}
+
+.about-hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  padding-top: clamp(80px, 10vw, 100px);
+  padding-bottom: clamp(4rem, 6vw, 6rem);
+}
+
+.about-hero-inner {
+  max-width: 900px;
+}
+
+/* Breadcrumb trail */
+.about-hero-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 2.5rem;
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(244,237,224,0.3);
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp 0.7s 0.1s var(--ease-out) forwards;
+}
+.about-hero-breadcrumb a { transition: color 0.3s; }
+.about-hero-breadcrumb a:hover { color: var(--sand); }
+.about-hero-breadcrumb-sep { opacity: 0.4; }
+.about-hero-breadcrumb-current { color: var(--copper); }
+
+.about-hero-eyebrow {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 0.75s 0.2s var(--ease-out) forwards;
+}
+
+.about-hero-headline {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3rem, 7vw, 6.4rem);
+  line-height: 1.03;
+  letter-spacing: -0.015em;
+  color: var(--cream-lt);
+  margin-bottom: 2rem;
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 0.9s 0.32s var(--ease-out) forwards;
+}
+.about-hero-headline em { font-style: italic; color: var(--sand); }
+.about-hero-headline strong {
+  font-weight: 500;
+  color: var(--cream-lt);
+  display: block;
+}
+
+.about-hero-sub {
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  line-height: 1.75;
+  color: rgba(244,237,224,0.58);
+  font-weight: 300;
+  max-width: 600px;
+  margin-bottom: 3rem;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.85s 0.48s var(--ease-out) forwards;
+}
+
+.about-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(24px);
+  animation: fadeUp 0.85s 0.62s var(--ease-out) forwards;
+}
+
+/* Horizontal metrics row at hero bottom */
+.about-hero-metrics {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 3;
+  border-top: 1px solid rgba(201,171,132,0.1);
+  background: rgba(24,12,6,0.45);
+  backdrop-filter: blur(10px);
+}
+.about-hero-metrics-inner {
+  display: flex;
+  align-items: stretch;
+}
+.about-metric {
+  flex: 1;
+  padding: 1.6rem clamp(1.5rem, 3vw, 2.8rem);
+  border-right: 1px solid rgba(201,171,132,0.1);
+  opacity: 0;
+  animation: fadeUp 0.75s var(--ease-out) forwards;
+}
+.about-metric:nth-child(1) { animation-delay: 0.75s; }
+.about-metric:nth-child(2) { animation-delay: 0.85s; }
+.about-metric:nth-child(3) { animation-delay: 0.95s; }
+.about-metric:nth-child(4) { animation-delay: 1.05s; border-right: none; }
+.about-metric-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.8vw, 2.2rem);
+  font-weight: 400;
+  color: var(--sand);
+  line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.about-metric-label {
+  font-family: var(--font-label);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(201,171,132,0.4);
+}
+
+@keyframes fadeUp {
+  to { opacity: 1; transform: translate(0); }
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   2. ORIGIN & PURPOSE — editorial, generous, narrative
+══════════════════════════════════════════════════════════════════════ */
+.origin {
+  padding-block: var(--section-pad);
+  background: var(--cream-lt);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle ruled texture — links to hero motif */
+.origin::before {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 45%;
+  background: radial-gradient(ellipse at 80% 40%, rgba(160,92,56,0.05) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.origin-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(4rem, 9vw, 9rem);
+  align-items: start;
+}
+
+.origin-left { position: sticky; top: 120px; }
+
+.origin-left-num {
+  font-family: var(--font-display);
+  font-size: clamp(7rem, 14vw, 13rem);
+  font-weight: 300;
+  line-height: 0.85;
+  color: rgba(58,28,14,0.06);
+  letter-spacing: -0.04em;
+  margin-bottom: 1rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+.origin-left-heading {
+  font-size: clamp(2.2rem, 3.8vw, 3.5rem);
+}
+
+.origin-left-sub {
+  margin-top: 1.5rem;
+  color: var(--brown);
+}
+
+/* Pull quote beside the heading */
+.origin-left-quote {
+  margin-top: 3rem;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--copper);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.05rem, 1.7vw, 1.3rem);
+  line-height: 1.65;
+  color: var(--mahogany);
+  font-weight: 300;
+}
+
+/* Icon-pill tag row */
+.origin-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 2.5rem;
+}
+.origin-tag {
+  font-family: var(--font-label);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.55rem 1rem;
+  border: 1px solid rgba(160,92,56,0.25);
+  border-radius: 2px;
+  color: var(--copper);
+  background: rgba(160,92,56,0.05);
+}
+
+.origin-right { }
+
+/* Each narrative paragraph has a subtle top border */
+.origin-paragraph {
+  padding-top: 2rem;
+  border-top: 1px solid rgba(58,28,14,0.09);
+  margin-bottom: 0;
+}
+.origin-paragraph:first-child { border-top: none; padding-top: 0; }
+.origin-paragraph + .origin-paragraph { margin-top: 2rem; }
+
+.origin-para-label {
+  font-family: var(--font-label);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 0.8rem;
+}
+
+.origin-para-text {
+  font-size: clamp(1rem, 1.5vw, 1.08rem);
+  line-height: 1.88;
+  color: var(--brown);
+  font-weight: 300;
+}
+
+/* Callout box — editorial inset quote */
+.origin-callout {
+  margin-top: 3rem;
+  padding: clamp(1.75rem, 3vw, 2.5rem);
+  background: var(--espresso);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+}
+.origin-callout::before {
+  content: '"';
+  position: absolute;
+  top: -1.5rem; left: 1.5rem;
+  font-family: var(--font-display);
+  font-size: 10rem;
+  color: rgba(244,237,224,0.05);
+  line-height: 1;
+  pointer-events: none;
+}
+.origin-callout-text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.2rem, 2vw, 1.55rem);
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--cream);
+  position: relative;
+  z-index: 1;
+}
+.origin-callout-attr {
+  margin-top: 1.25rem;
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--copper);
+  position: relative;
+  z-index: 1;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   3. MISSION, VISION, VALUES
+══════════════════════════════════════════════════════════════════════ */
+.mvv {
+  padding-block: var(--section-pad);
+  background: var(--brown);
+  position: relative;
+  overflow: hidden;
+}
+
+.mvv::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(201,171,132,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,171,132,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+.mvv::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 200px;
+  background: linear-gradient(to top, rgba(58,28,14,0.3), transparent);
+  pointer-events: none;
+}
+
+.mvv-header {
+  text-align: center;
+  margin-bottom: clamp(3.5rem, 7vw, 6rem);
+  position: relative;
+  z-index: 1;
+}
+
+/* Mission + Vision — two-column with visual divider */
+.mvv-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5px;
+  margin-bottom: 1.5px;
+  position: relative;
+  z-index: 1;
+}
+
+.mvv-panel {
+  background: rgba(255,252,248,0.04);
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(2rem, 4vw, 3.5rem);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.4s;
+  cursor: default;
+}
+.mvv-panel:hover { background: rgba(255,252,248,0.07); }
+.mvv-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--copper), transparent 70%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.55s var(--ease-out);
+}
+.mvv-panel:hover::before { transform: scaleX(1); }
+
+.mvv-panel-icon {
+  width: 52px; height: 52px;
+  border: 1px solid rgba(201,171,132,0.2);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+  background: rgba(160,92,56,0.08);
+  color: var(--copper);
+  transition: transform 0.35s, border-color 0.35s;
+}
+.mvv-panel:hover .mvv-panel-icon { transform: scale(1.08) rotate(3deg); border-color: var(--copper); }
+
+.mvv-panel-label {
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 1rem;
+}
+.mvv-panel-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+  font-weight: 400;
+  color: var(--cream);
+  line-height: 1.25;
+  margin-bottom: 1.25rem;
+}
+.mvv-panel-text {
+  font-size: 0.9rem;
+  line-height: 1.82;
+  color: rgba(244,237,224,0.5);
+  font-weight: 300;
+}
+
+/* Values — full-width row below */
+.mvv-values {
+  background: rgba(255,252,248,0.03);
+  padding: clamp(2.5rem, 5vw, 4rem) clamp(2rem, 4vw, 3.5rem);
+  position: relative;
+  z-index: 1;
+}
+.mvv-values-label {
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 2rem;
+}
+.mvv-values-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.5rem;
+}
+.mvv-value {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(201,171,132,0.1);
+  border-radius: var(--radius-sm);
+  background: rgba(255,252,248,0.025);
+  transition: border-color 0.35s, background 0.35s, transform 0.35s;
+  cursor: default;
+}
+.mvv-value:hover {
+  border-color: rgba(201,171,132,0.25);
+  background: rgba(255,252,248,0.055);
+  transform: translateY(-3px);
+}
+.mvv-value-dot {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(160,92,56,0.15);
+  border: 1px solid rgba(160,92,56,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.75rem;
+  color: var(--copper);
+}
+.mvv-value-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--cream);
+  line-height: 1.3;
+}
+.mvv-value-desc {
+  font-size: 0.78rem;
+  line-height: 1.75;
+  color: rgba(244,237,224,0.38);
+  font-weight: 300;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   4. WHAT MAKES RANKINE DIFFERENT
+══════════════════════════════════════════════════════════════════════ */
+.different {
+  padding-block: var(--section-pad);
+  background: var(--cream-lt);
+  position: relative;
+  overflow: hidden;
+}
+
+.different-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  margin-bottom: clamp(3.5rem, 7vw, 6rem);
+}
+
+/* Comparison table — the heart of this section */
+.different-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid rgba(58,28,14,0.1);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+.different-table thead tr {
+  background: var(--espresso);
+}
+.different-table thead th {
+  padding: 1.2rem 1.75rem;
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 400;
+  text-align: left;
+  border-right: 1px solid rgba(201,171,132,0.1);
+}
+.different-table thead th:last-child { border-right: none; }
+.different-table thead th.col-them { color: rgba(244,237,224,0.3); }
+.different-table thead th.col-us { color: var(--copper); }
+.different-table tbody tr {
+  border-bottom: 1px solid rgba(58,28,14,0.08);
+  transition: background 0.3s;
+}
+.different-table tbody tr:last-child { border-bottom: none; }
+.different-table tbody tr:hover { background: rgba(160,92,56,0.035); }
+.different-table tbody td {
+  padding: 1.5rem 1.75rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  vertical-align: top;
+  border-right: 1px solid rgba(58,28,14,0.06);
+}
+.different-table tbody td:last-child { border-right: none; }
+.different-table .td-category {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mahogany);
+  font-weight: 500;
+  width: 18%;
+}
+.different-table .td-them {
+  color: rgba(58,28,14,0.45);
+  font-weight: 300;
+  font-style: italic;
+  width: 36%;
+}
+.different-table .td-us {
+  color: var(--espresso);
+  font-weight: 400;
+  width: 36%;
+}
+.different-table .td-us::before {
+  content: '→ ';
+  color: var(--copper);
+  font-style: normal;
+}
+
+/* Positioning pillars below the table */
+.different-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+.different-pillar {
+  padding: clamp(1.5rem, 2.5vw, 2.2rem);
+  border: 1px solid rgba(58,28,14,0.1);
+  border-radius: var(--radius-md);
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s, border-color 0.4s;
+  cursor: default;
+}
+.different-pillar:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(24,12,6,0.08);
+  border-color: rgba(160,92,56,0.3);
+}
+.different-pillar::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--copper), var(--sand));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s var(--ease-out);
+}
+.different-pillar:hover::after { transform: scaleX(1); }
+.different-pillar-icon {
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+.different-pillar-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.7vw, 1.35rem);
+  font-weight: 500;
+  color: var(--espresso);
+  line-height: 1.25;
+  margin-bottom: 0.75rem;
+}
+.different-pillar-text {
+  font-size: 0.84rem;
+  line-height: 1.8;
+  color: var(--brown);
+  font-weight: 300;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   5. THE RANKINE METHOD — expanded, explanatory
+══════════════════════════════════════════════════════════════════════ */
+.method {
+  padding-block: var(--section-pad);
+  background: var(--espresso);
+  position: relative;
+  overflow: hidden;
+}
+.method::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(201,171,132,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,171,132,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+.method-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 7rem);
+  align-items: center;
+  margin-bottom: clamp(4rem, 8vw, 7rem);
+  position: relative;
+  z-index: 1;
+}
+.method-header-right .section-sub {
+  font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+  line-height: 1.82;
+  color: rgba(244,237,224,0.48);
+  font-weight: 300;
+}
+
+/* Process timeline — horizontal flowing diagram */
+.method-timeline {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+/* Connector line between steps */
+.method-timeline::before {
+  content: '';
+  position: absolute;
+  top: 3rem;
+  left: calc(100% / 8);
+  right: calc(100% / 8);
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent,
+    rgba(201,171,132,0.2) 10%,
+    rgba(201,171,132,0.2) 90%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+.method-step {
+  padding: 0 clamp(1.2rem, 2.5vw, 2rem);
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+  position: relative;
+  cursor: default;
+  transition: background 0.4s;
+  border-radius: var(--radius-md);
+}
+.method-step:hover { background: rgba(201,171,132,0.04); }
+
+.method-step-circle {
+  width: 60px; height: 60px;
+  border-radius: 50%;
+  border: 1px solid rgba(201,171,132,0.2);
+  background: rgba(160,92,56,0.08);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 2rem;
+  position: relative;
+  z-index: 1;
+  transition: border-color 0.35s, background 0.35s, transform 0.35s;
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--copper);
+}
+.method-step:hover .method-step-circle {
+  border-color: var(--copper);
+  background: rgba(160,92,56,0.18);
+  transform: scale(1.08);
+}
+.method-step-num {
+  position: absolute;
+  top: -0.4rem; right: -0.4rem;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--copper);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 600;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.method-step-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 2.8vw, 2.4rem);
+  font-weight: 400;
+  color: var(--cream);
+  text-align: center;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+.method-step-desc {
+  font-size: 0.85rem;
+  line-height: 1.82;
+  color: rgba(244,237,224,0.42);
+  font-weight: 300;
+  text-align: center;
+}
+.method-step-detail {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(201,171,132,0.08);
+}
+.method-step-detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: rgba(244,237,224,0.32);
+  font-weight: 300;
+}
+.method-step-detail-item::before {
+  content: '◦';
+  color: var(--copper);
+  flex-shrink: 0;
+  font-size: 0.65rem;
+  margin-top: 0.1em;
+}
+
+/* Bottom signature statement */
+.method-footer {
+  margin-top: clamp(3.5rem, 7vw, 6rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid rgba(201,171,132,0.1);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 3rem;
+  position: relative;
+  z-index: 1;
+}
+.method-footer-text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.1rem, 1.8vw, 1.45rem);
+  font-weight: 300;
+  color: rgba(201,171,132,0.45);
+  line-height: 1.6;
+}
+.method-footer-text em { color: var(--sand); font-style: normal; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   6. PHILOSOPHY / BELIEF STATEMENT
+══════════════════════════════════════════════════════════════════════ */
+.philosophy {
+  padding-block: clamp(6rem, 14vw, 12rem);
+  background: var(--chocolate);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Large geometric composition */
+.philosophy-geo {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.philosophy-geo-ring {
+  position: absolute;
+  border-radius: 50%;
+}
+.philosophy-geo-ring:nth-child(1) {
+  width: 80vmin; height: 80vmin;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(201,171,132,0.05);
+}
+.philosophy-geo-ring:nth-child(2) {
+  width: 60vmin; height: 60vmin;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(201,171,132,0.07);
+}
+.philosophy-geo-ring:nth-child(3) {
+  width: 38vmin; height: 38vmin;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(160,92,56,0.1);
+}
+.philosophy-geo-dot {
+  position: absolute;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--copper);
+  box-shadow: 0 0 16px rgba(160,92,56,0.5);
+}
+.philosophy-geo-dot:nth-child(4) { top: 50%; left: calc(50% + 40vmin); transform: translateY(-50%); }
+.philosophy-geo-dot:nth-child(5) { top: calc(50% - 40vmin); left: 50%; transform: translateX(-50%); }
+.philosophy-geo-dot:nth-child(6) { bottom: calc(50% - 20vmin); right: calc(50% - 28vmin); }
+
+.philosophy::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(160,92,56,0.07), transparent 65%);
+  pointer-events: none;
+}
+
+.philosophy-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 900px;
+  margin-inline: auto;
+}
+.philosophy-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 3rem;
+}
+.philosophy-label-line {
+  display: block;
+  width: 32px; height: 1px;
+  background: var(--copper);
+}
+
+.philosophy-statement {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.4rem, 5.5vw, 5rem);
+  line-height: 1.08;
+  letter-spacing: -0.015em;
+  color: var(--cream-lt);
+}
+.philosophy-statement em {
+  font-style: italic;
+  color: var(--sand);
+  display: block;
+}
+.philosophy-statement strong {
+  font-weight: 500;
+  color: var(--cream-lt);
+}
+
+.philosophy-divider {
+  width: 60px; height: 1px;
+  background: rgba(201,171,132,0.3);
+  margin: 3rem auto;
+}
+
+.philosophy-sub {
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  line-height: 1.8;
+  color: rgba(244,237,224,0.45);
+  font-weight: 300;
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+/* Three conviction statements below */
+.philosophy-convictions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+  margin-top: clamp(4rem, 8vw, 7rem);
+}
+.conviction {
+  padding: clamp(2rem, 3.5vw, 3rem) clamp(1.5rem, 2.5vw, 2.5rem);
+  background: rgba(255,252,248,0.03);
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.4s;
+  cursor: default;
+}
+.conviction:hover { background: rgba(255,252,248,0.06); }
+.conviction-num {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--copper);
+  letter-spacing: 0.12em;
+  margin-bottom: 1.2rem;
+  display: block;
+}
+.conviction-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.7vw, 1.4rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.45;
+  margin-bottom: 1rem;
+}
+.conviction-text em { font-style: italic; color: var(--sand); }
+.conviction-detail {
+  font-size: 0.82rem;
+  line-height: 1.78;
+  color: rgba(244,237,224,0.35);
+  font-weight: 300;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   7. CLOSING CTA
+══════════════════════════════════════════════════════════════════════ */
+.about-cta {
+  padding-block: clamp(6rem, 12vw, 10rem);
+  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.about-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 70% at 50% 50%, rgba(160,92,56,0.06), transparent);
+  pointer-events: none;
+}
+
+.about-cta-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.about-cta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(4rem, 9vw, 10rem);
+  align-items: center;
+}
+
+.about-cta-left { }
+.about-cta-heading {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+}
+.about-cta-sub {
+  margin-top: 1.5rem;
+  font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+  line-height: 1.82;
+  color: var(--brown);
+  font-weight: 300;
+}
+.about-cta-actions {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+}
+
+.about-cta-right { }
+.about-cta-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.about-cta-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 1.75rem;
+  background: var(--white);
+  border: 1px solid rgba(58,28,14,0.1);
+  border-radius: var(--radius-md);
+  cursor: default;
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s, border-color 0.4s;
+  text-decoration: none;
+  color: inherit;
+}
+.about-cta-card:hover {
+  transform: translateX(6px);
+  box-shadow: 0 8px 32px rgba(24,12,6,0.08);
+  border-color: rgba(160,92,56,0.3);
+}
+.about-cta-card-icon {
+  width: 44px; height: 44px;
+  border-radius: var(--radius-sm);
+  background: rgba(160,92,56,0.08);
+  border: 1px solid rgba(160,92,56,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  color: var(--copper);
+  transition: background 0.35s, border-color 0.35s;
+}
+.about-cta-card:hover .about-cta-card-icon {
+  background: rgba(160,92,56,0.15);
+  border-color: var(--copper);
+}
+.about-cta-card-text { flex: 1; }
+.about-cta-card-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--espresso);
+  margin-bottom: 0.2rem;
+}
+.about-cta-card-desc {
+  font-size: 0.78rem;
+  color: var(--mahogany);
+  font-weight: 300;
+  line-height: 1.5;
+  opacity: 0.7;
+}
+.about-cta-card-arrow {
+  font-size: 1rem;
+  color: rgba(58,28,14,0.2);
+  transition: color 0.3s, transform 0.3s;
+}
+.about-cta-card:hover .about-cta-card-arrow {
+  color: var(--copper);
+  transform: translateX(4px);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════════════════════════════ */
+.footer {
+  background: var(--chocolate);
+  padding: 4rem 0 2.5rem;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+.footer-logo-name {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--cream);
+  margin-bottom: 0.25rem;
+}
+.footer-logo-sub {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  color: var(--copper);
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+.footer-tagline {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  color: rgba(244,237,224,0.35);
+  font-weight: 300;
+  max-width: 260px;
+}
+.footer-col-title {
+  font-family: var(--font-label);
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 1.25rem;
+}
+.footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+.footer-links a { font-size: 0.83rem; color: rgba(244,237,224,0.35); transition: color 0.3s; }
+.footer-links a:hover { color: var(--sand); }
+.footer-bottom {
+  border-top: 1px solid rgba(201,171,132,0.1);
+  padding-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-copy { font-size: 0.78rem; color: rgba(244,237,224,0.2); }
+.footer-copy em { color: var(--copper); font-style: normal; }
+.footer-legal { display: flex; gap: 1.5rem; }
+.footer-legal a { font-size: 0.75rem; color: rgba(244,237,224,0.2); transition: color 0.3s; }
+.footer-legal a:hover { color: var(--sand); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .method-timeline { grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+  .method-timeline::before { display: none; }
+  .mvv-values-grid { grid-template-columns: repeat(3, 1fr); }
+  .different-table .td-category { width: 22%; }
+}
+
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .origin-grid { grid-template-columns: 1fr; }
+  .origin-left { position: static; }
+  .method-header { grid-template-columns: 1fr; }
+  .different-header { grid-template-columns: 1fr; }
+  .philosophy-convictions { grid-template-columns: 1fr; gap: 1.5px; }
+  .about-cta-grid { grid-template-columns: 1fr; }
+  .mvv-top { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .about-hero-metrics-inner { flex-wrap: wrap; }
+  .about-metric { flex: 1 1 45%; }
+  .about-metric:nth-child(2n) { border-right: none; }
+  .different-pillars { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  :root { --section-pad: 4rem; }
+  .method-timeline { grid-template-columns: 1fr; }
+  .mvv-values-grid { grid-template-columns: 1fr 1fr; }
+  .different-table { display: none; }
+  .different-pillars { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .about-cta-cards { gap: 0.75rem; }
+  .about-hero-metrics-inner { flex-direction: column; }
+  .about-metric { border-right: none; border-bottom: 1px solid rgba(201,171,132,0.1); }
+  .about-metric:last-child { border-bottom: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════════════════════════════════ -->
+<nav class="nav transparent" id="mainNav" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="rankine-innovation-lab.html" class="nav-logo" aria-label="Rankine Innovation Lab home">
+        <span class="nav-logo-mark">Rankine</span>
+        <span class="nav-logo-name">Innovation Lab</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="rankine-innovation-lab.html">Home</a></li>
+        <li><a href="#" class="active-page">About</a></li>
+        <li><a href="rankine-innovation-lab.html#focus">Focus Areas</a></li>
+        <li><a href="rankine-innovation-lab.html#programmes">Programmes</a></li>
+        <li><a href="rankine-innovation-lab.html#knowledge">Research</a></li>
+        <li><a href="rankine-innovation-lab.html#pioneers">Pioneers</a></li>
+        <li><a href="#about-cta" class="nav-cta">Partner With Us</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+  <a href="rankine-innovation-lab.html" onclick="closeMobile()">Home</a>
+  <a href="#" onclick="closeMobile()">About</a>
+  <a href="rankine-innovation-lab.html#focus" onclick="closeMobile()">Focus Areas</a>
+  <a href="rankine-innovation-lab.html#programmes" onclick="closeMobile()">Programmes</a>
+  <a href="rankine-innovation-lab.html#knowledge" onclick="closeMobile()">Research</a>
+  <a href="#about-cta" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     1. HERO
+════════════════════════════════════════════════════════════════════ -->
+<section class="about-hero" aria-labelledby="heroHeading">
+  <div class="about-hero-bg"></div>
+  <div class="about-hero-lines" aria-hidden="true"></div>
+  <div class="about-hero-cols"  aria-hidden="true"></div>
+  <div class="about-hero-watermark" aria-hidden="true">R</div>
+  <div class="about-hero-grain" aria-hidden="true"></div>
+  <div class="about-hero-edge"  aria-hidden="true"></div>
+
+  <div class="about-hero-content">
+    <div class="container">
+      <div class="about-hero-inner">
+
+        <!-- Breadcrumb -->
+        <nav class="about-hero-breadcrumb" aria-label="Breadcrumb">
+          <a href="rankine-innovation-lab.html">Home</a>
+          <span class="about-hero-breadcrumb-sep" aria-hidden="true">—</span>
+          <span class="about-hero-breadcrumb-current">About the Lab</span>
+        </nav>
+
+        <!-- Eyebrow -->
+        <div class="eyebrow about-hero-eyebrow" aria-hidden="true">
+          <span class="eyebrow-line"></span>
+          About Rankine Innovation Lab
+        </div>
+
+        <!-- Main headline -->
+        <h1 class="about-hero-headline" id="heroHeading">
+          Built to Turn<br>
+          Advanced Knowledge<br>
+          into <em>Sustainable Progress</em>
+        </h1>
+
+        <p class="about-hero-sub">
+          Rankine Innovation Lab exists at the threshold where emerging science meets the world's most urgent needs — and we build the bridge between them with rigour, creativity, and applied intention.
+        </p>
+
+        <div class="about-hero-actions">
+          <a href="#origin" class="btn-primary">Our Story</a>
+          <a href="rankine-innovation-lab.html#programmes" class="btn-ghost--light btn-ghost">See Programmes</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Metrics strip at base of hero -->
+  <div class="about-hero-metrics" aria-label="Lab overview statistics">
+    <div class="container">
+      <div class="about-hero-metrics-inner">
+        <div class="about-metric">
+          <div class="about-metric-num">2024</div>
+          <div class="about-metric-label">Year Founded</div>
+        </div>
+        <div class="about-metric">
+          <div class="about-metric-num">4</div>
+          <div class="about-metric-label">Focus Domains</div>
+        </div>
+        <div class="about-metric">
+          <div class="about-metric-num">5+</div>
+          <div class="about-metric-label">Active Programmes</div>
+        </div>
+        <div class="about-metric">
+          <div class="about-metric-num">∞</div>
+          <div class="about-metric-label">Systems Thinking</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     2. ORIGIN & PURPOSE
+════════════════════════════════════════════════════════════════════ -->
+<section class="origin" id="origin" aria-labelledby="originHeading">
+  <div class="container">
+    <div class="origin-grid">
+
+      <!-- Sticky left column -->
+      <div class="origin-left">
+        <div class="origin-left-num reveal" aria-hidden="true">01</div>
+        <div class="eyebrow reveal d1">
+          <span class="eyebrow-line"></span>
+          Origin &amp; Purpose
+        </div>
+        <h2 class="display-heading display-heading--dark origin-left-heading reveal d2" id="originHeading">
+          Why We <em>Exist</em>
+        </h2>
+        <p class="body-prose reveal d3" style="margin-top:1.2rem">
+          The world is not short of breakthroughs. It is short of the infrastructure — the translational layer — that converts scientific progress into real, deployable capability.
+        </p>
+        <blockquote class="origin-left-quote reveal d4">
+          "The gap between what science knows and what communities can use is not a knowledge problem. It is a translation problem."
+        </blockquote>
+        <div class="origin-tags reveal d5">
+          <span class="origin-tag">Applied Research</span>
+          <span class="origin-tag">Knowledge Translation</span>
+          <span class="origin-tag">Capacity Building</span>
+          <span class="origin-tag">Systems Thinking</span>
+          <span class="origin-tag">Innovation Design</span>
+        </div>
+      </div>
+
+      <!-- Scrolling right column -->
+      <div class="origin-right">
+
+        <div class="origin-paragraph reveal">
+          <div class="origin-para-label">The Problem</div>
+          <p class="origin-para-text">
+            Advanced technologies — machine learning, precision sensing, circular systems design, environmental modelling — are evolving at a pace that most institutions, practitioners, and communities cannot match. The tools exist. The research exists. But the capacity to understand, apply, and build on that research remains deeply unequal — and that inequality has consequences for people, ecosystems, and economies alike.
+          </p>
+        </div>
+
+        <div class="origin-paragraph reveal d1">
+          <div class="origin-para-label">The Need</div>
+          <p class="origin-para-text">
+            What is needed is not more information — there is already more of it than anyone can process. What is needed is practical, deployable, human-centred capability: the ability to take complex knowledge and turn it into action. Rankine was founded specifically to meet that need — to build the kind of applied learning and innovation infrastructure that allows people, organisations, and systems to do something real with the science of our time.
+          </p>
+        </div>
+
+        <div class="origin-paragraph reveal d2">
+          <div class="origin-para-label">Our Response</div>
+          <p class="origin-para-text">
+            We operate at the intersection of artificial intelligence, environmental science, smart agriculture, and cross-disciplinary innovation. These are not arbitrary choices — they represent the domains where the stakes are highest, the science is most powerful, and the translational gap is widest. Rankine is built to close that gap: through rigorous programmes, applied research frameworks, knowledge translation resources, and long-term institutional partnerships.
+          </p>
+        </div>
+
+        <div class="origin-paragraph reveal d3">
+          <div class="origin-para-label">Our Anchor</div>
+          <p class="origin-para-text">
+            Rankine is rooted in African intellectual excellence and oriented toward global relevance. This is not incidental — it is foundational. Some of the most urgent sustainability challenges, most dynamic agricultural contexts, and most untapped innovation potential in the world are concentrated in the African continent and the broader Global South. We build from that context, with that context in mind, and for that context first — while maintaining rigorous standards that make our work globally applicable and globally conversant.
+          </p>
+        </div>
+
+        <!-- Editorial callout -->
+        <div class="origin-callout reveal d4">
+          <p class="origin-callout-text">
+            "Rankine is not a place where people come to be inspired. It is a place where people come to build genuine, grounded, evidence-backed capability — and to leave ready to apply it."
+          </p>
+          <div class="origin-callout-attr">— The Rankine Founding Principle</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     3. MISSION, VISION & VALUES
+════════════════════════════════════════════════════════════════════ -->
+<section class="mvv" id="mvv" aria-labelledby="mvvHeading">
+  <div class="container">
+
+    <div class="mvv-header">
+      <div class="eyebrow reveal" style="justify-content:center">
+        <span class="eyebrow-line eyebrow--sand" style="background:var(--sand)"></span>
+        <span style="color:var(--sand)">Mission, Vision &amp; Values</span>
+        <span class="eyebrow-line" style="background:var(--sand)"></span>
+      </div>
+      <h2 class="display-heading display-heading--light reveal d1" id="mvvHeading" style="text-align:center; margin-inline:auto; font-size:clamp(2.2rem,4vw,3.8rem)">
+        What We <em>Stand For</em>
+      </h2>
+    </div>
+
+    <!-- Mission + Vision -->
+    <div class="mvv-top">
+      <div class="mvv-panel reveal">
+        <div class="mvv-panel-icon" aria-hidden="true">◎</div>
+        <div class="mvv-panel-label">Mission</div>
+        <h3 class="mvv-panel-heading">
+          Translate advanced technology into practical capability for sustainable progress.
+        </h3>
+        <p class="mvv-panel-text">
+          Every programme, framework, and piece of research we develop exists to move scientific and technological knowledge from the realm of the theoretical into the hands of people who can use it to make a measurable difference — in their institutions, communities, and ecosystems.
+        </p>
+      </div>
+      <div class="mvv-panel reveal d1">
+        <div class="mvv-panel-icon" aria-hidden="true">⟐</div>
+        <div class="mvv-panel-label">Vision</div>
+        <h3 class="mvv-panel-heading">
+          Innovation ecosystems that responsibly build, deploy, and sustain solutions that improve lives, systems, and the planet.
+        </h3>
+        <p class="mvv-panel-text">
+          We are working toward a future where the capacity to innovate is not concentrated in a small number of elite institutions — where the tools of advanced technology, the principles of ecological science, and the practice of rigorous design are genuinely distributed, genuinely accessible, and genuinely applied.
+        </p>
+      </div>
+    </div>
+
+    <!-- Values -->
+    <div class="mvv-values reveal d2">
+      <div class="mvv-values-label">Our Values</div>
+      <div class="mvv-values-grid">
+        <div class="mvv-value">
+          <div class="mvv-value-dot" aria-hidden="true">⟁</div>
+          <div class="mvv-value-title">Practical &amp; Field-Ready</div>
+          <p class="mvv-value-desc">We measure success by whether our work is deployable, not just defensible.</p>
+        </div>
+        <div class="mvv-value">
+          <div class="mvv-value-dot" aria-hidden="true">◈</div>
+          <div class="mvv-value-title">Human-Centred</div>
+          <p class="mvv-value-desc">Technology serves people. People shape systems. Systems must serve life.</p>
+        </div>
+        <div class="mvv-value">
+          <div class="mvv-value-dot" aria-hidden="true">⬡</div>
+          <div class="mvv-value-title">Cross-Disciplinary</div>
+          <p class="mvv-value-desc">The most important problems do not respect academic boundaries — neither do we.</p>
+        </div>
+        <div class="mvv-value">
+          <div class="mvv-value-dot" aria-hidden="true">◎</div>
+          <div class="mvv-value-title">Transparent &amp; Evidence-Led</div>
+          <p class="mvv-value-desc">We teach and build what the evidence confirms, not what the market wants to hear.</p>
+        </div>
+        <div class="mvv-value">
+          <div class="mvv-value-dot" aria-hidden="true">∿</div>
+          <div class="mvv-value-title">Sustainability-Rooted</div>
+          <p class="mvv-value-desc">Ecological responsibility is not a topic we teach — it is the air we breathe here.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     4. WHAT MAKES RANKINE DIFFERENT
+════════════════════════════════════════════════════════════════════ -->
+<section class="different" id="different" aria-labelledby="differentHeading">
+  <div class="container">
+
+    <div class="different-header">
+      <div>
+        <div class="eyebrow reveal">
+          <span class="eyebrow-line"></span>
+          Our Positioning
+        </div>
+        <h2 class="display-heading display-heading--dark reveal d1" id="differentHeading" style="font-size:clamp(2.2rem,4vw,3.8rem)">
+          Not What You've<br>
+          <em>Seen Before</em>
+        </h2>
+      </div>
+      <div>
+        <p class="body-prose reveal d2" style="margin-top:0">
+          Rankine occupies a distinct position that does not map cleanly onto existing categories. Understanding what we are not is the fastest way to understand what we are — and why that difference matters.
+        </p>
+      </div>
+    </div>
+
+    <!-- Comparison table -->
+    <div class="reveal d1">
+      <table class="different-table" aria-label="How Rankine differs from other institutions">
+        <thead>
+          <tr>
+            <th scope="col" style="color:rgba(244,237,224,0.3)">Category</th>
+            <th class="col-them" scope="col">Others Typically Offer</th>
+            <th class="col-us"   scope="col">Rankine Delivers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="td-category">EdTech Platforms</td>
+            <td class="td-them">Video courses and certificates with no deployment context or ongoing support</td>
+            <td class="td-us">Applied programmes with real-world frameworks, field validation, and institutional integration</td>
+          </tr>
+          <tr>
+            <td class="td-category">Research Groups</td>
+            <td class="td-them">Peer-reviewed publication cycles with limited knowledge translation for non-academic audiences</td>
+            <td class="td-us">Research designed to translate — toolkits, explainers, pilots, and practitioner resources built in from the start</td>
+          </tr>
+          <tr>
+            <td class="td-category">Sustainability NGOs</td>
+            <td class="td-them">Awareness campaigns and policy advocacy with limited technical depth or capability transfer</td>
+            <td class="td-us">Deep technical capability building — participants leave able to design, measure, and implement, not just advocate</td>
+          </tr>
+          <tr>
+            <td class="td-category">AI Consultancies</td>
+            <td class="td-them">Proprietary tools and scoped solutions with no long-term knowledge transfer to clients</td>
+            <td class="td-us">Capacity building as the core product — organisations develop internal intelligence, not dependency on external vendors</td>
+          </tr>
+          <tr>
+            <td class="td-category">Training Companies</td>
+            <td class="td-them">Generic skills content adapted for multiple sectors without domain depth or research grounding</td>
+            <td class="td-us">Purpose-built, research-backed programmes aligned to specific innovation challenges and real deployment contexts</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Three positioning pillars -->
+    <div class="different-pillars">
+      <div class="different-pillar reveal">
+        <div class="different-pillar-icon" aria-hidden="true">⚙</div>
+        <h3 class="different-pillar-title">Applied Learning &amp; Innovation Hub</h3>
+        <p class="different-pillar-text">
+          We are a place where learning and innovation happen together — not in sequence. Every programme is designed around a real challenge, and every framework is tested in a real context before it is taught.
+        </p>
+      </div>
+      <div class="different-pillar reveal d1">
+        <div class="different-pillar-icon" aria-hidden="true">◈</div>
+        <h3 class="different-pillar-title">Where Knowledge Becomes Action</h3>
+        <p class="different-pillar-text">
+          The measure of success at Rankine is not comprehension — it is application. We design every output with a deployment pathway: how will this be used, by whom, in what context, and to what effect?
+        </p>
+      </div>
+      <div class="different-pillar reveal d2">
+        <div class="different-pillar-icon" aria-hidden="true">⟐</div>
+        <h3 class="different-pillar-title">Capability, Not Consumption</h3>
+        <p class="different-pillar-text">
+          There is a profound difference between consuming information and building capability. We are built for the latter — creating people who can design, validate, and scale solutions rather than people who can describe them.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     5. THE RANKINE METHOD — expanded
+════════════════════════════════════════════════════════════════════ -->
+<section class="method" id="method" aria-labelledby="methodHeading">
+  <div class="container" style="position:relative; z-index:1">
+
+    <div class="method-header">
+      <div>
+        <div class="eyebrow reveal" style="color:var(--copper)">
+          <span class="eyebrow-line"></span>
+          Signature Methodology
+        </div>
+        <h2 class="display-heading display-heading--light reveal d1" id="methodHeading" style="font-size:clamp(2.2rem,4vw,3.8rem)">
+          The <em>Rankine Method</em>
+        </h2>
+      </div>
+      <div>
+        <p class="section-sub body-prose reveal d2" style="color:rgba(244,237,224,0.48); font-size:clamp(0.95rem,1.4vw,1.08rem)">
+          Every programme, research project, and partnership at Rankine follows a proprietary four-phase system. It is not a checklist — it is a way of thinking about how knowledge becomes change. Each phase builds on the last, and together they form the engine behind everything the lab does.
+        </p>
+      </div>
+    </div>
+
+    <!-- Timeline steps -->
+    <div class="method-timeline">
+
+      <div class="method-step reveal">
+        <div class="method-step-circle" aria-hidden="true">
+          Sense
+          <span class="method-step-num">01</span>
+        </div>
+        <h3 class="method-step-title">Sense</h3>
+        <p class="method-step-desc">Before designing anything, we read the system deeply — its signals, pressures, actors, and rhythms.</p>
+        <div class="method-step-detail">
+          <div class="method-step-detail-item">Ecological and data signal mapping</div>
+          <div class="method-step-detail-item">Community and institutional context analysis</div>
+          <div class="method-step-detail-item">Identifying where knowledge gaps are most consequential</div>
+          <div class="method-step-detail-item">Stakeholder needs assessment and landscape review</div>
+        </div>
+      </div>
+
+      <div class="method-step reveal d1">
+        <div class="method-step-circle" aria-hidden="true">
+          Model
+          <span class="method-step-num">02</span>
+        </div>
+        <h3 class="method-step-title">Model</h3>
+        <p class="method-step-desc">We construct rigorous representations of the system — conceptual, computational, and relational.</p>
+        <div class="method-step-detail">
+          <div class="method-step-detail-item">Conceptual and computational framework development</div>
+          <div class="method-step-detail-item">Feedback loop and leverage point identification</div>
+          <div class="method-step-detail-item">Programme architecture and learning pathway design</div>
+          <div class="method-step-detail-item">Hypothesis generation for testing and validation</div>
+        </div>
+      </div>
+
+      <div class="method-step reveal d2">
+        <div class="method-step-circle" aria-hidden="true">
+          Prove
+          <span class="method-step-num">03</span>
+        </div>
+        <h3 class="method-step-title">Prove</h3>
+        <p class="method-step-desc">We test rigorously — pilot studies, structured experiments, field validation, iterative refinement.</p>
+        <div class="method-step-detail">
+          <div class="method-step-detail-item">Structured pilot implementation with measurable outcomes</div>
+          <div class="method-step-detail-item">Iterative refinement based on evidence, not assumption</div>
+          <div class="method-step-detail-item">Participant outcome tracking and impact measurement</div>
+          <div class="method-step-detail-item">Peer review and external validation where applicable</div>
+        </div>
+      </div>
+
+      <div class="method-step reveal d3">
+        <div class="method-step-circle" aria-hidden="true">
+          Scale
+          <span class="method-step-num">04</span>
+        </div>
+        <h3 class="method-step-title">Scale</h3>
+        <p class="method-step-desc">Everything we build is designed for replication — open toolkits, institutional partnerships, growing ecosystems.</p>
+        <div class="method-step-detail">
+          <div class="method-step-detail-item">Open knowledge resources and replicable toolkits</div>
+          <div class="method-step-detail-item">Institutional partnership and train-the-trainer models</div>
+          <div class="method-step-detail-item">Cross-context adaptation frameworks</div>
+          <div class="method-step-detail-item">Living programme evolution with each new cohort</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Method footer statement -->
+    <div class="method-footer reveal">
+      <p class="method-footer-text">
+        The Rankine Method is not a fixed script — it is a <em>discipline of mind</em>: rigorous at every phase, honest about uncertainty, and relentlessly oriented toward real-world application and lasting systemic change.
+      </p>
+      <a href="rankine-innovation-lab.html#programmes" class="btn-ghost--light btn-ghost">Explore Programmes</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     6. PHILOSOPHY / BELIEF STATEMENT
+════════════════════════════════════════════════════════════════════ -->
+<section class="philosophy" id="philosophy" aria-labelledby="philosophyHeading">
+  <div class="philosophy-geo" aria-hidden="true">
+    <div class="philosophy-geo-ring"></div>
+    <div class="philosophy-geo-ring"></div>
+    <div class="philosophy-geo-ring"></div>
+    <div class="philosophy-geo-dot"></div>
+    <div class="philosophy-geo-dot"></div>
+    <div class="philosophy-geo-dot"></div>
+  </div>
+
+  <div class="container">
+    <div class="philosophy-inner">
+
+      <div class="philosophy-label reveal" aria-hidden="true">
+        <span class="philosophy-label-line"></span>
+        Our Belief
+        <span class="philosophy-label-line"></span>
+      </div>
+
+      <h2 class="philosophy-statement reveal d1" id="philosophyHeading">
+        Innovation is only meaningful<br>
+        when it becomes
+        <em>usable,<br>measurable,</em>
+        <strong>and sustainable.</strong>
+      </h2>
+
+      <div class="philosophy-divider reveal d2" aria-hidden="true"></div>
+
+      <p class="philosophy-sub reveal d3">
+        We hold this not as a marketing position but as a design constraint. It governs every programme we build, every framework we develop, and every partnership we enter. If the work does not create real capability in the hands of real people facing real challenges, it has not yet fulfilled its purpose.
+      </p>
+
+    </div>
+
+    <!-- Three convictions -->
+    <div class="philosophy-convictions">
+      <div class="conviction reveal">
+        <span class="conviction-num">Conviction 01</span>
+        <p class="conviction-text">
+          The world's most urgent problems are <em>solvable</em> with existing science.
+        </p>
+        <p class="conviction-detail">
+          The challenge is not scientific — it is translational. The tools, the data, and the frameworks already exist. What is missing is the applied infrastructure to deploy them where they matter most.
+        </p>
+      </div>
+      <div class="conviction reveal d1">
+        <span class="conviction-num">Conviction 02</span>
+        <p class="conviction-text">
+          Capacity is more powerful than <em>any single solution.</em>
+        </p>
+        <p class="conviction-detail">
+          A transferred solution solves one problem. Built capacity solves many. Rankine invests in capability — the ability to understand, design, adapt, and apply — because capability compounds over time in ways that solutions alone cannot.
+        </p>
+      </div>
+      <div class="conviction reveal d2">
+        <span class="conviction-num">Conviction 03</span>
+        <p class="conviction-text">
+          Sustainability is not a sector — it is a <em>way of building.</em>
+        </p>
+        <p class="conviction-detail">
+          We do not treat sustainability as a topic within certain programmes. It is a foundational operating principle — present in how we design, how we measure, how we partner, and what we are willing to build or refuse to build.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     7. CLOSING CTA
+════════════════════════════════════════════════════════════════════ -->
+<section class="about-cta" id="about-cta" aria-labelledby="ctaHeading">
+  <div class="container">
+    <div class="about-cta-inner">
+      <div class="about-cta-grid">
+
+        <div class="about-cta-left">
+          <div class="eyebrow reveal">
+            <span class="eyebrow-line"></span>
+            Build with Rankine
+          </div>
+          <h2 class="display-heading display-heading--dark about-cta-heading reveal d1" id="ctaHeading">
+            Ready to Work<br>at the <em>Frontier?</em>
+          </h2>
+          <p class="about-cta-sub reveal d2">
+            Whether you are a researcher, educator, institution, or organisation — if you are serious about turning advanced knowledge into sustainable, deployable impact, Rankine is where that work happens.
+          </p>
+          <div class="about-cta-actions reveal d3">
+            <a href="rankine-innovation-lab.html#programmes" class="btn-primary">View Programmes</a>
+            <a href="mailto:hello@rankineinnovation.org" class="btn-ghost">Get in Touch</a>
+          </div>
+        </div>
+
+        <div class="about-cta-right">
+          <div class="about-cta-cards">
+            <a href="rankine-innovation-lab.html#programmes" class="about-cta-card reveal d1">
+              <div class="about-cta-card-icon" aria-hidden="true">⚙</div>
+              <div class="about-cta-card-text">
+                <div class="about-cta-card-title">Explore Programmes</div>
+                <div class="about-cta-card-desc">Applied training and innovation labs across all four domains</div>
+              </div>
+              <span class="about-cta-card-arrow" aria-hidden="true">→</span>
+            </a>
+            <a href="mailto:partnerships@rankineinnovation.org" class="about-cta-card reveal d2">
+              <div class="about-cta-card-icon" aria-hidden="true">◈</div>
+              <div class="about-cta-card-text">
+                <div class="about-cta-card-title">Partnership Enquiries</div>
+                <div class="about-cta-card-desc">Institutional collaboration, research engagement, and capacity partnerships</div>
+              </div>
+              <span class="about-cta-card-arrow" aria-hidden="true">→</span>
+            </a>
+            <a href="rankine-innovation-lab.html#knowledge" class="about-cta-card reveal d3">
+              <div class="about-cta-card-icon" aria-hidden="true">📐</div>
+              <div class="about-cta-card-text">
+                <div class="about-cta-card-title">Access the Knowledge Hub</div>
+                <div class="about-cta-card-desc">Frameworks, toolkits, pilot studies, and lab notes — open and growing</div>
+              </div>
+              <span class="about-cta-card-arrow" aria-hidden="true">→</span>
+            </a>
+            <a href="mailto:speaking@rankineinnovation.org" class="about-cta-card reveal d4">
+              <div class="about-cta-card-icon" aria-hidden="true">⟁</div>
+              <div class="about-cta-card-text">
+                <div class="about-cta-card-title">Speaking &amp; Events</div>
+                <div class="about-cta-card-desc">Engage Rankine's pioneers for talks, panels, and keynotes</div>
+              </div>
+              <span class="about-cta-card-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════════════ -->
+<footer class="footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-name">Rankine Innovation Lab</div>
+        <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
+        <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigation</div>
+        <ul class="footer-links">
+          <li><a href="rankine-innovation-lab.html">Home</a></li>
+          <li><a href="#">About the Lab</a></li>
+          <li><a href="rankine-innovation-lab.html#method">The Rankine Method</a></li>
+          <li><a href="rankine-innovation-lab.html#focus">Focus Areas</a></li>
+          <li><a href="rankine-innovation-lab.html#pioneers">Pioneers</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Domains</div>
+        <ul class="footer-links">
+          <li><a href="rankine-innovation-lab.html#focus">AI for STEM</a></li>
+          <li><a href="rankine-innovation-lab.html#focus">Sustainability</a></li>
+          <li><a href="rankine-innovation-lab.html#focus">Smart Agriculture</a></li>
+          <li><a href="rankine-innovation-lab.html#focus">Cross-Disciplinary</a></li>
+          <li><a href="rankine-innovation-lab.html#knowledge">Knowledge Hub</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Engage</div>
+        <ul class="footer-links">
+          <li><a href="rankine-innovation-lab.html#programmes">Programmes</a></li>
+          <li><a href="mailto:partnerships@rankineinnovation.org">Partnerships</a></li>
+          <li><a href="mailto:research@rankineinnovation.org">Research Collaboration</a></li>
+          <li><a href="mailto:speaking@rankineinnovation.org">Speaking</a></li>
+          <li><a href="mailto:hello@rankineinnovation.org">hello@rankineinnovation.org</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 <em>Rankine Innovation Lab</em>. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════════════════════════ -->
+<script>
+/* ── NAV SCROLL STATE ───────────────────────────────────────────────── */
+const nav = document.getElementById('mainNav');
+// About page has a dark hero, so nav starts transparent
+const syncNav = () => {
+  if (window.scrollY > 80) {
+    nav.classList.remove('transparent');
+    nav.classList.add('solid');
+  } else {
+    nav.classList.remove('solid');
+    nav.classList.add('transparent');
+  }
+};
+window.addEventListener('scroll', syncNav, { passive: true });
+syncNav(); // run once on load
+
+/* ── MOBILE MENU ────────────────────────────────────────────────────── */
+const hamburger = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+let menuOpen = false;
+function closeMobile() {
+  menuOpen = false;
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+hamburger.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  hamburger.classList.toggle('open', menuOpen);
+  mobileMenu.classList.toggle('open', menuOpen);
+  hamburger.setAttribute('aria-expanded', String(menuOpen));
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
+});
+
+/* ── INTERSECTION OBSERVER — scroll reveals ─────────────────────────── */
+// Handles both .reveal (fade-up) and .reveal-left (fade-left)
+const allRevealEls = document.querySelectorAll('.reveal, .reveal-left');
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // Use rAF so the browser has painted the initial transform
+      // before we apply the final state — prevents flash on fast loads
+      requestAnimationFrame(() => {
+        entry.target.classList.add('visible');
+      });
+      revealObs.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.10,
+  rootMargin: '0px 0px -50px 0px'
+});
+allRevealEls.forEach(el => revealObs.observe(el));
+
+/* ── PARALLAX — philosophy geo rings gentle drift on scroll ──────────── */
+const geoRings = document.querySelectorAll('.philosophy-geo-ring');
+const handleParallax = () => {
+  const philosophyEl = document.getElementById('philosophy');
+  if (!philosophyEl) return;
+  const rect    = philosophyEl.getBoundingClientRect();
+  const visible = rect.top < window.innerHeight && rect.bottom > 0;
+  if (!visible) return;
+  // progress: 0 (top of section at viewport bottom) → 1 (section scrolled past)
+  const progress = 1 - (rect.bottom / (window.innerHeight + rect.height));
+  geoRings.forEach((ring, i) => {
+    const dir   = i % 2 === 0 ? 1 : -1;
+    const speed = 18 + i * 10;
+    ring.style.transform =
+      `translate(-50%, calc(-50% + ${progress * speed * dir}px))`;
+  });
+};
+window.addEventListener('scroll', handleParallax, { passive: true });
+
+/* ── ORIGIN STICKY COLUMN — fade num on scroll ───────────────────────── */
+// The large ghost number in the sticky left column animates its opacity
+// slightly as the user reads down, giving a gentle sense of depth
+const originNum = document.querySelector('.origin-left-num');
+if (originNum) {
+  const originSection = document.getElementById('origin');
+  const updateOriginNum = () => {
+    if (!originSection) return;
+    const rect     = originSection.getBoundingClientRect();
+    const progress = Math.max(0, Math.min(1, 1 - rect.bottom / window.innerHeight));
+    originNum.style.opacity = (0.06 - progress * 0.045).toFixed(3);
+  };
+  window.addEventListener('scroll', updateOriginNum, { passive: true });
+}
+</script>
+
+</body>
+</html>
