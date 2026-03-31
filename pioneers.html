@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pioneers — Rankine Innovation Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+
+/* ══════════════════════════════════════════════════════════════════════
+   DESIGN TOKENS — exact site-wide system
+══════════════════════════════════════════════════════════════════════ */
+:root {
+  --chocolate:  #180c06;
+  --espresso:   #241208;
+  --brown:      #3a1c0e;
+  --mahogany:   #5c2d18;
+  --copper:     #a05c38;
+  --copper-lt:  #c47a52;
+  --sand:       #c9ab84;
+  --sand-lt:    #ddc9a8;
+  --cream:      #f4ede0;
+  --cream-lt:   #faf6ef;
+  --sage:       #687558;
+  --sage-lt:    #8e9e78;
+  --white:      #fffcf8;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-label:   'Cinzel', serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-circ: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-xl: 40px;
+
+  --section-pad: clamp(5rem, 10vw, 9rem);
+}
+
+/* ── RESET ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html  { scroll-behavior: smooth; }
+body  {
+  font-family: var(--font-body);
+  background: var(--cream-lt);
+  color: var(--espresso);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a      { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--copper); border-radius: 3px; }
+
+/* ── LAYOUT ─────────────────────────────────────────────────────────── */
+.container { width: min(1340px, 100%); margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3.5rem); }
+.sr-only   { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+/* ── REVEAL SYSTEM ──────────────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out); }
+.reveal.visible   { opacity: 1; transform: none; }
+.reveal-left      { opacity: 0; transform: translateX(-28px); transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
+.reveal-left.visible { opacity: 1; transform: none; }
+.reveal-right     { opacity: 0; transform: translateX(28px); transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
+.reveal-right.visible{ opacity: 1; transform: none; }
+.d1{transition-delay:.10s} .d2{transition-delay:.22s} .d3{transition-delay:.34s}
+.d4{transition-delay:.46s} .d5{transition-delay:.58s} .d6{transition-delay:.70s}
+
+/* ── TYPE ATOMS ─────────────────────────────────────────────────────── */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 0.9rem;
+  font-family: var(--font-label); font-size: 0.68rem;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--copper); margin-bottom: 1.5rem;
+}
+.eyebrow-line { display: block; width: 32px; height: 1px; background: currentColor; flex-shrink: 0; }
+
+.display { font-family: var(--font-display); font-weight: 300; line-height: 1.05; letter-spacing: -0.012em; }
+.display em       { font-style: italic; }
+.display--dark    { color: var(--espresso); }
+.display--dark em { color: var(--copper); }
+.display--light   { color: var(--cream-lt); }
+.display--light em{ color: var(--sand); }
+
+/* ── BUTTON ATOMS ───────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  font-family: var(--font-body); font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.13em; text-transform: uppercase;
+  padding: 0.9rem 2rem; border-radius: 2px;
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s, background 0.3s, border-color 0.3s, color 0.3s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn--copper     { background: var(--copper); color: var(--white); border: 1px solid var(--copper); }
+.btn--copper:hover{ background: var(--copper-lt); border-color: var(--copper-lt); box-shadow: 0 12px 40px rgba(160,92,56,0.35); }
+.btn--ghost-dark { background: transparent; color: var(--espresso); border: 1px solid rgba(58,28,14,0.28); }
+.btn--ghost-dark:hover { border-color: var(--copper); color: var(--copper); }
+.btn--ghost-light{ background: transparent; color: var(--cream); border: 1px solid rgba(244,237,224,0.28); }
+.btn--ghost-light:hover { border-color: var(--sand); color: var(--sand); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════════════════════════════════ */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; transition: background 0.45s var(--ease-circ), box-shadow 0.45s var(--ease-circ); }
+.nav.transparent { background: transparent; }
+.nav.solid { background: rgba(24,12,6,0.97); backdrop-filter: blur(18px); box-shadow: 0 1px 0 rgba(201,171,132,0.15); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: clamp(60px,7vw,76px); }
+.nav-logo  { display: flex; flex-direction: column; line-height: 1; }
+.nav-logo-mark { font-family: var(--font-label); font-size: clamp(0.82rem,1.1vw,0.92rem); letter-spacing: 0.25em; color: var(--copper); text-transform: uppercase; }
+.nav-logo-name { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.1rem,1.6vw,1.35rem); color: var(--cream); letter-spacing: 0.02em; }
+.nav-links { display: flex; align-items: center; gap: clamp(1rem,2.2vw,2rem); list-style: none; }
+.nav-links a { font-family: var(--font-body); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(244,237,224,0.72); transition: color 0.3s; position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 1px; background: var(--copper); transform: scaleX(0); transform-origin: left; transition: transform 0.35s var(--ease-out); }
+.nav-links a:hover { color: var(--cream); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-links a.active-page { color: var(--sand); }
+.nav-links a.active-page::after { transform: scaleX(1); background: var(--sand); }
+.nav-cta { font-size: 0.78rem !important; letter-spacing: 0.12em !important; font-weight: 600 !important; padding: 0.55rem 1.4rem; border: 1px solid var(--copper); border-radius: 2px; color: var(--cream) !important; transition: background 0.3s !important; }
+.nav-cta::after { display: none !important; }
+.nav-cta:hover  { background: var(--copper) !important; }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+.hamburger span { display: block; width: 26px; height: 2px; background: var(--cream); transition: all 0.3s; }
+.hamburger.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity: 0; }
+.hamburger.open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 0; background: rgba(24,12,6,0.98); backdrop-filter: blur(20px); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; transform: translateY(-100%); transition: transform 0.5s var(--ease-out); }
+.mobile-menu.open { display: flex; transform: translateY(0); }
+.mobile-menu a { font-family: var(--font-display); font-size: clamp(1.8rem,6vw,3rem); font-weight: 300; color: var(--cream); transition: color 0.3s; }
+.mobile-menu a:hover { color: var(--copper); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   1. HERO
+   The Pioneers page hero uses a different visual grammar from every
+   other page: a fine crosshatch pattern (two overlapping 45°-diagonal
+   sets) that evokes blueprint drawings, architectural plans, and the
+   careful draughtsmanship of research. On the right, three large
+   "signature" strokes are rendered as an SVG to suggest handwriting —
+   the personal, human quality of the people behind the lab.
+══════════════════════════════════════════════════════════════════════ */
+.pi-hero {
+  position: relative;
+  min-height: 88vh;
+  display: flex;
+  align-items: center;
+  background: var(--chocolate);
+  overflow: hidden;
+}
+
+.pi-hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 65% at 95% 5%,   rgba(80,36,14,0.45)  0%, transparent 55%),
+    radial-gradient(ellipse 50% 55% at 5%  90%,  rgba(104,117,88,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 45% 45% at 50% 50%,  rgba(160,92,56,0.04)  0%, transparent 55%),
+    linear-gradient(155deg, #0c0806 0%, #1c1208 45%, #100c04 100%);
+}
+
+/* Blueprint crosshatch — unique to this page */
+.pi-hero-cross {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    repeating-linear-gradient( 45deg, rgba(201,171,132,0.022) 0, rgba(201,171,132,0.022) 1px, transparent 1px, transparent 64px),
+    repeating-linear-gradient(-45deg, rgba(201,171,132,0.018) 0, rgba(201,171,132,0.018) 1px, transparent 1px, transparent 64px);
+}
+
+.pi-hero-grain {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 256px; opacity: 0.55; pointer-events: none;
+}
+
+/* SVG "signature strokes" — right side decorative element */
+.pi-hero-sig {
+  position: absolute;
+  right: clamp(2rem, 6vw, 6rem);
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(280px, 38vw, 520px);
+  pointer-events: none;
+  opacity: 0;
+  animation: sigFadeIn 1.2s 0.8s var(--ease-out) forwards;
+}
+@keyframes sigFadeIn { to { opacity: 1; } }
+
+/* Animated stroke paths */
+.pi-hero-sig path {
+  stroke-dasharray: 800;
+  stroke-dashoffset: 800;
+  animation: drawPath 2.2s var(--ease-out) forwards;
+}
+.pi-hero-sig path:nth-child(1){ animation-delay: 0.9s;  stroke: rgba(160,92,56,0.18); }
+.pi-hero-sig path:nth-child(2){ animation-delay: 1.2s;  stroke: rgba(201,171,132,0.12); }
+.pi-hero-sig path:nth-child(3){ animation-delay: 1.5s;  stroke: rgba(160,92,56,0.1); }
+.pi-hero-sig path:nth-child(4){ animation-delay: 1.8s;  stroke: rgba(201,171,132,0.08); }
+.pi-hero-sig circle { fill: rgba(160,92,56,0.3); opacity: 0; animation: dotAppear 0.4s 2.4s forwards; }
+@keyframes drawPath    { to { stroke-dashoffset: 0; } }
+@keyframes dotAppear   { to { opacity: 1; } }
+
+.pi-hero-content {
+  position: relative; z-index: 2; width: 100%;
+  padding-top: clamp(80px,10vw,100px);
+  padding-bottom: clamp(5rem,8vw,8rem);
+}
+
+.pi-hero-breadcrumb {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-family: var(--font-label); font-size: 0.62rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(244,237,224,0.28); margin-bottom: 2.5rem;
+  opacity: 0; transform: translateY(14px);
+  animation: piUp 0.7s 0.1s var(--ease-out) forwards;
+}
+.pi-hero-breadcrumb a:hover { color: var(--sand); }
+.pi-hero-breadcrumb strong  { color: var(--copper); font-weight: 400; }
+
+.pi-hero-eyebrow { opacity: 0; transform: translateY(18px); animation: piUp 0.75s 0.2s var(--ease-out) forwards; }
+
+.pi-hero-headline {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(2.8rem, 6vw, 5.8rem);
+  line-height: 1.04; letter-spacing: -0.015em;
+  color: var(--cream-lt);
+  max-width: 780px; margin-bottom: 2rem;
+  opacity: 0; transform: translateY(38px);
+  animation: piUp 0.9s 0.3s var(--ease-out) forwards;
+}
+.pi-hero-headline em    { font-style: italic; color: var(--sand); }
+.pi-hero-headline strong{ font-weight: 500; display: block; }
+
+.pi-hero-sub {
+  font-size: clamp(1rem,1.55vw,1.15rem); line-height: 1.78;
+  color: rgba(244,237,224,0.52); font-weight: 300;
+  max-width: 560px; margin-bottom: 3rem;
+  opacity: 0; transform: translateY(26px);
+  animation: piUp 0.85s 0.46s var(--ease-out) forwards;
+}
+
+.pi-hero-actions {
+  display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;
+  opacity: 0; transform: translateY(22px);
+  animation: piUp 0.85s 0.6s var(--ease-out) forwards;
+}
+
+/* Bottom strip with two pioneer names hinting at what's below */
+.pi-hero-names {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+  border-top: 1px solid rgba(201,171,132,0.08);
+  background: rgba(14,8,3,0.6); backdrop-filter: blur(14px);
+}
+.pi-hero-names-inner {
+  display: flex; align-items: stretch;
+}
+.pi-hero-name-item {
+  flex: 1; padding: 1.4rem clamp(1.5rem,3vw,2.8rem);
+  border-right: 1px solid rgba(201,171,132,0.08);
+  display: flex; align-items: center; gap: 1.2rem;
+  opacity: 0; animation: piUp 0.65s var(--ease-out) forwards;
+}
+.pi-hero-name-item:nth-child(1){ animation-delay: 0.8s; }
+.pi-hero-name-item:nth-child(2){ animation-delay: 1.0s; border-right: none; }
+.pi-hero-name-initials {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid rgba(160,92,56,0.35);
+  background: rgba(160,92,56,0.08);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 0.95rem; font-weight: 400;
+  color: var(--copper); flex-shrink: 0;
+}
+.pi-hero-name-text { }
+.pi-hero-name-label { font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--copper); margin-bottom: 0.2rem; }
+.pi-hero-name-full  { font-family: var(--font-display); font-size: clamp(1rem,1.5vw,1.2rem); font-weight: 400; color: var(--cream); }
+
+@keyframes piUp { to { opacity: 1; transform: none; } }
+
+/* ══════════════════════════════════════════════════════════════════════
+   2. INTRO — who guides the lab
+   Wide editorial panel: left has a vertical pull-quote with copper
+   margin rule; right carries four domain badges arranged in a 2×2
+   grid, each with an icon, label, and micro-description.
+══════════════════════════════════════════════════════════════════════ */
+.pi-intro {
+  padding-block: var(--section-pad);
+  background: var(--cream-lt);
+  position: relative; overflow: hidden;
+}
+.pi-intro::before {
+  content: '';
+  position: absolute; left: 0; top: 15%; bottom: 15%;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, var(--copper) 35%, var(--copper) 65%, transparent);
+  opacity: 0.45;
+}
+.pi-intro::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 55% 45% at 100% 60%, rgba(160,92,56,0.04), transparent 60%);
+  pointer-events: none;
+}
+
+.pi-intro-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(4rem,9vw,9rem); align-items: center;
+}
+
+.pi-intro-left { }
+.pi-intro-ghost {
+  font-family: var(--font-display); font-size: clamp(6rem,11vw,10rem);
+  font-weight: 700; line-height: 0.85;
+  color: rgba(58,28,14,0.045); letter-spacing: -0.04em;
+  margin-bottom: 0.5rem; pointer-events: none; user-select: none;
+}
+.pi-intro-quote {
+  font-family: var(--font-display); font-style: italic;
+  font-size: clamp(1.5rem,2.6vw,2.2rem); font-weight: 300;
+  line-height: 1.48; color: var(--mahogany);
+  padding-left: 1.6rem; border-left: 3px solid var(--copper);
+  margin-bottom: 2rem;
+}
+.pi-intro-body {
+  font-size: clamp(0.92rem,1.35vw,1rem); line-height: 1.88;
+  color: var(--brown); font-weight: 300; margin-bottom: 2.5rem;
+}
+
+/* Right — domain badge grid 2×2 */
+.pi-intro-domains {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+}
+.pi-domain {
+  padding: clamp(1.5rem,2.5vw,2.2rem);
+  background: var(--white);
+  border: 1px solid rgba(58,28,14,0.1);
+  border-radius: var(--radius-md);
+  position: relative; overflow: hidden;
+  cursor: default;
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s, border-color 0.4s;
+}
+.pi-domain:hover { transform: translateY(-4px); box-shadow: 0 18px 50px rgba(24,12,6,0.1); border-color: rgba(160,92,56,0.28); }
+.pi-domain::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: linear-gradient(90deg, var(--copper), var(--sand));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.5s var(--ease-out);
+}
+.pi-domain:hover::after { transform: scaleX(1); }
+.pi-domain-icon { font-size: 1.4rem; margin-bottom: 0.9rem; display: block; color: var(--copper); }
+.pi-domain-title {
+  font-family: var(--font-display); font-size: clamp(1rem,1.5vw,1.25rem);
+  font-weight: 500; color: var(--espresso); margin-bottom: 0.55rem;
+}
+.pi-domain-desc { font-size: 0.8rem; line-height: 1.72; color: var(--brown); font-weight: 300; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   3. PIONEER PROFILES
+   Each pioneer gets a full-bleed section that alternates layout:
+   first pioneer left-image / right-content, second right-image /
+   left-content. The profile "image" area is a richly designed
+   abstract portrait placeholder — unique geometry, initials, and
+   colour composition — that holds the space beautifully until a
+   real photograph is dropped in.
+══════════════════════════════════════════════════════════════════════ */
+.pi-profiles {
+  padding-block: var(--section-pad);
+  background: var(--espresso);
+  position: relative; overflow: hidden;
+}
+.pi-profiles::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,171,132,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,171,132,0.035) 1px, transparent 1px);
+  background-size: 80px 80px; pointer-events: none;
+}
+
+.pi-profiles-header {
+  text-align: center;
+  margin-bottom: clamp(4rem,8vw,7rem);
+  position: relative; z-index: 1;
+}
+
+/* Individual pioneer block */
+.pi-profile {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid rgba(201,171,132,0.08);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-bottom: 2rem;
+  position: relative; z-index: 1;
+}
+.pi-profile:last-child { margin-bottom: 0; }
+
+/* Second pioneer: content left, image right */
+.pi-profile--reverse { direction: rtl; }
+.pi-profile--reverse > * { direction: ltr; }
+
+/* ── PORTRAIT PANEL ── */
+.pi-portrait {
+  position: relative;
+  min-height: 600px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(2rem,4vw,3.5rem);
+}
+
+/* Pioneer 1 — amber-copper composition */
+.pi-profile:nth-child(2) .pi-portrait {
+  background: linear-gradient(145deg, #1c1006 0%, #3a1c0e 45%, #0e1208 100%);
+}
+/* Pioneer 2 — sage-green composition */
+.pi-profile:nth-child(3) .pi-portrait {
+  background: linear-gradient(145deg, #0c1408 0%, #1c2a12 45%, #180e06 100%);
+}
+
+.pi-portrait-grad {
+  position: absolute; inset: 0;
+  pointer-events: none;
+}
+.pi-profile:nth-child(2) .pi-portrait-grad {
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 25%, rgba(160,92,56,0.22), transparent 55%),
+    radial-gradient(ellipse 50% 45% at 20% 80%, rgba(104,117,88,0.12), transparent 55%);
+}
+.pi-profile:nth-child(3) .pi-portrait-grad {
+  background:
+    radial-gradient(ellipse 70% 60% at 30% 25%, rgba(104,117,88,0.22), transparent 55%),
+    radial-gradient(ellipse 50% 45% at 80% 80%, rgba(160,92,56,0.12), transparent 55%);
+}
+
+.pi-portrait-cross {
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient( 45deg, rgba(201,171,132,0.04) 0, rgba(201,171,132,0.04) 1px, transparent 1px, transparent 52px),
+    repeating-linear-gradient(-45deg, rgba(201,171,132,0.03) 0, rgba(201,171,132,0.03) 1px, transparent 1px, transparent 52px);
+}
+
+/* Abstract portrait rings */
+.pi-portrait-rings {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.pi-portrait-ring {
+  position: absolute; border-radius: 50%;
+  border: 1px solid rgba(201,171,132,0.06);
+}
+.pi-portrait-ring:nth-child(1){ width: 70%; height: 70%; }
+.pi-portrait-ring:nth-child(2){ width: 50%; height: 50%; border-color: rgba(160,92,56,0.09); }
+.pi-portrait-ring:nth-child(3){ width: 28%; height: 28%; border-color: rgba(201,171,132,0.12); }
+
+/* Large initials — the portrait placeholder */
+.pi-portrait-initials {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: clamp(8rem,14vw,14rem);
+  font-weight: 300; letter-spacing: -0.06em; line-height: 1;
+  pointer-events: none; user-select: none;
+}
+.pi-profile:nth-child(2) .pi-portrait-initials { color: rgba(201,171,132,0.07); }
+.pi-profile:nth-child(3) .pi-portrait-initials { color: rgba(104,117,88,0.1); }
+
+/* Bottom accent node */
+.pi-portrait-node {
+  position: absolute; bottom: 2.5rem; right: 2.5rem;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--copper);
+  box-shadow: 0 0 20px rgba(160,92,56,0.5);
+}
+
+/* Portrait content overlay */
+.pi-portrait-content { position: relative; z-index: 2; }
+.pi-portrait-num {
+  font-family: var(--font-display); font-size: 0.75rem; font-weight: 400;
+  letter-spacing: 0.14em; color: var(--copper); display: block; margin-bottom: 0.5rem;
+}
+.pi-portrait-name {
+  font-family: var(--font-display); font-size: clamp(2rem,4vw,3.5rem);
+  font-weight: 300; color: var(--cream); line-height: 1.08; margin-bottom: 0.4rem;
+}
+.pi-portrait-name em { font-style: italic; color: var(--sand); }
+.pi-portrait-role {
+  font-family: var(--font-label); font-size: 0.6rem;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper);
+}
+
+/* ── CONTENT PANEL ── */
+.pi-bio {
+  background: var(--white);
+  padding: clamp(2.5rem,5vw,4.5rem);
+  display: flex; flex-direction: column;
+}
+
+.pi-bio-tagline {
+  font-family: var(--font-display); font-style: italic;
+  font-size: clamp(1.1rem,1.8vw,1.45rem); font-weight: 300;
+  line-height: 1.55; color: var(--mahogany);
+  padding-left: 1.4rem; border-left: 3px solid var(--copper);
+  margin-bottom: 2rem;
+}
+
+.pi-bio-body {
+  font-size: clamp(0.92rem,1.35vw,1rem); line-height: 1.88;
+  color: var(--brown); font-weight: 300;
+}
+.pi-bio-body p + p { margin-top: 1.3rem; }
+
+/* Focus areas within bio */
+.pi-bio-areas {
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(58,28,14,0.08);
+}
+.pi-bio-areas-label {
+  font-family: var(--font-label); font-size: 0.6rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--copper); margin-bottom: 1.1rem; display: block;
+}
+.pi-bio-area-list {
+  display: flex; flex-wrap: wrap; gap: 0.6rem;
+}
+.pi-bio-area {
+  font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 0.42rem 0.9rem; border-radius: 2px;
+  border: 1px solid rgba(160,92,56,0.22);
+  color: var(--copper); background: rgba(160,92,56,0.05);
+  transition: background 0.3s, border-color 0.3s;
+}
+.pi-bio-area:hover { background: rgba(160,92,56,0.1); border-color: var(--copper); }
+
+/* Principles list */
+.pi-bio-principles {
+  margin-top: 2rem; display: flex; flex-direction: column; gap: 0;
+}
+.pi-bio-principle {
+  display: flex; align-items: flex-start; gap: 0.85rem;
+  padding-block: 0.9rem;
+  border-top: 1px solid rgba(58,28,14,0.07);
+  font-size: 0.86rem; line-height: 1.65; color: var(--espresso);
+}
+.pi-bio-principle:first-child { border-top: none; padding-top: 0; }
+.pi-bio-principle-icon {
+  color: var(--copper); font-size: 0.65rem; flex-shrink: 0; margin-top: 0.3em;
+}
+
+/* Bio footer */
+.pi-bio-footer {
+  margin-top: auto; padding-top: 2.5rem;
+  border-top: 1px solid rgba(58,28,14,0.08);
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   4. EXPERTISE CLUSTERS
+   A dark chocolate section with six expertise tiles. Each tile uses
+   an abstract data-visualisation motif: small horizontal bars of
+   varying width stacked below the title, suggesting a capability
+   profile or competency spectrum. This is unique to the Pioneers page
+   and makes the expertise section feel analytical rather than decorative.
+══════════════════════════════════════════════════════════════════════ */
+.pi-expertise {
+  padding-block: var(--section-pad);
+  background: var(--chocolate);
+  position: relative; overflow: hidden;
+}
+.pi-expertise::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 65% 55% at 85% 50%, rgba(160,92,56,0.06), transparent),
+    radial-gradient(ellipse 50% 60% at 15% 40%, rgba(104,117,88,0.04), transparent);
+  pointer-events: none;
+}
+
+.pi-expertise-header {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: end;
+  margin-bottom: clamp(3.5rem,7vw,6rem);
+  position: relative; z-index: 1;
+}
+
+.pi-exp-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px;
+  background: rgba(201,171,132,0.06);
+  border: 1px solid rgba(201,171,132,0.06);
+  border-radius: var(--radius-md); overflow: hidden;
+  position: relative; z-index: 1;
+}
+
+.pi-exp-tile {
+  background: rgba(255,252,248,0.028);
+  padding: clamp(2rem,3.5vw,3rem) clamp(1.75rem,3vw,2.5rem);
+  position: relative; overflow: hidden;
+  cursor: default;
+  transition: background 0.4s;
+}
+.pi-exp-tile:hover { background: rgba(255,252,248,0.065); }
+.pi-exp-tile::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 2px; transform: scaleX(0); transform-origin: left;
+  background: linear-gradient(90deg, var(--copper), var(--sand));
+  transition: transform 0.5s var(--ease-out);
+}
+.pi-exp-tile:hover::before { transform: scaleX(1); }
+
+/* Ghost large number */
+.pi-exp-ghost {
+  position: absolute; bottom: -0.5rem; right: 0.75rem;
+  font-family: var(--font-display); font-size: 5.5rem; font-weight: 700;
+  color: rgba(244,237,224,0.04); line-height: 1;
+  pointer-events: none; user-select: none;
+}
+
+.pi-exp-icon { font-size: 1.5rem; margin-bottom: 1.3rem; display: block; color: var(--copper); transition: transform 0.35s; }
+.pi-exp-tile:hover .pi-exp-icon { transform: scale(1.1); }
+
+.pi-exp-title {
+  font-family: var(--font-display); font-size: clamp(1.1rem,1.7vw,1.45rem);
+  font-weight: 500; color: var(--cream); line-height: 1.2; margin-bottom: 0.75rem;
+}
+
+.pi-exp-desc {
+  font-size: 0.8rem; line-height: 1.75; color: rgba(244,237,224,0.38);
+  font-weight: 300; margin-bottom: 1.4rem;
+}
+
+/* Competency bars — the distinctive element of this section */
+.pi-exp-bars {
+  display: flex; flex-direction: column; gap: 0.4rem;
+}
+.pi-exp-bar-row {
+  display: flex; align-items: center; gap: 0.6rem;
+}
+.pi-exp-bar-label {
+  font-family: var(--font-label); font-size: 0.52rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(201,171,132,0.28); white-space: nowrap; min-width: 70px;
+}
+.pi-exp-bar-track {
+  flex: 1; height: 3px;
+  background: rgba(201,171,132,0.08); border-radius: 2px; overflow: hidden;
+}
+.pi-exp-bar-fill {
+  height: 100%; border-radius: 2px;
+  background: linear-gradient(90deg, var(--copper), rgba(201,171,132,0.5));
+  width: 0;
+  transition: width 1.2s var(--ease-out);
+}
+/* Width is set inline on each element — see HTML */
+
+/* ══════════════════════════════════════════════════════════════════════
+   5. FUTURE FELLOWS, COLLABORATORS & ADVISORS
+   A beautifully designed "coming soon" section with four placeholder
+   slots — each inviting a specific type of future contributor.
+   Uses dashed borders and a muted colour treatment to distinguish
+   clearly from active pioneer profiles, while still looking designed
+   and intentional rather than empty.
+══════════════════════════════════════════════════════════════════════ */
+.pi-fellows {
+  padding-block: var(--section-pad);
+  background: var(--cream);
+  position: relative; overflow: hidden;
+}
+.pi-fellows::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(160,92,56,0.04), transparent 60%);
+  pointer-events: none;
+}
+
+.pi-fellows-header {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: end;
+  margin-bottom: clamp(3.5rem,7vw,6rem);
+}
+
+/* Upper "next pioneer" teaser */
+.pi-teaser {
+  background: var(--white);
+  border: 1px dashed rgba(58,28,14,0.18);
+  border-radius: var(--radius-lg);
+  padding: clamp(2rem,4vw,3.5rem);
+  display: flex; align-items: center; gap: clamp(1.5rem,3vw,3rem);
+  margin-bottom: 2rem;
+  position: relative; overflow: hidden; z-index: 1;
+  transition: border-color 0.4s, background 0.4s;
+}
+.pi-teaser:hover { border-color: rgba(160,92,56,0.3); background: var(--cream-lt); }
+
+.pi-teaser-avatar {
+  width: 72px; height: 72px; border-radius: 50%;
+  border: 1.5px dashed rgba(58,28,14,0.2);
+  background: rgba(58,28,14,0.03);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; color: rgba(58,28,14,0.2);
+  flex-shrink: 0; transition: border-color 0.4s;
+}
+.pi-teaser:hover .pi-teaser-avatar { border-color: rgba(160,92,56,0.35); }
+
+.pi-teaser-text { flex: 1; }
+.pi-teaser-label {
+  font-family: var(--font-label); font-size: 0.58rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(58,28,14,0.3); margin-bottom: 0.4rem;
+}
+.pi-teaser-title {
+  font-family: var(--font-display); font-size: clamp(1.1rem,1.8vw,1.4rem);
+  font-weight: 400; color: rgba(58,28,14,0.45); line-height: 1.25;
+  font-style: italic;
+}
+.pi-teaser-desc {
+  margin-top: 0.4rem; font-size: 0.8rem; line-height: 1.65;
+  color: rgba(58,28,14,0.3); font-weight: 300;
+}
+
+/* Four contributor type cards */
+.pi-fellows-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+  position: relative; z-index: 1;
+}
+
+.pi-fellow-card {
+  background: var(--white);
+  border: 1.5px dashed rgba(58,28,14,0.14);
+  border-radius: var(--radius-md);
+  padding: clamp(1.75rem,3vw,2.5rem);
+  position: relative; overflow: hidden;
+  cursor: default;
+  transition: border-color 0.4s, transform 0.4s var(--ease-out), box-shadow 0.4s;
+}
+.pi-fellow-card:hover {
+  border-color: rgba(160,92,56,0.28);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 50px rgba(24,12,6,0.08);
+}
+.pi-fellow-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, rgba(160,92,56,0.3), rgba(201,171,132,0.3));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.5s var(--ease-out);
+}
+.pi-fellow-card:hover::before { transform: scaleX(1); }
+
+/* Ghost "?" or "+" */
+.pi-fellow-ghost {
+  position: absolute; bottom: -0.5rem; right: 1rem;
+  font-family: var(--font-display); font-size: 7rem; font-weight: 300;
+  color: rgba(58,28,14,0.04); line-height: 1;
+  pointer-events: none; user-select: none;
+}
+
+.pi-fellow-type {
+  font-family: var(--font-label); font-size: 0.58rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(160,92,56,0.55); margin-bottom: 0.8rem; display: block;
+}
+.pi-fellow-title {
+  font-family: var(--font-display); font-size: clamp(1.2rem,2vw,1.6rem);
+  font-weight: 400; color: rgba(58,28,14,0.5); line-height: 1.2;
+  margin-bottom: 0.9rem; font-style: italic;
+}
+.pi-fellow-desc {
+  font-size: 0.84rem; line-height: 1.8; color: rgba(58,28,14,0.38); font-weight: 300;
+  margin-bottom: 1.5rem;
+}
+.pi-fellow-cta {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  font-family: var(--font-body); font-size: 0.74rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(160,92,56,0.55);
+  border-top: 1px solid rgba(58,28,14,0.07); padding-top: 1.1rem; width: 100%;
+  transition: color 0.3s, gap 0.35s;
+}
+.pi-fellow-card:hover .pi-fellow-cta { color: var(--copper); gap: 0.75rem; }
+.pi-fellow-cta span { font-size: 0.85rem; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   6. CLOSING CTA
+   A four-card 2×2 CTA grid — each card invites a specific type of
+   engagement — followed by a primary CTA band. Uses the same warm-
+   cream background as the About page's closing CTA for consistency.
+══════════════════════════════════════════════════════════════════════ */
+.pi-cta {
+  padding-block: clamp(6rem,12vw,10rem);
+  background: var(--cream-lt);
+  position: relative; overflow: hidden;
+}
+.pi-cta::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(160,92,56,0.055), transparent);
+  pointer-events: none;
+}
+
+.pi-cta-header {
+  text-align: center; margin-bottom: clamp(3.5rem,7vw,6rem);
+}
+
+.pi-cta-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
+  margin-bottom: clamp(2.5rem,5vw,4rem);
+  position: relative; z-index: 1;
+}
+
+.pi-cta-card {
+  background: var(--white); border: 1px solid rgba(58,28,14,0.1);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.75rem,3vw,2.8rem);
+  display: flex; align-items: flex-start; gap: 1.5rem;
+  cursor: default;
+  transition: transform 0.45s var(--ease-out), box-shadow 0.45s, border-color 0.45s;
+}
+.pi-cta-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 60px rgba(24,12,6,0.1);
+  border-color: rgba(160,92,56,0.25);
+}
+
+.pi-cta-card-icon {
+  width: 52px; height: 52px; border-radius: var(--radius-sm);
+  border: 1px solid rgba(160,92,56,0.2);
+  background: rgba(160,92,56,0.07);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; color: var(--copper); flex-shrink: 0;
+  transition: transform 0.35s, border-color 0.35s;
+}
+.pi-cta-card:hover .pi-cta-card-icon { transform: scale(1.08) rotate(4deg); border-color: var(--copper); }
+
+.pi-cta-card-body { flex: 1; }
+.pi-cta-card-label {
+  font-family: var(--font-label); font-size: 0.58rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--copper); margin-bottom: 0.55rem;
+}
+.pi-cta-card-title {
+  font-family: var(--font-display); font-size: clamp(1.1rem,1.7vw,1.4rem);
+  font-weight: 500; color: var(--espresso); line-height: 1.25; margin-bottom: 0.65rem;
+}
+.pi-cta-card-desc {
+  font-size: 0.84rem; line-height: 1.8; color: var(--brown); font-weight: 300;
+  margin-bottom: 1.1rem;
+}
+.pi-cta-card-link {
+  display: inline-flex; align-items: center; gap: 0.45rem;
+  font-size: 0.74rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--copper); transition: gap 0.35s, color 0.3s;
+}
+.pi-cta-card:hover .pi-cta-card-link { gap: 0.75rem; color: var(--mahogany); }
+.pi-cta-card-link span { font-size: 0.85rem; }
+
+/* Primary CTA band */
+.pi-cta-band {
+  background: var(--espresso); border-radius: var(--radius-lg);
+  padding: clamp(2.5rem,5vw,4.5rem);
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 3rem; align-items: center;
+  position: relative; overflow: hidden; z-index: 1;
+}
+.pi-cta-band::before {
+  content: ''; position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 55% 70% at 0% 50%,  rgba(160,92,56,0.1), transparent 55%),
+    radial-gradient(ellipse 45% 60% at 100% 50%, rgba(104,117,88,0.07), transparent 55%);
+  pointer-events: none;
+}
+.pi-cta-band-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,171,132,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,171,132,0.03) 1px, transparent 1px);
+  background-size: 60px 60px; pointer-events: none;
+}
+.pi-cta-band-text { position: relative; z-index: 1; }
+.pi-cta-band-label {
+  font-family: var(--font-label); font-size: 0.62rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--copper); margin-bottom: 0.75rem;
+}
+.pi-cta-band-heading {
+  font-family: var(--font-display); font-size: clamp(1.6rem,3vw,2.6rem);
+  font-weight: 300; color: var(--cream); line-height: 1.18;
+}
+.pi-cta-band-heading em { font-style: italic; color: var(--sand); }
+.pi-cta-band-actions {
+  display: flex; gap: 1rem; flex-wrap: wrap; flex-shrink: 0;
+  position: relative; z-index: 1;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════════════════════════════ */
+.footer { background: var(--chocolate); padding: 4rem 0 2.5rem; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-logo-name { font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; color: var(--cream); margin-bottom: 0.25rem; }
+.footer-logo-sub  { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; color: var(--copper); text-transform: uppercase; margin-bottom: 1.25rem; }
+.footer-tagline   { font-size: 0.85rem; line-height: 1.7; color: rgba(244,237,224,0.35); font-weight: 300; max-width: 260px; }
+.footer-col-title { font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1.25rem; }
+.footer-links     { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+.footer-links a   { font-size: 0.83rem; color: rgba(244,237,224,0.35); transition: color 0.3s; }
+.footer-links a:hover { color: var(--sand); }
+.footer-bottom    { border-top: 1px solid rgba(201,171,132,0.1); padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-copy      { font-size: 0.78rem; color: rgba(244,237,224,0.2); }
+.footer-copy em   { color: var(--copper); font-style: normal; }
+.footer-legal     { display: flex; gap: 1.5rem; }
+.footer-legal a   { font-size: 0.75rem; color: rgba(244,237,224,0.2); transition: color 0.3s; }
+.footer-legal a:hover { color: var(--sand); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .pi-exp-grid { grid-template-columns: repeat(2,1fr); }
+  .pi-cta-grid { grid-template-columns: 1fr; max-width: 640px; margin-inline: auto; }
+  .pi-cta-card { flex-direction: column; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .hamburger  { display: flex; }
+  .pi-hero-sig { display: none; }
+  .pi-intro-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .pi-profile { grid-template-columns: 1fr; }
+  .pi-profile--reverse { direction: ltr; }
+  .pi-portrait { min-height: 340px; }
+  .pi-expertise-header { grid-template-columns: 1fr; gap: 2rem; }
+  .pi-fellows-header { grid-template-columns: 1fr; gap: 2rem; }
+  .pi-fellows-grid { grid-template-columns: 1fr; }
+  .pi-cta-band { grid-template-columns: 1fr; gap: 2rem; }
+  .pi-hero-names-inner { flex-wrap: wrap; }
+  .pi-hero-name-item { flex: 1 1 45%; }
+  .pi-hero-name-item:nth-child(2n){ border-right: none; }
+}
+@media (max-width: 680px) {
+  :root { --section-pad: 4rem; }
+  .pi-intro-domains { grid-template-columns: 1fr; }
+  .pi-exp-grid { grid-template-columns: 1fr; }
+  .pi-cta-band-actions { flex-direction: column; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .pi-hero-name-item { flex: 1 1 100%; border-right: none !important; border-bottom: 1px solid rgba(201,171,132,0.08); }
+  .pi-hero-name-item:last-child { border-bottom: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════════════════════════════════ -->
+<nav class="nav transparent" id="mainNav" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.htmlclass="nav-logo" aria-label="Rankine Innovation Lab — Home">
+        <span class="nav-logo-mark">Rankine</span>
+        <span class="nav-logo-name">Innovation Lab</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="programmes.html">Programmes</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="knowledge-hub.html">Knowledge Hub</a></li>
+        <li><a href="#" class="active-page">Pioneers</a></li>
+        <li><a href="#pi-cta" class="nav-cta">Collaborate</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+  <a href="index.html"   onclick="closeMobile()">Home</a>
+  <a href="about.html"            onclick="closeMobile()">About</a>
+  <a href="programmes.html"       onclick="closeMobile()">Programmes</a>
+  <a href="research.html"         onclick="closeMobile()">Research</a>
+  <a href="knowledge-hub.html"    onclick="closeMobile()">Knowledge Hub</a>
+  <a href="#"                             onclick="closeMobile()">Pioneers</a>
+  <a href="#pi-cta"                       onclick="closeMobile()">Collaborate</a>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     1. HERO
+════════════════════════════════════════════════════════════════════ -->
+<section class="pi-hero" aria-labelledby="heroHeading">
+  <div class="pi-hero-bg"></div>
+  <div class="pi-hero-cross" aria-hidden="true"></div>
+  <div class="pi-hero-grain" aria-hidden="true"></div>
+
+  <!-- Animated SVG signature strokes — right side decoration -->
+  <svg class="pi-hero-sig" viewBox="0 0 480 420" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <!-- Stroke 1: long flowing curve (top) -->
+    <path d="M 40 80 Q 120 20, 220 60 Q 340 110, 440 55" stroke-width="1.5" fill="none"/>
+    <!-- Stroke 2: mid horizontal with upswing -->
+    <path d="M 20 180 Q 80 150, 160 175 Q 260 205, 320 160 Q 390 120, 460 150" stroke-width="1.2" fill="none"/>
+    <!-- Stroke 3: lower arc -->
+    <path d="M 60 280 Q 180 240, 280 270 Q 380 305, 440 265" stroke-width="1" fill="none"/>
+    <!-- Stroke 4: base sweep -->
+    <path d="M 30 360 Q 150 320, 260 345 Q 360 375, 450 340" stroke-width="0.8" fill="none"/>
+    <!-- Accent nodes at key crossing points -->
+    <circle cx="220" cy="60"  r="3"/>
+    <circle cx="320" cy="160" r="2.5"/>
+    <circle cx="280" cy="270" r="2"/>
+  </svg>
+
+  <div class="pi-hero-content">
+    <div class="container">
+      <nav class="pi-hero-breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span aria-hidden="true">—</span>
+        <strong>Pioneers</strong>
+      </nav>
+
+      <div class="eyebrow pi-hero-eyebrow" aria-hidden="true">
+        <span class="eyebrow-line"></span>
+        The People Behind the Lab
+      </div>
+
+      <h1 class="pi-hero-headline" id="heroHeading">
+        The people shaping<br>
+        Rankine <em>Innovation</em><br>
+        <strong>Lab.</strong>
+      </h1>
+
+      <p class="pi-hero-sub">
+        Rankine is defined by the researchers, innovators, and systems thinkers who guide its intellectual direction — individuals who bring rigour, originality, and a commitment to applied progress across artificial intelligence, sustainability, and the environmental sciences.
+      </p>
+
+      <div class="pi-hero-actions">
+        <a href="#pi-profiles" class="btn btn--copper">Meet the Pioneers</a>
+        <a href="#pi-fellows"  class="btn btn--ghost-light">Future Fellows</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pioneer name preview strip -->
+  <div class="pi-hero-names" aria-label="Our pioneers">
+    <div class="container">
+      <div class="pi-hero-names-inner">
+        <div class="pi-hero-name-item">
+          <div class="pi-hero-name-initials" aria-hidden="true">TR</div>
+          <div class="pi-hero-name-text">
+            <div class="pi-hero-name-label">Pioneer &amp; Co-Founder</div>
+            <div class="pi-hero-name-full">Taiwo Ridwan</div>
+          </div>
+        </div>
+        <div class="pi-hero-name-item">
+          <div class="pi-hero-name-initials" aria-hidden="true">AA</div>
+          <div class="pi-hero-name-text">
+            <div class="pi-hero-name-label">Pioneer &amp; Co-Founder</div>
+            <div class="pi-hero-name-full">Adesola Adegoke</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     2. INTRO — who guides the lab
+════════════════════════════════════════════════════════════════════ -->
+<section class="pi-intro" id="pi-intro" aria-labelledby="introHeading">
+  <div class="container">
+    <div class="pi-intro-grid">
+
+      <div class="pi-intro-left">
+        <div class="pi-intro-ghost reveal" aria-hidden="true">P</div>
+        <div class="eyebrow reveal d1"><span class="eyebrow-line"></span>Guided by</div>
+        <h2 class="display display--dark reveal d2" id="introHeading" style="font-size:clamp(2.2rem,4vw,3.8rem); margin-bottom:1.5rem">
+          Thinkers Who<br><em>Work Across</em><br>Boundaries
+        </h2>
+        <blockquote class="pi-intro-quote reveal d3">
+          "The problems that matter most do not belong to any single discipline — and neither do the people best positioned to address them."
+        </blockquote>
+        <p class="pi-intro-body reveal d4">
+          Rankine Innovation Lab is guided by a small cohort of pioneers whose work spans the critical intersections where artificial intelligence, environmental systems, sustainability design, and applied research converge. These are not specialists in the narrow sense — they are integrators: people who can hold multiple disciplines in productive tension and build across the seams between them. The lab's intellectual character — rigorous, applied, interdisciplinary, and African-rooted — reflects the sensibility they bring to everything it does.
+        </p>
+        <a href="#pi-profiles" class="btn btn--ghost-dark reveal d5">Meet the Pioneers</a>
+      </div>
+
+      <div class="pi-intro-right">
+        <div class="pi-intro-domains">
+
+          <div class="pi-domain reveal">
+            <span class="pi-domain-icon" aria-hidden="true">⚙</span>
+            <h3 class="pi-domain-title">Artificial Intelligence</h3>
+            <p class="pi-domain-desc">Applied machine learning, intelligent systems design, and the responsible deployment of AI in scientific and institutional contexts.</p>
+          </div>
+
+          <div class="pi-domain reveal d1">
+            <span class="pi-domain-icon" aria-hidden="true">∿</span>
+            <h3 class="pi-domain-title">Sustainability Science</h3>
+            <p class="pi-domain-desc">Circular systems thinking, ecological accounting, and the design of economies and organisations that regenerate rather than extract.</p>
+          </div>
+
+          <div class="pi-domain reveal d2">
+            <span class="pi-domain-icon" aria-hidden="true">◎</span>
+            <h3 class="pi-domain-title">Environmental Systems</h3>
+            <p class="pi-domain-desc">Remote sensing, environmental modelling, and the integration of ecological intelligence into decision-making at scale.</p>
+          </div>
+
+          <div class="pi-domain reveal d3">
+            <span class="pi-domain-icon" aria-hidden="true">⬡</span>
+            <h3 class="pi-domain-title">Applied Innovation</h3>
+            <p class="pi-domain-desc">Innovation methodology, knowledge translation, and the building of systems that convert research into capability and change.</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     3. PIONEER PROFILES
+════════════════════════════════════════════════════════════════════ -->
+<section class="pi-profiles" id="pi-profiles" aria-labelledby="profilesHeading">
+  <div class="container">
+
+    <div class="pi-profiles-header">
+      <div class="eyebrow reveal" style="color:var(--sand); justify-content:center">
+        <span class="eyebrow-line" style="background:var(--sand)"></span>
+        The Founders
+        <span class="eyebrow-line" style="background:var(--sand)"></span>
+      </div>
+      <h2 class="display display--light reveal d1" id="profilesHeading" style="font-size:clamp(2.2rem,4vw,3.8rem); text-align:center; margin-inline:auto">
+        Pioneers in <em>Applied</em><br>Innovation
+      </h2>
+    </div>
+
+    <!-- ── PIONEER 1: TAIWO RIDWAN ── -->
+    <article class="pi-profile reveal" aria-labelledby="tr-name">
+
+      <!-- Portrait panel -->
+      <div class="pi-portrait">
+        <div class="pi-portrait-grad"></div>
+        <div class="pi-portrait-cross"></div>
+        <div class="pi-portrait-rings" aria-hidden="true">
+          <div class="pi-portrait-ring"></div>
+          <div class="pi-portrait-ring"></div>
+          <div class="pi-portrait-ring"></div>
+        </div>
+        <div class="pi-portrait-initials" aria-hidden="true">TR</div>
+        <div class="pi-portrait-node" aria-hidden="true"></div>
+        <div class="pi-portrait-content">
+          <span class="pi-portrait-num" aria-hidden="true">Pioneer 01</span>
+          <h2 class="pi-portrait-name" id="tr-name">
+            Taiwo<br><em>Ridwan</em>
+          </h2>
+          <div class="pi-portrait-role">Pioneer &amp; Co-Founder · Rankine Innovation Lab</div>
+        </div>
+      </div>
+
+      <!-- Bio panel -->
+      <div class="pi-bio">
+        <blockquote class="pi-bio-tagline">
+          "Intelligence is only as valuable as the clarity with which it can be communicated and the precision with which it can be acted upon."
+        </blockquote>
+
+        <div class="pi-bio-body">
+          <p>Taiwo Ridwan is a co-founder of Rankine Innovation Lab, where he shapes the intellectual and strategic direction of the lab's work at the intersection of applied artificial intelligence and sustainable development. His contribution to Rankine is rooted in a conviction that the most consequential applications of AI are not in autonomous systems operating at vast scale — but in the quiet, rigorous work of giving researchers, practitioners, and institutions better tools for understanding and acting on complex problems.</p>
+          <p>His approach is fundamentally applied and integrative: committed to frameworks that hold up in real contexts, tools that practitioners can use without specialist AI training, and research that is designed from the outset for translation and deployment rather than isolated publication. Taiwo's thinking at Rankine draws from systems design, applied machine learning, and the philosophy of scientific practice — oriented always toward what it means for knowledge to be genuinely useful rather than merely technically correct.</p>
+        </div>
+
+        <!-- Focus areas -->
+        <div class="pi-bio-areas">
+          <span class="pi-bio-areas-label">Areas of Focus</span>
+          <div class="pi-bio-area-list">
+            <span class="pi-bio-area">Applied AI</span>
+            <span class="pi-bio-area">Systems Design</span>
+            <span class="pi-bio-area">Innovation Strategy</span>
+            <span class="pi-bio-area">Knowledge Translation</span>
+            <span class="pi-bio-area">Research Practice</span>
+            <span class="pi-bio-area">Sustainability Intelligence</span>
+          </div>
+        </div>
+
+        <!-- Working principles -->
+        <div class="pi-bio-principles" aria-label="Working principles">
+          <div class="pi-bio-principle">
+            <span class="pi-bio-principle-icon" aria-hidden="true">→</span>
+            <span>Intelligent systems should reduce complexity for the people who depend on them — not increase it.</span>
+          </div>
+          <div class="pi-bio-principle">
+            <span class="pi-bio-principle-icon" aria-hidden="true">→</span>
+            <span>Research that cannot be translated into a usable tool or a teachable framework has not yet finished its work.</span>
+          </div>
+          <div class="pi-bio-principle">
+            <span class="pi-bio-principle-icon" aria-hidden="true">→</span>
+            <span>African intellectual excellence is not a regional qualifier — it is a globally relevant way of building.</span>
+          </div>
+        </div>
+
+        <div class="pi-bio-footer">
+          <a href="#pi-cta" class="btn btn--copper">Collaborate with Taiwo</a>
+          <a href="mailto:hello@rankineinnovation.org" class="btn btn--ghost-dark">Get in Touch</a>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- ── PIONEER 2: ADESOLA ADEGOKE ── -->
+    <article class="pi-profile pi-profile--reverse reveal" aria-labelledby="aa-name">
+
+      <!-- Portrait panel -->
+      <div class="pi-portrait">
+        <div class="pi-portrait-grad"></div>
+        <div class="pi-portrait-cross"></div>
+        <div class="pi-portrait-rings" aria-hidden="true">
+          <div class="pi-portrait-ring"></div>
+          <div class="pi-portrait-ring"></div>
+          <div class="pi-portrait-ring"></div>
+        </div>
+        <div class="pi-portrait-initials" aria-hidden="true">AA</div>
+        <div class="pi-portrait-node" aria-hidden="true"></div>
+        <div class="pi-portrait-content">
+          <span class="pi-portrait-num" aria-hidden="true">Pioneer 02</span>
+          <h2 class="pi-portrait-name" id="aa-name">
+            Adesola<br><em>Adegoke</em>
+          </h2>
+          <div class="pi-portrait-role">Pioneer &amp; Co-Founder · Rankine Innovation Lab</div>
+        </div>
+      </div>
+
+      <!-- Bio panel -->
+      <div class="pi-bio">
+        <blockquote class="pi-bio-tagline">
+          "Sustainability is not a constraint on innovation — it is the condition under which innovation becomes worth doing."
+        </blockquote>
+
+        <div class="pi-bio-body">
+          <p>Adesola Adegoke is a co-founder of Rankine Innovation Lab, where she anchors the lab's programme architecture and research philosophy in intelligent systems thinking, sustainability science, and a future-facing commitment to equitable capability building. Her contribution to Rankine is grounded in the conviction that the most important work in applied research is not the discovery of new facts — but the design of systems that allow those facts to be understood, acted on, and built upon by the people who need them most.</p>
+          <p>Adesola's approach at Rankine draws from environmental systems thinking, circular design, and educational architecture — oriented toward building programmes and frameworks that create genuine, durable capability rather than surface-level awareness. Her work ensures that the lab remains scientifically credible while being genuinely accessible: that its outputs are rigorous without being impenetrable, and ambitious without being disconnected from the practical realities of the contexts they are designed to serve.</p>
+        </div>
+
+        <!-- Focus areas -->
+        <div class="pi-bio-areas">
+          <span class="pi-bio-areas-label">Areas of Focus</span>
+          <div class="pi-bio-area-list">
+            <span class="pi-bio-area">Intelligent Systems</span>
+            <span class="pi-bio-area">Sustainability Design</span>
+            <span class="pi-bio-area">Environmental Science</span>
+            <span class="pi-bio-area">Research Architecture</span>
+            <span class="pi-bio-area">Capacity Building</span>
+            <span class="pi-bio-area">Circular Systems</span>
+          </div>
+        </div>
+
+        <!-- Working principles -->
+        <div class="pi-bio-principles" aria-label="Working principles">
+          <div class="pi-bio-principle">
+            <span class="pi-bio-principle-icon" aria-hidden="true">→</span>
+            <span>The measure of a programme is not what participants know when they leave — it is what they can do.</span>
+          </div>
+          <div class="pi-bio-principle">
+            <span class="pi-bio-principle-icon" aria-hidden="true">→</span>
+            <span>Environmental intelligence is not a specialisation. It is a foundational competency for anyone building in the 21st century.</span>
+          </div>
+          <div class="pi-bio-principle">
+            <span class="pi-bio-principle-icon" aria-hidden="true">→</span>
+            <span>Sustainable systems are designed for the long run from the beginning — not retrofitted with ethics at the end.</span>
+          </div>
+        </div>
+
+        <div class="pi-bio-footer">
+          <a href="#pi-cta" class="btn btn--copper">Collaborate with Adesola</a>
+          <a href="mailto:hello@rankineinnovation.org" class="btn btn--ghost-dark">Get in Touch</a>
+        </div>
+      </div>
+
+    </article>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     4. AREAS OF EXPERTISE CLUSTERS
+════════════════════════════════════════════════════════════════════ -->
+<section class="pi-expertise" id="pi-expertise" aria-labelledby="expHeading">
+  <div class="container">
+
+    <div class="pi-expertise-header">
+      <div>
+        <div class="eyebrow reveal" style="color:var(--sand)">
+          <span class="eyebrow-line" style="background:var(--sand)"></span>
+          Collective Expertise
+        </div>
+        <h2 class="display display--light reveal d1" id="expHeading" style="font-size:clamp(2.2rem,4vw,3.8rem)">
+          Six Domains.<br><em>One Coherent Vision.</em>
+        </h2>
+      </div>
+      <div>
+        <p class="reveal d2" style="font-size:clamp(0.95rem,1.4vw,1.05rem); line-height:1.85; color:rgba(244,237,224,0.46); font-weight:300; margin-top:0">
+          The expertise clusters at Rankine reflect the domains where the founders' combined capabilities are strongest — and where the most consequential applied work is currently happening. These are not silos; they are overlapping fields that the lab treats as a single integrated inquiry.
+        </p>
+      </div>
+    </div>
+
+    <div class="pi-exp-grid">
+
+      <!-- Tile 1 -->
+      <div class="pi-exp-tile reveal">
+        <span class="pi-exp-ghost" aria-hidden="true">01</span>
+        <span class="pi-exp-icon" aria-hidden="true">⚙</span>
+        <h3 class="pi-exp-title">Intelligent Systems</h3>
+        <p class="pi-exp-desc">Applied machine learning, AI systems design, model interpretability, and the principled deployment of intelligent tools in real scientific and institutional practice.</p>
+        <div class="pi-exp-bars" aria-label="Competency profile">
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">Applied ML</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:88%"></div></div>
+          </div>
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">Systems Design</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:82%"></div></div>
+          </div>
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">Explainability</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:75%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tile 2 -->
+      <div class="pi-exp-tile reveal d1">
+        <span class="pi-exp-ghost" aria-hidden="true">02</span>
+        <span class="pi-exp-icon" aria-hidden="true">∿</span>
+        <h3 class="pi-exp-title">Sustainability Science</h3>
+        <p class="pi-exp-desc">Circular economy design, ecological accounting, life-cycle analysis, and the translation of sustainability theory into operational frameworks for organisations and systems.</p>
+        <div class="pi-exp-bars" aria-label="Competency profile">
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">Circular Design</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:86%"></div></div>
+          </div>
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">LCA</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:78%"></div></div>
+          </div>
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">Strategy</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:90%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tile 3 -->
+      <div class="pi-exp-tile reveal d2">
+        <span class="pi-exp-ghost" aria-hidden="true">03</span>
+        <span class="pi-exp-icon" aria-hidden="true">◎</span>
+        <h3 class="pi-exp-title">Environmental Resilience</h3>
+        <p class="pi-exp-desc">Remote sensing, environmental data systems, climate modelling, and the integration of ecological intelligence into governance and institutional decision frameworks.</p>
+        <div class="pi-exp-bars" aria-label="Competency profile">
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">Remote Sensing</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:80%"></div></div>
+          </div>
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">Modelling</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:74%"></div></div>
+          </div>
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">Governance</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:82%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tile 4 -->
+      <div class="pi-exp-tile reveal d1">
+        <span class="pi-exp-ghost" aria-hidden="true">04</span>
+        <span class="pi-exp-icon" aria-hidden="true">⬡</span>
+        <h3 class="pi-exp-title">Smart Agriculture</h3>
+        <p class="pi-exp-desc">Precision agronomy, IoT sensing, satellite data for crop monitoring, and data-driven farming systems designed to function within real resource constraints.</p>
+        <div class="pi-exp-bars" aria-label="Competency profile">
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">Precision Agri</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:84%"></div></div>
+          </div>
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">IoT &amp; Sensing</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:77%"></div></div>
+          </div>
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">Food Systems</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:88%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tile 5 -->
+      <div class="pi-exp-tile reveal d2">
+        <span class="pi-exp-ghost" aria-hidden="true">05</span>
+        <span class="pi-exp-icon" aria-hidden="true">⟐</span>
+        <h3 class="pi-exp-title">Applied Research</h3>
+        <p class="pi-exp-desc">Research methodology, pilot study design, evidence validation, and the construction of applied research programmes that produce usable outcomes rather than isolated publications.</p>
+        <div class="pi-exp-bars" aria-label="Competency profile">
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">Methodology</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:92%"></div></div>
+          </div>
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">Pilot Design</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:86%"></div></div>
+          </div>
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">Validation</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:80%"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tile 6 -->
+      <div class="pi-exp-tile reveal d3">
+        <span class="pi-exp-ghost" aria-hidden="true">06</span>
+        <span class="pi-exp-icon" aria-hidden="true">📐</span>
+        <h3 class="pi-exp-title">Knowledge Translation</h3>
+        <p class="pi-exp-desc">The architecture of accessible scientific communication — frameworks, explainers, curriculum design, and the pedagogical systems that make complex knowledge genuinely usable for non-specialist decision-makers.</p>
+        <div class="pi-exp-bars" aria-label="Competency profile">
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">Curriculum</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:94%"></div></div>
+          </div>
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">Framework Dev</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:88%"></div></div>
+          </div>
+          <div class="pi-exp-bar-row">
+            <span class="pi-exp-bar-label">Communication</span>
+            <div class="pi-exp-bar-track"><div class="pi-exp-bar-fill" style="width:91%"></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     5. FUTURE FELLOWS, ADVISORS & COLLABORATORS
+════════════════════════════════════════════════════════════════════ -->
+<section class="pi-fellows" id="pi-fellows" aria-labelledby="fellowsHeading">
+  <div class="container">
+
+    <div class="pi-fellows-header">
+      <div>
+        <div class="eyebrow reveal">
+          <span class="eyebrow-line"></span>
+          Growing the Circle
+        </div>
+        <h2 class="display display--dark reveal d1" id="fellowsHeading" style="font-size:clamp(2.2rem,4vw,3.8rem)">
+          Future Fellows<br>&amp; <em>Collaborators</em>
+        </h2>
+      </div>
+      <div>
+        <p class="reveal d2" style="font-size:clamp(0.95rem,1.4vw,1.05rem); line-height:1.85; color:var(--brown); font-weight:300; margin-top:0">
+          Rankine is a growing intellectual community. As the lab's work expands, we will add fellows, research advisors, visiting contributors, and collaborative partners who bring depth and diversity to the domains we work in. These positions are being designed carefully — they will be filled by the right people, not just available ones.
+        </p>
+      </div>
+    </div>
+
+    <!-- Next pioneer teaser -->
+    <div class="pi-teaser reveal" aria-label="Next pioneer announcement">
+      <div class="pi-teaser-avatar" aria-hidden="true">◎</div>
+      <div class="pi-teaser-text">
+        <div class="pi-teaser-label">Coming Soon</div>
+        <div class="pi-teaser-title">A third pioneer is joining the founding circle</div>
+        <div class="pi-teaser-desc">Rankine is in the process of formally welcoming a third founding contributor whose expertise in environmental systems and applied data science will deepen the lab's reach in the domains of ecological intelligence and climate adaptation.</div>
+      </div>
+    </div>
+
+    <!-- Four contributor type cards -->
+    <div class="pi-fellows-grid">
+
+      <div class="pi-fellow-card reveal">
+        <span class="pi-fellow-ghost" aria-hidden="true">?</span>
+        <span class="pi-fellow-type">Research Fellow</span>
+        <h3 class="pi-fellow-title">Expert in Residence: AI &amp; Applied Science</h3>
+        <p class="pi-fellow-desc">We are seeking a research fellow with deep expertise in applied machine learning for scientific discovery — someone committed to translational research and the design of tools that genuinely extend scientific capability. This is not a conventional academic position; it is a home for researchers who want their work to reach beyond the journal.</p>
+        <a href="mailto:fellows@rankineinnovation.org" class="pi-fellow-cta">Express Interest <span aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="pi-fellow-card reveal d1">
+        <span class="pi-fellow-ghost" aria-hidden="true">?</span>
+        <span class="pi-fellow-type">Advisory Board</span>
+        <h3 class="pi-fellow-title">Strategic Advisor: Sustainability Systems</h3>
+        <p class="pi-fellow-desc">Rankine's advisory structure will include senior figures from sustainability science, circular economy practice, and environmental governance — individuals whose perspective and network help the lab remain intellectually ambitious and practically credible as it grows.</p>
+        <a href="mailto:advisors@rankineinnovation.org" class="pi-fellow-cta">Enquire About Advisory Roles <span aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="pi-fellow-card reveal d1">
+        <span class="pi-fellow-ghost" aria-hidden="true">?</span>
+        <span class="pi-fellow-type">Visiting Contributor</span>
+        <h3 class="pi-fellow-title">Visiting Scholar: Smart Agriculture &amp; Food Systems</h3>
+        <p class="pi-fellow-desc">The lab is building a visiting contributor programme for researchers whose work in precision agronomy, food security, and agricultural data systems can be advanced through collaboration with Rankine — and whose presence would enrich the lab's own research direction.</p>
+        <a href="mailto:visiting@rankineinnovation.org" class="pi-fellow-cta">Learn More <span aria-hidden="true">→</span></a>
+      </div>
+
+      <div class="pi-fellow-card reveal d2">
+        <span class="pi-fellow-ghost" aria-hidden="true">?</span>
+        <span class="pi-fellow-type">Institutional Collaborator</span>
+        <h3 class="pi-fellow-title">Partner Institution: Knowledge Translation Research</h3>
+        <p class="pi-fellow-desc">We are actively building institutional research partnerships with universities, think tanks, and applied research bodies whose work in knowledge translation, science communication, and research-to-practice infrastructure aligns with Rankine's core mission.</p>
+        <a href="mailto:partnerships@rankineinnovation.org" class="pi-fellow-cta">Discuss a Partnership <span aria-hidden="true">→</span></a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     6. CLOSING CTA
+════════════════════════════════════════════════════════════════════ -->
+<section class="pi-cta" id="pi-cta" aria-labelledby="ctaHeading">
+  <div class="container">
+
+    <div class="pi-cta-header">
+      <div class="eyebrow reveal" style="justify-content:center">
+        <span class="eyebrow-line"></span>
+        Work With the Lab
+        <span class="eyebrow-line"></span>
+      </div>
+      <h2 class="display display--dark reveal d1" id="ctaHeading" style="font-size:clamp(2.4rem,5vw,4.5rem); text-align:center; margin-inline:auto">
+        Serious Work Begins<br>with <em>the Right People</em>
+      </h2>
+      <p class="reveal d2" style="font-size:clamp(0.95rem,1.4vw,1.05rem); line-height:1.82; color:var(--brown); font-weight:300; max-width:540px; margin:1.25rem auto 0; text-align:center">
+        If you are a researcher, institution, organisation, or funder who believes in the same vision of applied, translational, sustainability-oriented innovation — there is a place for you in the Rankine ecosystem.
+      </p>
+    </div>
+
+    <div class="pi-cta-grid">
+
+      <div class="pi-cta-card reveal">
+        <div class="pi-cta-card-icon" aria-hidden="true">🔬</div>
+        <div class="pi-cta-card-body">
+          <div class="pi-cta-card-label">Research</div>
+          <h3 class="pi-cta-card-title">Research Collaboration</h3>
+          <p class="pi-cta-card-desc">Joint inquiries, co-authorship, pilot studies, and applied research partnerships across AI, sustainability, smart agriculture, and environmental intelligence.</p>
+          <a href="mailto:research@rankineinnovation.org" class="pi-cta-card-link">Start a Conversation <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div class="pi-cta-card reveal d1">
+        <div class="pi-cta-card-icon" aria-hidden="true">⬡</div>
+        <div class="pi-cta-card-body">
+          <div class="pi-cta-card-label">Speaking</div>
+          <h3 class="pi-cta-card-title">Speaking &amp; Keynotes</h3>
+          <p class="pi-cta-card-desc">The Rankine founders speak on applied AI, sustainable innovation, knowledge translation, and the future of interdisciplinary research practice. Available for conferences, institutional events, and public programmes.</p>
+          <a href="mailto:speaking@rankineinnovation.org" class="pi-cta-card-link">Book a Speaker <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div class="pi-cta-card reveal d1">
+        <div class="pi-cta-card-icon" aria-hidden="true">◈</div>
+        <div class="pi-cta-card-body">
+          <div class="pi-cta-card-label">Partnerships</div>
+          <h3 class="pi-cta-card-title">Institutional Partnerships</h3>
+          <p class="pi-cta-card-desc">Long-term embedded collaboration for institutions seeking to build genuine applied innovation capability — co-designed programmes, shared research infrastructure, and organisational capacity development.</p>
+          <a href="mailto:partnerships@rankineinnovation.org" class="pi-cta-card-link">Explore Partnerships <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div class="pi-cta-card reveal d2">
+        <div class="pi-cta-card-icon" aria-hidden="true">⟐</div>
+        <div class="pi-cta-card-body">
+          <div class="pi-cta-card-label">Fellows &amp; Advisors</div>
+          <h3 class="pi-cta-card-title">Join the Inner Circle</h3>
+          <p class="pi-cta-card-desc">If you are a researcher, practitioner, or institutional leader who shares Rankine's values and wants to contribute to its growing intellectual community — as a fellow, advisor, or visiting contributor — we want to hear from you.</p>
+          <a href="mailto:fellows@rankineinnovation.org" class="pi-cta-card-link">Express Interest <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Primary CTA band -->
+    <div class="pi-cta-band reveal d2">
+      <div class="pi-cta-band-grid" aria-hidden="true"></div>
+      <div class="pi-cta-band-text">
+        <div class="pi-cta-band-label">Begin the Conversation</div>
+        <h3 class="pi-cta-band-heading">
+          Ready to build something<br>that <em>lasts</em>?
+        </h3>
+      </div>
+      <div class="pi-cta-band-actions">
+        <a href="mailto:hello@rankineinnovation.org" class="btn btn--copper">Contact Rankine</a>
+        <a href="programmes.html"            class="btn btn--ghost-light">View Programmes</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════════════ -->
+<footer class="footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-name">Rankine Innovation Lab</div>
+        <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
+        <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigation</div>
+        <ul class="footer-links">
+          <li><a href="index.html>Home</a></li>
+          <li><a href="about.html">About the Lab</a></li>
+          <li><a href="programmes.html">Programmes</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="knowledge-hub.html">Knowledge Hub</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Pioneers</div>
+        <ul class="footer-links">
+          <li><a href="#pi-profiles">Taiwo Ridwan</a></li>
+          <li><a href="#pi-profiles">Adesola Adegoke</a></li>
+          <li><a href="#pi-expertise">Areas of Expertise</a></li>
+          <li><a href="#pi-fellows">Future Fellows</a></li>
+          <li><a href="#pi-cta">Collaborate</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Engage</div>
+        <ul class="footer-links">
+          <li><a href="mailto:research@rankineinnovation.org">Research Collaboration</a></li>
+          <li><a href="mailto:speaking@rankineinnovation.org">Speaking &amp; Keynotes</a></li>
+          <li><a href="mailto:partnerships@rankineinnovation.org">Institutional Partnerships</a></li>
+          <li><a href="mailto:fellows@rankineinnovation.org">Fellows &amp; Advisors</a></li>
+          <li><a href="mailto:hello@rankineinnovation.org">hello@rankineinnovation.org</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 <em>Rankine Innovation Lab</em>. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════════════════════════ -->
+<script>
+/* ── NAV ─────────────────────────────────────────────────────────────── */
+const nav = document.getElementById('mainNav');
+const syncNav = () => {
+  nav.classList.toggle('solid',       window.scrollY > 80);
+  nav.classList.toggle('transparent', window.scrollY <= 80);
+};
+window.addEventListener('scroll', syncNav, { passive: true });
+syncNav();
+
+/* ── MOBILE MENU ─────────────────────────────────────────────────────── */
+const hamburger  = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+let menuOpen = false;
+function closeMobile() {
+  menuOpen = false;
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+hamburger.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  hamburger.classList.toggle('open', menuOpen);
+  mobileMenu.classList.toggle('open', menuOpen);
+  hamburger.setAttribute('aria-expanded', String(menuOpen));
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
+});
+
+/* ── SCROLL REVEALS ──────────────────────────────────────────────────── */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      requestAnimationFrame(() => entry.target.classList.add('visible'));
+      revealObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -44px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right')
+  .forEach(el => revealObs.observe(el));
+
+/* ── EXPERTISE BAR ANIMATION ─────────────────────────────────────────── */
+/*
+  The competency bars inside each expertise tile start at width:0 in CSS.
+  We observe each tile and, when it enters the viewport, trigger the
+  transition by briefly replacing the inline width with a data attribute
+  value — this lets the CSS transition animate from 0 to the target width.
+  
+  The approach: store the target width in a data-width attribute set
+  during observation setup, then apply it when the tile becomes visible.
+*/
+const barFills = document.querySelectorAll('.pi-exp-bar-fill');
+
+// On load: capture each fill's intended width from its inline style,
+// store it as a data attribute, and reset the inline style to 0
+barFills.forEach(fill => {
+  const target = fill.style.width || '75%';
+  fill.dataset.targetWidth = target;
+  fill.style.width = '0';
+});
+
+// Observe the bar fill's closest .pi-exp-tile ancestor
+const barObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      // Find all bar fills within this tile and animate them
+      entry.target.querySelectorAll('.pi-exp-bar-fill').forEach((fill, i) => {
+        setTimeout(() => {
+          fill.style.width = fill.dataset.targetWidth;
+        }, i * 120); // stagger each bar within a tile
+      });
+      barObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.4 });
+
+document.querySelectorAll('.pi-exp-tile').forEach(tile => barObs.observe(tile));
+
+/* ── INTRO GHOST OPACITY DRIFT ──────────────────────────────────────── */
+const ghostP   = document.querySelector('.pi-intro-ghost');
+const introSec = document.getElementById('pi-intro');
+if (ghostP && introSec) {
+  const updateGhost = () => {
+    const rect     = introSec.getBoundingClientRect();
+    const progress = Math.max(0, Math.min(1, 1 - rect.bottom / window.innerHeight));
+    ghostP.style.opacity = (0.045 - progress * 0.038).toFixed(4);
+  };
+  window.addEventListener('scroll', updateGhost, { passive: true });
+}
+</script>
+
+</body>
+</html>
