@@ -1045,11 +1045,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* ── IA NAV ENHANCEMENTS ─────────────────────────────────────────── */
 .nav-links .has-dropdown { position: relative; }
-.nav-links .dropdown-toggle {
-  font: inherit;
-  letter-spacing: inherit;
-  text-transform: inherit;
-  color: rgba(244,237,224,0.72); display: inline-flex; align-items: center; gap: .35rem; }
+.nav-links .dropdown-toggle { display: inline-flex; align-items: center; gap: .35rem; }
 .nav-links .dropdown-toggle::before { content: '\25BE'; font-size: .62rem; opacity: .7; order: 2; }
 .nav-links .dropdown-menu {
   list-style: none;
@@ -1139,20 +1135,31 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <nav class="nav transparent" id="mainNav" aria-label="Main navigation">
   <div class="container">
     <div class="nav-inner">
-      <a href="index.html" class="nav-logo" aria-label="Rankine Innovation Lab Home">
+      <a href="index.html" class="nav-logo" aria-label="Rankine Innovation Lab — Home">
         <span class="nav-logo-mark">Rankine</span>
         <span class="nav-logo-name">Innovation Lab</span>
       </a>
-      <ul class="nav-links" role="list">
+            <ul class="nav-links" role="list">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li class="has-dropdown">
-          <a href="#" class="dropdown-toggle active-page">Our Work</a>
+          <a href="#" class="dropdown-toggle active-page">Work</a>
           <ul class="dropdown-menu" role="list">
             <li><a href="research.html">Research</a></li>
-            <li><a href="impact.html" class="active-page">Projects</a></li>
+            <li><a href="impact.html" class="active-page">Projects & Impact</a></li>
             <li><a href="partnership.html">Partnerships</a></li>
           </ul>
+        </li>
+        <li><a href="programmes.html">Programmes</a></li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Insights</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="knowledge-hub.html">Knowledge Hub</a></li>
+          </ul>
+        </li>
+        <li><a href="pioneers.html">Pioneers</a></li>
+        <li><a href="contact.html" class="nav-cta">Contact</a></li>
+      </ul>
       <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -1160,21 +1167,25 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   </div>
 </nav>
 
-
-<!-- Site IA: Our Work groups Research, Projects, and Partnerships. Knowledge Hub is a direct top-level destination. -->
+<!-- Site IA: Work groups Research, Projects & Impact, and Partnerships. Insights groups Knowledge Hub resources. -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
   <a href="index.html" onclick="closeMobile()">Home</a>
   <a href="about.html" onclick="closeMobile()">About</a>
   <details class="mobile-group">
-    <summary>Our Work</summary>
+    <summary>Work</summary>
     <div class="mobile-group-links">
       <a href="research.html" onclick="closeMobile()">Research</a>
-      <a href="impact.html" onclick="closeMobile()">Projects</a>
+      <a href="impact.html" onclick="closeMobile()">Projects & Impact</a>
       <a href="partnership.html" onclick="closeMobile()">Partnerships</a>
     </div>
   </details>
   <a href="programmes.html" onclick="closeMobile()">Programmes</a>
-  <a href="knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
+  <details class="mobile-group">
+    <summary>Insights</summary>
+    <div class="mobile-group-links">
+      <a href="knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
+    </div>
+  </details>
   <a href="pioneers.html" onclick="closeMobile()">Pioneers</a>
   <a href="contact.html" onclick="closeMobile()">Contact</a>
 </div>
@@ -1215,7 +1226,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <nav class="pj-breadcrumb" aria-label="Breadcrumb">
         <a href="index.html">Home</a>
         <span aria-hidden="true">—</span>
-        <strong>Projects</strong>
+        <strong>Projects &amp; Impact</strong>
       </nav>
 
       <div class="eyebrow pj-hero-eyebrow" aria-hidden="true">
@@ -1327,7 +1338,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
           <div class="pj-cycle-step">
             <div class="pj-cycle-node" aria-hidden="true"></div>
             <div class="pj-cycle-num">Stage 03</div>
-            <h3 class="pj-cycle-title">Projects</h3>
+            <h3 class="pj-cycle-title">Impact</h3>
             <p class="pj-cycle-desc">Ensuring outcomes travel beyond the project — through open tools, trained people, and changed institutions.</p>
           </div>
         </div>
@@ -1818,7 +1829,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
           <li><a href="about.html">About the Lab</a></li>
           <li><a href="programmes.html">Programmes</a></li>
           <li><a href="research.html">Research</a></li>
-          <li><a href="impact.html">Projects</a></li>
+          <li><a href="impact.html">Impact</a></li>
         <li><a href="pioneers.html">Pioneers</a></li>
         <li><a href="partnership.html">Partnerships</a></li>
         </ul>
