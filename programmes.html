@@ -1,0 +1,2456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Programmes — Rankine Innovation Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+
+/* ══════════════════════════════════════════════════════════════════════
+   DESIGN TOKENS — exact site-wide system
+══════════════════════════════════════════════════════════════════════ */
+:root {
+  --chocolate:  #180c06;
+  --espresso:   #241208;
+  --brown:      #3a1c0e;
+  --mahogany:   #5c2d18;
+  --copper:     #a05c38;
+  --copper-lt:  #c47a52;
+  --sand:       #c9ab84;
+  --sand-lt:    #ddc9a8;
+  --cream:      #f4ede0;
+  --cream-lt:   #faf6ef;
+  --sage:       #687558;
+  --sage-lt:    #8e9e78;
+  --white:      #fffcf8;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-label:   'Cinzel', serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-circ: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+
+  --section-pad: clamp(5rem, 10vw, 9rem);
+}
+
+/* ── RESET ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--cream-lt);
+  color: var(--espresso);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--copper); border-radius: 3px; }
+
+/* ── LAYOUT UTILITIES ───────────────────────────────────────────────── */
+.container { width: min(1340px, 100%); margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3.5rem); }
+
+/* ── REVEAL SYSTEM ──────────────────────────────────────────────────── */
+/* 
+  Every element that should animate in on scroll carries .reveal
+  plus an optional delay class .d1–.d6. The IntersectionObserver
+  below toggles .visible, which triggers the CSS transition.
+*/
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.d1 { transition-delay: 0.10s; }
+.d2 { transition-delay: 0.22s; }
+.d3 { transition-delay: 0.34s; }
+.d4 { transition-delay: 0.46s; }
+.d5 { transition-delay: 0.58s; }
+.d6 { transition-delay: 0.70s; }
+
+/* ── SHARED TYPE PRIMITIVES ─────────────────────────────────────────── */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 1.5rem;
+}
+.eyebrow-line { display: block; width: 32px; height: 1px; background: currentColor; flex-shrink: 0; }
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.012em;
+}
+.display em { font-style: italic; color: var(--copper); }
+.display--light { color: var(--cream-lt); }
+.display--light em { color: var(--sand); }
+.display--dark  { color: var(--espresso); }
+
+/* ── SHARED BUTTON PRIMITIVES ───────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  font-family: var(--font-body); font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.13em; text-transform: uppercase;
+  padding: 0.9rem 2rem; border-radius: 2px;
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s, background 0.3s, border-color 0.3s, color 0.3s;
+}
+.btn:hover { transform: translateY(-2px); }
+
+.btn--copper {
+  background: var(--copper); color: var(--white);
+  border: 1px solid var(--copper);
+}
+.btn--copper:hover {
+  background: var(--copper-lt); border-color: var(--copper-lt);
+  box-shadow: 0 12px 40px rgba(160,92,56,0.35);
+}
+
+.btn--ghost-dark {
+  background: transparent; color: var(--espresso);
+  border: 1px solid rgba(58,28,14,0.28);
+}
+.btn--ghost-dark:hover { border-color: var(--copper); color: var(--copper); }
+
+.btn--ghost-light {
+  background: transparent; color: var(--cream);
+  border: 1px solid rgba(244,237,224,0.28);
+}
+.btn--ghost-light:hover { border-color: var(--sand); color: var(--sand); }
+
+.btn--outline-copper {
+  background: transparent; color: var(--copper);
+  border: 1px solid rgba(160,92,56,0.4);
+}
+.btn--outline-copper:hover { background: rgba(160,92,56,0.07); border-color: var(--copper); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   NAVIGATION
+══════════════════════════════════════════════════════════════════════ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  transition: background 0.45s var(--ease-circ), box-shadow 0.45s var(--ease-circ);
+}
+.nav.transparent { background: transparent; }
+.nav.solid {
+  background: rgba(24,12,6,0.97);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 1px 0 rgba(201,171,132,0.15);
+}
+.nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: clamp(60px, 7vw, 76px);
+}
+.nav-logo { display: flex; flex-direction: column; line-height: 1; }
+.nav-logo-mark {
+  font-family: var(--font-label); font-size: clamp(0.82rem,1.1vw,0.92rem);
+  letter-spacing: 0.25em; color: var(--copper); text-transform: uppercase;
+}
+.nav-logo-name {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(1.1rem,1.6vw,1.35rem); color: var(--cream); letter-spacing: 0.02em;
+}
+.nav-links {
+  display: flex; align-items: center;
+  gap: clamp(1rem,2.2vw,2rem); list-style: none;
+}
+.nav-links a {
+  font-family: var(--font-body); font-size: 0.8rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(244,237,224,0.72); transition: color 0.3s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+  height: 1px; background: var(--copper);
+  transform: scaleX(0); transform-origin: left; transition: transform 0.35s var(--ease-out);
+}
+.nav-links a:hover { color: var(--cream); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-links a.active-page { color: var(--sand); }
+.nav-links a.active-page::after { transform: scaleX(1); background: var(--sand); }
+.nav-cta {
+  font-size: 0.78rem !important; letter-spacing: 0.12em !important; font-weight: 600 !important;
+  padding: 0.55rem 1.4rem; border: 1px solid var(--copper); border-radius: 2px;
+  color: var(--cream) !important; transition: background 0.3s !important;
+}
+.nav-cta::after { display: none !important; }
+.nav-cta:hover { background: var(--copper) !important; }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+.hamburger span { display: block; width: 26px; height: 2px; background: var(--cream); transition: all 0.3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.mobile-menu {
+  display: none; position: fixed; inset: 0;
+  background: rgba(24,12,6,0.98); backdrop-filter: blur(20px);
+  z-index: 999; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2.5rem; transform: translateY(-100%); transition: transform 0.5s var(--ease-out);
+}
+.mobile-menu.open { display: flex; transform: translateY(0); }
+.mobile-menu a {
+  font-family: var(--font-display); font-size: clamp(1.8rem,6vw,3rem);
+  font-weight: 300; color: var(--cream); transition: color 0.3s;
+}
+.mobile-menu a:hover { color: var(--copper); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   1. HERO
+   Concept: a horizontal split — massive display type left, abstract
+   animated composition right. Feels like a curriculum publication cover.
+══════════════════════════════════════════════════════════════════════ */
+.prog-hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  background: var(--chocolate);
+  overflow: hidden;
+}
+
+/* Background gradient composition — warmer, amber-leaning vs about page */
+.prog-hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 65% 70% at 100% 0%,   rgba(120,64,22,0.5)  0%, transparent 55%),
+    radial-gradient(ellipse 50% 55% at 0%  100%,  rgba(72,90,58,0.18)  0%, transparent 55%),
+    radial-gradient(ellipse 35% 35% at 50% 50%,   rgba(160,92,56,0.06) 0%, transparent 55%),
+    linear-gradient(155deg, #0c0806 0%, #1a1006 40%, #180e04 100%);
+}
+
+/* Very fine dot grid — different texture from about page's ruled lines */
+.prog-hero-dots {
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle, rgba(201,171,132,0.12) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(ellipse 85% 85% at 50% 50%, black 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* The right-side abstract visual composition */
+.prog-hero-visual {
+  position: absolute;
+  right: -4vw; top: 50%;
+  transform: translateY(-50%);
+  width: clamp(320px, 48vw, 680px);
+  aspect-ratio: 1;
+  pointer-events: none;
+}
+
+/* Outer rotating ring */
+.prog-hero-ring {
+  position: absolute; inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(201,171,132,0.07);
+  animation: ringRotate 60s linear infinite;
+}
+.prog-hero-ring:nth-child(2) {
+  inset: 8%;
+  border-color: rgba(160,92,56,0.1);
+  animation-duration: 40s;
+  animation-direction: reverse;
+}
+.prog-hero-ring:nth-child(3) {
+  inset: 18%;
+  border-color: rgba(201,171,132,0.08);
+  animation-duration: 28s;
+}
+@keyframes ringRotate { to { transform: rotate(360deg); } }
+
+/* Floating programme count labels in the visual */
+.prog-hero-float {
+  position: absolute;
+  font-family: var(--font-label);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(201,171,132,0.35);
+  white-space: nowrap;
+}
+.prog-hero-float:nth-child(4) { top: 12%; left: 50%; transform: translateX(-50%); }
+.prog-hero-float:nth-child(5) { bottom: 12%; left: 50%; transform: translateX(-50%); }
+.prog-hero-float:nth-child(6) { left: 4%; top: 50%; transform: translateY(-50%); }
+.prog-hero-float:nth-child(7) { right: 4%; top: 50%; transform: translateY(-50%); }
+
+/* Central programme count */
+.prog-hero-centre {
+  position: absolute; inset: 30%;
+  border-radius: 50%;
+  background: rgba(160,92,56,0.06);
+  border: 1px solid rgba(160,92,56,0.12);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0.2rem;
+}
+.prog-hero-centre-num {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 5vw, 4.5rem);
+  font-weight: 300;
+  color: rgba(201,171,132,0.3);
+  line-height: 1;
+}
+.prog-hero-centre-label {
+  font-family: var(--font-label);
+  font-size: 0.52rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(201,171,132,0.2);
+}
+
+/* Grain overlay */
+.prog-hero-grain {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 256px;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.prog-hero-content {
+  position: relative; z-index: 2; width: 100%;
+  padding-top: clamp(80px,10vw,100px);
+  padding-bottom: clamp(5rem,8vw,8rem);
+}
+
+/* Breadcrumb */
+.prog-hero-breadcrumb {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-family: var(--font-label); font-size: 0.62rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(244,237,224,0.28); margin-bottom: 2.5rem;
+  opacity: 0; transform: translateY(14px);
+  animation: heroUp 0.7s 0.1s var(--ease-out) forwards;
+}
+.prog-hero-breadcrumb a { transition: color 0.3s; }
+.prog-hero-breadcrumb a:hover { color: var(--sand); }
+.prog-hero-breadcrumb span { opacity: 0.35; }
+.prog-hero-breadcrumb strong { color: var(--copper); font-weight: 400; }
+
+.prog-hero-eyebrow {
+  opacity: 0; transform: translateY(18px);
+  animation: heroUp 0.75s 0.2s var(--ease-out) forwards;
+}
+
+.prog-hero-headline {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3rem, 6.8vw, 6.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  color: var(--cream-lt);
+  margin-bottom: 2rem;
+  max-width: 820px;
+  opacity: 0; transform: translateY(38px);
+  animation: heroUp 0.9s 0.3s var(--ease-out) forwards;
+}
+.prog-hero-headline em { font-style: italic; color: var(--sand); }
+
+.prog-hero-sub {
+  font-size: clamp(1rem, 1.55vw, 1.15rem);
+  line-height: 1.78;
+  color: rgba(244,237,224,0.55);
+  font-weight: 300; max-width: 560px;
+  margin-bottom: 3rem;
+  opacity: 0; transform: translateY(26px);
+  animation: heroUp 0.85s 0.46s var(--ease-out) forwards;
+}
+
+.prog-hero-actions {
+  display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;
+  opacity: 0; transform: translateY(20px);
+  animation: heroUp 0.85s 0.6s var(--ease-out) forwards;
+}
+
+/* Bottom strip with three philosophy pillars */
+.prog-hero-pillars {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+  border-top: 1px solid rgba(201,171,132,0.08);
+  background: rgba(18,9,3,0.55); backdrop-filter: blur(12px);
+}
+.prog-hero-pillars-inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+.prog-hero-pillar {
+  padding: 1.5rem clamp(1.5rem,3vw,2.5rem);
+  border-right: 1px solid rgba(201,171,132,0.08);
+  opacity: 0;
+  animation: heroUp 0.7s var(--ease-out) forwards;
+}
+.prog-hero-pillar:nth-child(1) { animation-delay: 0.75s; }
+.prog-hero-pillar:nth-child(2) { animation-delay: 0.88s; }
+.prog-hero-pillar:nth-child(3) { animation-delay: 1.01s; border-right: none; }
+.prog-hero-pillar-icon {
+  font-size: 1rem; margin-bottom: 0.4rem; color: var(--copper);
+}
+.prog-hero-pillar-title {
+  font-family: var(--font-display);
+  font-size: clamp(0.9rem,1.2vw,1.05rem);
+  font-weight: 500; color: var(--cream); margin-bottom: 0.2rem;
+}
+.prog-hero-pillar-sub {
+  font-size: 0.75rem; color: rgba(244,237,224,0.35);
+  font-weight: 300; line-height: 1.55;
+}
+
+@keyframes heroUp { to { opacity: 1; transform: none; } }
+
+/* ══════════════════════════════════════════════════════════════════════
+   2. PROGRAMME PHILOSOPHY
+   A wide editorial banner — alternating white/cream — that explains
+   the four design principles before showing any programmes.
+══════════════════════════════════════════════════════════════════════ */
+.philosophy {
+  padding-block: var(--section-pad);
+  background: var(--white);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Vertical accent rule — matches About page's left-edge motif */
+.philosophy::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 15%; bottom: 15%;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, var(--copper) 35%, var(--copper) 65%, transparent);
+  opacity: 0.5;
+}
+
+.philosophy-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 7vw, 8rem);
+  align-items: end;
+  margin-bottom: clamp(4rem, 8vw, 7rem);
+}
+.philosophy-header-right p {
+  font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+  line-height: 1.85;
+  color: var(--brown);
+  font-weight: 300;
+}
+
+/* Four principles — horizontal strip of bordered blocks */
+.philosophy-principles {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid rgba(58,28,14,0.1);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.principle {
+  padding: clamp(2rem,3.5vw,3rem) clamp(1.5rem,2.5vw,2.2rem);
+  border-right: 1px solid rgba(58,28,14,0.08);
+  position: relative;
+  cursor: default;
+  transition: background 0.4s;
+  overflow: hidden;
+}
+.principle:last-child { border-right: none; }
+.principle:hover { background: rgba(160,92,56,0.035); }
+.principle::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--copper), var(--sand));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-out);
+}
+.principle:hover::after { transform: scaleX(1); }
+.principle-num {
+  font-family: var(--font-display);
+  font-size: 5rem; font-weight: 300;
+  color: rgba(58,28,14,0.05);
+  line-height: 1;
+  position: absolute; top: 0.5rem; right: 1rem;
+  pointer-events: none; user-select: none;
+}
+.principle-icon {
+  font-size: 1.4rem; margin-bottom: 1.5rem;
+  color: var(--copper); display: block;
+}
+.principle-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1.8vw, 1.55rem);
+  font-weight: 500; color: var(--espresso);
+  line-height: 1.2; margin-bottom: 0.9rem;
+}
+.principle-desc {
+  font-size: 0.85rem; line-height: 1.8;
+  color: var(--brown); font-weight: 300;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   3. PROGRAMME CATEGORIES — tab switcher
+   Three audience tabs (Learners / Professionals / Organisations)
+   each revealing a different set of programme cards beneath.
+   Implemented in pure CSS + JS with smooth height animation.
+══════════════════════════════════════════════════════════════════════ */
+.categories {
+  padding-block: var(--section-pad);
+  background: var(--cream-lt);
+}
+
+.categories-header {
+  text-align: center;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+/* Tab bar */
+.tab-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: clamp(3rem, 5vw, 4.5rem);
+  border: 1px solid rgba(58,28,14,0.12);
+  border-radius: 3px;
+  width: fit-content;
+  margin-inline: auto;
+  overflow: hidden;
+}
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.85rem 2rem;
+  font-family: var(--font-label);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(58,28,14,0.45);
+  border-right: 1px solid rgba(58,28,14,0.12);
+  background: var(--white);
+  transition: background 0.35s, color 0.35s;
+  white-space: nowrap;
+}
+.tab-btn:last-child { border-right: none; }
+.tab-btn:hover { color: var(--copper); background: rgba(160,92,56,0.04); }
+.tab-btn.active {
+  background: var(--espresso);
+  color: var(--sand);
+}
+.tab-btn-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.5;
+  flex-shrink: 0;
+}
+.tab-btn.active .tab-btn-dot {
+  background: var(--copper);
+  opacity: 1;
+  box-shadow: 0 0 8px rgba(160,92,56,0.5);
+}
+
+/* Tab panels */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* Tab intro strip */
+.tab-intro {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 2rem;
+  align-items: center;
+  padding: 1.75rem 2.5rem;
+  background: var(--espresso);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  margin-bottom: 1.5px;
+}
+.tab-intro-label {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--copper);
+}
+.tab-intro-text {
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+  font-weight: 300;
+  font-style: italic;
+  color: rgba(244,237,224,0.55);
+  text-align: center;
+}
+.tab-intro-count {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: rgba(244,237,224,0.3);
+}
+
+/* ── PROGRAMME CARD ─────────────────────────────────────────────────── */
+/*
+  These are the central UI element of the page. Each card has four
+  states: resting, hover (expand), and a "detail open" state triggered
+  by clicking "View Details". The card is built as a flex column so
+  the footer CTA always sits at the bottom.
+*/
+.prog-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+  background: rgba(58,28,14,0.08);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  overflow: hidden;
+}
+
+.prog-card {
+  background: var(--white);
+  padding: clamp(2rem, 3.5vw, 2.8rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  cursor: default;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.4s;
+}
+.prog-card:hover { background: var(--cream-lt); }
+
+/* Top accent bar slides in on hover */
+.prog-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--copper), var(--sand));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-out);
+}
+.prog-card:hover::before { transform: scaleX(1); }
+
+/* Domain colour dot */
+.prog-card-domain {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
+}
+.prog-card-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.prog-card-domain-label {
+  font-family: var(--font-label);
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--copper);
+}
+
+/* Domain dot colours by category */
+.dot--ai      { background: #a05c38; box-shadow: 0 0 8px rgba(160,92,56,0.4); }
+.dot--sustain { background: #687558; box-shadow: 0 0 8px rgba(104,117,88,0.4); }
+.dot--agri    { background: #8e9e78; box-shadow: 0 0 8px rgba(142,158,120,0.4); }
+.dot--innov   { background: #c9ab84; box-shadow: 0 0 8px rgba(201,171,132,0.4); }
+
+.prog-card-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 1.8vw, 1.5rem);
+  font-weight: 500;
+  color: var(--espresso);
+  line-height: 1.22;
+  margin-bottom: 1rem;
+}
+
+.prog-card-summary {
+  font-size: 0.87rem;
+  line-height: 1.82;
+  color: var(--brown);
+  font-weight: 300;
+  margin-bottom: 1.5rem;
+  flex: 1;
+}
+
+/* Audience chip */
+.prog-card-audience {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-label);
+  font-size: 0.56rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.85rem;
+  background: rgba(160,92,56,0.06);
+  border: 1px solid rgba(160,92,56,0.2);
+  border-radius: 2px;
+  color: var(--copper);
+  margin-bottom: 1.5rem;
+  align-self: flex-start;
+}
+
+/* Outcomes list — hidden by default, revealed on hover */
+.prog-card-outcomes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.55s var(--ease-out), opacity 0.45s;
+  opacity: 0;
+}
+.prog-card:hover .prog-card-outcomes {
+  max-height: 200px;
+  opacity: 1;
+}
+.prog-card-outcomes li {
+  font-size: 0.8rem;
+  color: var(--mahogany);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  line-height: 1.55;
+}
+.prog-card-outcomes li::before {
+  content: '→';
+  color: var(--copper);
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  margin-top: 0.1em;
+}
+
+/* Card footer */
+.prog-card-footer {
+  border-top: 1px solid rgba(58,28,14,0.08);
+  padding-top: 1.25rem;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.prog-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-body);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--copper);
+  transition: gap 0.35s, color 0.3s;
+}
+.prog-card-cta:hover { gap: 0.75rem; color: var(--mahogany); }
+.prog-card-cta span { font-size: 0.9rem; }
+.prog-card-format {
+  font-family: var(--font-label);
+  font-size: 0.56rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(58,28,14,0.3);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   4. FEATURED PROGRAMME — full-width expanded treatment
+   The "flagship" card for the most important programme: AI for STEM.
+   Uses an editorial magazine-spread layout.
+══════════════════════════════════════════════════════════════════════ */
+.featured {
+  padding-block: var(--section-pad);
+  background: var(--brown);
+  position: relative;
+  overflow: hidden;
+}
+.featured::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,171,132,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,171,132,0.04) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+.featured-inner { position: relative; z-index: 1; }
+
+.featured-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: clamp(3rem, 5vw, 5rem);
+  gap: 2rem;
+}
+.featured-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--copper);
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(160,92,56,0.3);
+  border-radius: 2px;
+  background: rgba(160,92,56,0.08);
+}
+
+.featured-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid rgba(201,171,132,0.1);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+/* Left panel — rich visual with abstract geometry */
+.featured-card-visual {
+  position: relative;
+  min-height: 520px;
+  background: linear-gradient(145deg, #1c1006 0%, #2e1a0c 45%, #0e1508 100%);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: clamp(2rem, 4vw, 3.5rem);
+}
+.featured-visual-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 70% 30%, rgba(160,92,56,0.18), transparent 60%),
+    radial-gradient(ellipse 50% 50% at 20% 80%, rgba(104,117,88,0.12), transparent 55%);
+}
+.featured-visual-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,171,132,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,171,132,0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+.featured-visual-rings {
+  position: absolute;
+  inset: -20%;
+  display: flex; align-items: center; justify-content: center;
+}
+.featured-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(201,171,132,0.06);
+  animation: ringRotate 50s linear infinite;
+}
+.featured-ring:nth-child(1) { width: 80%; height: 80%; }
+.featured-ring:nth-child(2) { width: 55%; height: 55%; animation-direction: reverse; animation-duration: 35s; border-color: rgba(160,92,56,0.09); }
+.featured-ring:nth-child(3) { width: 30%; height: 30%; animation-duration: 22s; }
+
+.featured-visual-content { position: relative; z-index: 2; }
+.featured-visual-num {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 10vw, 10rem);
+  font-weight: 300;
+  color: rgba(201,171,132,0.08);
+  line-height: 1;
+  position: absolute;
+  bottom: 1.5rem; right: 2rem;
+  pointer-events: none; user-select: none;
+}
+.featured-visual-label {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 0.8rem;
+}
+.featured-visual-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.18;
+}
+.featured-visual-title em { font-style: italic; color: var(--sand); }
+
+/* Right panel — programme details */
+.featured-card-body {
+  background: var(--white);
+  padding: clamp(2.5rem, 5vw, 4rem);
+  display: flex;
+  flex-direction: column;
+}
+.featured-body-intro {
+  font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+  line-height: 1.85;
+  color: var(--brown);
+  font-weight: 300;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(58,28,14,0.08);
+  margin-bottom: 2rem;
+}
+.featured-body-section {
+  margin-bottom: 2rem;
+}
+.featured-body-section-label {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 1rem;
+}
+.featured-outcomes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.featured-outcomes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--espresso);
+  font-weight: 400;
+}
+.featured-outcomes li::before {
+  content: '→';
+  color: var(--copper);
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  margin-top: 0.1em;
+}
+.featured-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+}
+.featured-meta-item {
+  padding: 1rem 1.2rem;
+  border: 1px solid rgba(58,28,14,0.1);
+  border-radius: var(--radius-sm);
+  background: var(--cream-lt);
+}
+.featured-meta-label {
+  font-family: var(--font-label);
+  font-size: 0.56rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 0.3rem;
+}
+.featured-meta-value {
+  font-size: 0.85rem;
+  color: var(--espresso);
+  font-weight: 500;
+}
+.featured-card-footer {
+  margin-top: auto;
+  padding-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   5. LEARNING OUTCOMES
+   A dark section using a different compositional device: left large
+   display number / statement, right a tightly structured outcomes grid.
+══════════════════════════════════════════════════════════════════════ */
+.outcomes {
+  padding-block: var(--section-pad);
+  background: var(--espresso);
+  position: relative;
+  overflow: hidden;
+}
+.outcomes::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,171,132,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,171,132,0.03) 1px, transparent 1px);
+  background-size: 80px 80px;
+  pointer-events: none;
+}
+
+.outcomes-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: clamp(4rem, 9vw, 9rem);
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.outcomes-left { }
+.outcomes-big-num {
+  font-family: var(--font-display);
+  font-size: clamp(8rem, 15vw, 14rem);
+  font-weight: 300;
+  line-height: 0.85;
+  color: rgba(201,171,132,0.05);
+  letter-spacing: -0.04em;
+  margin-bottom: 1rem;
+  pointer-events: none; user-select: none;
+}
+
+.outcomes-statement {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--cream);
+  margin-bottom: 1.5rem;
+}
+.outcomes-statement em { font-style: italic; color: var(--sand); }
+
+.outcomes-body {
+  font-size: clamp(0.9rem, 1.35vw, 1rem);
+  line-height: 1.82;
+  color: rgba(244,237,224,0.45);
+  font-weight: 300;
+  margin-bottom: 2.5rem;
+}
+
+.outcomes-right { }
+.outcomes-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(201,171,132,0.08);
+  border: 1px solid rgba(201,171,132,0.08);
+}
+.outcome-item {
+  background: rgba(255,252,248,0.025);
+  padding: 1.75rem 1.5rem;
+  position: relative;
+  cursor: default;
+  transition: background 0.4s;
+  overflow: hidden;
+}
+.outcome-item:hover { background: rgba(255,252,248,0.06); }
+.outcome-item::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px; height: 0;
+  background: var(--copper);
+  transition: height 0.45s var(--ease-out);
+}
+.outcome-item:hover::before { height: 100%; }
+.outcome-item-icon {
+  font-size: 1.2rem;
+  margin-bottom: 0.9rem;
+  display: block;
+  color: var(--copper);
+  transition: transform 0.35s;
+}
+.outcome-item:hover .outcome-item-icon { transform: scale(1.15) rotate(5deg); }
+.outcome-item-title {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-weight: 500;
+  color: var(--cream);
+  line-height: 1.25;
+  margin-bottom: 0.55rem;
+}
+.outcome-item-desc {
+  font-size: 0.8rem;
+  line-height: 1.72;
+  color: rgba(244,237,224,0.38);
+  font-weight: 300;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   6. DELIVERY FORMATS
+   A horizontal scroll of format cards on smaller screens; grid on
+   desktop. Uses alternating dark/light card faces for visual rhythm.
+══════════════════════════════════════════════════════════════════════ */
+.delivery {
+  padding-block: var(--section-pad);
+  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+.delivery::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 100%, rgba(160,92,56,0.05), transparent);
+  pointer-events: none;
+}
+
+.delivery-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  margin-bottom: clamp(3.5rem, 7vw, 6rem);
+}
+
+.delivery-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.format-card {
+  border-radius: var(--radius-md);
+  padding: clamp(1.5rem, 2.5vw, 2.2rem) clamp(1.25rem, 2vw, 1.75rem);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: transform 0.45s var(--ease-out), box-shadow 0.45s;
+}
+.format-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 60px rgba(24,12,6,0.18);
+}
+
+/* Alternating dark / light pattern */
+.format-card:nth-child(odd)  { background: var(--espresso); }
+.format-card:nth-child(even) { background: var(--white); border: 1px solid rgba(58,28,14,0.1); }
+
+.format-card-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(160,92,56,0.1), transparent 60%);
+  pointer-events: none;
+}
+
+.format-card-icon {
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+.format-card:nth-child(odd)  .format-card-icon { color: var(--copper); }
+.format-card:nth-child(even) .format-card-icon { color: var(--mahogany); }
+
+.format-card-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  font-weight: 500;
+  line-height: 1.25;
+  margin-bottom: 0.8rem;
+}
+.format-card:nth-child(odd)  .format-card-title { color: var(--cream); }
+.format-card:nth-child(even) .format-card-title { color: var(--espresso); }
+
+.format-card-desc {
+  font-size: 0.8rem;
+  line-height: 1.75;
+  font-weight: 300;
+}
+.format-card:nth-child(odd)  .format-card-desc { color: rgba(244,237,224,0.42); }
+.format-card:nth-child(even) .format-card-desc { color: var(--brown); }
+
+.format-card-badge {
+  display: inline-block;
+  font-family: var(--font-label);
+  font-size: 0.54rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.7rem;
+  border-radius: 2px;
+  margin-top: 1.25rem;
+}
+.format-card:nth-child(odd)  .format-card-badge {
+  background: rgba(201,171,132,0.1);
+  color: var(--sand);
+  border: 1px solid rgba(201,171,132,0.18);
+}
+.format-card:nth-child(even) .format-card-badge {
+  background: rgba(160,92,56,0.07);
+  color: var(--copper);
+  border: 1px solid rgba(160,92,56,0.2);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   7. WHY LEARN WITH RANKINE
+   A six-item grid on a dark chocolate ground — mirrors the homepage
+   "Why Rankine" section but with a learning-specific framing.
+══════════════════════════════════════════════════════════════════════ */
+.why {
+  padding-block: var(--section-pad);
+  background: var(--chocolate);
+  position: relative;
+  overflow: hidden;
+}
+.why::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 65% 55% at 85% 50%, rgba(160,92,56,0.07), transparent),
+    radial-gradient(ellipse 50% 60% at 15% 40%, rgba(104,117,88,0.04), transparent);
+  pointer-events: none;
+}
+
+.why-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: end;
+  margin-bottom: clamp(3.5rem, 7vw, 6rem);
+  position: relative; z-index: 1;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+  border: 1px solid rgba(201,171,132,0.07);
+  position: relative; z-index: 1;
+}
+
+.why-item {
+  padding: clamp(2rem, 3.5vw, 3rem) clamp(1.5rem, 2.5vw, 2.5rem);
+  border-right: 1px solid rgba(201,171,132,0.07);
+  position: relative;
+  cursor: default;
+  transition: background 0.4s;
+  overflow: hidden;
+}
+.why-item:nth-child(3n) { border-right: none; }
+.why-item:hover { background: rgba(255,252,248,0.04); }
+
+.why-item-num {
+  font-family: var(--font-display);
+  font-size: 4.5rem; font-weight: 300;
+  color: rgba(201,171,132,0.06);
+  line-height: 1;
+  position: absolute;
+  top: 0.5rem; right: 1rem;
+  pointer-events: none; user-select: none;
+}
+.why-item-icon {
+  font-size: 1.5rem;
+  margin-bottom: 1.4rem;
+  display: block;
+  color: var(--copper);
+}
+.why-item-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 1.55vw, 1.3rem);
+  font-weight: 400;
+  color: var(--cream);
+  line-height: 1.28;
+  margin-bottom: 0.75rem;
+}
+.why-item-desc {
+  font-size: 0.83rem;
+  line-height: 1.8;
+  color: rgba(244,237,224,0.38);
+  font-weight: 300;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   8. CLOSING CTA
+   Three-card format — each card invites a specific type of engagement.
+   Full-bleed gradient backdrop with a subtle animated glow.
+══════════════════════════════════════════════════════════════════════ */
+.prog-cta {
+  padding-block: clamp(6rem, 12vw, 10rem);
+  background: var(--cream-lt);
+  position: relative;
+  overflow: hidden;
+}
+.prog-cta::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(160,92,56,0.06), transparent);
+  pointer-events: none;
+}
+
+.prog-cta-header {
+  text-align: center;
+  margin-bottom: clamp(3.5rem, 7vw, 6rem);
+}
+
+.prog-cta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  position: relative; z-index: 1;
+}
+
+.cta-card {
+  background: var(--white);
+  border: 1px solid rgba(58,28,14,0.1);
+  border-radius: var(--radius-lg);
+  padding: clamp(2rem, 3.5vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.45s var(--ease-out), box-shadow 0.45s, border-color 0.45s;
+  cursor: default;
+}
+.cta-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 28px 70px rgba(24,12,6,0.12);
+  border-color: rgba(160,92,56,0.28);
+}
+.cta-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--copper), var(--sand));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-out);
+}
+.cta-card:hover::before { transform: scaleX(1); }
+
+.cta-card-icon {
+  width: 52px; height: 52px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(160,92,56,0.2);
+  background: rgba(160,92,56,0.07);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  color: var(--copper);
+  margin-bottom: 1.75rem;
+  transition: transform 0.35s, border-color 0.35s;
+}
+.cta-card:hover .cta-card-icon { transform: scale(1.08) rotate(4deg); border-color: var(--copper); }
+
+.cta-card-label {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 0.8rem;
+}
+.cta-card-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  font-weight: 400;
+  color: var(--espresso);
+  line-height: 1.2;
+  margin-bottom: 1.1rem;
+}
+.cta-card-desc {
+  font-size: 0.87rem;
+  line-height: 1.82;
+  color: var(--brown);
+  font-weight: 300;
+  flex: 1;
+  margin-bottom: 2rem;
+}
+.cta-card-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--copper);
+  border-top: 1px solid rgba(58,28,14,0.08);
+  padding-top: 1.25rem;
+  transition: gap 0.35s, color 0.3s;
+}
+.cta-card:hover .cta-card-action { gap: 0.8rem; color: var(--mahogany); }
+.cta-card-action span { font-size: 0.95rem; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════════════════════════════ */
+.footer { background: var(--chocolate); padding: 4rem 0 2.5rem; }
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 3rem; margin-bottom: 4rem;
+}
+.footer-logo-name { font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; color: var(--cream); margin-bottom: 0.25rem; }
+.footer-logo-sub  { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; color: var(--copper); text-transform: uppercase; margin-bottom: 1.25rem; }
+.footer-tagline   { font-size: 0.85rem; line-height: 1.7; color: rgba(244,237,224,0.35); font-weight: 300; max-width: 260px; }
+.footer-col-title { font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1.25rem; }
+.footer-links     { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+.footer-links a   { font-size: 0.83rem; color: rgba(244,237,224,0.35); transition: color 0.3s; }
+.footer-links a:hover { color: var(--sand); }
+.footer-bottom {
+  border-top: 1px solid rgba(201,171,132,0.1);
+  padding-top: 2rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+}
+.footer-copy   { font-size: 0.78rem; color: rgba(244,237,224,0.2); }
+.footer-copy em { color: var(--copper); font-style: normal; }
+.footer-legal  { display: flex; gap: 1.5rem; }
+.footer-legal a { font-size: 0.75rem; color: rgba(244,237,224,0.2); transition: color 0.3s; }
+.footer-legal a:hover { color: var(--sand); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+══════════════════════════════════════════════════════════════════════ */
+
+/* ── IA NAV ENHANCEMENTS ─────────────────────────────────────────── */
+.nav-links .has-dropdown { position: relative; }
+.nav-links .dropdown-toggle { display: inline-flex; align-items: center; gap: .35rem; }
+.nav-links .dropdown-toggle::before { content: '\25BE'; font-size: .62rem; opacity: .7; order: 2; }
+.nav-links .dropdown-menu {
+  list-style: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  min-width: 220px;
+  background: rgba(24, 12, 6, 0.98);
+  border: 1px solid rgba(201,171,132,0.2);
+  box-shadow: 0 20px 44px rgba(0,0,0,0.28);
+  padding: .5rem 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity .25s ease, transform .25s ease, visibility .25s;
+  z-index: 1001;
+}
+.nav-links .has-dropdown:hover .dropdown-menu,
+.nav-links .has-dropdown:focus-within .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.nav-links .dropdown-menu a {
+  display: block;
+  padding: .68rem 1rem;
+  font-size: .74rem;
+  letter-spacing: .08em;
+  color: rgba(244,237,224,0.82);
+}
+.nav-links .dropdown-menu a:hover { color: var(--sand); background: rgba(201,171,132,0.08); }
+.mobile-group { width: min(86vw, 420px); border: 1px solid rgba(201,171,132,0.18); }
+.mobile-group summary {
+  list-style: none;
+  cursor: pointer;
+  padding: .9rem 1rem;
+  font-family: var(--font-label);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-size: .7rem;
+  color: rgba(244,237,224,0.78);
+}
+.mobile-group summary::-webkit-details-marker { display: none; }
+.mobile-group summary::after { content: '+'; float: right; font-size: 1rem; color: var(--sand); }
+.mobile-group[open] summary::after { content: '\2212'; }
+.mobile-group-links { display: flex; flex-direction: column; gap: .2rem; padding: 0 1rem 1rem; }
+.mobile-group-links a { font-size: 1.05rem; line-height: 1.35; color: var(--cream); }
+
+
+@media (max-width: 1200px) {
+  .prog-grid { grid-template-columns: repeat(2, 1fr); }
+  .delivery-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 1024px) {
+  .philosophy-principles { grid-template-columns: repeat(2, 1fr); }
+  .featured-card { grid-template-columns: 1fr; }
+  .featured-card-visual { min-height: 340px; }
+  .outcomes-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .delivery-header { grid-template-columns: 1fr; }
+  .why-header { grid-template-columns: 1fr; gap: 2rem; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .prog-hero-visual { display: none; }
+  .prog-hero-pillars-inner { grid-template-columns: 1fr; }
+  .prog-hero-pillar { border-right: none; border-bottom: 1px solid rgba(201,171,132,0.08); }
+  .prog-hero-pillar:last-child { border-bottom: none; }
+  .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .why-item:nth-child(3n) { border-right: 1px solid rgba(201,171,132,0.07); }
+  .why-item:nth-child(2n) { border-right: none; }
+  .prog-cta-grid { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; }
+}
+
+@media (max-width: 680px) {
+  :root { --section-pad: 4rem; }
+  .prog-grid { grid-template-columns: 1fr; }
+  .tab-bar { flex-direction: column; width: 100%; }
+  .tab-btn { border-right: none; border-bottom: 1px solid rgba(58,28,14,0.12); width: 100%; justify-content: center; }
+  .tab-btn:last-child { border-bottom: none; }
+  .tab-intro { grid-template-columns: 1fr; text-align: center; }
+  .tab-intro-count { display: none; }
+  .philosophy-principles { grid-template-columns: 1fr; }
+  .outcomes-items { grid-template-columns: 1fr; }
+  .delivery-grid { grid-template-columns: repeat(2, 1fr); }
+  .why-grid { grid-template-columns: 1fr; }
+  .why-item { border-right: none !important; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .philosophy-header { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════════════════════════════════ -->
+<nav class="nav transparent" id="mainNav" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Rankine Innovation Lab — Home">
+        <span class="nav-logo-mark">Rankine</span>
+        <span class="nav-logo-name">Innovation Lab</span>
+      </a>
+            <ul class="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Work</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="research.html">Research</a></li>
+            <li><a href="impact.html">Projects & Impact</a></li>
+            <li><a href="partnership.html">Partnerships</a></li>
+          </ul>
+        </li>
+        <li><a href="programmes.html" class="active-page">Programmes</a></li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Insights</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="knowledge-hub.html">Knowledge Hub</a></li>
+          </ul>
+        </li>
+        <li><a href="pioneers.html">Pioneers</a></li>
+        <li><a href="contact.html" class="nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile menu -->
+<!-- Site IA: Work groups Research, Projects & Impact, and Partnerships. Insights groups Knowledge Hub resources. -->
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+  <a href="index.html" onclick="closeMobile()">Home</a>
+  <a href="about.html" onclick="closeMobile()">About</a>
+  <details class="mobile-group">
+    <summary>Work</summary>
+    <div class="mobile-group-links">
+      <a href="research.html" onclick="closeMobile()">Research</a>
+      <a href="impact.html" onclick="closeMobile()">Projects & Impact</a>
+      <a href="partnership.html" onclick="closeMobile()">Partnerships</a>
+    </div>
+  </details>
+  <a href="programmes.html" onclick="closeMobile()">Programmes</a>
+  <details class="mobile-group">
+    <summary>Insights</summary>
+    <div class="mobile-group-links">
+      <a href="knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
+    </div>
+  </details>
+  <a href="pioneers.html" onclick="closeMobile()">Pioneers</a>
+  <a href="contact.html" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     1. HERO
+════════════════════════════════════════════════════════════════════ -->
+<section class="prog-hero" aria-labelledby="heroHeading">
+  <div class="prog-hero-bg"></div>
+  <div class="prog-hero-dots" aria-hidden="true"></div>
+  <div class="prog-hero-grain" aria-hidden="true"></div>
+
+  <!-- Abstract right-side composition -->
+  <div class="prog-hero-visual" aria-hidden="true">
+    <div class="prog-hero-ring"></div>
+    <div class="prog-hero-ring"></div>
+    <div class="prog-hero-ring"></div>
+    <div class="prog-hero-float">AI · STEM</div>
+    <div class="prog-hero-float">Agriculture</div>
+    <div class="prog-hero-float">Circularity</div>
+    <div class="prog-hero-float">Innovation</div>
+    <div class="prog-hero-centre">
+      <div class="prog-hero-centre-num">6</div>
+      <div class="prog-hero-centre-label">Programmes</div>
+    </div>
+  </div>
+
+  <div class="prog-hero-content">
+    <div class="container">
+      <!-- Breadcrumb -->
+      <nav class="prog-hero-breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span aria-hidden="true">—</span>
+        <strong>Programmes</strong>
+      </nav>
+
+      <!-- Eyebrow -->
+      <div class="eyebrow prog-hero-eyebrow" style="color:var(--copper)" aria-hidden="true">
+        <span class="eyebrow-line"></span>
+        Applied Learning &amp; Innovation
+      </div>
+
+      <h1 class="prog-hero-headline" id="heroHeading">
+        Programmes designed<br>
+        for <em>real-world</em><br>
+        capability.
+      </h1>
+
+      <p class="prog-hero-sub">
+        Practical, interdisciplinary, and future-facing — every Rankine programme is built around deployment, not just comprehension. You leave with skills, frameworks, and implementation readiness.
+      </p>
+
+      <div class="prog-hero-actions">
+        <a href="#categories" class="btn btn--copper">Explore All Programmes</a>
+        <a href="#prog-cta"   class="btn btn--ghost-light">Discuss a Custom Training</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom philosophy pillars -->
+  <div class="prog-hero-pillars" aria-label="Programme design principles">
+    <div class="container">
+      <div class="prog-hero-pillars-inner">
+        <div class="prog-hero-pillar">
+          <div class="prog-hero-pillar-icon" aria-hidden="true">⚙</div>
+          <div class="prog-hero-pillar-title">Practical Over Theoretical</div>
+          <div class="prog-hero-pillar-sub">Every session is built around doing, not just understanding</div>
+        </div>
+        <div class="prog-hero-pillar">
+          <div class="prog-hero-pillar-icon" aria-hidden="true">⬡</div>
+          <div class="prog-hero-pillar-title">Interdisciplinary by Design</div>
+          <div class="prog-hero-pillar-sub">AI, ecology, agriculture, and systems thinking — together</div>
+        </div>
+        <div class="prog-hero-pillar">
+          <div class="prog-hero-pillar-icon" aria-hidden="true">◎</div>
+          <div class="prog-hero-pillar-title">Outcome-Based Always</div>
+          <div class="prog-hero-pillar-sub">Defined artefacts, tools, and capability at every exit point</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     2. PROGRAMME PHILOSOPHY
+════════════════════════════════════════════════════════════════════ -->
+<section class="philosophy" id="philosophy" aria-labelledby="philHeading">
+  <div class="container">
+    <div class="philosophy-header">
+      <div>
+        <div class="eyebrow reveal">
+          <span class="eyebrow-line"></span>
+          Our Design Philosophy
+        </div>
+        <h2 class="display display--dark reveal d1" id="philHeading" style="font-size:clamp(2.2rem,4vw,3.8rem)">
+          How We Build<br><em>Every Programme</em>
+        </h2>
+      </div>
+      <div>
+        <p class="reveal d2" style="font-size:clamp(0.95rem,1.4vw,1.08rem); line-height:1.85; color:var(--brown); font-weight:300; margin-top:0">
+          Most training programmes are built around content delivery. Ours are built around capability transfer. That single distinction changes everything — the design, the pacing, the assessment, and what participants leave holding in their hands.
+        </p>
+      </div>
+    </div>
+
+    <div class="philosophy-principles">
+      <div class="principle reveal">
+        <span class="principle-num" aria-hidden="true">01</span>
+        <span class="principle-icon" aria-hidden="true">⟐</span>
+        <h3 class="principle-title">Practical Over Theoretical</h3>
+        <p class="principle-desc">Concepts are taught through application, not abstraction. Participants work on real problems, real data, and real design challenges from day one — theory follows practice, never the other way around.</p>
+      </div>
+      <div class="principle reveal d1">
+        <span class="principle-num" aria-hidden="true">02</span>
+        <span class="principle-icon" aria-hidden="true">⬡</span>
+        <h3 class="principle-title">Interdisciplinary Over Siloed</h3>
+        <p class="principle-desc">Our programmes deliberately cross domain boundaries. An AI programme integrates ecological thinking. A sustainability training incorporates data science. This is not variety — it is how real innovation actually works.</p>
+      </div>
+      <div class="principle reveal d2">
+        <span class="principle-num" aria-hidden="true">03</span>
+        <span class="principle-icon" aria-hidden="true">◈</span>
+        <h3 class="principle-title">Outcome-Based Over Passive</h3>
+        <p class="principle-desc">Every programme defines its outputs in advance: the frameworks, models, plans, or prototypes that participants will produce. Learning is structured around producing those outputs, not simply covering material.</p>
+      </div>
+      <div class="principle reveal d3">
+        <span class="principle-num" aria-hidden="true">04</span>
+        <span class="principle-icon" aria-hidden="true">◎</span>
+        <h3 class="principle-title">Designed for Implementation</h3>
+        <p class="principle-desc">We build with deployment in mind from the first session. Participants do not just understand — they produce artefacts, plans, and decisions that can be applied in their contexts the week after the programme ends.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     3 + 4. PROGRAMME CATEGORIES WITH CARDS
+════════════════════════════════════════════════════════════════════ -->
+<section class="categories" id="categories" aria-labelledby="catHeading">
+  <div class="container">
+    <div class="categories-header">
+      <div class="eyebrow reveal" style="justify-content:center">
+        <span class="eyebrow-line"></span>
+        Programme Catalogue
+        <span class="eyebrow-line"></span>
+      </div>
+      <h2 class="display display--dark reveal d1" id="catHeading" style="text-align:center; font-size:clamp(2.2rem,4vw,3.8rem); margin-inline:auto">
+        Structured for Every<br><em>Type of Learner</em>
+      </h2>
+      <p class="reveal d2" style="text-align:center; font-size:clamp(0.95rem,1.4vw,1.05rem); line-height:1.82; color:var(--brown); font-weight:300; max-width:560px; margin-inline:auto; margin-top:1rem">
+        Select your engagement context below. Each category surfaces the programmes most relevant to your situation — whether you are an individual learner, a practitioner, or an institution.
+      </p>
+    </div>
+
+    <!-- Tab navigation -->
+    <div class="tab-bar reveal d2" role="tablist" aria-label="Audience categories">
+      <button class="tab-btn active" role="tab" aria-selected="true"  aria-controls="panel-learners"       id="tab-learners"       onclick="switchTab('learners')">
+        <span class="tab-btn-dot" aria-hidden="true"></span>
+        Learners &amp; Students
+      </button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-professionals"  id="tab-professionals"  onclick="switchTab('professionals')">
+        <span class="tab-btn-dot" aria-hidden="true"></span>
+        Professionals &amp; Researchers
+      </button>
+      <button class="tab-btn"        role="tab" aria-selected="false" aria-controls="panel-organisations"  id="tab-organisations"  onclick="switchTab('organisations')">
+        <span class="tab-btn-dot" aria-hidden="true"></span>
+        Organisations &amp; Institutions
+      </button>
+    </div>
+
+    <!-- ── PANEL: LEARNERS ──────────────────────────────────────────── -->
+    <div class="tab-panel active" id="panel-learners" role="tabpanel" aria-labelledby="tab-learners">
+      <div class="tab-intro">
+        <div class="tab-intro-label">For Learners</div>
+        <div class="tab-intro-text">Structured pathways for students, early-career scientists, and curious minds at the intersection of technology and sustainability.</div>
+        <div class="tab-intro-count">2 Programmes</div>
+      </div>
+      <div class="prog-grid">
+
+        <!-- Card 1 -->
+        <article class="prog-card reveal">
+          <div class="prog-card-domain">
+            <span class="prog-card-dot dot--ai" aria-hidden="true"></span>
+            <span class="prog-card-domain-label">AI · STEM</span>
+          </div>
+          <h3 class="prog-card-title">AI for STEM and Research Practice</h3>
+          <p class="prog-card-summary">A structured pathway that equips science students and early-career researchers with applied machine learning, data analysis, and AI-assisted research methodologies — building the capability to use intelligent tools as genuine instruments of discovery.</p>
+          <span class="prog-card-audience">Ideal for: Science students &amp; early-career researchers</span>
+          <ul class="prog-card-outcomes" aria-label="Programme outcomes">
+            <li>Design and execute a data pipeline for research contexts</li>
+            <li>Interpret and critically apply ML model outputs</li>
+            <li>Produce AI-augmented scientific communication artefacts</li>
+            <li>Build a personal applied AI toolkit for ongoing research use</li>
+          </ul>
+          <div class="prog-card-footer">
+            <a href="#prog-cta" class="prog-card-cta">Apply Interest <span aria-hidden="true">→</span></a>
+            <span class="prog-card-format">Cohort · Bootcamp</span>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="prog-card reveal d1">
+          <div class="prog-card-domain">
+            <span class="prog-card-dot dot--agri" aria-hidden="true"></span>
+            <span class="prog-card-domain-label">Smart Agriculture</span>
+          </div>
+          <h3 class="prog-card-title">Smart Agriculture &amp; Food Security Labs</h3>
+          <p class="prog-card-summary">An intensive applied training combining soil sensing, remote data, climate modelling, and agronomy practice. Designed for students in agricultural sciences, environmental studies, and geography who want to apply digital intelligence to food systems.</p>
+          <span class="prog-card-audience">Ideal for: Agriculture &amp; environmental science students</span>
+          <ul class="prog-card-outcomes" aria-label="Programme outcomes">
+            <li>Configure and interpret IoT sensors for field data collection</li>
+            <li>Develop a climate-adaptive crop planning scenario</li>
+            <li>Conduct a basic food systems resilience assessment</li>
+            <li>Present findings using data visualisation and reporting tools</li>
+          </ul>
+          <div class="prog-card-footer">
+            <a href="#prog-cta" class="prog-card-cta">Apply Interest <span aria-hidden="true">→</span></a>
+            <span class="prog-card-format">Workshop · Lab</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- ── PANEL: PROFESSIONALS ─────────────────────────────────────── -->
+    <div class="tab-panel" id="panel-professionals" role="tabpanel" aria-labelledby="tab-professionals">
+      <div class="tab-intro">
+        <div class="tab-intro-label">For Professionals</div>
+        <div class="tab-intro-text">Advanced capability programmes for researchers, practitioners, and specialists who need to move from awareness to action in applied innovation and sustainability.</div>
+        <div class="tab-intro-count">3 Programmes</div>
+      </div>
+      <div class="prog-grid">
+
+        <!-- Card 3 -->
+        <article class="prog-card reveal">
+          <div class="prog-card-domain">
+            <span class="prog-card-dot dot--sustain" aria-hidden="true"></span>
+            <span class="prog-card-domain-label">Sustainability</span>
+          </div>
+          <h3 class="prog-card-title">Circular Systems &amp; Sustainability Training</h3>
+          <p class="prog-card-summary">A rigorous but accessible programme on circular economy principles, ecological accounting, and designing for sustainability across industrial and social systems — built for professionals who need to act on sustainability, not just report on it.</p>
+          <span class="prog-card-audience">Ideal for: Sustainability leads, policy practitioners, planners</span>
+          <ul class="prog-card-outcomes" aria-label="Programme outcomes">
+            <li>Apply circular design frameworks to an organisational context</li>
+            <li>Conduct a basic life-cycle assessment for a product or process</li>
+            <li>Develop a sustainability strategy and measurement plan</li>
+            <li>Present a regenerative systems redesign proposal</li>
+          </ul>
+          <div class="prog-card-footer">
+            <a href="#prog-cta" class="prog-card-cta">Request Details <span aria-hidden="true">→</span></a>
+            <span class="prog-card-format">Cohort · Workshop</span>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="prog-card reveal d1">
+          <div class="prog-card-domain">
+            <span class="prog-card-dot dot--innov" aria-hidden="true"></span>
+            <span class="prog-card-domain-label">Applied AI</span>
+          </div>
+          <h3 class="prog-card-title">Responsible Innovation &amp; Applied AI</h3>
+          <p class="prog-card-summary">A practitioner-level programme exploring how to design, evaluate, and deploy AI systems responsibly — integrating ethical frameworks, sustainability constraints, and real-world deployment considerations into technical AI practice.</p>
+          <span class="prog-card-audience">Ideal for: AI practitioners, product teams, innovation managers</span>
+          <ul class="prog-card-outcomes" aria-label="Programme outcomes">
+            <li>Apply responsible AI evaluation frameworks to live systems</li>
+            <li>Design a sustainability-integrated AI deployment roadmap</li>
+            <li>Build an algorithmic impact assessment for a real use case</li>
+            <li>Develop an organisational AI ethics policy brief</li>
+          </ul>
+          <div class="prog-card-footer">
+            <a href="#prog-cta" class="prog-card-cta">Request Details <span aria-hidden="true">→</span></a>
+            <span class="prog-card-format">Cohort · Sprint</span>
+          </div>
+        </article>
+
+        <!-- Card 5 -->
+        <article class="prog-card reveal d2">
+          <div class="prog-card-domain">
+            <span class="prog-card-dot dot--agri" aria-hidden="true"></span>
+            <span class="prog-card-domain-label">Smart Agriculture</span>
+          </div>
+          <h3 class="prog-card-title">Agricultural Intelligence for Practitioners</h3>
+          <p class="prog-card-summary">An advanced professional track applying precision data, remote sensing, and AI-assisted agronomy to real field and institutional contexts. Designed for agronomists, extension officers, and agricultural development practitioners ready to deploy intelligent systems.</p>
+          <span class="prog-card-audience">Ideal for: Agronomists, extension workers, development practitioners</span>
+          <ul class="prog-card-outcomes" aria-label="Programme outcomes">
+            <li>Deploy a precision sensing system for field monitoring</li>
+            <li>Interpret satellite and remote sensing data for crop analysis</li>
+            <li>Design a data-driven advisory framework for farmers</li>
+            <li>Produce a climate-resilient farm management plan</li>
+          </ul>
+          <div class="prog-card-footer">
+            <a href="#prog-cta" class="prog-card-cta">Request Details <span aria-hidden="true">→</span></a>
+            <span class="prog-card-format">Workshop · Fieldwork</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+    <!-- ── PANEL: ORGANISATIONS ─────────────────────────────────────── -->
+    <div class="tab-panel" id="panel-organisations" role="tabpanel" aria-labelledby="tab-organisations">
+      <div class="tab-intro">
+        <div class="tab-intro-label">For Organisations</div>
+        <div class="tab-intro-text">Bespoke institutional programmes, embedded partnerships, and innovation sprints for organisations ready to build lasting internal capability.</div>
+        <div class="tab-intro-count">3 Programmes</div>
+      </div>
+      <div class="prog-grid">
+
+        <!-- Card 6 -->
+        <article class="prog-card reveal">
+          <div class="prog-card-domain">
+            <span class="prog-card-dot dot--innov" aria-hidden="true"></span>
+            <span class="prog-card-domain-label">Innovation</span>
+          </div>
+          <h3 class="prog-card-title">Innovation Sprints for Institutions</h3>
+          <p class="prog-card-summary">A time-bounded, immersive problem-solving experience for organisations applying innovation methodology to their most complex sustainability or technology challenges. Intensive, evidence-driven, and oriented toward a deliverable institutional plan.</p>
+          <span class="prog-card-audience">Ideal for: Leadership teams, innovation units, strategy departments</span>
+          <ul class="prog-card-outcomes" aria-label="Programme outcomes">
+            <li>A scoped and framed institutional challenge statement</li>
+            <li>A rapid prototyped solution model with evidence testing</li>
+            <li>A validated institutional action roadmap ready for implementation</li>
+            <li>A facilitation guide for rerunning the sprint internally</li>
+          </ul>
+          <div class="prog-card-footer">
+            <a href="#prog-cta" class="prog-card-cta">Enquire Now <span aria-hidden="true">→</span></a>
+            <span class="prog-card-format">Intensive Sprint</span>
+          </div>
+        </article>
+
+        <!-- Card 7 -->
+        <article class="prog-card reveal d1">
+          <div class="prog-card-domain">
+            <span class="prog-card-dot dot--ai" aria-hidden="true"></span>
+            <span class="prog-card-domain-label">Capacity Building</span>
+          </div>
+          <h3 class="prog-card-title">Organisational Capacity-Building Partnerships</h3>
+          <p class="prog-card-summary">Long-term embedded partnerships with institutions, universities, and organisations to build internal capability in AI, sustainability, and research-led decision-making. Not a course — a structural transformation in how your organisation thinks and acts.</p>
+          <span class="prog-card-audience">Ideal for: Universities, government bodies, development organisations</span>
+          <ul class="prog-card-outcomes" aria-label="Programme outcomes">
+            <li>A bespoke co-designed curriculum aligned to internal challenges</li>
+            <li>A cohort of trained internal facilitators and champions</li>
+            <li>Research infrastructure advisory and governance framework</li>
+            <li>Ongoing partnership with Rankine's knowledge ecosystem</li>
+          </ul>
+          <div class="prog-card-footer">
+            <a href="#prog-cta" class="prog-card-cta">Start a Conversation <span aria-hidden="true">→</span></a>
+            <span class="prog-card-format">Partnership · Embedded</span>
+          </div>
+        </article>
+
+        <!-- Card 8 -->
+        <article class="prog-card reveal d2">
+          <div class="prog-card-domain">
+            <span class="prog-card-dot dot--sustain" aria-hidden="true"></span>
+            <span class="prog-card-domain-label">Custom Training</span>
+          </div>
+          <h3 class="prog-card-title">Custom Institutional Training Design</h3>
+          <p class="prog-card-summary">A fully bespoke programme development service for organisations with specific, complex training needs that do not map to any existing offering. Rankine designs, validates, and pilots a custom programme around your exact context, challenges, and capability goals.</p>
+          <span class="prog-card-audience">Ideal for: Organisations with specialist or sector-specific requirements</span>
+          <ul class="prog-card-outcomes" aria-label="Programme outcomes">
+            <li>A needs analysis and learning architecture design</li>
+            <li>A bespoke pilot programme with outcome measurement</li>
+            <li>A validated, scalable training product owned by the organisation</li>
+            <li>An implementation guide and facilitator training package</li>
+          </ul>
+          <div class="prog-card-footer">
+            <a href="#prog-cta" class="prog-card-cta">Request a Proposal <span aria-hidden="true">→</span></a>
+            <span class="prog-card-format">Bespoke · Custom</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     4. FEATURED PROGRAMME — full editorial treatment
+════════════════════════════════════════════════════════════════════ -->
+<section class="featured" id="featured" aria-labelledby="featHeading">
+  <div class="container">
+    <div class="featured-inner">
+
+      <div class="featured-header reveal">
+        <div>
+          <div class="eyebrow" style="color:var(--sand)">
+            <span class="eyebrow-line" style="background:var(--sand)"></span>
+            Flagship Programme
+          </div>
+          <h2 class="display display--light reveal d1" id="featHeading" style="font-size:clamp(2.2rem,4vw,3.8rem)">
+            Closer Look:<br><em>AI for STEM</em>
+          </h2>
+        </div>
+        <span class="featured-tag" aria-hidden="true">◎ In-Depth Curriculum View</span>
+      </div>
+
+      <div class="featured-card reveal d1">
+
+        <!-- Left visual panel -->
+        <div class="featured-card-visual">
+          <div class="featured-visual-bg"></div>
+          <div class="featured-visual-grid"></div>
+          <div class="featured-visual-rings">
+            <div class="featured-ring"></div>
+            <div class="featured-ring"></div>
+            <div class="featured-ring"></div>
+          </div>
+          <div class="featured-visual-num" aria-hidden="true">01</div>
+          <div class="featured-visual-content">
+            <div class="featured-visual-label">Flagship Programme</div>
+            <h3 class="featured-visual-title">
+              AI for STEM<br>and <em>Research Practice</em>
+            </h3>
+          </div>
+        </div>
+
+        <!-- Right body panel -->
+        <div class="featured-card-body">
+          <p class="featured-body-intro">
+            This programme exists because the gap between AI capability and scientific practice is growing faster than most researchers can bridge alone. We build that bridge — giving scientists, educators, and research practitioners the applied fluency to use intelligent systems as genuine instruments of discovery, not just as tools described in papers.
+          </p>
+
+          <div class="featured-body-section">
+            <div class="featured-body-section-label">What Participants Build</div>
+            <ul class="featured-outcomes" aria-label="What participants produce">
+              <li>A complete data pipeline designed for their specific research context</li>
+              <li>A validated ML model with documented interpretation methodology</li>
+              <li>An AI-augmented research communication piece ready for peer review</li>
+              <li>A personal applied AI toolkit for ongoing use in their field</li>
+              <li>A written framework for evaluating AI tools in their discipline</li>
+            </ul>
+          </div>
+
+          <div class="featured-body-section">
+            <div class="featured-body-section-label">Programme Structure</div>
+            <div class="featured-meta-grid">
+              <div class="featured-meta-item">
+                <div class="featured-meta-label">Format</div>
+                <div class="featured-meta-value">Cohort Bootcamp</div>
+              </div>
+              <div class="featured-meta-item">
+                <div class="featured-meta-label">Duration</div>
+                <div class="featured-meta-value">4–6 Weeks</div>
+              </div>
+              <div class="featured-meta-item">
+                <div class="featured-meta-label">Delivery</div>
+                <div class="featured-meta-value">Live + Asynchronous</div>
+              </div>
+              <div class="featured-meta-item">
+                <div class="featured-meta-label">Ideal For</div>
+                <div class="featured-meta-value">Researchers, Educators</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="featured-card-footer">
+            <a href="#prog-cta" class="btn btn--copper">Apply Interest</a>
+            <a href="#prog-cta" class="btn btn--ghost-dark">Request Programme Deck</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     5. LEARNING OUTCOMES
+════════════════════════════════════════════════════════════════════ -->
+<section class="outcomes" id="outcomes" aria-labelledby="outHeading">
+  <div class="container">
+    <div class="outcomes-grid">
+
+      <div class="outcomes-left">
+        <div class="outcomes-big-num reveal" aria-hidden="true">6</div>
+        <div class="eyebrow reveal d1" style="color:var(--sand)">
+          <span class="eyebrow-line" style="background:var(--sand)"></span>
+          What You Leave With
+        </div>
+        <h2 class="outcomes-statement reveal d2" id="outHeading">
+          You leave with<br>
+          things you can<br>
+          <em>actually use.</em>
+        </h2>
+        <p class="outcomes-body reveal d3">
+          Rankine programmes are assessed by what participants produce, not just what they can recall. Every programme has a defined set of exit artefacts — tangible outputs that demonstrate real capability and apply immediately.
+        </p>
+        <a href="#prog-cta" class="btn btn--ghost-light reveal d4">Discuss Your Outcomes</a>
+      </div>
+
+      <div class="outcomes-right">
+        <div class="outcomes-items">
+          <div class="outcome-item reveal">
+            <span class="outcome-item-icon" aria-hidden="true">⚙</span>
+            <h3 class="outcome-item-title">Practical Skills</h3>
+            <p class="outcome-item-desc">Hands-on technical and analytical abilities exercised in real contexts — not described in slides, but built in sessions.</p>
+          </div>
+          <div class="outcome-item reveal d1">
+            <span class="outcome-item-icon" aria-hidden="true">📐</span>
+            <h3 class="outcome-item-title">Frameworks</h3>
+            <p class="outcome-item-desc">Reusable decision-making and design tools you can apply to new problems long after the programme ends.</p>
+          </div>
+          <div class="outcome-item reveal d1">
+            <span class="outcome-item-icon" aria-hidden="true">◈</span>
+            <h3 class="outcome-item-title">Artefacts &amp; Prototypes</h3>
+            <p class="outcome-item-desc">Physical or digital deliverables — models, plans, assessments, communication pieces — produced during the programme.</p>
+          </div>
+          <div class="outcome-item reveal d2">
+            <span class="outcome-item-icon" aria-hidden="true">⬡</span>
+            <h3 class="outcome-item-title">Decision-Making Tools</h3>
+            <p class="outcome-item-desc">Structured instruments for navigating complex trade-offs: evaluation matrices, impact frameworks, governance checklists.</p>
+          </div>
+          <div class="outcome-item reveal d2">
+            <span class="outcome-item-icon" aria-hidden="true">⟐</span>
+            <h3 class="outcome-item-title">Implementation Readiness</h3>
+            <p class="outcome-item-desc">The ability — and the plan — to act immediately: a roadmap, an action agenda, or a deployment strategy ready for week one back at work.</p>
+          </div>
+          <div class="outcome-item reveal d3">
+            <span class="outcome-item-icon" aria-hidden="true">◎</span>
+            <h3 class="outcome-item-title">Research Fluency</h3>
+            <p class="outcome-item-desc">The capacity to read, evaluate, and build on current research in AI, sustainability, and agricultural intelligence — so learning does not stop when the programme does.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     6. DELIVERY FORMATS
+════════════════════════════════════════════════════════════════════ -->
+<section class="delivery" id="delivery" aria-labelledby="delivHeading">
+  <div class="container">
+    <div class="delivery-header">
+      <div>
+        <div class="eyebrow reveal">
+          <span class="eyebrow-line"></span>
+          How We Deliver
+        </div>
+        <h2 class="display display--dark reveal d1" id="delivHeading" style="font-size:clamp(2.2rem,4vw,3.8rem)">
+          Formats Built for<br><em>Different Contexts</em>
+        </h2>
+      </div>
+      <div>
+        <p class="reveal d2" style="font-size:clamp(0.95rem,1.4vw,1.05rem); line-height:1.85; color:var(--brown); font-weight:300; margin-top:0">
+          Every format is designed to deliver the same quality of outcomes — the difference is pacing, intensity, and deployment context. Choose the format that fits your timeline and learning goals, or combine formats for a bespoke engagement.
+        </p>
+      </div>
+    </div>
+
+    <div class="delivery-grid">
+
+      <div class="format-card reveal">
+        <div class="format-card-bg" aria-hidden="true"></div>
+        <span class="format-card-icon" aria-hidden="true">⚡</span>
+        <h3 class="format-card-title">Workshops</h3>
+        <p class="format-card-desc">Single-day or multi-day focused sessions built around a specific challenge, skill, or framework. High intensity, deep focus, immediate outputs.</p>
+        <span class="format-card-badge">1–3 Days</span>
+      </div>
+
+      <div class="format-card reveal d1">
+        <div class="format-card-bg" aria-hidden="true"></div>
+        <span class="format-card-icon" aria-hidden="true">⟐</span>
+        <h3 class="format-card-title">Bootcamps</h3>
+        <p class="format-card-desc">Intensive immersive experiences combining daily live sessions, applied projects, and structured review. Designed for rapid capability building in a compressed timeframe.</p>
+        <span class="format-card-badge">5–10 Days</span>
+      </div>
+
+      <div class="format-card reveal d2">
+        <div class="format-card-bg" aria-hidden="true"></div>
+        <span class="format-card-icon" aria-hidden="true">◎</span>
+        <h3 class="format-card-title">Cohort Programmes</h3>
+        <p class="format-card-desc">Structured multi-week programmes with a defined cohort moving through phased learning together. Live sessions, asynchronous work, peer review, and a capstone output.</p>
+        <span class="format-card-badge">4–8 Weeks</span>
+      </div>
+
+      <div class="format-card reveal d3">
+        <div class="format-card-bg" aria-hidden="true"></div>
+        <span class="format-card-icon" aria-hidden="true">⬡</span>
+        <h3 class="format-card-title">Institutional Training</h3>
+        <p class="format-card-desc">Organisation-wide or team-level training engagements designed to build shared language, frameworks, and capability across a group. Can include train-the-trainer elements.</p>
+        <span class="format-card-badge">Custom Duration</span>
+      </div>
+
+      <div class="format-card reveal d4">
+        <div class="format-card-bg" aria-hidden="true"></div>
+        <span class="format-card-icon" aria-hidden="true">◈</span>
+        <h3 class="format-card-title">Innovation Sprints</h3>
+        <p class="format-card-desc">A facilitated problem-solving process producing a validated roadmap or prototype within a defined time window. High commitment, high output, high relevance to immediate institutional challenges.</p>
+        <span class="format-card-badge">3–5 Days</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     7. WHY LEARN WITH RANKINE
+════════════════════════════════════════════════════════════════════ -->
+<section class="why" id="why" aria-labelledby="whyHeading">
+  <div class="container">
+    <div class="why-header">
+      <div>
+        <div class="eyebrow reveal" style="color:var(--sand)">
+          <span class="eyebrow-line" style="background:var(--sand)"></span>
+          Why This Lab
+        </div>
+        <h2 class="display display--light reveal d1" id="whyHeading" style="font-size:clamp(2.2rem,4vw,3.8rem)">
+          Why Learn<br>with <em>Rankine?</em>
+        </h2>
+      </div>
+      <div>
+        <p class="reveal d2" style="font-size:clamp(0.95rem,1.4vw,1.05rem); line-height:1.85; color:rgba(244,237,224,0.48); font-weight:300; margin-top:0">
+          There are many places to access information about AI, sustainability, or precision agriculture. There is only one place where all three are integrated, practically taught, research-grounded, and built for real deployment from the first session.
+        </p>
+      </div>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-item reveal">
+        <span class="why-item-num" aria-hidden="true">01</span>
+        <span class="why-item-icon" aria-hidden="true">⟐</span>
+        <h3 class="why-item-title">Practical Outputs, Not Just Awareness</h3>
+        <p class="why-item-desc">You leave every Rankine programme with tangible things: frameworks, prototypes, plans, and tools — not just a certificate and a slide deck summary.</p>
+      </div>
+      <div class="why-item reveal d1">
+        <span class="why-item-num" aria-hidden="true">02</span>
+        <span class="why-item-icon" aria-hidden="true">⬡</span>
+        <h3 class="why-item-title">Interdisciplinary Exposure</h3>
+        <p class="why-item-desc">You will encounter thinking from ecology, data science, social systems, and design in every programme — because breakthrough thinking happens at disciplinary borders.</p>
+      </div>
+      <div class="why-item reveal d2">
+        <span class="why-item-num" aria-hidden="true">03</span>
+        <span class="why-item-icon" aria-hidden="true">◈</span>
+        <h3 class="why-item-title">Research-Informed Teaching</h3>
+        <p class="why-item-desc">Everything taught at Rankine is grounded in current research and field validation. We do not teach trends — we teach what the evidence confirms and what practitioners report works.</p>
+      </div>
+      <div class="why-item reveal d1">
+        <span class="why-item-num" aria-hidden="true">04</span>
+        <span class="why-item-icon" aria-hidden="true">◎</span>
+        <h3 class="why-item-title">Future-Facing Relevance</h3>
+        <p class="why-item-desc">Our programmes are designed for where the field is heading — not where it has been. Curricula are actively updated to reflect frontier developments in AI, ecological science, and innovation practice.</p>
+      </div>
+      <div class="why-item reveal d2">
+        <span class="why-item-num" aria-hidden="true">05</span>
+        <span class="why-item-icon" aria-hidden="true">∿</span>
+        <h3 class="why-item-title">Sustainability-Focused Capability</h3>
+        <p class="why-item-desc">Ecological responsibility is not a module in our programmes — it is the organising principle beneath all of them. Every skill built here is oriented toward systems that are regenerative, not extractive.</p>
+      </div>
+      <div class="why-item reveal d3">
+        <span class="why-item-num" aria-hidden="true">06</span>
+        <span class="why-item-icon" aria-hidden="true">⟁</span>
+        <h3 class="why-item-title">African Excellence, Global Standard</h3>
+        <p class="why-item-desc">Built from a tradition of intellectual rigour rooted in the African context, with standards of quality and ambition that speak fluently to the global innovation conversation.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     8. CLOSING CTA
+════════════════════════════════════════════════════════════════════ -->
+<section class="prog-cta" id="prog-cta" aria-labelledby="ctaHeading">
+  <div class="container">
+
+    <div class="prog-cta-header">
+      <div class="eyebrow reveal" style="justify-content:center">
+        <span class="eyebrow-line"></span>
+        Start Your Engagement
+        <span class="eyebrow-line"></span>
+      </div>
+      <h2 class="display display--dark reveal d1" id="ctaHeading" style="text-align:center; font-size:clamp(2.4rem,5vw,4.5rem); margin-inline:auto">
+        Ready to Build<br><em>Real Capability?</em>
+      </h2>
+      <p class="reveal d2" style="text-align:center; font-size:clamp(0.95rem,1.4vw,1.08rem); line-height:1.82; color:var(--brown); font-weight:300; max-width:540px; margin:1.25rem auto 0">
+        Whether you are an individual ready to apply, an organisation seeking a partner, or a team with a specific challenge — the right starting point is a conversation.
+      </p>
+    </div>
+
+    <div class="prog-cta-grid">
+
+      <div class="cta-card reveal">
+        <div class="cta-card-icon" aria-hidden="true">📋</div>
+        <div class="cta-card-label">For Individuals</div>
+        <h3 class="cta-card-title">Request a Programme Deck</h3>
+        <p class="cta-card-desc">Get the full curriculum detail, format, outcomes, and pricing for any Rankine programme — sent directly to you within 48 hours of your request.</p>
+        <a href="mailto:programmes@rankineinnovation.org" class="cta-card-action">
+          Request Now <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="cta-card reveal d1">
+        <div class="cta-card-icon" aria-hidden="true">⬡</div>
+        <div class="cta-card-label">For Organisations</div>
+        <h3 class="cta-card-title">Discuss a Custom Training</h3>
+        <p class="cta-card-desc">If your organisation's needs don't map cleanly to a standard offering, let's design something bespoke. Tell us your challenge and we'll propose a response built around it.</p>
+        <a href="mailto:partnerships@rankineinnovation.org" class="cta-card-action">
+          Start a Conversation <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="cta-card reveal d2">
+        <div class="cta-card-icon" aria-hidden="true">◈</div>
+        <div class="cta-card-label">For Future Cohorts</div>
+        <h3 class="cta-card-title">Join a Future Cohort</h3>
+        <p class="cta-card-desc">Register your interest for upcoming cohort programmes. We'll notify you when applications open for your area of focus — AI, sustainability, agriculture, or cross-disciplinary innovation.</p>
+        <a href="mailto:cohorts@rankineinnovation.org" class="cta-card-action">
+          Register Interest <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════════════ -->
+
+<!-- IA role: Programmes focuses on delivery, learning pathways, and capacity building. -->
+<section class="prog-bridge section" id="programme-pathways" aria-labelledby="programmePathwaysHeading">
+  <div class="container">
+    <div class="prog-cta-inner reveal">
+      <h2 id="programmePathwaysHeading" class="display-heading display-heading--dark">Programme pathways and supporting knowledge</h2>
+      <p class="body-prose">Pair programme participation with curated insights and partnership pathways to sustain implementation outcomes.</p>
+      <div style="display:flex; gap:.8rem; flex-wrap:wrap; margin-top:1rem;">
+        <a href="knowledge-hub.html" class="btn btn--copper">Knowledge Hub</a>
+        <a href="partnership.html" class="btn btn--ghost-light">Partnership Pathways</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-name">Rankine Innovation Lab</div>
+        <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
+        <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigation</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About the Lab</a></li>
+          <li><a href="about.html#method">The Rankine Method</a></li>
+          <li><a href="index.html#focus">Focus Areas</a></li>
+          <li><a href="impact.html">Impact</a></li>
+        <li><a href="pioneers.html">Pioneers</a></li>
+        <li><a href="partnership.html">Partnerships</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Programmes</div>
+        <ul class="footer-links">
+          <li><a href="#panel-learners">For Learners</a></li>
+          <li><a href="#panel-professionals">For Professionals</a></li>
+          <li><a href="#panel-organisations">For Organisations</a></li>
+          <li><a href="#featured">AI for STEM</a></li>
+          <li><a href="#delivery">Delivery Formats</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Engage</div>
+        <ul class="footer-links">
+          <li><a href="mailto:programmes@rankineinnovation.org">Request a Programme Deck</a></li>
+          <li><a href="mailto:partnerships@rankineinnovation.org">Partnerships</a></li>
+          <li><a href="mailto:cohorts@rankineinnovation.org">Join a Cohort</a></li>
+          <li><a href="mailto:speaking@rankineinnovation.org">Speaking</a></li>
+          <li><a href="mailto:hello@rankineinnovation.org">hello@rankineinnovation.org</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 <em>Rankine Innovation Lab</em>. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════════════════════════ -->
+<script>
+/* ── NAV SCROLL ─────────────────────────────────────────────────────── */
+const nav = document.getElementById('mainNav');
+const syncNav = () => {
+  nav.classList.toggle('solid',       window.scrollY > 80);
+  nav.classList.toggle('transparent', window.scrollY <= 80);
+};
+window.addEventListener('scroll', syncNav, { passive: true });
+syncNav();
+
+/* ── MOBILE MENU ────────────────────────────────────────────────────── */
+const hamburger  = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+let menuOpen = false;
+function closeMobile() {
+  menuOpen = false;
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+hamburger.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  hamburger.classList.toggle('open', menuOpen);
+  mobileMenu.classList.toggle('open', menuOpen);
+  hamburger.setAttribute('aria-expanded', String(menuOpen));
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
+});
+
+/* ── TAB SWITCHER ───────────────────────────────────────────────────── */
+/*
+  Three audience tabs control which set of programme cards is visible.
+  On switch: deactivate all buttons/panels, activate the target pair,
+  then trigger fresh IntersectionObserver observations so the newly
+  shown cards animate in properly.
+*/
+function switchTab(target) {
+  // Deactivate all tabs and panels
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('active');
+    btn.setAttribute('aria-selected', 'false');
+  });
+  document.querySelectorAll('.tab-panel').forEach(panel => {
+    panel.classList.remove('active');
+  });
+
+  // Activate the selected tab and panel
+  const btn   = document.getElementById(`tab-${target}`);
+  const panel = document.getElementById(`panel-${target}`);
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected', 'true');
+  panel.classList.add('active');
+
+  // Re-observe newly visible reveal elements
+  // (elements that were hidden when first observed won't have fired)
+  panel.querySelectorAll('.reveal').forEach(el => {
+    el.classList.remove('visible');
+    revealObs.observe(el);
+  });
+
+  // Smooth scroll to categories section on mobile
+  if (window.innerWidth < 900) {
+    document.getElementById('categories').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
+/* ── INTERSECTION OBSERVER — scroll reveals ─────────────────────────── */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      requestAnimationFrame(() => entry.target.classList.add('visible'));
+      revealObs.unobserve(entry.target);
+    }
+  });
+}, {
+  threshold: 0.10,
+  rootMargin: '0px 0px -50px 0px'
+});
+
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ── KEYBOARD NAVIGATION — tabs ─────────────────────────────────────── */
+/*
+  Arrow left/right on focused tab button moves focus and activates
+  the adjacent tab — standard ARIA tab widget pattern.
+*/
+const tabOrder = ['learners', 'professionals', 'organisations'];
+document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+  btn.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') {
+      const next = tabOrder[(i + 1) % tabOrder.length];
+      document.getElementById(`tab-${next}`).focus();
+      switchTab(next);
+    }
+    if (e.key === 'ArrowLeft') {
+      const prev = tabOrder[(i + tabOrder.length - 1) % tabOrder.length];
+      document.getElementById(`tab-${prev}`).focus();
+      switchTab(prev);
+    }
+  });
+});
+</script>
+
+</body>
+</html>
