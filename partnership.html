@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Partnerships — Rankine Innovation Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --chocolate: #180c06;
+  --espresso: #241208;
+  --brown: #3a1c0e;
+  --mahogany: #5c2d18;
+  --copper: #a05c38;
+  --copper-lt: #c47a52;
+  --sand: #c9ab84;
+  --sand-lt: #ddc9a8;
+  --cream: #f4ede0;
+  --cream-lt: #faf6ef;
+  --sage: #687558;
+  --sage-lt: #8e9e78;
+  --white: #fffcf8;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-label: 'Cinzel', serif;
+  --font-body: 'DM Sans', sans-serif;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-circ: cubic-bezier(0.4, 0, 0.2, 1);
+  --section-pad: clamp(5rem, 9vw, 8.5rem);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--cream-lt);
+  color: var(--espresso);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+
+.container {
+  width: min(1340px, 100%);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 4vw, 3.5rem);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.d1 { transition-delay: 0.08s; }
+.d2 { transition-delay: 0.16s; }
+.d3 { transition-delay: 0.24s; }
+.d4 { transition-delay: 0.32s; }
+.d5 { transition-delay: 0.40s; }
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9rem;
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: background 0.45s var(--ease-circ), box-shadow 0.45s var(--ease-circ);
+}
+.nav.transparent { background: transparent; }
+.nav.solid {
+  background: rgba(24, 12, 6, 0.97);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 1px 0 rgba(201,171,132,0.15);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: clamp(60px, 7vw, 76px);
+}
+.nav-logo { display: flex; flex-direction: column; line-height: 1; }
+.nav-logo-mark {
+  font-family: var(--font-label);
+  font-size: clamp(0.82rem, 1.1vw, 0.92rem);
+  letter-spacing: 0.25em;
+  color: var(--copper);
+  text-transform: uppercase;
+}
+.nav-logo-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  color: var(--cream);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.2vw, 2rem);
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(244,237,224,0.72);
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -3px;
+  height: 1px;
+  background: var(--sand);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-out);
+}
+.nav-links a:hover::after,
+.nav-links a.active-page::after { transform: scaleX(1); }
+.nav-links a.active-page { color: var(--sand); }
+.nav-cta {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.55rem 1.4rem;
+  border: 1px solid var(--copper);
+  color: var(--cream) !important;
+}
+.nav-cta::after { display: none !important; }
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 8px;
+  border: 0;
+  background: transparent;
+}
+.hamburger span { width: 26px; height: 2px; background: var(--cream); }
+.mobile-menu {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(24,12,6,0.98);
+  backdrop-filter: blur(20px);
+  z-index: 999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  transform: translateY(-100%);
+  transition: transform 0.45s var(--ease-out);
+}
+.mobile-menu.open { display: flex; transform: translateY(0); }
+.mobile-menu a {
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 6vw, 2.8rem);
+  color: var(--cream);
+}
+
+.hero {
+  padding: clamp(9rem, 15vw, 11.5rem) 0 clamp(6rem, 10vw, 8rem);
+  color: var(--cream);
+  background:
+    radial-gradient(ellipse 95% 70% at 80% 20%, rgba(160,92,56,0.35), transparent 62%),
+    radial-gradient(ellipse 80% 65% at 15% 78%, rgba(104,117,88,0.22), transparent 58%),
+    linear-gradient(135deg, #180c06 0%, #32170b 45%, #130803 100%);
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
+  gap: clamp(2rem, 4vw, 4rem);
+  align-items: end;
+}
+.hero h1 {
+  margin-top: 1.1rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 300;
+  letter-spacing: -0.015em;
+  line-height: 1.03;
+}
+.hero h1 em { color: var(--sand); font-style: italic; }
+.hero p {
+  margin-top: 1.4rem;
+  max-width: 60ch;
+  color: rgba(244,237,224,0.8);
+  line-height: 1.9;
+}
+.hero-panel {
+  border: 1px solid rgba(201,171,132,0.28);
+  background: rgba(201,171,132,0.08);
+  padding: clamp(1.25rem, 2vw, 1.8rem);
+}
+.hero-panel h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  color: var(--sand-lt);
+  margin-bottom: 0.55rem;
+}
+.hero-panel p { font-size: 0.95rem; color: rgba(244,237,224,0.74); line-height: 1.75; }
+
+.section { padding: var(--section-pad) 0; }
+.section--alt { background: linear-gradient(180deg, #f7efdf 0%, #f4e7d4 100%); }
+.section-head h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.7rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.08;
+}
+.section-head p {
+  margin-top: 1rem;
+  max-width: 66ch;
+  color: var(--brown);
+  line-height: 1.86;
+}
+
+.cards-5 { margin-top: 2.3rem; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; }
+.card {
+  background: linear-gradient(180deg, #fffdf8, #f8f0e3);
+  border: 1px solid rgba(58,28,14,0.14);
+  padding: 1.2rem;
+}
+.card h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--mahogany);
+  margin-bottom: 0.5rem;
+}
+.card p { font-size: 0.94rem; line-height: 1.76; color: var(--brown); }
+
+.cards-2 { margin-top: 2.3rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.cards-2 .card { background: #fffcf6; }
+.cards-2 .card h3 { font-size: 1.45rem; color: var(--espresso); }
+
+.process {
+  background:
+    radial-gradient(ellipse 90% 80% at 88% 10%, rgba(160,92,56,0.22), transparent 62%),
+    linear-gradient(145deg, #150a04 0%, #241208 55%, #120803 100%);
+  color: var(--cream);
+}
+.process .section-head p { color: rgba(244,237,224,0.72); }
+.process .section-head h2 { color: var(--cream); }
+.steps { margin-top: 2.2rem; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; }
+.step {
+  padding: 1.2rem;
+  border: 1px solid rgba(201,171,132,0.24);
+  background: rgba(201,171,132,0.06);
+}
+.step small {
+  font-family: var(--font-label);
+  font-size: 0.65rem;
+  letter-spacing: 0.22em;
+  color: rgba(201,171,132,0.75);
+}
+.step h3 {
+  margin-top: 0.45rem;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: var(--sand);
+  text-transform: capitalize;
+}
+.step p { margin-top: 0.35rem; color: rgba(244,237,224,0.76); font-size: 0.93rem; line-height: 1.72; }
+
+.partners { margin-top: 2.3rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.partner {
+  background: rgba(255,255,255,0.62);
+  border: 1px solid rgba(58,28,14,0.16);
+  padding: 1.25rem;
+}
+.partner h3 {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 500;
+  color: var(--mahogany);
+}
+.partner p { margin-top: 0.35rem; font-size: 0.95rem; line-height: 1.76; color: var(--brown); }
+
+.cta {
+  padding: clamp(4.3rem, 8vw, 6.2rem) 0;
+  text-align: center;
+  color: var(--cream);
+  background: linear-gradient(140deg, #160b05 0%, #30190c 50%, #1b0d06 100%);
+}
+.cta h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4.3vw, 3.7rem);
+  font-weight: 300;
+}
+.cta p {
+  margin: 1rem auto 2rem;
+  max-width: 64ch;
+  color: rgba(244,237,224,0.76);
+  line-height: 1.88;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 2.1rem;
+  border: 1px solid var(--copper);
+  background: var(--copper);
+  color: var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: background 0.35s, transform 0.35s;
+}
+.btn:hover { background: var(--copper-lt); border-color: var(--copper-lt); transform: translateY(-2px); }
+
+.footer {
+  padding: 1.5rem 0;
+  text-align: center;
+  background: #110803;
+  color: rgba(244,237,224,0.58);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 1080px) {
+  .cards-5, .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .hero-grid, .cards-2, .partners { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .cards-5, .steps { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<header class="nav transparent" id="nav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Rankine Innovation Lab Home">
+      <span class="nav-logo-mark">Rankine</span>
+      <span class="nav-logo-name">Innovation Lab</span>
+    </a>
+
+    <ul class="nav-links" aria-label="Primary navigation">
+      <li><a href="about.html">About</a></li>
+      <li><a href="programmes.html">Programmes</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="knowledge-hub.html">Knowledge Hub</a></li>
+      <li><a class="active-page" href="partnership.html" aria-current="page">Partnerships</a></li>
+      <li><a class="nav-cta" href="contact.html">Start a conversation</a></li>
+    </ul>
+
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+  <a href="about.html">About</a>
+  <a href="programmes.html">Programmes</a>
+  <a href="research.html">Research</a>
+  <a href="knowledge-hub.html">Knowledge Hub</a>
+  <a href="partnership.html">Partnerships</a>
+  <a href="contact.html">Start a conversation</a>
+</nav>
+
+<main>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="reveal">
+        <span class="eyebrow" style="color: rgba(244,237,224,0.7)">Solutions & Partnerships</span>
+        <h1>Partnerships for innovation <em>that can be applied.</em></h1>
+        <p>Rankine Innovation Lab partners with organisations, institutions, and collaborators to turn strategy into execution. We design practical systems that combine learning, innovation, and research insight so teams can build real capability and sustained impact.</p>
+      </div>
+      <aside class="hero-panel reveal d2" aria-label="Positioning statement">
+        <h3>Credible. Practical. Future-facing.</h3>
+        <p>Our engagements support decision-makers who need outcomes that are implementable in real institutions, not just persuasive in presentations.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="why-partner">
+    <div class="container">
+      <header class="section-head reveal">
+        <span class="eyebrow" style="color: var(--copper)">Why partner with Rankine</span>
+        <h2>A partner built for complex innovation work</h2>
+        <p>We work across disciplines and organisational levels to help leadership teams move from strategic ambition to operational delivery through a sustainability-rooted and research-informed approach.</p>
+      </header>
+
+      <div class="cards-5">
+        <article class="card reveal d1"><h3>Interdisciplinary perspective</h3><p>We integrate education, organisational strategy, systems thinking, and innovation practice to frame better options.</p></article>
+        <article class="card reveal d2"><h3>Practical delivery</h3><p>Our work translates insight into implementation plans, team routines, and decisions that can be acted on immediately.</p></article>
+        <article class="card reveal d3"><h3>Research-informed approach</h3><p>We combine evidence and contextual intelligence to shape interventions that are both rigorous and relevant.</p></article>
+        <article class="card reveal d4"><h3>Sustainability-rooted innovation</h3><p>We embed resilience, responsible systems design, and long-horizon value into partnership outcomes.</p></article>
+        <article class="card reveal d5"><h3>Future-facing learning systems</h3><p>We help institutions build adaptive learning structures that keep capabilities current in changing conditions.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="partnership-types">
+    <div class="container">
+      <header class="section-head reveal">
+        <span class="eyebrow" style="color: var(--copper)">Partnership types</span>
+        <h2>Engagement models tailored to your context</h2>
+        <p>Whether your need is focused capability-building or long-term transformation support, we design the partnership format around your goals, capacity, and timeline.</p>
+      </header>
+
+      <div class="cards-2">
+        <article class="card reveal d1"><h3>Institutional training</h3><p>High-impact programmes for leadership teams, educators, and operational units focused on practical innovation capability.</p></article>
+        <article class="card reveal d2"><h3>Collaborative research</h3><p>Joint research initiatives that generate useful evidence, sharpen strategy, and strengthen implementation choices.</p></article>
+        <article class="card reveal d3"><h3>Innovation sprints</h3><p>Intensive, outcomes-oriented cycles for opportunity mapping, rapid design, and prototype-to-action pathways.</p></article>
+        <article class="card reveal d4"><h3>Strategic learning partnerships</h3><p>Ongoing collaboration that aligns leadership priorities with organisational learning and delivery systems.</p></article>
+        <article class="card reveal d5"><h3>Custom programme development</h3><p>Bespoke programme and curriculum design for institutions that need contextual relevance and measurable outcomes.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section process" id="process">
+    <div class="container">
+      <header class="section-head reveal">
+        <span class="eyebrow" style="color: var(--sand)">Partnership process</span>
+        <h2>A refined pathway from strategy to sustained outcomes</h2>
+        <p>Every engagement follows a disciplined workflow to ensure clarity, delivery quality, and continuous improvement.</p>
+      </header>
+
+      <div class="steps">
+        <article class="step reveal d1"><small>01</small><h3>discover</h3><p>Understand context, ambition, and constraints with key stakeholders.</p></article>
+        <article class="step reveal d2"><small>02</small><h3>scope</h3><p>Define outcomes, responsibilities, milestones, and success metrics.</p></article>
+        <article class="step reveal d3"><small>03</small><h3>design</h3><p>Craft intervention architecture, delivery plans, and learning systems.</p></article>
+        <article class="step reveal d4"><small>04</small><h3>deliver</h3><p>Execute with facilitation excellence, practical tools, and team support.</p></article>
+        <article class="step reveal d5"><small>05</small><h3>evolve</h3><p>Review progress, adapt strategy, and strengthen long-term institutional capability.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="ideal-partners">
+    <div class="container">
+      <header class="section-head reveal">
+        <span class="eyebrow" style="color: var(--copper)">Ideal partners</span>
+        <h2>Who we partner with</h2>
+        <p>We collaborate with organisations committed to meaningful innovation, rigorous learning, and credible implementation.</p>
+      </header>
+
+      <div class="partners">
+        <article class="partner reveal d1"><h3>Universities</h3><p>Institutions building stronger links between research, learning innovation, and societal impact.</p></article>
+        <article class="partner reveal d2"><h3>Schools</h3><p>School systems and networks developing future-ready models for teaching, leadership, and culture.</p></article>
+        <article class="partner reveal d3"><h3>NGOs</h3><p>Mission-driven organisations strengthening programme design, evidence use, and execution quality.</p></article>
+        <article class="partner reveal d4"><h3>Public sector actors</h3><p>Government teams improving policy-to-delivery pathways through practical innovation capability.</p></article>
+        <article class="partner reveal d5"><h3>Foundations</h3><p>Funders and ecosystem builders shaping learning agendas that improve systemic impact.</p></article>
+        <article class="partner reveal d5"><h3>Private organisations</h3><p>Companies and enterprises seeking stronger innovation systems and strategic learning capacity.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container reveal">
+      <h2>Let’s explore what a strong partnership could make possible.</h2>
+      <p>If your organisation is seeking innovation partnerships, organisational training, research-informed capacity building, or strategy-to-implementation support, we are ready to begin the conversation.</p>
+      <a class="btn" href="contact.html">Start a conversation</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">© <span id="year"></span> Rankine Innovation Lab · Intelligence for a Liveable Future</footer>
+
+<script>
+const nav = document.getElementById('nav');
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('solid', window.scrollY > 10);
+  nav.classList.toggle('transparent', window.scrollY <= 10);
+});
+
+hamburger.addEventListener('click', () => {
+  const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+  hamburger.setAttribute('aria-expanded', String(!expanded));
+  mobileMenu.classList.toggle('open');
+});
+
+document.querySelectorAll('.mobile-menu a').forEach(link => {
+  link.addEventListener('click', () => {
+    mobileMenu.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+  });
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('visible');
+  });
+}, { threshold: 0.18 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
