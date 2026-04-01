@@ -1271,6 +1271,55 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ══════════════════════════════════════════════════════════════════════
    RESPONSIVE BREAKPOINTS
 ══════════════════════════════════════════════════════════════════════ */
+
+/* ── IA NAV ENHANCEMENTS ─────────────────────────────────────────── */
+.nav-links .has-dropdown { position: relative; }
+.nav-links .dropdown-toggle { display: inline-flex; align-items: center; gap: .35rem; }
+.nav-links .dropdown-toggle::before { content: '\25BE'; font-size: .62rem; opacity: .7; order: 2; }
+.nav-links .dropdown-menu {
+  list-style: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  min-width: 220px;
+  background: rgba(24, 12, 6, 0.98);
+  border: 1px solid rgba(201,171,132,0.2);
+  box-shadow: 0 20px 44px rgba(0,0,0,0.28);
+  padding: .5rem 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity .25s ease, transform .25s ease, visibility .25s;
+  z-index: 1001;
+}
+.nav-links .has-dropdown:hover .dropdown-menu,
+.nav-links .has-dropdown:focus-within .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.nav-links .dropdown-menu a {
+  display: block;
+  padding: .68rem 1rem;
+  font-size: .74rem;
+  letter-spacing: .08em;
+  color: rgba(244,237,224,0.82);
+}
+.nav-links .dropdown-menu a:hover { color: var(--sand); background: rgba(201,171,132,0.08); }
+.mobile-group { width: min(86vw, 420px); border: 1px solid rgba(201,171,132,0.18); }
+.mobile-group summary {
+  list-style: none;
+  cursor: pointer;
+  padding: .9rem 1rem;
+  font-family: var(--font-label);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-size: .7rem;
+  color: rgba(244,237,224,0.78);
+}
+.mobile-group summary::-webkit-details-marker { display: none; }
+.mobile-group summary::after { content: '+'; float: right; font-size: 1rem; color: var(--sand); }
+.mobile-group[open] summary::after { content: '\2212'; }
+.mobile-group-links { display: flex; flex-direction: column; gap: .2rem; padding: 0 1rem 1rem; }
+.mobile-group-links a { font-size: 1.05rem; line-height: 1.35; color: var(--cream); }
+
+
 @media (max-width: 1100px) {
   .r-themes-grid { grid-template-columns: 1fr 1fr; }
   .r-theme-card--feature { grid-row: auto; }
@@ -1316,14 +1365,26 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         <span class="nav-logo-mark">Rankine</span>
         <span class="nav-logo-name">Innovation Lab</span>
       </a>
-      <ul class="nav-links" role="list">
+            <ul class="nav-links" role="list">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
-        <li><a href="focus.html">Focus Areas</a></li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle active-page">Work</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="research.html" class="active-page">Research</a></li>
+            <li><a href="impact.html">Projects & Impact</a></li>
+            <li><a href="partnership.html">Partnerships</a></li>
+          </ul>
+        </li>
         <li><a href="programmes.html">Programmes</a></li>
-        <li><a href="#" class="active-page">Research</a></li>
-        <li><a href="rankine-innovation-lab.html#pioneers">Pioneers</a></li>
-        <li><a href="#r-cta" class="nav-cta">Collaborate</a></li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Insights</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="knowledge-hub.html">Knowledge Hub</a></li>
+          </ul>
+        </li>
+        <li><a href="pioneers.html">Pioneers</a></li>
+        <li><a href="contact.html" class="nav-cta">Contact</a></li>
       </ul>
       <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -1333,13 +1394,27 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 </nav>
 
 <!-- Mobile menu -->
+<!-- Site IA: Work groups Research, Projects & Impact, and Partnerships. Insights groups Knowledge Hub resources. -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
-  <a href="index.html"  onclick="closeMobile()">Home</a>
-  <a href="about.html"           onclick="closeMobile()">About</a>
-  <a href="programmes.html"      onclick="closeMobile()">Programmes</a>
-  <a href="#"                            onclick="closeMobile()">Research</a>
-  <a href="rankine-innovation-lab.html#pioneers" onclick="closeMobile()">Pioneers</a>
-  <a href="#r-cta"                       onclick="closeMobile()">Collaborate</a>
+  <a href="index.html" onclick="closeMobile()">Home</a>
+  <a href="about.html" onclick="closeMobile()">About</a>
+  <details class="mobile-group">
+    <summary>Work</summary>
+    <div class="mobile-group-links">
+      <a href="research.html" onclick="closeMobile()">Research</a>
+      <a href="impact.html" onclick="closeMobile()">Projects & Impact</a>
+      <a href="partnership.html" onclick="closeMobile()">Partnerships</a>
+    </div>
+  </details>
+  <a href="programmes.html" onclick="closeMobile()">Programmes</a>
+  <details class="mobile-group">
+    <summary>Insights</summary>
+    <div class="mobile-group-links">
+      <a href="knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
+    </div>
+  </details>
+  <a href="pioneers.html" onclick="closeMobile()">Pioneers</a>
+  <a href="contact.html" onclick="closeMobile()">Contact</a>
 </div>
 
 <!-- ════════════════════════════════════════════════════════════════════
@@ -2045,6 +2120,21 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <!-- ════════════════════════════════════════════════════════════════════
      FOOTER
 ════════════════════════════════════════════════════════════════════ -->
+
+<!-- IA role: Research explains what the lab is investigating and why it matters. -->
+<section class="r-bridge section" id="research-bridge" aria-labelledby="researchBridgeHeading">
+  <div class="container">
+    <div class="r-cta-inner reveal">
+      <h2 id="researchBridgeHeading" class="display-heading display-heading--dark">How this work translates into practice</h2>
+      <p class="body-prose">Move from inquiry to implementation by exploring our projects and institutional partnership pathways.</p>
+      <div style="display:flex; gap:.8rem; flex-wrap:wrap; margin-top:1rem;">
+        <a href="impact.html" class="btn btn--copper">Projects & Impact</a>
+        <a href="partnership.html" class="btn btn--ghost-sand">Partnerships</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer class="footer" aria-label="Site footer">
   <div class="container">
     <div class="footer-grid">
@@ -2060,7 +2150,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
           <li><a href="about.html">About the Lab</a></li>
           <li><a href="about.html#method">The Rankine Method</a></li>
           <li><a href="index.html">Focus Areas</a></li>
-          <li><a href="pioneers.html">Pioneers</a></li>
+          <li><a href="impact.html">Impact</a></li>
+        <li><a href="pioneers.html">Pioneers</a></li>
+        <li><a href="partnership.html">Partnerships</a></li>
         </ul>
       </div>
       <div>
@@ -2070,7 +2162,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
           <li><a href="#r-pipeline">Research Pipeline</a></li>
           <li><a href="#r-work">Current Focus Areas</a></li>
           <li><a href="#r-responsible">Responsible Innovation</a></li>
-          <li><a href="rankine-innovation-lab.html#knowledge">Knowledge Hub</a></li>
+          <li><a href="index.html#knowledge">Knowledge Hub</a></li>
         </ul>
       </div>
       <div>
