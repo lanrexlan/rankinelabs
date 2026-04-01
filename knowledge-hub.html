@@ -166,6 +166,10 @@ input  { font-family: var(--font-body); }
 
 /* Gradient composition — warmer amber, inverted weight vs research page */
 .kh-hero-bg {
+  background-image: linear-gradient(rgba(24,12,6,0.55), rgba(24,12,6,0.62)), url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=2000&q=80');
+  background-size: cover;
+  background-position: center;
+
   position: absolute; inset: 0;
   background:
     radial-gradient(ellipse 55% 60% at 100% 100%, rgba(58,28,14,0.55) 0%, transparent 55%),
@@ -869,6 +873,10 @@ input  { font-family: var(--font-body); }
   padding: clamp(2rem, 4vw, 3.5rem);
 }
 .kh-editorial-visual-bg {
+  background-image: linear-gradient(rgba(24,12,6,0.22), rgba(24,12,6,0.35)), url('https://images.unsplash.com/photo-1515879218367-8466d910aaa4?auto=format&fit=crop&w=1800&q=80');
+  background-size: cover;
+  background-position: center;
+
   position: absolute; inset: 0;
   background:
     radial-gradient(ellipse 65% 55% at 75% 30%, rgba(160,92,56,0.2), transparent 55%),
@@ -1176,6 +1184,11 @@ input  { font-family: var(--font-body); }
 
 /* ── IA NAV ENHANCEMENTS ─────────────────────────────────────────── */
 .nav-links .has-dropdown { position: relative; }
+.nav-links .dropdown-toggle {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: rgba(244,237,224,0.72); display: inline-flex; align-items: center; gap: .35rem; }
 .nav-links .dropdown-toggle { display: inline-flex; align-items: center; gap: .35rem; }
 .nav-links .dropdown-toggle::before { content: '\25BE'; font-size: .62rem; opacity: .7; order: 2; }
 .nav-links .dropdown-menu {
@@ -1267,6 +1280,20 @@ input  { font-family: var(--font-body); }
 <nav class="nav transparent" id="mainNav" aria-label="Main navigation">
   <div class="container">
     <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Rankine Innovation Lab Home">
+        <span class="nav-logo-mark">Rankine</span>
+        <span class="nav-logo-name">Innovation Lab</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Our Work</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="research.html">Research</a></li>
+            <li><a href="impact.html">Projects</a></li>
+            <li><a href="partnership.html">Partnerships</a></li>
+          </ul>
       <a href="index.html" class="nav-logo" aria-label="Rankine Innovation Lab — Home">
         <span class="nav-logo-mark">Rankine</span>
         <span class="nav-logo-name">Innovation Lab</span>
@@ -1299,11 +1326,17 @@ input  { font-family: var(--font-body); }
   </div>
 </nav>
 
+
+<!-- Site IA: Our Work groups Research, Projects, and Partnerships. Knowledge Hub is a direct top-level destination. -->
 <!-- Site IA: Work groups Research, Projects & Impact, and Partnerships. Insights groups Knowledge Hub resources. -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
   <a href="index.html" onclick="closeMobile()">Home</a>
   <a href="about.html" onclick="closeMobile()">About</a>
   <details class="mobile-group">
+    <summary>Our Work</summary>
+    <div class="mobile-group-links">
+      <a href="research.html" onclick="closeMobile()">Research</a>
+      <a href="impact.html" onclick="closeMobile()">Projects</a>
     <summary>Work</summary>
     <div class="mobile-group-links">
       <a href="research.html" onclick="closeMobile()">Research</a>
@@ -1312,6 +1345,7 @@ input  { font-family: var(--font-body); }
     </div>
   </details>
   <a href="programmes.html" onclick="closeMobile()">Programmes</a>
+  <a href="knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
   <details class="mobile-group">
     <summary>Insights</summary>
     <div class="mobile-group-links">
@@ -1942,6 +1976,7 @@ input  { font-family: var(--font-body); }
           <li><a href="about.html">About the Lab</a></li>
           <li><a href="programmes.html">Programmes</a></li>
           <li><a href="research.html">Research</a></li>
+          <li><a href="impact.html">Projects</a></li>
           <li><a href="impact.html">Impact</a></li>
         <li><a href="pioneers.html">Pioneers</a></li>
         <li><a href="partnership.html">Partnerships</a></li>

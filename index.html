@@ -219,18 +219,24 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* Slide backgrounds via layered gradients */
 .hero-slide:nth-child(1) .hero-bg {
   background:
+    linear-gradient(rgba(24,12,6,0.45), rgba(24,12,6,0.55)),
+    url('https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat,
     radial-gradient(ellipse 100% 80% at 70% 30%, rgba(94,44,18,0.55) 0%, transparent 60%),
     radial-gradient(ellipse 60% 50% at 20% 80%, rgba(104,117,88,0.2) 0%, transparent 55%),
     linear-gradient(135deg, #180c06 0%, #3a1c0e 45%, #1c1006 100%);
 }
 .hero-slide:nth-child(2) .hero-bg {
   background:
+    linear-gradient(rgba(17,24,14,0.5), rgba(17,24,14,0.58)),
+    url('https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat,
     radial-gradient(ellipse 90% 70% at 30% 40%, rgba(72,90,58,0.5) 0%, transparent 60%),
     radial-gradient(ellipse 70% 50% at 80% 75%, rgba(160,92,56,0.25) 0%, transparent 55%),
     linear-gradient(145deg, #0e1508 0%, #1c2810 40%, #180c06 100%);
 }
 .hero-slide:nth-child(3) .hero-bg {
   background:
+    linear-gradient(rgba(20,14,8,0.48), rgba(20,14,8,0.58)),
+    url('https://images.unsplash.com/photo-1598514982901-7f84c6c6b2d7?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat,
     radial-gradient(ellipse 85% 70% at 65% 35%, rgba(142,104,56,0.45) 0%, transparent 58%),
     radial-gradient(ellipse 60% 45% at 15% 70%, rgba(58,28,14,0.6) 0%, transparent 55%),
     linear-gradient(130deg, #100a04 0%, #2e1e0a 50%, #1a0c06 100%);
@@ -803,7 +809,15 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* ══════════════════════════════════════════════════════════════════════
    FOCUS AREAS
 ══════════════════════════════════════════════════════════════════════ */
-.focus { background: var(--cream); }
+.focus {
+  position: relative;
+}
+.focus::before {
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(rgba(24,12,6,0.78), rgba(24,12,6,0.82)), url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1800&q=80') center/cover no-repeat;
+  opacity:.18; pointer-events:none;
+}
+ background: var(--cream); }
 .focus-header {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1486,6 +1500,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* ── IA NAV ENHANCEMENTS ─────────────────────────────────────────── */
 .nav-links .has-dropdown { position: relative; }
+.nav-links .dropdown-toggle {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: rgba(244,237,224,0.72); display: inline-flex; align-items: center; gap: .35rem; }
 .nav-links .dropdown-toggle { display: inline-flex; align-items: center; gap: .35rem; }
 .nav-links .dropdown-toggle::before { content: '\25BE'; font-size: .62rem; opacity: .7; order: 2; }
 .nav-links .dropdown-menu {
@@ -1578,6 +1597,16 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         <span class="nav-logo-mark">Rankine</span>
         <span class="nav-logo-name">Innovation Lab</span>
       </a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html" class="active-page">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Our Work</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="research.html">Research</a></li>
+            <li><a href="impact.html">Projects</a></li>
+            <li><a href="partnership.html">Partnerships</a></li>
+          </ul>
             <ul class="nav-links" role="list">
         <li><a href="index.html" class="active-page">Home</a></li>
         <li><a href="about.html">About</a></li>
@@ -1607,11 +1636,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 </nav>
 
 <!-- Mobile Menu -->
+
+<!-- Site IA: Our Work groups Research, Projects, and Partnerships. Knowledge Hub is a direct top-level destination. -->
 <!-- Site IA: Work groups Research, Projects & Impact, and Partnerships. Insights groups Knowledge Hub resources. -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
   <a href="index.html" onclick="closeMobile()">Home</a>
   <a href="about.html" onclick="closeMobile()">About</a>
   <details class="mobile-group">
+    <summary>Our Work</summary>
+    <div class="mobile-group-links">
+      <a href="research.html" onclick="closeMobile()">Research</a>
+      <a href="impact.html" onclick="closeMobile()">Projects</a>
     <summary>Work</summary>
     <div class="mobile-group-links">
       <a href="research.html" onclick="closeMobile()">Research</a>
@@ -1620,6 +1655,15 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
   </details>
   <a href="programmes.html" onclick="closeMobile()">Programmes</a>
+  <a href="knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
+  <a href="pioneers.html" onclick="closeMobile()">Pioneers</a>
+  <a href="contact.html" onclick="closeMobile()">Contact</a>
+</div>
+
+
+  </details>
+  <a href="programmes.html" onclick="closeMobile()">Programmes</a>
+  <a href="knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
   <details class="mobile-group">
     <summary>Insights</summary>
     <div class="mobile-group-links">
