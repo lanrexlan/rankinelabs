@@ -153,6 +153,10 @@ input, select, textarea { font-family: var(--font-body); }
 
 /* Warm morning-light gradient — unique to Contact */
 .ct-hero-bg {
+  background-image: linear-gradient(rgba(24,12,6,0.55), rgba(24,12,6,0.62)), url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2000&q=80');
+  background-size: cover;
+  background-position: center;
+
   position: absolute; inset: 0;
   background:
     radial-gradient(ellipse 70% 65% at 15% 85%,  rgba(120,60,20,0.45)  0%, transparent 55%),
@@ -849,6 +853,59 @@ input, select, textarea { font-family: var(--font-body); }
 /* ══════════════════════════════════════════════════════════════════════
    RESPONSIVE
 ══════════════════════════════════════════════════════════════════════ */
+
+/* ── IA NAV ENHANCEMENTS ─────────────────────────────────────────── */
+.nav-links .has-dropdown { position: relative; }
+.nav-links .dropdown-toggle {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: rgba(244,237,224,0.72); display: inline-flex; align-items: center; gap: .35rem; }
+.nav-links .dropdown-toggle::before { content: '\25BE'; font-size: .62rem; opacity: .7; order: 2; }
+.nav-links .dropdown-menu {
+  list-style: none;
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  min-width: 220px;
+  background: rgba(24, 12, 6, 0.98);
+  border: 1px solid rgba(201,171,132,0.2);
+  box-shadow: 0 20px 44px rgba(0,0,0,0.28);
+  padding: .5rem 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity .25s ease, transform .25s ease, visibility .25s;
+  z-index: 1001;
+}
+.nav-links .has-dropdown:hover .dropdown-menu,
+.nav-links .has-dropdown:focus-within .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.nav-links .dropdown-menu a {
+  display: block;
+  padding: .68rem 1rem;
+  font-size: .74rem;
+  letter-spacing: .08em;
+  color: rgba(244,237,224,0.82);
+}
+.nav-links .dropdown-menu a:hover { color: var(--sand); background: rgba(201,171,132,0.08); }
+.mobile-group { width: min(86vw, 420px); border: 1px solid rgba(201,171,132,0.18); }
+.mobile-group summary {
+  list-style: none;
+  cursor: pointer;
+  padding: .9rem 1rem;
+  font-family: var(--font-label);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-size: .7rem;
+  color: rgba(244,237,224,0.78);
+}
+.mobile-group summary::-webkit-details-marker { display: none; }
+.mobile-group summary::after { content: '+'; float: right; font-size: 1rem; color: var(--sand); }
+.mobile-group[open] summary::after { content: '\2212'; }
+.mobile-group-links { display: flex; flex-direction: column; gap: .2rem; padding: 0 1rem 1rem; }
+.mobile-group-links a { font-size: 1.05rem; line-height: 1.35; color: var(--cream); }
+
+
 @media (max-width: 1100px) {
   .ct-options-grid  { grid-template-columns: repeat(3,1fr); }
   .ct-main-card     { grid-template-columns: 1fr; }
@@ -887,19 +944,20 @@ input, select, textarea { font-family: var(--font-body); }
 <nav class="nav transparent" id="mainNav" aria-label="Main navigation">
   <div class="container">
     <div class="nav-inner">
-      <a href="rankine-innovation-lab.html" class="nav-logo" aria-label="Rankine Innovation Lab — Home">
+      <a href="index.html" class="nav-logo" aria-label="Rankine Innovation Lab Home">
         <span class="nav-logo-mark">Rankine</span>
         <span class="nav-logo-name">Innovation Lab</span>
       </a>
       <ul class="nav-links" role="list">
-        <li><a href="rankine-innovation-lab.html">Home</a></li>
-        <li><a href="rankine-about.html">About</a></li>
-        <li><a href="rankine-programmes.html">Programmes</a></li>
-        <li><a href="rankine-research.html">Research</a></li>
-        <li><a href="rankine-knowledge-hub.html">Knowledge Hub</a></li>
-        <li><a href="rankine-pioneers.html">Pioneers</a></li>
-        <li><a href="#" class="active-page nav-cta">Contact</a></li>
-      </ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Our Work</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="research.html">Research</a></li>
+            <li><a href="impact.html">Projects</a></li>
+            <li><a href="partnership.html">Partnerships</a></li>
+          </ul>
       <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -907,14 +965,23 @@ input, select, textarea { font-family: var(--font-body); }
   </div>
 </nav>
 
+
+<!-- Site IA: Our Work groups Research, Projects, and Partnerships. Knowledge Hub is a direct top-level destination. -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
-  <a href="rankine-innovation-lab.html"   onclick="closeMobile()">Home</a>
-  <a href="rankine-about.html"            onclick="closeMobile()">About</a>
-  <a href="rankine-programmes.html"       onclick="closeMobile()">Programmes</a>
-  <a href="rankine-research.html"         onclick="closeMobile()">Research</a>
-  <a href="rankine-knowledge-hub.html"    onclick="closeMobile()">Knowledge Hub</a>
-  <a href="rankine-pioneers.html"         onclick="closeMobile()">Pioneers</a>
-  <a href="#"                             onclick="closeMobile()">Contact</a>
+  <a href="index.html" onclick="closeMobile()">Home</a>
+  <a href="about.html" onclick="closeMobile()">About</a>
+  <details class="mobile-group">
+    <summary>Our Work</summary>
+    <div class="mobile-group-links">
+      <a href="research.html" onclick="closeMobile()">Research</a>
+      <a href="impact.html" onclick="closeMobile()">Projects</a>
+      <a href="partnership.html" onclick="closeMobile()">Partnerships</a>
+    </div>
+  </details>
+  <a href="programmes.html" onclick="closeMobile()">Programmes</a>
+  <a href="knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
+  <a href="pioneers.html" onclick="closeMobile()">Pioneers</a>
+  <a href="contact.html" onclick="closeMobile()">Contact</a>
 </div>
 
 <!-- ════════════════════════════════════════════════════════════════════
@@ -957,7 +1024,7 @@ input, select, textarea { font-family: var(--font-body); }
   <div class="ct-hero-content">
     <div class="container">
       <nav class="ct-hero-breadcrumb" aria-label="Breadcrumb">
-        <a href="rankine-innovation-lab.html">Home</a>
+        <a href="index.html">Home</a>
         <span aria-hidden="true">—</span>
         <strong>Contact</strong>
       </nav>
@@ -1316,7 +1383,7 @@ input, select, textarea { font-family: var(--font-body); }
         </p>
         <div class="ct-partnership-actions reveal d4">
           <a href="#ct-form" class="btn btn--ghost-light" onclick="setType('Partnership')">Start a Partnership Conversation</a>
-          <a href="rankine-about.html#method" class="btn btn--ghost-light">Our Method</a>
+          <a href="about.html#method" class="btn btn--ghost-light">Our Method</a>
         </div>
       </div>
 
@@ -1480,12 +1547,14 @@ input, select, textarea { font-family: var(--font-body); }
       <div>
         <div class="footer-col-title">Navigation</div>
         <ul class="footer-links">
-          <li><a href="rankine-innovation-lab.html">Home</a></li>
-          <li><a href="rankine-about.html">About the Lab</a></li>
-          <li><a href="rankine-programmes.html">Programmes</a></li>
-          <li><a href="rankine-research.html">Research</a></li>
-          <li><a href="rankine-knowledge-hub.html">Knowledge Hub</a></li>
-          <li><a href="rankine-pioneers.html">Pioneers</a></li>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About the Lab</a></li>
+          <li><a href="programmes.html">Programmes</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="knowledge-hub.html">Knowledge Hub</a></li>
+          <li><a href="impact.html">Projects</a></li>
+        <li><a href="pioneers.html">Pioneers</a></li>
+        <li><a href="partnership.html">Partnerships</a></li>
         </ul>
       </div>
       <div>
