@@ -150,15 +150,22 @@ input, select, textarea { font-family: var(--font-body); }
   background: var(--chocolate);
   overflow: hidden;
 }
+.ct-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  pointer-events: none;
+}
 
-/* Warm morning-light gradient — unique to Contact */
 .ct-hero-bg {
   position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 70% 65% at 15% 85%,  rgba(120,60,20,0.45)  0%, transparent 55%),
-    radial-gradient(ellipse 55% 50% at 85% 15%,  rgba(58,28,14,0.5)    0%, transparent 55%),
-    radial-gradient(ellipse 40% 35% at 50% 50%,  rgba(160,92,56,0.06)  0%, transparent 50%),
-    linear-gradient(160deg, #0c0806 0%, #1a1008 45%, #100c04 100%);
+  width: 100%;
+  height: 100%;
+  background-image: url('https://images.unsplash.com/photo-8F4EX4Nw1yY?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center;
 }
 
 /* Fine vertical reeding — suggests columns, architecture, formality-with-warmth */
