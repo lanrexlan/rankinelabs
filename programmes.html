@@ -226,6 +226,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* Background gradient composition — warmer, amber-leaning vs about page */
 .prog-hero-bg {
+  background-image: linear-gradient(rgba(24,12,6,0.55), rgba(24,12,6,0.62)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=2000&q=80');
+  background-size: cover;
+  background-position: center;
+
   position: absolute; inset: 0;
   background:
     radial-gradient(ellipse 65% 70% at 100% 0%,   rgba(120,64,22,0.5)  0%, transparent 55%),
@@ -833,6 +837,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   padding: clamp(2rem, 4vw, 3.5rem);
 }
 .featured-visual-bg {
+  background-image: linear-gradient(rgba(24,12,6,0.22), rgba(24,12,6,0.35)), url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=1800&q=80');
+  background-size: cover;
+  background-position: center;
+
   position: absolute; inset: 0;
   background:
     radial-gradient(ellipse 70% 60% at 70% 30%, rgba(160,92,56,0.18), transparent 60%),
@@ -1408,6 +1416,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 /* ── IA NAV ENHANCEMENTS ─────────────────────────────────────────── */
 .nav-links .has-dropdown { position: relative; }
+.nav-links .dropdown-toggle {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: rgba(244,237,224,0.72); display: inline-flex; align-items: center; gap: .35rem; }
 .nav-links .dropdown-toggle { display: inline-flex; align-items: center; gap: .35rem; }
 .nav-links .dropdown-toggle::before { content: '\25BE'; font-size: .62rem; opacity: .7; order: 2; }
 .nav-links .dropdown-menu {
@@ -1436,6 +1449,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: rgba(244,237,224,0.82);
 }
 .nav-links .dropdown-menu a:hover { color: var(--sand); background: rgba(201,171,132,0.08); }
+.nav-links .dropdown-toggle.active-page { color: var(--sand); }
 .mobile-group { width: min(86vw, 420px); border: 1px solid rgba(201,171,132,0.18); }
 .mobile-group summary {
   list-style: none;
@@ -1450,6 +1464,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .mobile-group summary::-webkit-details-marker { display: none; }
 .mobile-group summary::after { content: '+'; float: right; font-size: 1rem; color: var(--sand); }
 .mobile-group[open] summary::after { content: '\2212'; }
+.mobile-group[open] { background: rgba(201,171,132,0.06); }
 .mobile-group-links { display: flex; flex-direction: column; gap: .2rem; padding: 0 1rem 1rem; }
 .mobile-group-links a { font-size: 1.05rem; line-height: 1.35; color: var(--cream); }
 
@@ -1508,6 +1523,20 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 <nav class="nav transparent" id="mainNav" aria-label="Main navigation">
   <div class="container">
     <div class="nav-inner">
+      <a href="index.html" class="nav-logo" aria-label="Rankine Innovation Lab Home">
+        <span class="nav-logo-mark">Rankine</span>
+        <span class="nav-logo-name">Innovation Lab</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Our Work</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="research.html">Research</a></li>
+            <li><a href="impact.html">Projects</a></li>
+            <li><a href="partnership.html">Partnerships</a></li>
+          </ul>
       <a href="index.html" class="nav-logo" aria-label="Rankine Innovation Lab — Home">
         <span class="nav-logo-mark">Rankine</span>
         <span class="nav-logo-name">Innovation Lab</span>
@@ -1541,11 +1570,19 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 </nav>
 
 <!-- Mobile menu -->
+
+<!-- Navigation IA note: Top-level nav stays flat except Our Work, which expands to Research, Projects, and Partnerships. -->
+<!-- Site IA: Our Work groups Research, Projects, and Partnerships. Knowledge Hub is a direct top-level destination. -->
+<!-- Site IA: Our Work groups Research, Projects, and Partnerships. Knowledge Hub is a direct top-level destination. -->
 <!-- Site IA: Work groups Research, Projects & Impact, and Partnerships. Insights groups Knowledge Hub resources. -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
   <a href="index.html" onclick="closeMobile()">Home</a>
   <a href="about.html" onclick="closeMobile()">About</a>
   <details class="mobile-group">
+    <summary>Our Work</summary>
+    <div class="mobile-group-links">
+      <a href="research.html" onclick="closeMobile()">Research</a>
+      <a href="impact.html" onclick="closeMobile()">Projects</a>
     <summary>Work</summary>
     <div class="mobile-group-links">
       <a href="research.html" onclick="closeMobile()">Research</a>
@@ -1554,6 +1591,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     </div>
   </details>
   <a href="programmes.html" onclick="closeMobile()">Programmes</a>
+  <a href="knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
   <details class="mobile-group">
     <summary>Insights</summary>
     <div class="mobile-group-links">
@@ -2294,6 +2332,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   </div>
 </section>
 
+
+<section id="programmes-training-images" class="section">
+  <div class="container" style="max-width:980px;">
+    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1600&q=80" alt="Agriculture training field session used in Rankine programme delivery." loading="lazy" style="width:100%; aspect-ratio:16/8; object-fit:cover; border:1px solid rgba(58,28,14,.18);"/>
+  </div>
+</section>
+
 <footer class="footer" aria-label="Site footer">
   <div class="container">
     <div class="footer-grid">
@@ -2309,6 +2354,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
           <li><a href="about.html">About the Lab</a></li>
           <li><a href="about.html#method">The Rankine Method</a></li>
           <li><a href="index.html#focus">Focus Areas</a></li>
+          <li><a href="impact.html">Projects</a></li>
           <li><a href="impact.html">Impact</a></li>
         <li><a href="pioneers.html">Pioneers</a></li>
         <li><a href="partnership.html">Partnerships</a></li>
