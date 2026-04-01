@@ -1533,6 +1533,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   color: rgba(244,237,224,0.82);
 }
 .nav-links .dropdown-menu a:hover { color: var(--sand); background: rgba(201,171,132,0.08); }
+.nav-links .dropdown-toggle.active-page { color: var(--sand); }
 .mobile-group { width: min(86vw, 420px); border: 1px solid rgba(201,171,132,0.18); }
 .mobile-group summary {
   list-style: none;
@@ -1547,6 +1548,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .mobile-group summary::-webkit-details-marker { display: none; }
 .mobile-group summary::after { content: '+'; float: right; font-size: 1rem; color: var(--sand); }
 .mobile-group[open] summary::after { content: '\2212'; }
+.mobile-group[open] { background: rgba(201,171,132,0.06); }
 .mobile-group-links { display: flex; flex-direction: column; gap: .2rem; padding: 0 1rem 1rem; }
 .mobile-group-links a { font-size: 1.05rem; line-height: 1.35; color: var(--cream); }
 
@@ -1607,6 +1609,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
             <li><a href="impact.html">Projects</a></li>
             <li><a href="partnership.html">Partnerships</a></li>
           </ul>
+        <li><a href="about.html">About</a></li>
+        <li class="has-dropdown">
+          <a href="#" class="dropdown-toggle">Our Work</a>
+          <ul class="dropdown-menu" role="list">
+            <li><a href="research.html">Research</a></li>
+            <li><a href="impact.html">Projects</a></li>
+            <li><a href="partnership.html">Partnerships</a></li>
+          </ul>
             <ul class="nav-links" role="list">
         <li><a href="index.html" class="active-page">Home</a></li>
         <li><a href="about.html">About</a></li>
@@ -1637,6 +1647,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 <!-- Mobile Menu -->
 
+<!-- Navigation IA note: Top-level nav stays flat except Our Work, which expands to Research, Projects, and Partnerships. -->
+<!-- Site IA: Our Work groups Research, Projects, and Partnerships. Knowledge Hub is a direct top-level destination. -->
 <!-- Site IA: Our Work groups Research, Projects, and Partnerships. Knowledge Hub is a direct top-level destination. -->
 <!-- Site IA: Work groups Research, Projects & Impact, and Partnerships. Insights groups Knowledge Hub resources. -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
