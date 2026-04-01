@@ -1,0 +1,1728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Contact — Rankine Innovation Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+
+/* ══════════════════════════════════════════════════════════════════════
+   DESIGN TOKENS — exact site-wide system
+══════════════════════════════════════════════════════════════════════ */
+:root {
+  --chocolate:  #180c06;
+  --espresso:   #241208;
+  --brown:      #3a1c0e;
+  --mahogany:   #5c2d18;
+  --copper:     #a05c38;
+  --copper-lt:  #c47a52;
+  --sand:       #c9ab84;
+  --sand-lt:    #ddc9a8;
+  --cream:      #f4ede0;
+  --cream-lt:   #faf6ef;
+  --sage:       #687558;
+  --sage-lt:    #8e9e78;
+  --white:      #fffcf8;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-label:   'Cinzel', serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-circ: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-xl: 40px;
+
+  --section-pad: clamp(5rem, 10vw, 9rem);
+}
+
+/* ── RESET ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html  { scroll-behavior: smooth; }
+body  {
+  font-family: var(--font-body);
+  background: var(--cream-lt);
+  color: var(--espresso);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a      { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+input, select, textarea { font-family: var(--font-body); }
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--copper); border-radius: 3px; }
+
+/* ── LAYOUT ─────────────────────────────────────────────────────────── */
+.container { width: min(1340px, 100%); margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3.5rem); }
+.sr-only   { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+/* ── REVEAL SYSTEM ──────────────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out); }
+.reveal.visible { opacity: 1; transform: none; }
+.d1{transition-delay:.10s} .d2{transition-delay:.22s} .d3{transition-delay:.34s}
+.d4{transition-delay:.46s} .d5{transition-delay:.58s} .d6{transition-delay:.70s}
+
+/* ── TYPE ATOMS ─────────────────────────────────────────────────────── */
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 0.9rem;
+  font-family: var(--font-label); font-size: 0.68rem;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--copper); margin-bottom: 1.5rem;
+}
+.eyebrow-line { display: block; width: 32px; height: 1px; background: currentColor; flex-shrink: 0; }
+
+.display { font-family: var(--font-display); font-weight: 300; line-height: 1.05; letter-spacing: -0.012em; }
+.display em       { font-style: italic; }
+.display--dark    { color: var(--espresso); }
+.display--dark em { color: var(--copper); }
+.display--light   { color: var(--cream-lt); }
+.display--light em{ color: var(--sand); }
+
+/* ── BUTTON ATOMS ───────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  font-family: var(--font-body); font-size: 0.8rem; font-weight: 600;
+  letter-spacing: 0.13em; text-transform: uppercase;
+  padding: 0.9rem 2rem; border-radius: 2px;
+  transition: transform 0.35s var(--ease-out), box-shadow 0.35s, background 0.3s, border-color 0.3s, color 0.3s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn--copper     { background: var(--copper); color: var(--white); border: 1px solid var(--copper); }
+.btn--copper:hover{ background: var(--copper-lt); border-color: var(--copper-lt); box-shadow: 0 12px 40px rgba(160,92,56,0.35); }
+.btn--ghost-dark { background: transparent; color: var(--espresso); border: 1px solid rgba(58,28,14,0.28); }
+.btn--ghost-dark:hover { border-color: var(--copper); color: var(--copper); }
+.btn--ghost-light{ background: transparent; color: var(--cream); border: 1px solid rgba(244,237,224,0.28); }
+.btn--ghost-light:hover { border-color: var(--sand); color: var(--sand); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   NAVIGATION — site-wide exact match
+══════════════════════════════════════════════════════════════════════ */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; transition: background 0.45s var(--ease-circ), box-shadow 0.45s var(--ease-circ); }
+.nav.transparent { background: transparent; }
+.nav.solid { background: rgba(24,12,6,0.97); backdrop-filter: blur(18px); box-shadow: 0 1px 0 rgba(201,171,132,0.15); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: clamp(60px,7vw,76px); }
+.nav-logo  { display: flex; flex-direction: column; line-height: 1; }
+.nav-logo-mark { font-family: var(--font-label); font-size: clamp(0.82rem,1.1vw,0.92rem); letter-spacing: 0.25em; color: var(--copper); text-transform: uppercase; }
+.nav-logo-name { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.1rem,1.6vw,1.35rem); color: var(--cream); letter-spacing: 0.02em; }
+.nav-links { display: flex; align-items: center; gap: clamp(1rem,2.2vw,2rem); list-style: none; }
+.nav-links a { font-family: var(--font-body); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(244,237,224,0.72); transition: color 0.3s; position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 1px; background: var(--copper); transform: scaleX(0); transform-origin: left; transition: transform 0.35s var(--ease-out); }
+.nav-links a:hover { color: var(--cream); }
+.nav-links a:hover::after { transform: scaleX(1); }
+.nav-links a.active-page { color: var(--sand); }
+.nav-links a.active-page::after { transform: scaleX(1); background: var(--sand); }
+.nav-cta { font-size: 0.78rem !important; letter-spacing: 0.12em !important; font-weight: 600 !important; padding: 0.55rem 1.4rem; border: 1px solid var(--copper); border-radius: 2px; color: var(--cream) !important; transition: background 0.3s !important; }
+.nav-cta::after { display: none !important; }
+.nav-cta:hover  { background: var(--copper) !important; }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+.hamburger span { display: block; width: 26px; height: 2px; background: var(--cream); transition: all 0.3s; }
+.hamburger.open span:nth-child(1){ transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity: 0; }
+.hamburger.open span:nth-child(3){ transform: translateY(-7px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 0; background: rgba(24,12,6,0.98); backdrop-filter: blur(20px); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; transform: translateY(-100%); transition: transform 0.5s var(--ease-out); }
+.mobile-menu.open { display: flex; transform: translateY(0); }
+.mobile-menu a { font-family: var(--font-display); font-size: clamp(1.8rem,6vw,3rem); font-weight: 300; color: var(--cream); transition: color 0.3s; }
+.mobile-menu a:hover { color: var(--copper); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   1. HERO
+   The Contact page hero is the warmest, most intimate of all six pages.
+   Background: a gentle amber-gold radial pool centered low-left —
+   like morning light through a window — evokes welcome, openness, and
+   warmth rather than the more dramatic compositions on other pages.
+   Decorative element: a delicate SVG constellation of interlocking
+   thin circles on the right, suggesting connection and network.
+   Typography: the headline is shorter and more conversational than
+   other page heroes — imperative + warm, not declarative + grand.
+══════════════════════════════════════════════════════════════════════ */
+.ct-hero {
+  position: relative;
+  min-height: 86vh;
+  display: flex;
+  align-items: center;
+  background: var(--chocolate);
+  overflow: hidden;
+}
+
+/* Warm morning-light gradient — unique to Contact */
+.ct-hero-bg {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 70% 65% at 15% 85%,  rgba(120,60,20,0.45)  0%, transparent 55%),
+    radial-gradient(ellipse 55% 50% at 85% 15%,  rgba(58,28,14,0.5)    0%, transparent 55%),
+    radial-gradient(ellipse 40% 35% at 50% 50%,  rgba(160,92,56,0.06)  0%, transparent 50%),
+    linear-gradient(160deg, #0c0806 0%, #1a1008 45%, #100c04 100%);
+}
+
+/* Fine vertical reeding — suggests columns, architecture, formality-with-warmth */
+.ct-hero-reeds {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(201,171,132,0.02) 0px, rgba(201,171,132,0.02) 1px,
+    transparent 1px, transparent 88px
+  );
+}
+
+.ct-hero-grain {
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 256px; opacity: 0.55; pointer-events: none;
+}
+
+/* Connection constellation — SVG of overlapping circles */
+.ct-hero-constellation {
+  position: absolute;
+  right: clamp(1rem, 5vw, 5rem);
+  top: 50%; transform: translateY(-50%);
+  width: clamp(260px, 36vw, 500px);
+  pointer-events: none;
+  opacity: 0;
+  animation: ctFadeIn 1.4s 0.7s var(--ease-out) forwards;
+}
+@keyframes ctFadeIn { to { opacity: 1; } }
+
+/* Warm glow at bottom-left — the "hearth" */
+.ct-hero-hearth {
+  position: absolute; bottom: -10%; left: -5%;
+  width: 50vw; height: 50vw; border-radius: 50%;
+  background: radial-gradient(circle, rgba(160,92,56,0.1) 0%, transparent 65%);
+  pointer-events: none;
+  animation: hearthPulse 7s ease-in-out infinite;
+}
+@keyframes hearthPulse {
+  0%,100% { opacity: 0.7; transform: scale(1);    }
+  50%      { opacity: 1;   transform: scale(1.05); }
+}
+
+.ct-hero-content {
+  position: relative; z-index: 2; width: 100%;
+  padding-top: clamp(80px,10vw,100px);
+  padding-bottom: clamp(5rem,8vw,8rem);
+}
+
+.ct-hero-breadcrumb {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-family: var(--font-label); font-size: 0.62rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(244,237,224,0.28); margin-bottom: 2.5rem;
+  opacity: 0; transform: translateY(14px);
+  animation: ctUp 0.7s 0.1s var(--ease-out) forwards;
+}
+.ct-hero-breadcrumb a:hover { color: var(--sand); }
+.ct-hero-breadcrumb strong  { color: var(--copper); font-weight: 400; }
+
+.ct-hero-eyebrow {
+  opacity: 0; transform: translateY(18px);
+  animation: ctUp 0.75s 0.2s var(--ease-out) forwards;
+}
+
+.ct-hero-headline {
+  font-family: var(--font-display); font-weight: 300;
+  font-size: clamp(3rem, 6.5vw, 6rem);
+  line-height: 1.04; letter-spacing: -0.015em;
+  color: var(--cream-lt); max-width: 740px; margin-bottom: 1.75rem;
+  opacity: 0; transform: translateY(38px);
+  animation: ctUp 0.9s 0.3s var(--ease-out) forwards;
+}
+.ct-hero-headline em    { font-style: italic; color: var(--sand); }
+.ct-hero-headline strong{ font-weight: 500; }
+
+.ct-hero-sub {
+  font-size: clamp(1rem,1.55vw,1.15rem); line-height: 1.78;
+  color: rgba(244,237,224,0.52); font-weight: 300;
+  max-width: 540px; margin-bottom: 3rem;
+  opacity: 0; transform: translateY(24px);
+  animation: ctUp 0.85s 0.45s var(--ease-out) forwards;
+}
+
+.ct-hero-actions {
+  display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;
+  opacity: 0; transform: translateY(20px);
+  animation: ctUp 0.85s 0.6s var(--ease-out) forwards;
+}
+
+/* Five contact-type pills previewed at base of hero */
+.ct-hero-types {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
+  border-top: 1px solid rgba(201,171,132,0.08);
+  background: rgba(14,8,3,0.6); backdrop-filter: blur(14px);
+}
+.ct-hero-types-inner {
+  display: flex; align-items: stretch;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.ct-hero-types-inner::-webkit-scrollbar { display: none; }
+.ct-type-pill {
+  flex: 1; min-width: 130px;
+  padding: 1.3rem clamp(1rem,2vw,2rem);
+  border-right: 1px solid rgba(201,171,132,0.08);
+  display: flex; align-items: center; gap: 0.75rem;
+  cursor: pointer; transition: background 0.35s;
+  opacity: 0; animation: ctUp 0.65s var(--ease-out) forwards;
+  text-decoration: none;
+}
+.ct-type-pill:nth-child(1){ animation-delay: 0.75s; }
+.ct-type-pill:nth-child(2){ animation-delay: 0.88s; }
+.ct-type-pill:nth-child(3){ animation-delay: 1.01s; }
+.ct-type-pill:nth-child(4){ animation-delay: 1.14s; }
+.ct-type-pill:nth-child(5){ animation-delay: 1.27s; border-right: none; }
+.ct-type-pill:hover { background: rgba(160,92,56,0.08); }
+.ct-type-dot {
+  width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+  background: var(--copper); box-shadow: 0 0 8px rgba(160,92,56,0.4);
+  transition: box-shadow 0.35s;
+}
+.ct-type-pill:hover .ct-type-dot { box-shadow: 0 0 14px rgba(160,92,56,0.7); }
+.ct-type-label {
+  font-family: var(--font-label); font-size: 0.6rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(201,171,132,0.4); transition: color 0.35s; white-space: nowrap;
+}
+.ct-type-pill:hover .ct-type-label { color: var(--copper); }
+
+@keyframes ctUp { to { opacity: 1; transform: none; } }
+
+/* ══════════════════════════════════════════════════════════════════════
+   2. CONTACT OPTIONS
+   Five contact pathways arranged as a single elegant row of cards,
+   each with an icon, label, one-line description, and an anchor link
+   to the relevant section of the form below. On hover, the card lifts
+   and a copper border-bottom bar slides in. The cards use the white
+   face + brown-tinted hover common to premium card components across
+   the site.
+══════════════════════════════════════════════════════════════════════ */
+.ct-options {
+  padding-block: var(--section-pad);
+  background: var(--cream-lt);
+  position: relative; overflow: hidden;
+}
+.ct-options::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 100% 0%, rgba(160,92,56,0.04), transparent 55%);
+  pointer-events: none;
+}
+
+.ct-options-header {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: end;
+  margin-bottom: clamp(3.5rem,7vw,6rem);
+}
+
+.ct-options-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 1.25rem;
+  position: relative; z-index: 1;
+}
+
+.ct-option-card {
+  background: var(--white);
+  border: 1px solid rgba(58,28,14,0.1);
+  border-radius: var(--radius-md);
+  padding: clamp(1.5rem,2.5vw,2.2rem) clamp(1.2rem,2vw,1.75rem);
+  display: flex; flex-direction: column; gap: 0;
+  position: relative; overflow: hidden;
+  cursor: pointer; text-decoration: none; color: inherit;
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s, border-color 0.4s;
+}
+.ct-option-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 55px rgba(24,12,6,0.1);
+  border-color: rgba(160,92,56,0.28);
+}
+.ct-option-card::after {
+  content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: linear-gradient(90deg, var(--copper), var(--sand));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.5s var(--ease-out);
+}
+.ct-option-card:hover::after { transform: scaleX(1); }
+
+.ct-option-icon {
+  font-size: 1.4rem; margin-bottom: 1.2rem; color: var(--copper);
+  transition: transform 0.35s;
+}
+.ct-option-card:hover .ct-option-icon { transform: scale(1.12) rotate(5deg); }
+
+.ct-option-label {
+  font-family: var(--font-label); font-size: 0.6rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--copper); margin-bottom: 0.5rem;
+}
+.ct-option-title {
+  font-family: var(--font-display); font-size: clamp(1.05rem,1.6vw,1.3rem);
+  font-weight: 500; color: var(--espresso); line-height: 1.25; margin-bottom: 0.65rem;
+}
+.ct-option-desc {
+  font-size: 0.8rem; line-height: 1.72; color: var(--brown); font-weight: 300; flex: 1;
+}
+.ct-option-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--copper); margin-top: 1.2rem;
+  transition: gap 0.35s, color 0.3s;
+}
+.ct-option-card:hover .ct-option-link { gap: 0.7rem; color: var(--mahogany); }
+.ct-option-link span { font-size: 0.85rem; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   3 + 4. MAIN CONTACT AREA
+   The heart of the page: a two-column layout with the premium form
+   on the left and the direct contact information on the right.
+   The columns are housed inside a single rounded container on the
+   espresso background, creating the effect of a document or letter.
+══════════════════════════════════════════════════════════════════════ */
+.ct-main {
+  padding-block: var(--section-pad);
+  background: var(--espresso);
+  position: relative; overflow: hidden;
+}
+.ct-main::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,171,132,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,171,132,0.035) 1px, transparent 1px);
+  background-size: 80px 80px; pointer-events: none;
+}
+
+/* Outer card — the "letter" container */
+.ct-main-card {
+  background: var(--white);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: 0 40px 100px rgba(24,12,6,0.4);
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  position: relative; z-index: 1;
+}
+
+/* ── FORM PANEL (left) ── */
+.ct-form-panel {
+  padding: clamp(3rem,6vw,5rem);
+  border-right: 1px solid rgba(58,28,14,0.08);
+}
+
+.ct-form-header { margin-bottom: 2.5rem; }
+.ct-form-heading {
+  font-family: var(--font-display); font-size: clamp(1.8rem,3vw,2.6rem);
+  font-weight: 300; color: var(--espresso); line-height: 1.15; margin-bottom: 0.75rem;
+}
+.ct-form-heading em { font-style: italic; color: var(--copper); }
+.ct-form-sub {
+  font-size: 0.9rem; line-height: 1.75; color: var(--brown); font-weight: 300;
+}
+
+/* Form layout — two-col grid of fields */
+.ct-form {
+  display: flex; flex-direction: column; gap: 1.25rem;
+}
+.ct-form-row {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;
+}
+.ct-form-group { display: flex; flex-direction: column; gap: 0.45rem; }
+.ct-form-group--full { grid-column: 1 / -1; }
+
+.ct-label {
+  font-family: var(--font-label); font-size: 0.58rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(58,28,14,0.5); transition: color 0.3s;
+}
+.ct-form-group:focus-within .ct-label { color: var(--copper); }
+
+/* Shared input/select/textarea styles */
+.ct-input, .ct-select, .ct-textarea {
+  background: var(--cream-lt);
+  border: 1.5px solid rgba(58,28,14,0.12);
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 1.1rem;
+  font-family: var(--font-body); font-size: 0.92rem; font-weight: 300;
+  color: var(--espresso);
+  transition: border-color 0.3s, box-shadow 0.3s, background 0.3s;
+  outline: none; width: 100%;
+}
+.ct-input::placeholder, .ct-textarea::placeholder { color: rgba(58,28,14,0.28); }
+.ct-input:focus, .ct-select:focus, .ct-textarea:focus {
+  border-color: var(--copper);
+  box-shadow: 0 0 0 3px rgba(160,92,56,0.1);
+  background: var(--white);
+}
+
+/* Custom select — remove default arrow, add custom chevron */
+.ct-select-wrap { position: relative; }
+.ct-select {
+  appearance: none; -webkit-appearance: none;
+  cursor: pointer; padding-right: 2.5rem;
+}
+.ct-select-arrow {
+  position: absolute; right: 1rem; top: 50%;
+  transform: translateY(-50%);
+  color: rgba(58,28,14,0.35); font-size: 0.65rem;
+  pointer-events: none; transition: color 0.3s, transform 0.3s;
+}
+.ct-select-wrap:focus-within .ct-select-arrow {
+  color: var(--copper); transform: translateY(-50%) rotate(180deg);
+}
+
+.ct-textarea { resize: vertical; min-height: 140px; line-height: 1.65; }
+
+/* Character count */
+.ct-char-count {
+  font-family: var(--font-label); font-size: 0.55rem;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(58,28,14,0.28); text-align: right; margin-top: 0.25rem;
+  transition: color 0.3s;
+}
+.ct-char-count.near-limit { color: var(--copper); }
+
+/* Privacy note */
+.ct-privacy {
+  font-size: 0.77rem; line-height: 1.65;
+  color: rgba(58,28,14,0.35); font-weight: 300;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(58,28,14,0.07);
+}
+.ct-privacy a { color: var(--copper); transition: color 0.3s; }
+.ct-privacy a:hover { color: var(--mahogany); }
+
+/* Submit button — full width, large */
+.ct-submit {
+  width: 100%; height: 58px;
+  background: var(--copper); color: var(--white);
+  border: 1px solid var(--copper); border-radius: 2px;
+  font-family: var(--font-label); font-size: 0.68rem;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.35s, transform 0.35s, box-shadow 0.35s;
+  display: flex; align-items: center; justify-content: center; gap: 0.7rem;
+}
+.ct-submit:hover {
+  background: var(--copper-lt); border-color: var(--copper-lt);
+  transform: translateY(-2px); box-shadow: 0 14px 44px rgba(160,92,56,0.35);
+}
+.ct-submit:active { transform: translateY(0); }
+.ct-submit-arrow { font-size: 1rem; transition: transform 0.35s; }
+.ct-submit:hover .ct-submit-arrow { transform: translateX(4px); }
+
+/* Success state */
+.ct-success {
+  display: none;
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 1.25rem; padding: 3rem;
+  text-align: center;
+}
+.ct-success.show { display: flex; }
+.ct-success-icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: rgba(160,92,56,0.1); border: 1px solid rgba(160,92,56,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; color: var(--copper);
+}
+.ct-success-heading {
+  font-family: var(--font-display); font-size: 1.8rem; font-weight: 300; color: var(--espresso);
+}
+.ct-success-heading em { font-style: italic; color: var(--copper); }
+.ct-success-body { font-size: 0.88rem; line-height: 1.75; color: var(--brown); font-weight: 300; max-width: 380px; }
+
+/* ── CONTACT INFO PANEL (right) ── */
+.ct-info-panel {
+  background: var(--espresso);
+  padding: clamp(3rem,6vw,5rem);
+  display: flex; flex-direction: column;
+  position: relative; overflow: hidden;
+}
+
+/* Inner texture */
+.ct-info-panel::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,171,132,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,171,132,0.04) 1px, transparent 1px);
+  background-size: 60px 60px; pointer-events: none;
+}
+
+.ct-info-header { position: relative; z-index: 1; margin-bottom: 2.5rem; }
+.ct-info-eyebrow {
+  font-family: var(--font-label); font-size: 0.6rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--copper); margin-bottom: 0.9rem; display: block;
+}
+.ct-info-heading {
+  font-family: var(--font-display); font-size: clamp(1.6rem,2.8vw,2.2rem);
+  font-weight: 300; color: var(--cream); line-height: 1.18;
+}
+.ct-info-heading em { font-style: italic; color: var(--sand); }
+
+/* Direct contact rows */
+.ct-contacts { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 0; margin-bottom: 2.5rem; }
+.ct-contact-row {
+  display: flex; align-items: flex-start; gap: 1.1rem;
+  padding-block: 1.3rem;
+  border-bottom: 1px solid rgba(201,171,132,0.08);
+  cursor: default; transition: background 0.35s;
+  border-radius: var(--radius-sm); padding-inline: 0.5rem; margin-inline: -0.5rem;
+}
+.ct-contact-row:first-child { padding-top: 0; }
+.ct-contact-row:last-child  { border-bottom: none; }
+.ct-contact-row:hover       { background: rgba(255,252,248,0.04); }
+
+.ct-contact-icon {
+  width: 40px; height: 40px; border-radius: var(--radius-sm);
+  background: rgba(201,171,132,0.07); border: 1px solid rgba(201,171,132,0.14);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.95rem; color: var(--copper); flex-shrink: 0;
+  transition: border-color 0.35s;
+}
+.ct-contact-row:hover .ct-contact-icon { border-color: rgba(160,92,56,0.4); }
+
+.ct-contact-text { }
+.ct-contact-label {
+  font-family: var(--font-label); font-size: 0.56rem;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: rgba(201,171,132,0.35); margin-bottom: 0.2rem;
+}
+.ct-contact-value {
+  font-family: var(--font-display); font-size: clamp(0.9rem,1.3vw,1.05rem);
+  font-weight: 400; color: var(--cream); line-height: 1.3;
+  transition: color 0.3s;
+}
+.ct-contact-row a .ct-contact-value { }
+.ct-contact-row a:hover .ct-contact-value { color: var(--sand); }
+.ct-contact-value-sub {
+  font-size: 0.75rem; color: rgba(201,171,132,0.35); font-weight: 300;
+  margin-top: 0.1rem; font-style: italic;
+}
+
+/* Response commitment block */
+.ct-response-block {
+  background: rgba(255,252,248,0.04);
+  border: 1px solid rgba(201,171,132,0.1);
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  position: relative; z-index: 1; margin-bottom: 2.5rem;
+}
+.ct-response-label {
+  font-family: var(--font-label); font-size: 0.58rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--copper); margin-bottom: 0.6rem; display: block;
+}
+.ct-response-text {
+  font-size: 0.82rem; line-height: 1.72; color: rgba(244,237,224,0.45); font-weight: 300;
+}
+.ct-response-time {
+  display: flex; align-items: center; gap: 0.6rem;
+  margin-top: 1rem;
+  font-family: var(--font-display); font-size: 1.05rem; font-weight: 400; color: var(--sand);
+}
+.ct-response-time-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--sage); box-shadow: 0 0 10px rgba(104,117,88,0.5);
+  flex-shrink: 0; animation: blink 2.5s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:0.5} 50%{opacity:1} }
+
+/* Social placeholders */
+.ct-socials {
+  display: flex; flex-direction: column; gap: 0.65rem;
+  position: relative; z-index: 1;
+  margin-top: auto;
+}
+.ct-socials-label {
+  font-family: var(--font-label); font-size: 0.58rem;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: rgba(201,171,132,0.3); margin-bottom: 0.25rem;
+}
+.ct-social-row {
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.ct-social-item {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-size: 0.78rem; color: rgba(244,237,224,0.28);
+  font-weight: 300; padding: 0.5rem 0.85rem;
+  border: 1px solid rgba(201,171,132,0.1); border-radius: 2px;
+  transition: color 0.3s, border-color 0.3s; cursor: default;
+}
+.ct-social-item:hover { color: var(--sand); border-color: rgba(201,171,132,0.25); }
+.ct-social-icon { font-size: 0.7rem; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   5. PARTNERSHIP INVITATION
+   A full-width cinematic panel — dark, dramatic, with a large italic
+   pull-quote as the headline. This section is designed to stop scrollers:
+   its visual weight and emotional warmth make it feel like a genuine
+   invitation rather than a CTA block. The decorative element is a pair
+   of large concentric arcs suggesting embrace and welcome.
+══════════════════════════════════════════════════════════════════════ */
+.ct-partnership {
+  padding-block: clamp(6rem,14vw,12rem);
+  background: var(--brown);
+  position: relative; overflow: hidden;
+}
+
+/* Large decorative quote mark — left-anchored, very faint */
+.ct-partnership::before {
+  content: '"';
+  position: absolute; top: -4rem; left: 2%;
+  font-family: var(--font-display); font-size: clamp(16rem,28vw,28rem);
+  font-weight: 700; color: rgba(244,237,224,0.025);
+  line-height: 1; pointer-events: none; user-select: none;
+}
+
+.ct-partnership::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(201,171,132,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,171,132,0.04) 1px, transparent 1px);
+  background-size: 80px 80px; pointer-events: none;
+}
+
+/* Concentric arcs — right side SVG decoration */
+.ct-partnership-arcs {
+  position: absolute; right: -8vw; top: 50%;
+  transform: translateY(-50%);
+  width: clamp(300px, 40vw, 560px);
+  pointer-events: none; opacity: 0.4;
+}
+
+.ct-partnership-inner {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(4rem,9vw,9rem); align-items: center;
+}
+
+.ct-partnership-left { }
+.ct-partnership-label {
+  font-family: var(--font-label); font-size: 0.62rem;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--sand); margin-bottom: 1.5rem; display: block;
+}
+.ct-partnership-quote {
+  font-family: var(--font-display); font-style: italic;
+  font-size: clamp(1.8rem,3.5vw,3rem); font-weight: 300;
+  line-height: 1.3; color: var(--cream);
+  margin-bottom: 2rem;
+}
+.ct-partnership-quote em { color: var(--sand); font-style: normal; }
+.ct-partnership-body {
+  font-size: clamp(0.92rem,1.35vw,1rem); line-height: 1.85;
+  color: rgba(244,237,224,0.48); font-weight: 300; margin-bottom: 2.5rem;
+}
+.ct-partnership-actions { display: flex; gap: 1.1rem; flex-wrap: wrap; }
+
+.ct-partnership-right { }
+.ct-partnership-cards {
+  display: flex; flex-direction: column; gap: 1rem;
+}
+.ct-partner-type {
+  display: flex; align-items: center; gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  background: rgba(255,252,248,0.04);
+  border: 1px solid rgba(201,171,132,0.1);
+  border-radius: var(--radius-md);
+  cursor: default; transition: background 0.35s, border-color 0.35s, transform 0.4s;
+}
+.ct-partner-type:hover {
+  background: rgba(255,252,248,0.07);
+  border-color: rgba(201,171,132,0.22);
+  transform: translateX(4px);
+}
+.ct-partner-type-icon {
+  width: 40px; height: 40px; border-radius: var(--radius-sm);
+  background: rgba(160,92,56,0.1); border: 1px solid rgba(160,92,56,0.2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1rem; color: var(--copper); flex-shrink: 0;
+}
+.ct-partner-type-text { }
+.ct-partner-type-label {
+  font-family: var(--font-label); font-size: 0.56rem;
+  letter-spacing: 0.18em; text-transform: uppercase; color: var(--copper); margin-bottom: 0.2rem;
+}
+.ct-partner-type-title {
+  font-family: var(--font-display); font-size: clamp(0.92rem,1.4vw,1.1rem);
+  font-weight: 400; color: var(--cream); line-height: 1.25;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   6. FAQ / REASSURANCE
+   Six short questions and answers, arranged as a clean two-column
+   accordion-style list on a warm cream background. Each item has a
+   copper question marker, a bold question, and a brief answer.
+   No JavaScript accordion — open/close is done via the HTML <details>
+   element, styled to match the site's aesthetic. This is semantic,
+   accessible, and zero-dependency.
+══════════════════════════════════════════════════════════════════════ */
+.ct-faq {
+  padding-block: var(--section-pad);
+  background: var(--cream-lt);
+  position: relative; overflow: hidden;
+}
+.ct-faq::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 0% 100%, rgba(160,92,56,0.04), transparent 55%);
+  pointer-events: none;
+}
+
+.ct-faq-header {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 4rem; align-items: end;
+  margin-bottom: clamp(3.5rem,7vw,6rem);
+}
+
+.ct-faq-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; border: 1px solid rgba(58,28,14,0.09);
+  border-radius: var(--radius-md); overflow: hidden;
+  position: relative; z-index: 1;
+}
+
+.ct-faq-item {
+  padding: clamp(1.75rem,3vw,2.5rem);
+  border-right: 1px solid rgba(58,28,14,0.07);
+  border-bottom: 1px solid rgba(58,28,14,0.07);
+  background: var(--white);
+  list-style: none;
+}
+.ct-faq-item:nth-child(2n) { border-right: none; }
+.ct-faq-item:nth-last-child(-n+2) { border-bottom: none; }
+
+/* <details> element — custom styled */
+.ct-faq-details { }
+.ct-faq-details[open] .ct-faq-arrow { transform: rotate(90deg); }
+.ct-faq-details[open] { background: rgba(160,92,56,0.025); margin: calc(-1 * clamp(1.75rem,3vw,2.5rem)); padding: clamp(1.75rem,3vw,2.5rem); }
+
+.ct-faq-summary {
+  display: flex; align-items: flex-start; gap: 0.85rem;
+  cursor: pointer; list-style: none; user-select: none;
+}
+.ct-faq-summary::-webkit-details-marker { display: none; }
+
+.ct-faq-q-marker {
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 400;
+  color: var(--copper); line-height: 1; flex-shrink: 0; margin-top: 0.05em;
+}
+.ct-faq-q-text {
+  font-family: var(--font-display); font-size: clamp(1rem,1.5vw,1.2rem);
+  font-weight: 500; color: var(--espresso); line-height: 1.3; flex: 1;
+}
+.ct-faq-arrow {
+  color: rgba(58,28,14,0.25); font-size: 0.7rem; flex-shrink: 0;
+  margin-top: 0.3em; transition: transform 0.35s var(--ease-out), color 0.3s;
+}
+.ct-faq-details[open] .ct-faq-arrow { color: var(--copper); }
+
+.ct-faq-answer {
+  font-size: 0.85rem; line-height: 1.8; color: var(--brown);
+  font-weight: 300; margin-top: 1rem;
+  padding-left: calc(1.1rem + 0.85rem); /* align with question text */
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════════════════════════════ */
+.footer { background: var(--chocolate); padding: 4rem 0 2.5rem; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-logo-name { font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; color: var(--cream); margin-bottom: 0.25rem; }
+.footer-logo-sub  { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; color: var(--copper); text-transform: uppercase; margin-bottom: 1.25rem; }
+.footer-tagline   { font-size: 0.85rem; line-height: 1.7; color: rgba(244,237,224,0.35); font-weight: 300; max-width: 260px; }
+.footer-col-title { font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1.25rem; }
+.footer-links     { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+.footer-links a   { font-size: 0.83rem; color: rgba(244,237,224,0.35); transition: color 0.3s; }
+.footer-links a:hover { color: var(--sand); }
+.footer-bottom    { border-top: 1px solid rgba(201,171,132,0.1); padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-copy      { font-size: 0.78rem; color: rgba(244,237,224,0.2); }
+.footer-copy em   { color: var(--copper); font-style: normal; }
+.footer-legal     { display: flex; gap: 1.5rem; }
+.footer-legal a   { font-size: 0.75rem; color: rgba(244,237,224,0.2); transition: color 0.3s; }
+.footer-legal a:hover { color: var(--sand); }
+
+/* ══════════════════════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════════════════════ */
+@media (max-width: 1100px) {
+  .ct-options-grid  { grid-template-columns: repeat(3,1fr); }
+  .ct-main-card     { grid-template-columns: 1fr; }
+  .ct-info-panel    { border-top: 1px solid rgba(201,171,132,0.1); }
+  .ct-faq-grid      { grid-template-columns: 1fr; }
+  .ct-faq-item      { border-right: none !important; }
+  .ct-faq-item:nth-last-child(-n+2) { border-bottom: 1px solid rgba(58,28,14,0.07); }
+  .ct-faq-item:last-child { border-bottom: none; }
+  .footer-grid      { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 900px) {
+  .nav-links { display: none; }
+  .hamburger  { display: flex; }
+  .ct-hero-constellation { display: none; }
+  .ct-options-header  { grid-template-columns: 1fr; gap: 2rem; }
+  .ct-partnership-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .ct-faq-header    { grid-template-columns: 1fr; gap: 2rem; }
+  .ct-form-row      { grid-template-columns: 1fr; }
+  .ct-hero-types-inner { flex-wrap: nowrap; }
+  .ct-partnership-arcs { display: none; }
+}
+@media (max-width: 680px) {
+  :root { --section-pad: 4rem; }
+  .ct-options-grid  { grid-template-columns: 1fr 1fr; }
+  .ct-main-card     { border-radius: var(--radius-lg); }
+  .ct-social-row    { flex-wrap: wrap; }
+  .footer-grid      { grid-template-columns: 1fr; gap: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════════════════════════════════ -->
+<nav class="nav transparent" id="mainNav" aria-label="Main navigation">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="rankine-innovation-lab.html" class="nav-logo" aria-label="Rankine Innovation Lab — Home">
+        <span class="nav-logo-mark">Rankine</span>
+        <span class="nav-logo-name">Innovation Lab</span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="rankine-innovation-lab.html">Home</a></li>
+        <li><a href="rankine-about.html">About</a></li>
+        <li><a href="rankine-programmes.html">Programmes</a></li>
+        <li><a href="rankine-research.html">Research</a></li>
+        <li><a href="rankine-knowledge-hub.html">Knowledge Hub</a></li>
+        <li><a href="rankine-pioneers.html">Pioneers</a></li>
+        <li><a href="#" class="active-page nav-cta">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
+  <a href="rankine-innovation-lab.html"   onclick="closeMobile()">Home</a>
+  <a href="rankine-about.html"            onclick="closeMobile()">About</a>
+  <a href="rankine-programmes.html"       onclick="closeMobile()">Programmes</a>
+  <a href="rankine-research.html"         onclick="closeMobile()">Research</a>
+  <a href="rankine-knowledge-hub.html"    onclick="closeMobile()">Knowledge Hub</a>
+  <a href="rankine-pioneers.html"         onclick="closeMobile()">Pioneers</a>
+  <a href="#"                             onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     1. HERO
+════════════════════════════════════════════════════════════════════ -->
+<section class="ct-hero" aria-labelledby="heroHeading">
+  <div class="ct-hero-bg"></div>
+  <div class="ct-hero-reeds" aria-hidden="true"></div>
+  <div class="ct-hero-grain" aria-hidden="true"></div>
+  <div class="ct-hero-hearth" aria-hidden="true"></div>
+
+  <!-- Connection constellation SVG -->
+  <svg class="ct-hero-constellation" viewBox="0 0 440 380" fill="none"
+       xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <!-- Outer arcs of connection -->
+    <circle cx="220" cy="190" r="170" stroke="rgba(201,171,132,0.05)" stroke-width="1"/>
+    <circle cx="220" cy="190" r="120" stroke="rgba(160,92,56,0.07)"   stroke-width="1"/>
+    <circle cx="220" cy="190" r="70"  stroke="rgba(201,171,132,0.09)" stroke-width="1"/>
+    <!-- Spokes / connection lines -->
+    <line x1="220" y1="20"  x2="220" y2="190" stroke="rgba(201,171,132,0.06)" stroke-width="1"/>
+    <line x1="360" y1="190" x2="220" y2="190" stroke="rgba(201,171,132,0.06)" stroke-width="1"/>
+    <line x1="80"  y1="190" x2="220" y2="190" stroke="rgba(201,171,132,0.06)" stroke-width="1"/>
+    <line x1="316" y1="94"  x2="220" y2="190" stroke="rgba(160,92,56,0.06)"  stroke-width="1"/>
+    <line x1="124" y1="94"  x2="220" y2="190" stroke="rgba(160,92,56,0.06)"  stroke-width="1"/>
+    <line x1="316" y1="286" x2="220" y2="190" stroke="rgba(201,171,132,0.05)" stroke-width="1"/>
+    <line x1="124" y1="286" x2="220" y2="190" stroke="rgba(201,171,132,0.05)" stroke-width="1"/>
+    <!-- Node dots at spoke ends -->
+    <circle cx="220" cy="20"  r="4" fill="rgba(160,92,56,0.35)"/>
+    <circle cx="360" cy="190" r="4" fill="rgba(160,92,56,0.30)"/>
+    <circle cx="80"  cy="190" r="3" fill="rgba(160,92,56,0.25)"/>
+    <circle cx="316" cy="94"  r="3" fill="rgba(201,171,132,0.25)"/>
+    <circle cx="124" cy="94"  r="3" fill="rgba(201,171,132,0.25)"/>
+    <circle cx="316" cy="286" r="3" fill="rgba(201,171,132,0.2)"/>
+    <circle cx="124" cy="286" r="3" fill="rgba(201,171,132,0.2)"/>
+    <!-- Centre hub -->
+    <circle cx="220" cy="190" r="12" fill="rgba(160,92,56,0.1)" stroke="rgba(160,92,56,0.3)" stroke-width="1.5"/>
+    <circle cx="220" cy="190" r="5"  fill="rgba(160,92,56,0.45)"/>
+  </svg>
+
+  <div class="ct-hero-content">
+    <div class="container">
+      <nav class="ct-hero-breadcrumb" aria-label="Breadcrumb">
+        <a href="rankine-innovation-lab.html">Home</a>
+        <span aria-hidden="true">—</span>
+        <strong>Contact</strong>
+      </nav>
+
+      <div class="eyebrow ct-hero-eyebrow" aria-hidden="true">
+        <span class="eyebrow-line"></span>
+        Start a Conversation
+      </div>
+
+      <h1 class="ct-hero-headline" id="heroHeading">
+        Let's build something<br>
+        <em>meaningful</em><br>
+        <strong>together.</strong>
+      </h1>
+
+      <p class="ct-hero-sub">
+        Every important collaboration begins with a single considered message. Whether you are exploring a partnership, seeking a research collaborator, or simply curious about what Rankine does — we would like to hear from you.
+      </p>
+
+      <div class="ct-hero-actions">
+        <a href="#ct-form"        class="btn btn--copper">Send a Message</a>
+        <a href="#ct-partnership" class="btn btn--ghost-light">Partnership Enquiries</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact type pills -->
+  <div class="ct-hero-types" aria-label="Enquiry types">
+    <div class="container">
+      <div class="ct-hero-types-inner">
+        <a href="#ct-form" class="ct-type-pill" onclick="setType('Partnership')">
+          <span class="ct-type-dot" aria-hidden="true"></span>
+          <span class="ct-type-label">Partnerships</span>
+        </a>
+        <a href="#ct-form" class="ct-type-pill" onclick="setType('Programme Enquiry')">
+          <span class="ct-type-dot" aria-hidden="true"></span>
+          <span class="ct-type-label">Programmes</span>
+        </a>
+        <a href="#ct-form" class="ct-type-pill" onclick="setType('Research Collaboration')">
+          <span class="ct-type-dot" aria-hidden="true"></span>
+          <span class="ct-type-label">Research</span>
+        </a>
+        <a href="#ct-form" class="ct-type-pill" onclick="setType('Speaking Invitation')">
+          <span class="ct-type-dot" aria-hidden="true"></span>
+          <span class="ct-type-label">Speaking</span>
+        </a>
+        <a href="#ct-form" class="ct-type-pill" onclick="setType('General Enquiry')">
+          <span class="ct-type-dot" aria-hidden="true"></span>
+          <span class="ct-type-label">General</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     2. CONTACT OPTIONS
+════════════════════════════════════════════════════════════════════ -->
+<section class="ct-options" id="ct-options" aria-labelledby="optHeading">
+  <div class="container">
+
+    <div class="ct-options-header">
+      <div>
+        <div class="eyebrow reveal"><span class="eyebrow-line"></span>How We Can Help</div>
+        <h2 class="display display--dark reveal d1" id="optHeading" style="font-size:clamp(2.2rem,4vw,3.8rem)">
+          Five Ways to<br><em>Engage With Us</em>
+        </h2>
+      </div>
+      <div>
+        <p class="reveal d2" style="font-size:clamp(0.95rem,1.4vw,1.05rem); line-height:1.85; color:var(--brown); font-weight:300; margin-top:0">
+          Rankine works with researchers, practitioners, institutions, and organisations across a range of engagement types. Each pathway below leads to a different kind of relationship — choose the one that matches what you have in mind.
+        </p>
+      </div>
+    </div>
+
+    <div class="ct-options-grid">
+
+      <a href="#ct-form" class="ct-option-card reveal" onclick="setType('Partnership')">
+        <span class="ct-option-icon" aria-hidden="true">⬡</span>
+        <div class="ct-option-label">Collaborate</div>
+        <h3 class="ct-option-title">Partnerships</h3>
+        <p class="ct-option-desc">Institutional or organisational partnerships for capacity building, embedded innovation, or joint programme delivery.</p>
+        <span class="ct-option-link">Enquire <span aria-hidden="true">→</span></span>
+      </a>
+
+      <a href="#ct-form" class="ct-option-card reveal d1" onclick="setType('Programme Enquiry')">
+        <span class="ct-option-icon" aria-hidden="true">⚙</span>
+        <div class="ct-option-label">Learn</div>
+        <h3 class="ct-option-title">Programmes</h3>
+        <p class="ct-option-desc">Enquire about our AI, sustainability, smart agriculture, and custom training programmes for individuals or cohorts.</p>
+        <span class="ct-option-link">Enquire <span aria-hidden="true">→</span></span>
+      </a>
+
+      <a href="#ct-form" class="ct-option-card reveal d2" onclick="setType('Research Collaboration')">
+        <span class="ct-option-icon" aria-hidden="true">🔬</span>
+        <div class="ct-option-label">Discover</div>
+        <h3 class="ct-option-title">Research</h3>
+        <p class="ct-option-desc">Research collaboration, commissioned applied research, or joint inquiry in our five core domains.</p>
+        <span class="ct-option-link">Enquire <span aria-hidden="true">→</span></span>
+      </a>
+
+      <a href="#ct-form" class="ct-option-card reveal d1" onclick="setType('Speaking Invitation')">
+        <span class="ct-option-icon" aria-hidden="true">◎</span>
+        <div class="ct-option-label">Invite</div>
+        <h3 class="ct-option-title">Speaking</h3>
+        <p class="ct-option-desc">Book a Rankine pioneer for keynotes, panels, workshops, or institutional events on AI, sustainability, and innovation.</p>
+        <span class="ct-option-link">Enquire <span aria-hidden="true">→</span></span>
+      </a>
+
+      <a href="#ct-form" class="ct-option-card reveal d2" onclick="setType('General Enquiry')">
+        <span class="ct-option-icon" aria-hidden="true">⟐</span>
+        <div class="ct-option-label">Connect</div>
+        <h3 class="ct-option-title">General</h3>
+        <p class="ct-option-desc">Anything else — press enquiries, media, community questions, or simply getting to know the lab better.</p>
+        <span class="ct-option-link">Enquire <span aria-hidden="true">→</span></span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     3 + 4. FORM + DIRECT CONTACT
+════════════════════════════════════════════════════════════════════ -->
+<section class="ct-main" id="ct-form" aria-labelledby="formHeading">
+  <div class="container">
+    <div class="ct-main-card reveal">
+
+      <!-- ── FORM PANEL ── -->
+      <div class="ct-form-panel">
+        <div class="ct-form-header">
+          <h2 class="ct-form-heading" id="formHeading">
+            Write to <em>us directly.</em>
+          </h2>
+          <p class="ct-form-sub">
+            We read every message carefully. Tell us what you have in mind and we will respond within 48 hours.
+          </p>
+        </div>
+
+        <!-- Form -->
+        <form class="ct-form" id="contactForm" novalidate onsubmit="handleFormSubmit(event)" aria-label="Contact form">
+
+          <!-- Row 1: Name + Email -->
+          <div class="ct-form-row">
+            <div class="ct-form-group">
+              <label class="ct-label" for="ctName">Full Name *</label>
+              <input
+                type="text" id="ctName" name="name"
+                class="ct-input" placeholder="Your full name"
+                autocomplete="name" required
+              />
+            </div>
+            <div class="ct-form-group">
+              <label class="ct-label" for="ctEmail">Email Address *</label>
+              <input
+                type="email" id="ctEmail" name="email"
+                class="ct-input" placeholder="your@email.com"
+                autocomplete="email" required
+              />
+            </div>
+          </div>
+
+          <!-- Row 2: Organisation + Role -->
+          <div class="ct-form-row">
+            <div class="ct-form-group">
+              <label class="ct-label" for="ctOrg">Organisation</label>
+              <input
+                type="text" id="ctOrg" name="organisation"
+                class="ct-input" placeholder="Your institution or company"
+                autocomplete="organization"
+              />
+            </div>
+            <div class="ct-form-group">
+              <label class="ct-label" for="ctRole">Your Role</label>
+              <input
+                type="text" id="ctRole" name="role"
+                class="ct-input" placeholder="Researcher, Director, etc."
+              />
+            </div>
+          </div>
+
+          <!-- Enquiry type select -->
+          <div class="ct-form-group">
+            <label class="ct-label" for="ctType">Area of Interest *</label>
+            <div class="ct-select-wrap">
+              <select id="ctType" name="enquiry_type" class="ct-select" required>
+                <option value="" disabled selected>Select an enquiry type</option>
+                <option value="Partnership">Partnerships &amp; Institutional Collaboration</option>
+                <option value="Programme Enquiry">Programme Enquiry — Learners or Organisations</option>
+                <option value="Research Collaboration">Research Collaboration or Commission</option>
+                <option value="Speaking Invitation">Speaking Invitation or Event</option>
+                <option value="Fellowship or Advisory">Fellowship, Advisory or Contributor Role</option>
+                <option value="Funding">Funding or Grant Partnership</option>
+                <option value="Media">Media or Press Enquiry</option>
+                <option value="General Enquiry">General Enquiry</option>
+              </select>
+              <span class="ct-select-arrow" aria-hidden="true">▼</span>
+            </div>
+          </div>
+
+          <!-- Message textarea -->
+          <div class="ct-form-group ct-form-group--full">
+            <label class="ct-label" for="ctMessage">Your Message *</label>
+            <textarea
+              id="ctMessage" name="message"
+              class="ct-textarea"
+              placeholder="Tell us what you have in mind. The more context you share, the better we can respond."
+              maxlength="1200" required
+              oninput="updateCharCount(this)"
+            ></textarea>
+            <div class="ct-char-count" id="charCount" aria-live="polite">0 / 1200 characters</div>
+          </div>
+
+          <!-- Privacy note -->
+          <p class="ct-privacy">
+            By submitting this form you agree to our <a href="#">Privacy Policy</a>. We never share your details with third parties and we respond to every genuine enquiry personally. No automated replies, no mailing list sign-ups without your consent.
+          </p>
+
+          <!-- Submit -->
+          <button type="submit" class="ct-submit" id="ctSubmitBtn">
+            Send Your Message
+            <span class="ct-submit-arrow" aria-hidden="true">→</span>
+          </button>
+
+        </form>
+
+        <!-- Success message (hidden until form submitted) -->
+        <div class="ct-success" id="ctSuccess" role="status" aria-live="polite">
+          <div class="ct-success-icon" aria-hidden="true">◎</div>
+          <h3 class="ct-success-heading">Message <em>received.</em></h3>
+          <p class="ct-success-body">
+            Thank you for reaching out. A member of the Rankine team will read your message carefully and respond within 48 hours. We look forward to the conversation.
+          </p>
+        </div>
+      </div>
+
+      <!-- ── DIRECT CONTACT PANEL ── -->
+      <div class="ct-info-panel">
+        <div class="ct-info-header">
+          <span class="ct-info-eyebrow">Direct Contact</span>
+          <h2 class="ct-info-heading">
+            Prefer to reach<br>us <em>directly?</em>
+          </h2>
+        </div>
+
+        <!-- Contact rows -->
+        <div class="ct-contacts" aria-label="Direct contact information">
+
+          <a href="mailto:hello@rankineinnovation.org" class="ct-contact-row" style="text-decoration:none">
+            <div class="ct-contact-icon" aria-hidden="true">✉</div>
+            <div class="ct-contact-text">
+              <div class="ct-contact-label">General Enquiries</div>
+              <div class="ct-contact-value">hello@rankineinnovation.org</div>
+            </div>
+          </a>
+
+          <a href="mailto:partnerships@rankineinnovation.org" class="ct-contact-row" style="text-decoration:none">
+            <div class="ct-contact-icon" aria-hidden="true">⬡</div>
+            <div class="ct-contact-text">
+              <div class="ct-contact-label">Partnerships</div>
+              <div class="ct-contact-value">partnerships@rankineinnovation.org</div>
+            </div>
+          </a>
+
+          <a href="mailto:research@rankineinnovation.org" class="ct-contact-row" style="text-decoration:none">
+            <div class="ct-contact-icon" aria-hidden="true">🔬</div>
+            <div class="ct-contact-text">
+              <div class="ct-contact-label">Research</div>
+              <div class="ct-contact-value">research@rankineinnovation.org</div>
+            </div>
+          </a>
+
+          <a href="mailto:speaking@rankineinnovation.org" class="ct-contact-row" style="text-decoration:none">
+            <div class="ct-contact-icon" aria-hidden="true">◎</div>
+            <div class="ct-contact-text">
+              <div class="ct-contact-label">Speaking &amp; Events</div>
+              <div class="ct-contact-value">speaking@rankineinnovation.org</div>
+            </div>
+          </a>
+
+          <div class="ct-contact-row">
+            <div class="ct-contact-icon" aria-hidden="true">⟐</div>
+            <div class="ct-contact-text">
+              <div class="ct-contact-label">Location</div>
+              <div class="ct-contact-value">Based in Africa</div>
+              <div class="ct-contact-value-sub">Collaborating globally, across time zones</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Response commitment -->
+        <div class="ct-response-block" aria-label="Response time commitment">
+          <span class="ct-response-label">Our Commitment</span>
+          <p class="ct-response-text">
+            Every genuine enquiry receives a personal response — not an automated reply. We read each message carefully before responding and we never forward your details without permission.
+          </p>
+          <div class="ct-response-time">
+            <span class="ct-response-time-dot" aria-hidden="true"></span>
+            Typically within 48 hours
+          </div>
+        </div>
+
+        <!-- Social placeholders -->
+        <div class="ct-socials" aria-label="Social presence">
+          <span class="ct-socials-label">Find us online</span>
+          <div class="ct-social-row">
+            <div class="ct-social-item">
+              <span class="ct-social-icon" aria-hidden="true">𝕏</span>
+              <span>@RankineLabHQ</span>
+            </div>
+            <div class="ct-social-item">
+              <span class="ct-social-icon" aria-hidden="true">in</span>
+              <span>Rankine Innovation Lab</span>
+            </div>
+          </div>
+          <div class="ct-social-row">
+            <div class="ct-social-item">
+              <span class="ct-social-icon" aria-hidden="true">◎</span>
+              <span>ResearchGate · Coming soon</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     5. PARTNERSHIP INVITATION
+════════════════════════════════════════════════════════════════════ -->
+<section class="ct-partnership" id="ct-partnership" aria-labelledby="partnerHeading">
+  <!-- Concentric arcs — right side warmth -->
+  <svg class="ct-partnership-arcs" viewBox="0 0 400 400" fill="none"
+       xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <circle cx="400" cy="200" r="340" stroke="rgba(201,171,132,0.07)" stroke-width="1"/>
+    <circle cx="400" cy="200" r="250" stroke="rgba(160,92,56,0.09)"   stroke-width="1"/>
+    <circle cx="400" cy="200" r="160" stroke="rgba(201,171,132,0.11)" stroke-width="1"/>
+    <circle cx="400" cy="200" r="80"  stroke="rgba(160,92,56,0.14)"   stroke-width="1"/>
+  </svg>
+
+  <div class="container">
+    <div class="ct-partnership-inner">
+
+      <div class="ct-partnership-left">
+        <span class="ct-partnership-label reveal">Build Something That Lasts</span>
+        <blockquote class="ct-partnership-quote reveal d1">
+          "The most durable partnerships are not transactional — they are built on <em>shared conviction</em> about what matters."
+        </blockquote>
+        <p class="ct-partnership-body reveal d2">
+          Rankine is actively seeking institutional partners, organisational collaborators, research co-investigators, and funding partners who share a genuine commitment to applied, translational, sustainability-oriented innovation. We do not pursue partnerships for scale — we pursue them for depth, mutual learning, and lasting impact in the contexts we care most about.
+        </p>
+        <p class="ct-partnership-body reveal d3" style="margin-bottom:2.5rem">
+          If your organisation is grappling with complex challenges at the intersection of technology, sustainability, and knowledge — and you believe that serious applied research and capacity building is part of the answer — we would like to have a conversation.
+        </p>
+        <div class="ct-partnership-actions reveal d4">
+          <a href="#ct-form" class="btn btn--ghost-light" onclick="setType('Partnership')">Start a Partnership Conversation</a>
+          <a href="rankine-about.html#method" class="btn btn--ghost-light">Our Method</a>
+        </div>
+      </div>
+
+      <div class="ct-partnership-right">
+        <div class="ct-partnership-cards">
+
+          <div class="ct-partner-type reveal d1">
+            <div class="ct-partner-type-icon" aria-hidden="true">🏛</div>
+            <div class="ct-partner-type-text">
+              <div class="ct-partner-type-label">Institutions</div>
+              <div class="ct-partner-type-title">Universities, research institutes &amp; government science bodies</div>
+            </div>
+          </div>
+
+          <div class="ct-partner-type reveal d2">
+            <div class="ct-partner-type-icon" aria-hidden="true">⬡</div>
+            <div class="ct-partner-type-text">
+              <div class="ct-partner-type-label">Organisations</div>
+              <div class="ct-partner-type-title">Development organisations, NGOs, social enterprises &amp; companies</div>
+            </div>
+          </div>
+
+          <div class="ct-partner-type reveal d3">
+            <div class="ct-partner-type-icon" aria-hidden="true">◈</div>
+            <div class="ct-partner-type-text">
+              <div class="ct-partner-type-label">Funders</div>
+              <div class="ct-partner-type-title">Philanthropic foundations, DFIs &amp; research grant bodies</div>
+            </div>
+          </div>
+
+          <div class="ct-partner-type reveal d4">
+            <div class="ct-partner-type-icon" aria-hidden="true">🔬</div>
+            <div class="ct-partner-type-text">
+              <div class="ct-partner-type-label">Researchers</div>
+              <div class="ct-partner-type-title">Individual researchers, fellows &amp; visiting contributors</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     6. FAQ / REASSURANCE
+════════════════════════════════════════════════════════════════════ -->
+<section class="ct-faq" id="ct-faq" aria-labelledby="faqHeading">
+  <div class="container">
+
+    <div class="ct-faq-header">
+      <div>
+        <div class="eyebrow reveal"><span class="eyebrow-line"></span>Common Questions</div>
+        <h2 class="display display--dark reveal d1" id="faqHeading" style="font-size:clamp(2.2rem,4vw,3.8rem)">
+          Before You<br><em>Reach Out</em>
+        </h2>
+      </div>
+      <div>
+        <p class="reveal d2" style="font-size:clamp(0.95rem,1.4vw,1.05rem); line-height:1.85; color:var(--brown); font-weight:300; margin-top:0">
+          A few answers to questions we receive often — to help you know whether Rankine is the right place to reach and what to expect when you do.
+        </p>
+      </div>
+    </div>
+
+    <ul class="ct-faq-grid" style="list-style:none">
+
+      <li class="ct-faq-item reveal">
+        <details class="ct-faq-details">
+          <summary class="ct-faq-summary">
+            <span class="ct-faq-q-marker" aria-hidden="true">Q</span>
+            <span class="ct-faq-q-text">Who does Rankine work with?</span>
+            <span class="ct-faq-arrow" aria-hidden="true">▶</span>
+          </summary>
+          <p class="ct-faq-answer">
+            Rankine works with researchers, educators, practitioners, institutions, and organisations who are serious about applied innovation at the intersection of AI, sustainability, and environmental systems. We are not a mass-market training provider — we seek depth over breadth in every engagement.
+          </p>
+        </details>
+      </li>
+
+      <li class="ct-faq-item reveal d1">
+        <details class="ct-faq-details">
+          <summary class="ct-faq-summary">
+            <span class="ct-faq-q-marker" aria-hidden="true">Q</span>
+            <span class="ct-faq-q-text">What kinds of partnerships does Rankine welcome?</span>
+            <span class="ct-faq-arrow" aria-hidden="true">▶</span>
+          </summary>
+          <p class="ct-faq-answer">
+            We welcome research partnerships, institutional capacity-building engagements, co-design relationships, joint programme delivery, and long-term embedded collaborations. We do not pursue superficial brand partnerships or relationships not grounded in shared intellectual purpose.
+          </p>
+        </details>
+      </li>
+
+      <li class="ct-faq-item reveal d1">
+        <details class="ct-faq-details">
+          <summary class="ct-faq-summary">
+            <span class="ct-faq-q-marker" aria-hidden="true">Q</span>
+            <span class="ct-faq-q-text">How quickly will you respond to an enquiry?</span>
+            <span class="ct-faq-arrow" aria-hidden="true">▶</span>
+          </summary>
+          <p class="ct-faq-answer">
+            We aim to respond to every genuine enquiry within 48 hours, always with a personal reply. Complex partnership or research enquiries may require an initial acknowledgement followed by a fuller response once the right member of the team has reviewed your message.
+          </p>
+        </details>
+      </li>
+
+      <li class="ct-faq-item reveal">
+        <details class="ct-faq-details">
+          <summary class="ct-faq-summary">
+            <span class="ct-faq-q-marker" aria-hidden="true">Q</span>
+            <span class="ct-faq-q-text">Are Rankine's programmes available globally?</span>
+            <span class="ct-faq-arrow" aria-hidden="true">▶</span>
+          </summary>
+          <p class="ct-faq-answer">
+            Yes. Although Rankine is based in Africa and much of our applied work is designed for African contexts, our programmes are available globally in both live and asynchronous formats. We work with institutions and cohorts across multiple continents and time zones.
+          </p>
+        </details>
+      </li>
+
+      <li class="ct-faq-item reveal d2">
+        <details class="ct-faq-details">
+          <summary class="ct-faq-summary">
+            <span class="ct-faq-q-marker" aria-hidden="true">Q</span>
+            <span class="ct-faq-q-text">Can Rankine design a custom programme for our organisation?</span>
+            <span class="ct-faq-arrow" aria-hidden="true">▶</span>
+          </summary>
+          <p class="ct-faq-answer">
+            Yes — custom programme design is one of our most important service offerings. We work with organisations to design, pilot, and deliver bespoke training and innovation programmes tailored to their specific challenges, teams, and contexts. Contact us with your needs and we'll propose a pathway.
+          </p>
+        </details>
+      </li>
+
+      <li class="ct-faq-item reveal d2">
+        <details class="ct-faq-details">
+          <summary class="ct-faq-summary">
+            <span class="ct-faq-q-marker" aria-hidden="true">Q</span>
+            <span class="ct-faq-q-text">Is there a minimum scale for collaboration?</span>
+            <span class="ct-faq-arrow" aria-hidden="true">▶</span>
+          </summary>
+          <p class="ct-faq-answer">
+            No minimum — but we do ask that every engagement is purposeful. We work with individual researchers on focused projects and with large institutions on multi-year programmes. What matters is the quality of shared purpose, not the size of the collaboration.
+          </p>
+        </details>
+      </li>
+
+    </ul>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════════════ -->
+<footer class="footer" aria-label="Site footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo-name">Rankine Innovation Lab</div>
+        <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
+        <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigation</div>
+        <ul class="footer-links">
+          <li><a href="rankine-innovation-lab.html">Home</a></li>
+          <li><a href="rankine-about.html">About the Lab</a></li>
+          <li><a href="rankine-programmes.html">Programmes</a></li>
+          <li><a href="rankine-research.html">Research</a></li>
+          <li><a href="rankine-knowledge-hub.html">Knowledge Hub</a></li>
+          <li><a href="rankine-pioneers.html">Pioneers</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="mailto:hello@rankineinnovation.org">hello@rankineinnovation.org</a></li>
+          <li><a href="mailto:partnerships@rankineinnovation.org">partnerships@</a></li>
+          <li><a href="mailto:research@rankineinnovation.org">research@</a></li>
+          <li><a href="mailto:speaking@rankineinnovation.org">speaking@</a></li>
+          <li><a href="mailto:programmes@rankineinnovation.org">programmes@</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Enquiry Types</div>
+        <ul class="footer-links">
+          <li><a href="#ct-form" onclick="setType('Partnership')">Partnerships</a></li>
+          <li><a href="#ct-form" onclick="setType('Programme Enquiry')">Programmes</a></li>
+          <li><a href="#ct-form" onclick="setType('Research Collaboration')">Research</a></li>
+          <li><a href="#ct-form" onclick="setType('Speaking Invitation')">Speaking</a></li>
+          <li><a href="#ct-form" onclick="setType('General Enquiry')">General Enquiry</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2025 <em>Rankine Innovation Lab</em>. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#">Privacy</a><a href="#">Terms</a><a href="#">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════════════════════════ -->
+<script>
+/* ── NAV ─────────────────────────────────────────────────────────────── */
+const nav = document.getElementById('mainNav');
+const syncNav = () => {
+  nav.classList.toggle('solid',       window.scrollY > 80);
+  nav.classList.toggle('transparent', window.scrollY <= 80);
+};
+window.addEventListener('scroll', syncNav, { passive: true });
+syncNav();
+
+/* ── MOBILE MENU ─────────────────────────────────────────────────────── */
+const hamburger  = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+let menuOpen = false;
+function closeMobile() {
+  menuOpen = false;
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+  document.body.style.overflow = '';
+}
+hamburger.addEventListener('click', () => {
+  menuOpen = !menuOpen;
+  hamburger.classList.toggle('open', menuOpen);
+  mobileMenu.classList.toggle('open', menuOpen);
+  hamburger.setAttribute('aria-expanded', String(menuOpen));
+  document.body.style.overflow = menuOpen ? 'hidden' : '';
+});
+
+/* ── SET ENQUIRY TYPE FROM HERO PILLS / OPTION CARDS ───────────────── */
+/*
+  When a user clicks a contact type pill in the hero or an option card,
+  this function pre-selects the matching value in the enquiry type
+  <select> field. It then uses setTimeout to wait for the scroll
+  animation to complete before updating the select — this prevents a
+  jarring flash if the user scrolls past the form.
+*/
+function setType(typeName) {
+  setTimeout(() => {
+    const sel = document.getElementById('ctType');
+    if (!sel) return;
+    for (let i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].value === typeName) {
+        sel.selectedIndex = i;
+        // Trigger the CSS focus-within effect briefly to draw attention
+        sel.focus();
+        setTimeout(() => sel.blur(), 800);
+        break;
+      }
+    }
+  }, 600);
+}
+
+/* ── CHARACTER COUNT ─────────────────────────────────────────────────── */
+/*
+  Updates the character count label below the textarea.
+  Adds .near-limit class when within 100 chars of the limit
+  to give the user a visual warning.
+*/
+function updateCharCount(textarea) {
+  const count   = textarea.value.length;
+  const max     = parseInt(textarea.getAttribute('maxlength')) || 1200;
+  const display = document.getElementById('charCount');
+  if (!display) return;
+  display.textContent = `${count} / ${max} characters`;
+  display.classList.toggle('near-limit', count >= max - 100);
+}
+
+/* ── FORM SUBMISSION ─────────────────────────────────────────────────── */
+/*
+  Client-side validation followed by a premium transition to the
+  success state. In production, replace the validation block's
+  return statement with a fetch() POST to your API endpoint.
+  
+  Validation approach: check each required field, add a visual
+  error state (copper border + shake animation) on failure,
+  then focus the first invalid field.
+*/
+
+/* Inline keyframe for shake — injected once */
+(function injectShakeKeyframe() {
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fieldShake {
+      0%,100%{ transform: translateX(0); }
+      20%    { transform: translateX(-6px); }
+      40%    { transform: translateX(6px); }
+      60%    { transform: translateX(-4px); }
+      80%    { transform: translateX(4px); }
+    }
+    .ct-input.error, .ct-select.error, .ct-textarea.error {
+      border-color: rgba(160,92,56,0.7) !important;
+      animation: fieldShake 0.4s var(--ease-out);
+    }
+  `;
+  document.head.appendChild(style);
+})();
+
+function validateField(el) {
+  const valid = el.value.trim() !== '' && (el.type !== 'email' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value));
+  el.classList.toggle('error', !valid);
+  if (!valid) {
+    /* Re-trigger the animation by removing and re-adding the class */
+    void el.offsetWidth;
+    el.classList.add('error');
+  }
+  return valid;
+}
+
+function handleFormSubmit(e) {
+  e.preventDefault();
+  const name    = document.getElementById('ctName');
+  const email   = document.getElementById('ctEmail');
+  const type    = document.getElementById('ctType');
+  const message = document.getElementById('ctMessage');
+
+  const allValid = [
+    validateField(name),
+    validateField(email),
+    validateField(type),
+    validateField(message),
+  ].every(Boolean);
+
+  if (!allValid) {
+    /* Focus the first invalid field */
+    [name, email, type, message].find(el => el.classList.contains('error'))?.focus();
+    return;
+  }
+
+  /* 
+    ── PRODUCTION HOOK ──
+    Replace this comment block with:
+    
+    const formData = new FormData(e.target);
+    await fetch('/api/contact', { method:'POST', body: formData });
+    
+    Then show success state on resolved promise.
+  */
+
+  /* Animate form out, success state in */
+  const form      = document.getElementById('contactForm');
+  const successEl = document.getElementById('ctSuccess');
+  const btn       = document.getElementById('ctSubmitBtn');
+
+  btn.textContent = 'Sending…';
+  btn.style.opacity = '0.7';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    form.style.transition = 'opacity 0.45s, transform 0.45s';
+    form.style.opacity    = '0';
+    form.style.transform  = 'translateY(12px)';
+
+    setTimeout(() => {
+      form.style.display = 'none';
+      successEl.classList.add('show');
+      /* Animate success in */
+      successEl.style.opacity   = '0';
+      successEl.style.transform = 'translateY(16px)';
+      successEl.style.transition= 'opacity 0.55s, transform 0.55s';
+      requestAnimationFrame(() => {
+        successEl.style.opacity   = '1';
+        successEl.style.transform = 'translateY(0)';
+      });
+    }, 450);
+  }, 800);
+}
+
+/* Clear error state on input */
+['ctName','ctEmail','ctType','ctMessage'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', () => el.classList.remove('error'));
+});
+
+/* ── SCROLL REVEALS ──────────────────────────────────────────────────── */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      requestAnimationFrame(() => entry.target.classList.add('visible'));
+      revealObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -44px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ── VIEW-TRANSITION SMOOTH SCROLL FOR ANCHOR LINKS ─────────────────── */
+/*
+  Anchor links that include setType() calls use onclick, which fires
+  before the browser's default scroll. We use a small delay to ensure
+  the smooth scroll has time to begin before setType fires.
+*/
+document.querySelectorAll('a[href^="#ct-form"]').forEach(a => {
+  a.addEventListener('click', function(e) {
+    const target = document.getElementById('ct-form');
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>
