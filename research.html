@@ -28,7 +28,7 @@ section{padding:var(--section-pad) 0}
 .nav.transparent{background:transparent}
 .nav.solid{background:rgba(36,21,15,.97);backdrop-filter:blur(18px);box-shadow:0 1px 0 rgba(201,171,132,.15)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:clamp(60px,7vw,76px)}
-.nav-logo{display:flex;flex-direction:column;line-height:1}
+.nav-logo{display:inline-flex;align-items:center;gap:clamp(.45rem,1vw,.7rem);line-height:1}.nav-logo-icon{width:clamp(32px,3.2vw,40px);height:auto;flex-shrink:0}.nav-logo-text{display:flex;flex-direction:column}
 .nav-logo-mark{font-family:var(--font-label);font-size:clamp(.82rem,1.1vw,.92rem);letter-spacing:.25em;color:var(--copper);text-transform:uppercase}
 .nav-logo-name{font-family:var(--font-display);font-weight:600;font-size:clamp(1.1rem,1.6vw,1.35rem);color:var(--cream)}
 .nav-links{display:flex;align-items:center;gap:clamp(1rem,2.2vw,2rem);list-style:none}
@@ -131,7 +131,7 @@ h1{font-family:var(--font-display);font-size:clamp(2.7rem,7.2vw,5rem);font-weigh
 /* FOOTER */
 .footer{background:var(--chocolate);padding:4rem 0 2rem;color:rgba(216,201,186,.8)}
 .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(201,171,132,.15)}
-.footer-logo-name{font-family:var(--font-display);font-size:1.5rem;color:var(--cream)}
+.footer-logo-icon{width:38px;height:auto;margin-bottom:.85rem}.footer-logo-name{font-family:var(--font-display);font-size:1.5rem;color:var(--cream)}
 .footer-logo-sub{font-family:var(--font-label);letter-spacing:.2em;font-size:.62rem;text-transform:uppercase;color:var(--copper);margin-top:.35rem}
 .footer-tagline{font-size:.9rem;line-height:1.75;color:rgba(216,201,186,.8);margin-top:1rem;max-width:36ch}
 .footer-col-title{font-family:var(--font-label);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--copper);margin-bottom:1rem}
@@ -146,14 +146,18 @@ h1{font-family:var(--font-display);font-size:clamp(2.7rem,7.2vw,5rem);font-weigh
 @media (max-width:1080px){.process-grid{grid-template-columns:repeat(2,1fr)}.project-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}.nav-links{display:none}.hamburger{display:flex}.video-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:700px){.process-grid,.principles{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.video-grid{grid-template-columns:1fr}}
 </style>
+  <link rel="icon" type="image/svg+xml" href="Images/rakine_logo.svg" />
 </head>
 <body>
 <nav class="nav transparent" id="mainNav" aria-label="Main navigation">
   <div class="container">
     <div class="nav-inner">
       <a href="/" class="nav-logo" aria-label="Rankine Innovation Lab">
-        <span class="nav-logo-mark">Rankine</span>
-        <span class="nav-logo-name">Innovation Lab</span>
+        <img src="Images/rakine_logo.svg" class="nav-logo-icon" alt="Rankine Innovation Lab logo" />
+        <div class="nav-logo-text">
+          <span class="nav-logo-mark">Rankine</span>
+          <span class="nav-logo-name">Innovation Lab</span>
+        </div>
       </a>
       <ul class="nav-links" role="list">
         <li><a href="index.html">Home</a></li>
@@ -376,6 +380,7 @@ h1{font-family:var(--font-display);font-size:clamp(2.7rem,7.2vw,5rem);font-weigh
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
+        <img src="Images/rakine_logo.svg" class="footer-logo-icon" alt="Rankine Innovation Lab logo" />
         <div class="footer-logo-name">Rankine Innovation Lab</div>
         <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
         <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>

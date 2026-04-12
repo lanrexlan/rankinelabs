@@ -87,9 +87,19 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   height: clamp(60px, 7vw, 76px);
 }
 .nav-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.45rem, 1vw, 0.7rem);
+  line-height: 1;
+}
+.nav-logo-icon {
+  width: clamp(32px, 3.2vw, 40px);
+  height: auto;
+  flex-shrink: 0;
+}
+.nav-logo-text {
   display: flex;
   flex-direction: column;
-  line-height: 1;
 }
 .nav-logo-mark {
   font-family: var(--font-label);
@@ -1415,6 +1425,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   margin-bottom: 4rem;
 }
 .footer-brand {}
+.footer-logo-icon { width: 38px; height: auto; margin-bottom: 0.85rem; }
 .footer-logo-name {
   font-family: var(--font-display);
   font-size: 1.4rem;
@@ -1564,6 +1575,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .cta-heading { font-size: clamp(2.2rem, 8vw, 3rem); }
 }
 </style>
+  <link rel="icon" type="image/svg+xml" href="Images/rakine_logo.svg" />
 </head>
 <body>
 
@@ -1572,8 +1584,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   <div class="container">
     <div class="nav-inner">
       <a href="/" class="nav-logo" aria-label="Rankine Innovation Lab">
-        <span class="nav-logo-mark">Rankine</span>
-        <span class="nav-logo-name">Innovation Lab</span>
+        <img src="Images/rakine_logo.svg" class="nav-logo-icon" alt="Rankine Innovation Lab logo" />
+        <div class="nav-logo-text">
+          <span class="nav-logo-mark">Rankine</span>
+          <span class="nav-logo-name">Innovation Lab</span>
+        </div>
       </a>
             <ul class="nav-links" role="list">
         <li><a href="index.html" class="active-page">Home</a></li>
@@ -2257,6 +2272,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
+        <img src="Images/rakine_logo.svg" class="footer-logo-icon" alt="Rankine Innovation Lab logo" />
         <div class="footer-logo-name">Rankine Innovation Lab</div>
         <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
         <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
