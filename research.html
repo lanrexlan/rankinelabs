@@ -23,7 +23,7 @@ a{text-decoration:none;color:inherit} button{cursor:pointer;border:none;backgrou
 .reveal.visible{opacity:1;transform:translateY(0)}
 section{padding:var(--section-pad) 0}
 
-/* NAV + FOOTER SYSTEM (homepage-consistent) */
+/* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:1000;transition:background .45s var(--ease-circ), box-shadow .45s var(--ease-circ)}
 .nav.transparent{background:transparent}
 .nav.solid{background:rgba(36,21,15,.97);backdrop-filter:blur(18px);box-shadow:0 1px 0 rgba(201,171,132,.15)}
@@ -61,7 +61,7 @@ section{padding:var(--section-pad) 0}
 .mobile-group-links{display:flex;flex-direction:column;gap:.2rem;padding:0 1rem 1rem}
 .mobile-group-links a{font-size:1.03rem;line-height:1.35;color:var(--cream)}
 
-/* hero + research page visuals */
+/* HERO */
 .research-hero{min-height:82vh;display:flex;align-items:center;position:relative;background:
 linear-gradient(115deg, rgba(18,11,8,.8), rgba(36,21,15,.72) 58%, rgba(18,11,8,.86)),
 url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;color:var(--cream);padding-top:6rem}
@@ -87,7 +87,7 @@ h1{font-family:var(--font-display);font-size:clamp(2.7rem,7.2vw,5rem);font-weigh
 .research-group-title{font-family:var(--font-display);font-size:1.65rem;font-weight:500;margin:1.5rem 0 1rem}
 .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
 .research-card,.project-card,.concept-card{background:#fff;border:1px solid rgba(43,26,20,.12);border-radius:14px;overflow:hidden;box-shadow:0 14px 36px rgba(43,26,20,.06)}
-.card-cover{height:118px;background:radial-gradient(circle at 15% 15%, rgba(201,171,132,.5), transparent 50%), linear-gradient(130deg,#3a1c0e,#6f4028 60%,#2b1a14);display:flex;align-items:flex-end;padding:.75rem;color:rgba(246,240,232,.94);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase}
+.card-cover{height:160px;background:radial-gradient(circle at 15% 15%, rgba(201,171,132,.5), transparent 50%), linear-gradient(130deg,#3a1c0e,#6f4028 60%,#2b1a14);display:flex;align-items:flex-end;padding:.75rem;color:rgba(246,240,232,.94);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;background-size:cover;background-position:center}
 .research-card .content,.project-card .content,.concept-card .content{padding:1rem}
 .meta{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:#7c5537;margin-bottom:.45rem}
 .research-card h4,.project-card h4,.concept-card h4{font-family:var(--font-display);font-size:1.33rem;line-height:1.2;font-weight:500;margin-bottom:.45rem}
@@ -111,6 +111,24 @@ h1{font-family:var(--font-display);font-size:clamp(2.7rem,7.2vw,5rem);font-weigh
 .btn-primary{display:inline-flex;align-items:center;font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.95rem 1.65rem;background:var(--copper);color:var(--white);border:1px solid var(--copper);border-radius:2px}
 .btn-primary:hover{background:var(--copper-lt);border-color:var(--copper-lt)}
 
+/* ===== NEW: Video Placeholders ===== */
+.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.video-placeholder{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid rgba(201,171,132,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .3s,box-shadow .3s}
+.video-placeholder:hover{border-color:var(--copper);box-shadow:0 12px 40px rgba(43,26,20,.15)}
+.video-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.35)}
+.video-overlay{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:.7rem;text-align:center}
+.video-play-btn{width:68px;height:68px;border-radius:50%;background:rgba(200,154,90,.92);display:flex;align-items:center;justify-content:center;transition:transform .35s var(--ease-out),background .3s}
+.video-play-btn svg{width:24px;height:24px;fill:var(--white);margin-left:3px}
+.video-placeholder:hover .video-play-btn{transform:scale(1.12);background:var(--copper-lt)}
+.video-label{font-family:var(--font-display);font-size:1.15rem;color:var(--cream);font-weight:400}
+.video-sub{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(246,240,232,.55)}
+
+/* ===== NEW: Concept Card Covers ===== */
+.concept-cover{height:150px;overflow:hidden}
+.concept-cover img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease-out)}
+.concept-card:hover .concept-cover img{transform:scale(1.06)}
+
+/* FOOTER */
 .footer{background:var(--chocolate);padding:4rem 0 2rem;color:rgba(216,201,186,.8)}
 .footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(201,171,132,.15)}
 .footer-logo-name{font-family:var(--font-display);font-size:1.5rem;color:var(--cream)}
@@ -125,8 +143,8 @@ h1{font-family:var(--font-display);font-size:clamp(2.7rem,7.2vw,5rem);font-weigh
 .footer-copy em{color:var(--copper);font-style:normal}
 .footer-legal{display:flex;gap:1.5rem}.footer-legal a{font-size:.75rem;color:rgba(216,201,186,.68)}
 
-@media (max-width:1080px){.process-grid{grid-template-columns:repeat(2,1fr)}.project-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}.nav-links{display:none}.hamburger{display:flex}}
-@media (max-width:700px){.process-grid,.principles{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}}
+@media (max-width:1080px){.process-grid{grid-template-columns:repeat(2,1fr)}.project-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}.nav-links{display:none}.hamburger{display:flex}.video-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:700px){.process-grid,.principles{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.video-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -213,21 +231,71 @@ h1{font-family:var(--font-display);font-size:clamp(2.7rem,7.2vw,5rem);font-weigh
   </div>
 </section>
 
+<!-- ===== NEW: VIDEO PLACEHOLDERS SECTION ===== -->
+<section id="videos" style="padding-top:0;">
+  <div class="container">
+    <h2 class="sec-title reveal">Watch &amp; Learn</h2>
+    <p class="sec-sub reveal">Visual overviews of our research approach, lab methodology, and project concepts in development.</p>
+    <div class="video-grid">
+      <div class="video-placeholder reveal" role="button" tabindex="0" aria-label="Play lab overview video">
+        <img class="video-bg" src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy" />
+        <div class="video-overlay">
+          <div class="video-play-btn"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+          <span class="video-label">Lab Overview</span>
+          <span class="video-sub">Coming Soon</span>
+        </div>
+      </div>
+      <div class="video-placeholder reveal" role="button" tabindex="0" aria-label="Play research methodology video">
+        <img class="video-bg" src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy" />
+        <div class="video-overlay">
+          <div class="video-play-btn"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+          <span class="video-label">Research Methodology</span>
+          <span class="video-sub">Coming Soon</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="featured-research" style="padding-top:0;">
   <div class="container">
     <h2 class="sec-title reveal">Featured Research</h2>
     <h3 class="research-group-title reveal">Intelligent Systems &amp; Decision Support</h3>
     <div class="cards">
-      <article class="research-card reveal"><div class="card-cover">Applied AI</div><div class="content"><div class="meta">AI · Construction systems</div><h4>Generative artificial intelligence in construction: A Delphi approach, framework, and case study</h4><p>Delphi-informed framework showing practical pathways for generative AI integration in construction systems.</p><a href="https://westminsterresearch.westminster.ac.uk/download/3985c1f2dda9cfd733dca4af6a34fd6cdd10bc8fa3e54ba93d516c4c7ed4f35d/22707923/Taiwo%20et%20al%20%282025%29.pdf" target="_blank" rel="noopener">Publication</a></div></article>
-      <article class="research-card reveal"><div class="card-cover">Decision Support</div><div class="content"><div class="meta">Generative AI · Analysis</div><h4>Generative AI in the Construction Industry: A State-of-the-art Analysis</h4><p>A concise synthesis of opportunities, constraints, and implementation conditions for generative AI in construction workflows.</p><a href="https://www.researchgate.net/publication/378242291_Generative_AI_in_the_Construction_Industry_A_State-of-the-art_Analysis" target="_blank" rel="noopener">Publication</a></div></article>
-      <article class="research-card reveal"><div class="card-cover">Environmental Systems</div><div class="content"><div class="meta">Geotechnics · Biocover systems</div><h4>Geotechnical Characterization of Biochar-Based Biocover</h4><p>Geotechnical study supporting sustainable environmental cover systems with practical implications for resilient infrastructure.</p><a href="https://research.amanote.com/publication/SqWZAXQBKQvf0Bhi4sW3/geotechnical-characterization-of-biochar-based-biocover" target="_blank" rel="noopener">Publication</a></div></article>
+      <!-- Card 1: AI + Construction — with placeholder image -->
+      <article class="research-card reveal">
+        <div class="card-cover" style="background:linear-gradient(to top,rgba(58,28,14,.82),rgba(58,28,14,.3)),url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;">Applied AI</div>
+        <div class="content"><div class="meta">AI · Construction systems</div><h4>Generative artificial intelligence in construction: A Delphi approach, framework, and case study</h4><p>Delphi-informed framework showing practical pathways for generative AI integration in construction systems.</p><a href="https://westminsterresearch.westminster.ac.uk/download/3985c1f2dda9cfd733dca4af6a34fd6cdd10bc8fa3e54ba93d516c4c7ed4f35d/22707923/Taiwo%20et%20al%20%282025%29.pdf" target="_blank" rel="noopener">Publication</a></div>
+      </article>
+      <!-- Card 2: Decision Support — with placeholder image -->
+      <article class="research-card reveal">
+        <div class="card-cover" style="background:linear-gradient(to top,rgba(58,28,14,.82),rgba(58,28,14,.3)),url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;">Decision Support</div>
+        <div class="content"><div class="meta">Generative AI · Analysis</div><h4>Generative AI in the Construction Industry: A State-of-the-art Analysis</h4><p>A concise synthesis of opportunities, constraints, and implementation conditions for generative AI in construction workflows.</p><a href="https://www.researchgate.net/publication/378242291_Generative_AI_in_the_Construction_Industry_A_State-of-the-art_Analysis" target="_blank" rel="noopener">Publication</a></div>
+      </article>
+      <!-- Card 3: Environmental — with placeholder image -->
+      <article class="research-card reveal">
+        <div class="card-cover" style="background:linear-gradient(to top,rgba(58,28,14,.82),rgba(58,28,14,.3)),url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;">Environmental Systems</div>
+        <div class="content"><div class="meta">Geotechnics · Biocover systems</div><h4>Geotechnical Characterization of Biochar-Based Biocover</h4><p>Geotechnical study supporting sustainable environmental cover systems with practical implications for resilient infrastructure.</p><a href="https://research.amanote.com/publication/SqWZAXQBKQvf0Bhi4sW3/geotechnical-characterization-of-biochar-based-biocover" target="_blank" rel="noopener">Publication</a></div>
+      </article>
     </div>
 
     <h3 class="research-group-title reveal">Sustainable Materials &amp; Resilient Infrastructure</h3>
     <div class="cards">
-      <article class="research-card reveal"><div class="card-cover">Sustainable Materials</div><div class="content"><div class="meta">Review · Resilience materials</div><h4>Polymer-enhanced concrete: A comprehensive review of innovations and pathways for resilient and sustainable materials</h4><p>Comprehensive review focused on durability, sustainability performance, and resilient construction pathways.</p><a href="https://ira.lib.polyu.edu.hk/bitstream/10397/115044/1/1-s2.0-S2949822824001229-main.pdf" target="_blank" rel="noopener">Publication</a></div></article>
-      <article class="research-card reveal"><div class="card-cover">Infrastructure</div><div class="content"><div class="meta">Road systems · Ground resilience</div><h4>Dynamic cone penetration resistance of fibre-reinforced road subgrades</h4><p>Investigation of reinforced subgrade behavior for stronger road performance under demanding geotechnical conditions.</p><a href="https://ujcontent.uj.ac.za/esploro/outputs/graduate/Dynamic-cone-penetration-resistance-of-fibre-reinforced/9949610107691" target="_blank" rel="noopener">Publication</a></div></article>
-      <article class="research-card reveal"><div class="card-cover">Pavement Systems</div><div class="content"><div class="meta">Pavement materials · Performance</div><h4>Performance of polypropylene fiber in compacted residual soil for pavement applications</h4><p>Performance-oriented material study supporting practical soil improvement strategies for pavement applications.</p><a href="https://jglobal.jst.go.jp/en/public/202602254896573998" target="_blank" rel="noopener">Publication</a></div></article>
+      <!-- Card 4: Sustainable Materials — with placeholder image -->
+      <article class="research-card reveal">
+        <div class="card-cover" style="background:linear-gradient(to top,rgba(58,28,14,.82),rgba(58,28,14,.3)),url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;">Sustainable Materials</div>
+        <div class="content"><div class="meta">Review · Resilience materials</div><h4>Polymer-enhanced concrete: A comprehensive review of innovations and pathways for resilient and sustainable materials</h4><p>Comprehensive review focused on durability, sustainability performance, and resilient construction pathways.</p><a href="https://ira.lib.polyu.edu.hk/bitstream/10397/115044/1/1-s2.0-S2949822824001229-main.pdf" target="_blank" rel="noopener">Publication</a></div>
+      </article>
+      <!-- Card 5: Infrastructure — with placeholder image -->
+      <article class="research-card reveal">
+        <div class="card-cover" style="background:linear-gradient(to top,rgba(58,28,14,.82),rgba(58,28,14,.3)),url('https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;">Infrastructure</div>
+        <div class="content"><div class="meta">Road systems · Ground resilience</div><h4>Dynamic cone penetration resistance of fibre-reinforced road subgrades</h4><p>Investigation of reinforced subgrade behavior for stronger road performance under demanding geotechnical conditions.</p><a href="https://ujcontent.uj.ac.za/esploro/outputs/graduate/Dynamic-cone-penetration-resistance-of-fibre-reinforced/9949610107691" target="_blank" rel="noopener">Publication</a></div>
+      </article>
+      <!-- Card 6: Pavement — with placeholder image -->
+      <article class="research-card reveal">
+        <div class="card-cover" style="background:linear-gradient(to top,rgba(58,28,14,.82),rgba(58,28,14,.3)),url('https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;">Pavement Systems</div>
+        <div class="content"><div class="meta">Pavement materials · Performance</div><h4>Performance of polypropylene fiber in compacted residual soil for pavement applications</h4><p>Performance-oriented material study supporting practical soil improvement strategies for pavement applications.</p><a href="https://jglobal.jst.go.jp/en/public/202602254896573998" target="_blank" rel="noopener">Publication</a></div>
+      </article>
     </div>
   </div>
 </section>
@@ -236,8 +304,16 @@ h1{font-family:var(--font-display);font-size:clamp(2.7rem,7.2vw,5rem);font-weigh
   <div class="container">
     <h2 class="sec-title reveal">Completed Research Projects</h2>
     <div class="project-grid">
-      <article class="project-card reveal"><div class="card-cover">Completed Project</div><div class="content"><span class="badge">Completed</span><h4>Polymer-Enhanced Concrete</h4><div class="project-meta"><div><strong>Type</strong>Review article</div><div><strong>Lead</strong>Ridwan Taiwo</div><div><strong>Focus</strong>Sustainable and resilient materials</div></div><p>A structured review of polymer-enhanced concrete innovations with emphasis on durability, resilience, and sustainable pathways for construction systems.</p></div></article>
-      <article class="project-card reveal"><div class="card-cover">Completed Project</div><div class="content"><span class="badge">Completed</span><h4>Generative AI in Construction</h4><div class="project-meta"><div><strong>Type</strong>Framework + Delphi + case study</div><div><strong>Lead</strong>Ridwan Taiwo</div><div><strong>Focus</strong>Applied AI for built environments</div></div><p>A Delphi-guided research framework with a practical case-study pathway showing how generative AI can support construction decision systems.</p></div></article>
+      <!-- Project 1 — with placeholder image -->
+      <article class="project-card reveal">
+        <div class="card-cover" style="background:linear-gradient(to top,rgba(58,28,14,.82),rgba(58,28,14,.3)),url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;">Completed Project</div>
+        <div class="content"><span class="badge">Completed</span><h4>Polymer-Enhanced Concrete</h4><div class="project-meta"><div><strong>Type</strong>Review article</div><div><strong>Lead</strong>Ridwan Taiwo</div><div><strong>Focus</strong>Sustainable and resilient materials</div></div><p>A structured review of polymer-enhanced concrete innovations with emphasis on durability, resilience, and sustainable pathways for construction systems.</p></div>
+      </article>
+      <!-- Project 2 — with placeholder image -->
+      <article class="project-card reveal">
+        <div class="card-cover" style="background:linear-gradient(to top,rgba(58,28,14,.82),rgba(58,28,14,.3)),url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;">Completed Project</div>
+        <div class="content"><span class="badge">Completed</span><h4>Generative AI in Construction</h4><div class="project-meta"><div><strong>Type</strong>Framework + Delphi + case study</div><div><strong>Lead</strong>Ridwan Taiwo</div><div><strong>Focus</strong>Applied AI for built environments</div></div><p>A Delphi-guided research framework with a practical case-study pathway showing how generative AI can support construction decision systems.</p></div>
+      </article>
     </div>
   </div>
 </section>
@@ -246,11 +322,31 @@ h1{font-family:var(--font-display);font-size:clamp(2.7rem,7.2vw,5rem);font-weigh
   <div class="container">
     <h2 class="sec-title reveal">Concepts in Development</h2>
     <div class="concept-grid">
-      <article class="concept-card reveal"><div class="content"><span class="badge">Concept</span><h4>BoreholeIQ</h4><p><strong>Domain:</strong> Water infrastructure intelligence.</p><p><strong>Problem:</strong> Boreholes are often managed reactively and fail without warning.</p><p><strong>Approach:</strong> Low-cost sensor monitoring with predictive failure analytics for private borehole systems.</p><p><strong>Potential users:</strong> Estates, schools, hospitals, churches, private facility operators.</p></div></article>
-      <article class="concept-card reveal"><div class="content"><span class="badge">Concept</span><h4>AquaCheck</h4><p><strong>Domain:</strong> Water quality intelligence.</p><p><strong>Problem:</strong> Many households and communities consume untested water.</p><p><strong>Approach:</strong> Portable testing with mobile logging, contamination mapping, and treatment recommendations.</p><p><strong>Potential users:</strong> Households, small labs, NGOs, and community health actors.</p></div></article>
-      <article class="concept-card reveal"><div class="content"><span class="badge">Concept</span><h4>FloodSense Nigeria</h4><p><strong>Domain:</strong> Flood risk intelligence.</p><p><strong>Problem:</strong> Communities face recurring flooding with limited early warning.</p><p><strong>Approach:</strong> Public geospatial, rainfall, elevation, and river data for prediction and alerts.</p><p><strong>Potential users:</strong> Community leaders, emergency agencies, NGOs, and local authorities.</p></div></article>
-      <article class="concept-card reveal"><div class="content"><span class="badge">Concept</span><h4>PureFlow</h4><p><strong>Domain:</strong> Decentralized water treatment.</p><p><strong>Problem:</strong> Rural communities face unsafe or expensive water access.</p><p><strong>Approach:</strong> Solar-powered modular micro-stations with remote monitoring and health tracking.</p><p><strong>Potential users:</strong> Community operators, rural entrepreneurs, and local institutions.</p></div></article>
-      <article class="concept-card reveal"><div class="content"><span class="badge">Concept</span><h4>HydroScout</h4><p><strong>Domain:</strong> Water access intelligence.</p><p><strong>Problem:</strong> Reliable mapping of informal water infrastructure is limited.</p><p><strong>Approach:</strong> Satellite imagery, OpenStreetMap, drone surveys, and community data collection.</p><p><strong>Potential users:</strong> Governments, development agencies, NGOs, and planning institutions.</p></div></article>
+      <!-- Concept 1: BoreholeIQ — with placeholder image -->
+      <article class="concept-card reveal">
+        <div class="concept-cover"><img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80" alt="Water infrastructure monitoring" loading="lazy" /></div>
+        <div class="content"><span class="badge">Concept</span><h4>BoreholeIQ</h4><p><strong>Domain:</strong> Water infrastructure intelligence.</p><p><strong>Problem:</strong> Boreholes are often managed reactively and fail without warning.</p><p><strong>Approach:</strong> Low-cost sensor monitoring with predictive failure analytics for private borehole systems.</p><p><strong>Potential users:</strong> Estates, schools, hospitals, churches, private facility operators.</p></div>
+      </article>
+      <!-- Concept 2: AquaCheck — with placeholder image -->
+      <article class="concept-card reveal">
+        <div class="concept-cover"><img src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=800&q=80" alt="Water quality testing" loading="lazy" /></div>
+        <div class="content"><span class="badge">Concept</span><h4>AquaCheck</h4><p><strong>Domain:</strong> Water quality intelligence.</p><p><strong>Problem:</strong> Many households and communities consume untested water.</p><p><strong>Approach:</strong> Portable testing with mobile logging, contamination mapping, and treatment recommendations.</p><p><strong>Potential users:</strong> Households, small labs, NGOs, and community health actors.</p></div>
+      </article>
+      <!-- Concept 3: FloodSense Nigeria — with placeholder image -->
+      <article class="concept-card reveal">
+        <div class="concept-cover"><img src="https://images.unsplash.com/photo-1547683905-f686c993aae5?auto=format&fit=crop&w=800&q=80" alt="Flood risk monitoring" loading="lazy" /></div>
+        <div class="content"><span class="badge">Concept</span><h4>FloodSense Nigeria</h4><p><strong>Domain:</strong> Flood risk intelligence.</p><p><strong>Problem:</strong> Communities face recurring flooding with limited early warning.</p><p><strong>Approach:</strong> Public geospatial, rainfall, elevation, and river data for prediction and alerts.</p><p><strong>Potential users:</strong> Community leaders, emergency agencies, NGOs, and local authorities.</p></div>
+      </article>
+      <!-- Concept 4: PureFlow — with placeholder image -->
+      <article class="concept-card reveal">
+        <div class="concept-cover"><img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80" alt="Decentralized water treatment" loading="lazy" /></div>
+        <div class="content"><span class="badge">Concept</span><h4>PureFlow</h4><p><strong>Domain:</strong> Decentralized water treatment.</p><p><strong>Problem:</strong> Rural communities face unsafe or expensive water access.</p><p><strong>Approach:</strong> Solar-powered modular micro-stations with remote monitoring and health tracking.</p><p><strong>Potential users:</strong> Community operators, rural entrepreneurs, and local institutions.</p></div>
+      </article>
+      <!-- Concept 5: HydroScout — with placeholder image -->
+      <article class="concept-card reveal">
+        <div class="concept-cover"><img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=80" alt="Satellite water access mapping" loading="lazy" /></div>
+        <div class="content"><span class="badge">Concept</span><h4>HydroScout</h4><p><strong>Domain:</strong> Water access intelligence.</p><p><strong>Problem:</strong> Reliable mapping of informal water infrastructure is limited.</p><p><strong>Approach:</strong> Satellite imagery, OpenStreetMap, drone surveys, and community data collection.</p><p><strong>Potential users:</strong> Governments, development agencies, NGOs, and planning institutions.</p></div>
+      </article>
     </div>
   </div>
 </section>
