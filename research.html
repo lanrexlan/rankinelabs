@@ -6,314 +6,57 @@
 <title>Research &amp; Project — Rankine Innovation Lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet" />
 <style>
-:root {--chocolate:#24150F;--espresso:#2B1A14;--brown:#3a1c0e;--mahogany:#5c2d18;--copper:#C89A5A;--copper-lt:#D8B07A;--sand:#c9ab84;--sand-lt:#ddc9a8;--cream:#F6F0E8;--cream-lt:#FBF7F1;--sage:#687558;--sage-lt:#8e9e78;--white:#fffcf8;--font-display:'Cormorant Garamond',Georgia,serif;--font-label:'Cinzel',serif;--font-body:'DM Sans',sans-serif;--ease-out:cubic-bezier(0.16,1,0.3,1);--ease-circ:cubic-bezier(0.4,0,0.2,1);--section-pad:clamp(4rem,8vw,7rem);} 
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0} html{scroll-behavior:smooth} body{font-family:var(--font-body);background:var(--cream-lt);color:var(--espresso);overflow-x:hidden;-webkit-font-smoothing:antialiased} a{text-decoration:none;color:inherit} button{cursor:pointer;border:none;background:none;font-family:inherit}
-.container{width:min(1340px,100%);margin-inline:auto;padding-inline:clamp(1.25rem,4vw,3.5rem)}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s var(--ease-out),transform .6s var(--ease-out)}.reveal.revealed{opacity:1;transform:none}
-
-/* NAVIGATION (copied pattern from index) */
-.nav {position: fixed;top: 0; left: 0; right: 0;z-index: 1000;padding: 0;transition: background 0.45s var(--ease-circ), padding 0.45s var(--ease-circ), box-shadow 0.45s var(--ease-circ);} 
-.nav.transparent { background: transparent; }
-.nav.solid {background: rgba(36, 21, 15, 0.97);backdrop-filter: blur(18px);box-shadow: 0 1px 0 rgba(201,171,132,0.15);} 
-.nav-inner {display: flex;align-items: center;justify-content: space-between;height: clamp(60px, 7vw, 76px);} 
-.nav-logo {display: flex;flex-direction: column;line-height: 1;} 
-.nav-logo-mark {font-family: var(--font-label);font-size: clamp(0.82rem, 1.1vw, 0.92rem);letter-spacing: 0.25em;color: var(--copper);text-transform: uppercase;} 
-.nav-logo-name {font-family: var(--font-display);font-weight: 600;font-size: clamp(1.1rem, 1.6vw, 1.35rem);color: var(--cream);letter-spacing: 0.02em;} 
-.nav-links {display: flex;align-items: center;gap: clamp(1rem, 2.2vw, 2rem);list-style: none;} 
-.nav-links a {font-family: var(--font-body);font-size: 0.8rem;font-weight: 500;letter-spacing: 0.1em;text-transform: uppercase;color: rgba(246,240,232,0.88);transition: color 0.3s;position: relative;} 
-.nav-links a::after {content: '';position: absolute;bottom: -3px; left: 0; right: 0;height: 1px;background: var(--copper);transform: scaleX(0);transform-origin: left;transition: transform 0.35s var(--ease-out);} 
-.nav-links a:hover { color: var(--cream); }
-.nav-links a:hover::after { transform: scaleX(1); }
-.nav-links a.active-page{color:var(--sand)}
-.nav-links a.active-page::after{transform:scaleX(1);background:var(--sand)}
-.nav-cta {font-size: 0.78rem;letter-spacing: 0.12em;text-transform: uppercase;font-weight: 600;padding: 0.55rem 1.4rem;border: 1px solid var(--copper);border-radius: 2px;color: var(--cream) !important;background: transparent;transition: background 0.3s, color 0.3s !important;} 
-.nav-cta:hover { background: var(--copper) !important; color: var(--white) !important; }
-.nav-cta::after { display: none !important; }
-.hamburger {display: none;flex-direction: column;gap: 5px;padding: 8px;} 
-.hamburger span {display: block;width: 26px; height: 2px;background: var(--cream);transition: all 0.3s;} 
-.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger.open span:nth-child(2) { opacity: 0; }
-.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-.mobile-menu {display: none;position: fixed;inset: 0;background: rgba(36,21,15,0.98);backdrop-filter: blur(20px);z-index: 999;flex-direction: column;align-items: center;justify-content: center;gap: 2.5rem;transform: translateY(-100%);transition: transform 0.5s var(--ease-out);} 
-.mobile-menu.open {display: flex;transform: translateY(0);} 
-.mobile-menu a {font-family: var(--font-display);font-size: clamp(1.8rem, 6vw, 3rem);font-weight: 300;color: var(--cream);letter-spacing: 0.04em;transition: color 0.3s;} 
-.mobile-menu a:hover { color: var(--copper); }
-.nav-links .has-dropdown { position: relative; }
-.nav-links .dropdown-toggle { display: inline-flex; align-items: center; gap: .35rem; }
-.nav-links .dropdown-toggle::before { content: '\25BE'; font-size: .62rem; opacity: .7; order: 2; }
-.nav-links .dropdown-menu {position: absolute;top: calc(100% + 14px);left: 0;min-width: 250px;padding: .45rem;background: rgba(36,21,15,0.98);border: 1px solid rgba(201,171,132,0.20);box-shadow: 0 18px 42px rgba(0,0,0,0.35);list-style: none;opacity: 0;visibility: hidden;transform: translateY(8px);transition: all .22s ease;z-index: 1200;}
-.nav-links .has-dropdown:hover .dropdown-menu,.nav-links .has-dropdown:focus-within .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-.nav-links .dropdown-menu a {display:block;padding:.62rem .7rem;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(246,240,232,0.88);}
-.nav-links .dropdown-menu a:hover { color: var(--sand); background: rgba(201,171,132,0.08); }
-.mobile-group { width:min(360px,88vw); border:1px solid rgba(201,171,132,0.18); border-radius:8px; }
-.mobile-group summary { list-style:none; cursor:pointer; padding:.9rem 1rem; font-family:var(--font-label); letter-spacing:.12em; text-transform:uppercase; font-size:.7rem; color:rgba(244,237,224,0.78); }
-.mobile-group summary::-webkit-details-marker { display:none; }
-.mobile-group summary::after { content:'+'; float:right; font-size:1rem; color:var(--sand); }
-.mobile-group[open] summary::after { content:'\2212'; }
-.mobile-group-links { display:flex; flex-direction:column; gap:.2rem; padding:0 1rem 1rem; }
-.mobile-group-links a { font-size:1.05rem; line-height:1.35; color:var(--cream); }
-
-/* Page styles */
-.page-hero{min-height:82vh;display:flex;align-items:center;padding-top:clamp(90px,11vw,120px);background:linear-gradient(rgba(20,10,7,.62), rgba(20,10,7,.62)), url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=2200&q=80') center/cover no-repeat;color:var(--cream)}
-.eyebrow{display:inline-flex;align-items:center;gap:.8rem;font-family:var(--font-label);font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;color:var(--sand)} .eyebrow::before{content:'';width:30px;height:1px;background:currentColor}
-.page-title{font-family:var(--font-display);font-size:clamp(3rem,7vw,5.4rem);font-weight:300;line-height:1.03;margin:.9rem 0 1.2rem}.page-sub{font-size:clamp(1rem,1.5vw,1.18rem);color:rgba(246,240,232,.9);margin-bottom:1rem}.page-intro{max-width:72ch;color:rgba(246,240,232,.82);line-height:1.85}
-.section{padding:var(--section-pad) 0}.section h2{font-family:var(--font-display);font-size:clamp(2rem,4vw,3.1rem);font-weight:400;margin-bottom:1rem}.section-intro{max-width:72ch;line-height:1.8;color:#5b3b2a;margin-bottom:2rem}
-.focus-strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:.85rem}.focus-chip{padding:1rem;border:1px solid rgba(92,45,24,.16);background:#fff;border-radius:12px;text-align:center;font-size:.82rem;letter-spacing:.08em;text-transform:uppercase;color:#734c35}
-.process{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}.process-card{background:#fff;border:1px solid rgba(92,45,24,.14);border-radius:14px;padding:1.15rem;position:relative}.process-num{font-family:var(--font-display);font-size:2rem;color:rgba(92,45,24,.22);line-height:1}.process-card h3{font-family:var(--font-display);font-size:1.45rem;font-weight:500;margin:.5rem 0}.process-card p{line-height:1.7;color:#5b3b2a;font-size:.94rem}
-.group-title{font-family:var(--font-display);font-size:clamp(1.5rem,3vw,2.2rem);margin:2rem 0 1rem}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
-.research-card,.concept-card,.project-card{background:#fff;border:1px solid rgba(92,45,24,.14);border-radius:14px;overflow:hidden}
-.thumb{height:110px;background:linear-gradient(135deg, rgba(114,74,46,.2), rgba(104,117,88,.2)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=80') center/cover no-repeat}
-.card-body{padding:1rem}.tag{display:inline-block;font-size:.67rem;text-transform:uppercase;letter-spacing:.12em;border:1px solid rgba(92,45,24,.25);padding:.22rem .5rem;border-radius:999px;color:#734c35;margin-bottom:.6rem}
-.card-title{font-family:var(--font-display);font-size:1.3rem;line-height:1.25;margin-bottom:.5rem}.card-body p{font-size:.92rem;line-height:1.72;color:#5b3b2a}.card-link{display:inline-flex;margin-top:.7rem;color:#734c35;text-decoration:underline;font-size:.88rem}
-.projects{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.project-card .thumb{height:140px}
-.concepts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.concept-card .thumb{height:88px;background:linear-gradient(135deg, rgba(92,45,24,.13), rgba(104,117,88,.13));}
-.principles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}.principle{background:var(--chocolate);color:var(--cream);padding:1rem 1.1rem;border-radius:10px}.principle h4{font-family:var(--font-display);font-size:1.25rem;font-weight:500;margin-bottom:.35rem}.principle p{color:rgba(246,240,232,.78);font-size:.9rem;line-height:1.6}
-.cta{padding:3.2rem 0;background:linear-gradient(rgba(20,10,7,.82), rgba(20,10,7,.82)), url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;color:var(--cream)}
-.cta-wrap{display:flex;justify-content:space-between;gap:1rem;align-items:center}.cta h3{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:400}.btn{display:inline-flex;align-items:center;padding:.9rem 1.5rem;border:1px solid var(--copper);text-transform:uppercase;font-size:.77rem;letter-spacing:.12em;color:var(--cream)} .btn:hover{background:var(--copper)}
-
-/* FOOTER (copied pattern from index) */
-.footer {background: var(--chocolate);color: var(--cream);padding: 4.6rem 0 1.5rem;}
-.footer-grid {display: grid;grid-template-columns: 1.5fr 1fr 1fr 1fr;gap: 2.5rem;margin-bottom: 2.8rem;}
-.footer-logo-name {font-family: var(--font-display);font-size: 1.4rem;font-weight: 500;color: var(--cream);margin-bottom: 0.25rem;}
-.footer-logo-sub {font-family: var(--font-label);font-size: 0.6rem;letter-spacing: 0.22em;color: var(--copper);text-transform: uppercase;margin-bottom: 1.25rem;}
-.footer-tagline {font-size: 0.85rem;line-height: 1.7;color: rgba(216,201,186,0.82);font-weight: 300;max-width: 260px;}
-.footer-col-title {font-family: var(--font-label);font-size: 0.62rem;letter-spacing: 0.22em;text-transform: uppercase;color: var(--copper);margin-bottom: 1.1rem;}
-.footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
-.footer-links a {font-size: 0.84rem;color: rgba(216,201,186,0.82);transition: color 0.25s;}
-.footer-links a:hover { color: var(--sand); }
-.footer-bottom {border-top: 1px solid rgba(201,171,132,0.18);padding-top: 1.15rem;display: flex;align-items: center;justify-content: space-between;flex-wrap: wrap;gap: 1rem;}
-.footer-copy {font-size: 0.75rem;letter-spacing: 0.08em;text-transform: uppercase;color: rgba(201,171,132,0.65);}
-.footer-copy em { color: var(--copper); font-style: normal; }
-.footer-legal { display: flex; gap: 1.2rem; }
-.footer-legal a {font-size: 0.72rem;letter-spacing: 0.1em;text-transform: uppercase;color: rgba(201,171,132,0.62);transition: color 0.25s;}
-.footer-legal a:hover { color: var(--sand); }
-
-@media (max-width:1100px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.focus-strip{grid-template-columns:repeat(3,minmax(0,1fr))}.process{grid-template-columns:repeat(2,minmax(0,1fr))}.footer-grid{grid-template-columns:1fr 1fr}}
-@media (max-width:860px){.nav-links{display:none}.hamburger{display:flex}.projects,.concepts,.principles,.cards{grid-template-columns:1fr}.focus-strip{grid-template-columns:1fr 1fr}.cta-wrap{flex-direction:column;align-items:flex-start}}
+:root{--chocolate:#24150F;--espresso:#2B1A14;--copper:#C89A5A;--sand:#c9ab84;--cream:#F6F0E8;--cream-lt:#FBF7F1;--font-display:'Cormorant Garamond',serif;--font-label:'Cinzel',serif;--font-body:'DM Sans',sans-serif;--section-pad:clamp(4rem,8vw,7rem)}
+*{box-sizing:border-box;margin:0;padding:0} body{font-family:var(--font-body);background:var(--cream-lt);color:var(--espresso)} a{text-decoration:none;color:inherit}
+.container{width:min(1200px,100%);margin:auto;padding-inline:clamp(1.1rem,4vw,3rem)}
+.nav{position:fixed;inset:0 0 auto 0;z-index:10;background:rgba(36,21,15,.96)} .nav-inner{display:flex;justify-content:space-between;align-items:center;height:72px}
+.nav-logo-mark{font-family:var(--font-label);letter-spacing:.22em;color:var(--copper);font-size:.75rem}.nav-logo-name{font-family:var(--font-display);color:var(--cream);font-size:1.2rem}
+.nav-links{display:flex;gap:1.2rem;list-style:none}.nav-links a{color:rgba(246,240,232,.9);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}.nav-links .active-page{color:var(--sand)}
+.hero{min-height:78vh;padding-top:8rem;display:flex;align-items:center;background:linear-gradient(rgba(20,10,7,.62), rgba(20,10,7,.62)), url('https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;color:var(--cream)}
+.eyebrow{font-family:var(--font-label);letter-spacing:.22em;text-transform:uppercase;color:var(--copper);font-size:.63rem}
+h1{font-family:var(--font-display);font-size:clamp(2.6rem,7vw,5rem);font-weight:300;line-height:1.02;margin:.9rem 0 1rem} .subtitle{font-size:1.05rem;color:rgba(246,240,232,.88);margin-bottom:1rem}.lead{max-width:72ch;line-height:1.85;color:rgba(246,240,232,.82)}
+section{padding:var(--section-pad) 0}.sec-title{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:400;margin-bottom:1rem}.sec-intro{max-width:70ch;line-height:1.8;margin-bottom:2rem}
+.grid{display:grid;gap:1rem}.pubs{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}.card{background:#fff;border:1px solid rgba(43,26,20,.12);padding:1rem 1.1rem;border-radius:10px}
+.card h3{font-family:var(--font-display);font-size:1.3rem;font-weight:500;line-height:1.2;margin:.2rem 0 .6rem}.meta{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:#7a5334;margin-bottom:.45rem}
+.card p{font-size:.93rem;line-height:1.7;color:#4a3327}.card a{color:#7a4d2f;text-decoration:underline}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}.tag{display:inline-block;border:1px solid rgba(122,77,47,.3);padding:.2rem .5rem;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.5rem}
+.footer{padding:2.5rem 0;background:var(--chocolate);color:rgba(246,240,232,.8);margin-top:2rem;font-size:.9rem}
+@media (max-width:900px){.nav-links{display:none}.split{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<nav class="nav transparent" id="mainNav" aria-label="Main navigation">
-  <div class="container">
-    <div class="nav-inner">
-      <a href="/" class="nav-logo" aria-label="Rankine Innovation Lab">
-        <span class="nav-logo-mark">Rankine</span>
-        <span class="nav-logo-name">Innovation Lab</span>
-      </a>
-            <ul class="nav-links" role="list">
-        <li><a href="index.html" class="active-page">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li class="has-dropdown">
-          <a href="#" class="dropdown-toggle">Work</a>
-          <ul class="dropdown-menu" role="list">
-            <li><a href="research.html">Research &amp; Project</a></li>
-            <li><a href="partnership.html">Partnerships</a></li>
-          </ul>
-        </li>
-        <li><a href="programmes.html">Programmes</a></li>
-        <li class="has-dropdown">
-          <a href="#" class="dropdown-toggle">Insights</a>
-          <ul class="dropdown-menu" role="list">
-            <li><a href="knowledge-hub.html">Knowledge Hub</a></li>
-          </ul>
-        </li>
-        <li><a href="team.html">Team</a></li>
-        <li><a href="contact.html" class="nav-cta">Contact</a></li>
-      </ul>
-      <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
-</nav>
-
-<!-- Mobile Menu -->
-<!-- Site IA: Work groups Research & Project and Partnerships. Insights groups Knowledge Hub resources. -->
-<div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
-  <a href="index.html" onclick="closeMobile()">Home</a>
-  <a href="about.html" onclick="closeMobile()">About</a>
-  <details class="mobile-group">
-    <summary>Work</summary>
-    <div class="mobile-group-links">
-      <a href="research.html" onclick="closeMobile()">Research &amp; Project</a>
-      <a href="partnership.html" onclick="closeMobile()">Partnerships</a>
-      <a href="partnership.html" onclick="closeMobile()">Partnerships</a>
-    </div>
-  </details>
-  <a href="programmes.html" onclick="closeMobile()">Programmes</a>
-  <details class="mobile-group">
-    <summary>Insights</summary>
-    <div class="mobile-group-links">
-      <a href="knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
-    </div>
-  </details>
-  <a href="team.html" onclick="closeMobile()">Team</a>
-  <a href="contact.html" onclick="closeMobile()">Contact</a>
+<nav class="nav"><div class="container nav-inner"><a href="index.html"><div class="nav-logo-mark">Rankine</div><div class="nav-logo-name">Innovation Lab</div></a><ul class="nav-links"><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="research.html" class="active-page">Research &amp; Project</a></li><li><a href="partnership.html">Partnerships</a></li><li><a href="programmes.html">Programmes</a></li><li><a href="knowledge-hub.html">Knowledge Hub</a></li><li><a href="team.html">Team</a></li><li><a href="contact.html">Contact</a></li></ul></div></nav>
+<header class="hero"><div class="container"><div class="eyebrow">Research &amp; Project</div><h1>Research &amp; Project</h1><p class="subtitle">Applied inquiry. Practical systems. Real-world direction.</p><p class="lead">We develop original research and project concepts at the intersection of intelligent systems, sustainable infrastructure, and environmental resilience. Our work is designed to move from insight to application.</p></div></header>
+<section id="research"><div class="container"><h2 class="sec-title">Research</h2><p class="sec-intro">Selected publications are curated to match Rankine Innovation Lab’s visible themes: applied intelligence, resilient infrastructure, sustainable materials, and practical decision-support systems.</p>
+<h3 class="sec-title" style="font-size:2rem">Intelligent Systems &amp; Decision Support</h3>
+<div class="grid pubs">
+<article class="card"><div class="meta">Applied AI · Construction systems</div><h3>Generative artificial intelligence in construction: A Delphi approach, framework, and case study</h3><p>Framework-oriented study on practical pathways for generative AI integration in the built environment.</p><a href="https://westminsterresearch.westminster.ac.uk/download/3985c1f2dda9cfd733dca4af6a34fd6cdd10bc8fa3e54ba93d516c4c7ed4f35d/22707923/Taiwo%20et%20al%20%282025%29.pdf" target="_blank" rel="noopener">Publication</a></article>
+<article class="card"><div class="meta">Generative AI · State-of-the-art</div><h3>Generative AI in the Construction Industry: A State-of-the-art Analysis</h3><p>Early synthesis of opportunities and constraints for generative AI deployment across construction workflows.</p><a href="https://www.researchgate.net/publication/378242291_Generative_AI_in_the_Construction_Industry_A_State-of-the-art_Analysis" target="_blank" rel="noopener">Publication</a></article>
+<article class="card"><div class="meta">Geotechnics · Environmental systems</div><h3>Geotechnical Characterization of Biochar-Based Biocover</h3><p>Material and geotechnical characterization relevant to sustainable environmental infrastructure applications.</p><a href="https://research.amanote.com/publication/SqWZAXQBKQvf0Bhi4sW3/geotechnical-characterization-of-biochar-based-biocover" target="_blank" rel="noopener">Publication</a></article>
 </div>
-
-<header class="page-hero" id="top">
-  <div class="container reveal">
-    <div class="eyebrow">Research &amp; Project</div>
-    <h1 class="page-title">Research &amp; Project</h1>
-    <p class="page-sub">Applied inquiry. Practical systems. Real-world direction.</p>
-    <p class="page-intro">We develop original research and project concepts at the intersection of intelligent systems, sustainable infrastructure, and environmental resilience. Our work is designed to move from insight to application.</p>
-  </div>
-</header>
-
-<section class="section" id="focus-areas">
-  <div class="container">
-    <h2 class="reveal">Focus Areas</h2>
-    <div class="focus-strip reveal">
-      <div class="focus-chip">Applied AI</div><div class="focus-chip">Sustainable Materials</div><div class="focus-chip">Resilient Infrastructure</div><div class="focus-chip">Water Intelligence</div><div class="focus-chip">Environmental Systems</div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="process">
-  <div class="container">
-    <h2 class="reveal">How Research Becomes Action</h2>
-    <p class="section-intro reveal">A concise process for moving from inquiry to practical implementation.</p>
-    <div class="process">
-      <article class="process-card reveal"><div class="process-num">01</div><h3>Research</h3><p>We investigate system constraints, opportunities, and context-specific evidence.</p></article>
-      <article class="process-card reveal"><div class="process-num">02</div><h3>Frameworks</h3><p>Findings are translated into usable decision frameworks and implementation guides.</p></article>
-      <article class="process-card reveal"><div class="process-num">03</div><h3>Prototypes / Concepts</h3><p>We shape practical tools and concept models for testing and iteration.</p></article>
-      <article class="process-card reveal"><div class="process-num">04</div><h3>Applied Partnerships</h3><p>With partners, concepts are adapted for institutional and community application.</p></article>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="featured-research">
-  <div class="container">
-    <h2 class="reveal">Featured Research</h2>
-    <h3 class="group-title reveal">Intelligent Systems &amp; Decision Support</h3>
-    <div class="cards">
-      <article class="research-card reveal"><div class="thumb"></div><div class="card-body"><span class="tag">Applied AI</span><h4 class="card-title">Generative artificial intelligence in construction: A Delphi approach, framework, and case study</h4><p>Framework-based study on practical integration of generative AI in construction decision environments.</p><a class="card-link" href="https://westminsterresearch.westminster.ac.uk/download/3985c1f2dda9cfd733dca4af6a34fd6cdd10bc8fa3e54ba93d516c4c7ed4f35d/22707923/Taiwo%20et%20al%20%282025%29.pdf" target="_blank" rel="noopener">View publication</a></div></article>
-      <article class="research-card reveal"><div class="thumb"></div><div class="card-body"><span class="tag">Generative AI</span><h4 class="card-title">Generative AI in the Construction Industry: A State-of-the-art Analysis</h4><p>Concise overview of current opportunities and constraints in generative AI adoption.</p><a class="card-link" href="https://www.researchgate.net/publication/378242291_Generative_AI_in_the_Construction_Industry_A_State-of-the-art_Analysis" target="_blank" rel="noopener">View publication</a></div></article>
-      <article class="research-card reveal"><div class="thumb"></div><div class="card-body"><span class="tag">Environmental Systems</span><h4 class="card-title">Geotechnical Characterization of Biochar-Based Biocover</h4><p>Applied geotechnical characterization relevant to environmental infrastructure systems.</p><a class="card-link" href="https://research.amanote.com/publication/SqWZAXQBKQvf0Bhi4sW3/geotechnical-characterization-of-biochar-based-biocover" target="_blank" rel="noopener">View publication</a></div></article>
-    </div>
-    <h3 class="group-title reveal">Sustainable Materials &amp; Resilient Infrastructure</h3>
-    <div class="cards">
-      <article class="research-card reveal"><div class="thumb"></div><div class="card-body"><span class="tag">Sustainable Materials</span><h4 class="card-title">Polymer-enhanced concrete: A comprehensive review of innovations and pathways for resilient and sustainable materials</h4><p>Review paper covering durability, resilience, and sustainability pathways in concrete innovation.</p><a class="card-link" href="https://ira.lib.polyu.edu.hk/bitstream/10397/115044/1/1-s2.0-S2949822824001229-main.pdf" target="_blank" rel="noopener">View publication</a></div></article>
-      <article class="research-card reveal"><div class="thumb"></div><div class="card-body"><span class="tag">Resilient Infrastructure</span><h4 class="card-title">Dynamic cone penetration resistance of fibre-reinforced road subgrades</h4><p>Infrastructure-focused material performance research on subgrade resilience conditions.</p><a class="card-link" href="https://ujcontent.uj.ac.za/esploro/outputs/graduate/Dynamic-cone-penetration-resistance-of-fibre-reinforced/9949610107691" target="_blank" rel="noopener">View publication</a></div></article>
-      <article class="research-card reveal"><div class="thumb"></div><div class="card-body"><span class="tag">Pavement Materials</span><h4 class="card-title">Performance of polypropylene fiber in compacted residual soil for pavement applications</h4><p>Targeted assessment of fiber-enhanced residual soils for pavement-relevant use cases.</p><a class="card-link" href="https://jglobal.jst.go.jp/en/public/202602254896573998" target="_blank" rel="noopener">View publication</a></div></article>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="completed-projects">
-  <div class="container">
-    <h2 class="reveal">Completed Research Projects</h2>
-    <div class="projects">
-      <article class="project-card reveal"><div class="thumb"></div><div class="card-body"><span class="tag">Status: Completed</span><h3 class="card-title">Polymer-Enhanced Concrete</h3><p><strong>Type:</strong> Review article<br><strong>Lead:</strong> Ridwan Taiwo<br><strong>Focus:</strong> Sustainable and resilient construction materials</p><p>A comprehensive review of innovations in polymer-enhanced concrete, with emphasis on durability, resilience, and pathways for sustainable construction materials.</p></div></article>
-      <article class="project-card reveal"><div class="thumb"></div><div class="card-body"><span class="tag">Status: Completed</span><h3 class="card-title">Generative AI in Construction</h3><p><strong>Type:</strong> Framework + Delphi study + case study<br><strong>Lead:</strong> Ridwan Taiwo<br><strong>Focus:</strong> Applied AI for the built environment</p><p>A Delphi-informed framework and case-study application for responsible generative AI use in construction contexts.</p></div></article>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="concepts">
-  <div class="container">
-    <h2 class="reveal">Concepts in Development</h2>
-    <div class="concepts">
-      <article class="concept-card reveal"><div class="thumb"></div><div class="card-body"><span class="tag">Status: Concept</span><h3 class="card-title">BoreholeIQ</h3><p><strong>Domain:</strong> Water infrastructure intelligence<br><strong>Problem:</strong> Boreholes are often managed reactively and fail without warning<br><strong>Approach:</strong> Low-cost sensor monitoring with predictive failure analytics<br><strong>Potential users:</strong> Estates, schools, hospitals, churches, private operators</p></div></article>
-      <article class="concept-card reveal"><div class="thumb"></div><div class="card-body"><span class="tag">Status: Concept</span><h3 class="card-title">AquaCheck</h3><p><strong>Domain:</strong> Water quality intelligence<br><strong>Problem:</strong> Many communities consume untested water<br><strong>Approach:</strong> Portable testing, contamination mapping, and treatment recommendations<br><strong>Potential users:</strong> Households, small labs, NGOs, community health actors</p></div></article>
-      <article class="concept-card reveal"><div class="thumb"></div><div class="card-body"><span class="tag">Status: Concept</span><h3 class="card-title">FloodSense Nigeria</h3><p><strong>Domain:</strong> Flood risk intelligence<br><strong>Problem:</strong> Recurring flooding with limited early warning<br><strong>Approach:</strong> Geospatial and rainfall data prediction with community alerts<br><strong>Potential users:</strong> Community leaders, emergency agencies, NGOs, local authorities</p></div></article>
-      <article class="concept-card reveal"><div class="thumb"></div><div class="card-body"><span class="tag">Status: Concept</span><h3 class="card-title">PureFlow</h3><p><strong>Domain:</strong> Decentralized water treatment<br><strong>Problem:</strong> Unsafe or expensive rural water access<br><strong>Approach:</strong> Solar-powered modular treatment micro-stations with remote monitoring<br><strong>Potential users:</strong> Community operators, rural entrepreneurs, local institutions</p></div></article>
-      <article class="concept-card reveal"><div class="thumb"></div><div class="card-body"><span class="tag">Status: Concept</span><h3 class="card-title">HydroScout</h3><p><strong>Domain:</strong> Water access intelligence<br><strong>Problem:</strong> Limited mapping of informal water infrastructure<br><strong>Approach:</strong> Satellite imagery, OpenStreetMap, drone surveys, and community data collection<br><strong>Potential users:</strong> Governments, development agencies, NGOs, planning institutions</p></div></article>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="principles">
-  <div class="container">
-    <h2 class="reveal">Principles</h2>
-    <div class="principles">
-      <article class="principle reveal"><h4>Human-centred AI</h4><p>Intelligent systems should improve judgment, transparency, and lived outcomes.</p></article>
-      <article class="principle reveal"><h4>Evidence-led decisions</h4><p>Methods, claims, and recommendations remain grounded in verifiable evidence.</p></article>
-      <article class="principle reveal"><h4>Sustainability by design</h4><p>Resilience, environmental stewardship, and long-term system value are built in.</p></article>
-    </div>
-  </div>
-</section>
-
-<section class="cta" id="engage">
-  <div class="container cta-wrap">
-    <div>
-      <h3>Let’s build practical research pathways together.</h3>
-      <p style="margin-top:.6rem;color:rgba(246,240,232,.82);max-width:60ch">We welcome institutional conversations on research collaboration, applied partnerships, and concept development.</p>
-    </div>
-    <a href="contact.html" class="btn">Start a conversation</a>
-  </div>
-</section>
-
-<footer class="footer" aria-label="Site footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="footer-logo-name">Rankine Innovation Lab</div>
-        <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
-        <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
-      </div>
-      <div>
-        <div class="footer-col-title">Navigation</div>
-        <ul class="footer-links">
-          <li><a href="about.html">About the Lab</a></li>
-          <li><a href="#method">The Rankine Method</a></li>
-          <li><a href="#focus">Focus Areas</a></li>
-          <li><a href="programmes.html">Programmes</a></li>
-          <li><a href="partnership.html">Partnerships</a></li>
-        <li><a href="team.html">Team</a></li>
-        <li><a href="partnership.html">Partnerships</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Domains</div>
-        <ul class="footer-links">
-          <li><a href="#focus">AI for STEM</a></li>
-          <li><a href="#focus">Sustainability</a></li>
-          <li><a href="#focus">Smart Agriculture</a></li>
-          <li><a href="#focus">Cross-Disciplinary</a></li>
-          <li><a href="knowledge-hub.html">Knowledge Hub</a></li>
-        </ul>
-      </div>
-      <div>
-        <div class="footer-col-title">Engage</div>
-        <ul class="footer-links">
-          <li><a href="#contact">Partnerships</a></li>
-          <li><a href="#contact">Research Collaboration</a></li>
-          <li><a href="#contact">Training Enquiries</a></li>
-          <li><a href="#contact">Speaking</a></li>
-          <li><a href="mailto:hello@rankineinnovation.org">hello@rankineinnovation.org</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">&copy; 2025 <em>Rankine Innovation Lab</em>. All rights reserved.</p>
-      <div class="footer-legal">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-        <a href="#">Sitemap</a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<script>
-const nav = document.getElementById('mainNav');
-const handleNavScroll = () => {
-  if (window.scrollY > 80) { nav.classList.remove('transparent'); nav.classList.add('solid'); }
-  else { nav.classList.remove('solid'); nav.classList.add('transparent'); }
-};
-window.addEventListener('scroll', handleNavScroll, { passive: true });
-handleNavScroll();
-const hamburger = document.getElementById('hamburgerBtn');
-const mobileMenu = document.getElementById('mobileMenu');
-let menuOpen = false;
-function closeMobile() {menuOpen = false;hamburger.classList.remove('open');mobileMenu.classList.remove('open');hamburger.setAttribute('aria-expanded', 'false');document.body.style.overflow = '';}
-hamburger.addEventListener('click', () => {menuOpen = !menuOpen;hamburger.classList.toggle('open', menuOpen);mobileMenu.classList.toggle('open', menuOpen);hamburger.setAttribute('aria-expanded', menuOpen);document.body.style.overflow = menuOpen ? 'hidden' : '';});
-const revealEls = document.querySelectorAll('.reveal');
-const revealObs = new IntersectionObserver((entries) => {entries.forEach(entry => {if (entry.isIntersecting) {entry.target.classList.add('revealed');revealObs.unobserve(entry.target);}});}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
-revealEls.forEach(el => revealObs.observe(el));
-</script>
+<h3 class="sec-title" style="font-size:2rem;margin-top:2.2rem">Sustainable Materials &amp; Resilient Infrastructure</h3>
+<div class="grid pubs">
+<article class="card"><div class="meta">Sustainable materials · Review</div><h3>Polymer-enhanced concrete: A comprehensive review of innovations and pathways for resilient and sustainable materials</h3><p>Comprehensive review focused on resilience, durability, and sustainability pathways for construction materials.</p><a href="https://ira.lib.polyu.edu.hk/bitstream/10397/115044/1/1-s2.0-S2949822824001229-main.pdf" target="_blank" rel="noopener">Publication</a></article>
+<article class="card"><div class="meta">Road infrastructure · Resilience</div><h3>Dynamic cone penetration resistance of fibre-reinforced road subgrades</h3><p>Investigation relevant to road-subgrade performance and resilient ground engineering conditions.</p><a href="https://ujcontent.uj.ac.za/esploro/outputs/graduate/Dynamic-cone-penetration-resistance-of-fibre-reinforced/9949610107691" target="_blank" rel="noopener">Publication</a></article>
+<article class="card"><div class="meta">Pavement materials · Performance</div><h3>Performance of polypropylene fiber in compacted residual soil for pavement applications</h3><p>Study focused on practical material performance for pavement-supporting soils.</p><a href="https://jglobal.jst.go.jp/en/public/202602254896573998" target="_blank" rel="noopener">Publication</a></article>
+</div>
+</div></section>
+<section id="projects"><div class="container"><h2 class="sec-title">Projects</h2>
+<div class="split"><div><h3 class="sec-title" style="font-size:2rem">Completed Research Projects</h3>
+<article class="card"><div class="tag">Status: Completed</div><h3>Polymer-Enhanced Concrete</h3><p><strong>Type:</strong> Review article<br><strong>Lead:</strong> Ridwan Taiwo<br><strong>Focus:</strong> Sustainable and resilient construction materials</p><p>A comprehensive review of innovations in polymer-enhanced concrete, with emphasis on durability, resilience, and pathways for sustainable construction materials.</p></article>
+<article class="card" style="margin-top:1rem"><div class="tag">Status: Completed</div><h3>Generative AI in Construction</h3><p><strong>Type:</strong> Framework + Delphi study + case study<br><strong>Lead:</strong> Ridwan Taiwo<br><strong>Focus:</strong> Applied AI for the built environment</p><p>A study that develops a Delphi-informed framework for generative AI in construction and demonstrates it through a case-study-based application.</p></article>
+</div>
+<div><h3 class="sec-title" style="font-size:2rem">Concepts in Development</h3>
+<div class="grid">
+<article class="card"><div class="tag">Status: Concept</div><h3>BoreholeIQ</h3><p><strong>Domain:</strong> Water infrastructure intelligence<br><strong>Problem:</strong> Boreholes are often managed reactively and fail without warning<br><strong>Approach:</strong> Low-cost sensor monitoring with predictive failure analytics for private borehole systems<br><strong>Potential users:</strong> Estates, schools, hospitals, churches, private facility operators</p></article>
+<article class="card"><div class="tag">Status: Concept</div><h3>AquaCheck</h3><p><strong>Domain:</strong> Water quality intelligence<br><strong>Problem:</strong> Many households and communities consume untested water<br><strong>Approach:</strong> Portable water testing with a mobile logging app, contamination mapping, and treatment recommendations<br><strong>Potential users:</strong> Households, small labs, NGOs, community health actors</p></article>
+<article class="card"><div class="tag">Status: Concept</div><h3>FloodSense Nigeria</h3><p><strong>Domain:</strong> Flood risk intelligence<br><strong>Problem:</strong> Communities face recurring flooding with limited early warning<br><strong>Approach:</strong> Flood prediction using public geospatial, rainfall, elevation, and river data, with alerts delivered to communities<br><strong>Potential users:</strong> Community leaders, emergency agencies, NGOs, local authorities</p></article>
+<article class="card"><div class="tag">Status: Concept</div><h3>PureFlow</h3><p><strong>Domain:</strong> Decentralized water treatment<br><strong>Problem:</strong> Rural communities face unsafe or expensive water access<br><strong>Approach:</strong> Solar-powered modular water treatment micro-stations with remote monitoring and health tracking<br><strong>Potential users:</strong> Community operators, rural entrepreneurs, local institutions</p></article>
+<article class="card"><div class="tag">Status: Concept</div><h3>HydroScout</h3><p><strong>Domain:</strong> Water access intelligence<br><strong>Problem:</strong> Reliable mapping of informal water infrastructure is limited<br><strong>Approach:</strong> Satellite imagery, OpenStreetMap, drone surveys, and community data collection to build water infrastructure intelligence<br><strong>Potential users:</strong> Governments, development agencies, NGOs, planning institutions</p></article>
+</div></div></div></div></section>
+<footer class="footer"><div class="container">© <span id="yr"></span> Rankine Innovation Lab</div></footer>
+<script>document.getElementById('yr').textContent=new Date().getFullYear();</script>
 </body>
 </html>
