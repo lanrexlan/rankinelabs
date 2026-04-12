@@ -108,7 +108,9 @@ input, select, textarea { font-family: var(--font-body); }
 .nav.transparent { background: transparent; }
 .nav.solid { background: rgba(36,21,15,0.97); backdrop-filter: blur(18px); box-shadow: 0 1px 0 rgba(201,171,132,0.15); }
 .nav-inner { display: flex; align-items: center; justify-content: space-between; height: clamp(60px,7vw,76px); }
-.nav-logo  { display: flex; flex-direction: column; line-height: 1; }
+.nav-logo  { display: inline-flex; align-items: center; gap: clamp(0.45rem,1vw,0.7rem); line-height: 1; }
+.nav-logo-icon { width: clamp(32px,3.2vw,40px); height: auto; flex-shrink: 0; }
+.nav-logo-text { display: flex; flex-direction: column; }
 .nav-logo-mark { font-family: var(--font-label); font-size: clamp(0.82rem,1.1vw,0.92rem); letter-spacing: 0.25em; color: var(--copper); text-transform: uppercase; }
 .nav-logo-name { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.1rem,1.6vw,1.35rem); color: var(--cream); letter-spacing: 0.02em; }
 .nav-links { display: flex; align-items: center; gap: clamp(1rem,2.2vw,2rem); list-style: none; }
@@ -830,6 +832,7 @@ input, select, textarea { font-family: var(--font-body); }
 ══════════════════════════════════════════════════════════════════════ */
 .footer { background: var(--chocolate); padding: 4rem 0 2.5rem; }
 .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-logo-icon { width: 38px; height: auto; margin-bottom: 0.85rem; }
 .footer-logo-name { font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; color: var(--cream); margin-bottom: 0.25rem; }
 .footer-logo-sub  { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; color: var(--copper); text-transform: uppercase; margin-bottom: 1.25rem; }
 .footer-tagline   { font-size: 0.85rem; line-height: 1.7; color: rgba(216,201,186,0.82); font-weight: 300; max-width: 260px; }
@@ -925,6 +928,7 @@ input, select, textarea { font-family: var(--font-body); }
   .footer-grid      { grid-template-columns: 1fr; gap: 2rem; }
 }
 </style>
+  <link rel="icon" type="image/svg+xml" href="Images/rakine_logo.svg" />
 </head>
 <body>
 
@@ -935,8 +939,11 @@ input, select, textarea { font-family: var(--font-body); }
   <div class="container">
     <div class="nav-inner">
       <a href="index.html" class="nav-logo" aria-label="Rankine Innovation Lab — Home">
-        <span class="nav-logo-mark">Rankine</span>
-        <span class="nav-logo-name">Innovation Lab</span>
+        <img src="Images/rakine_logo.svg" class="nav-logo-icon" alt="Rankine Innovation Lab logo" />
+        <div class="nav-logo-text">
+          <span class="nav-logo-mark">Rankine</span>
+          <span class="nav-logo-name">Innovation Lab</span>
+        </div>
       </a>
             <ul class="nav-links" role="list">
         <li><a href="index.html">Home</a></li>
@@ -1544,6 +1551,7 @@ input, select, textarea { font-family: var(--font-body); }
   <div class="container">
     <div class="footer-grid">
       <div>
+        <img src="Images/rakine_logo.svg" class="footer-logo-icon" alt="Rankine Innovation Lab logo" />
         <div class="footer-logo-name">Rankine Innovation Lab</div>
         <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
         <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
