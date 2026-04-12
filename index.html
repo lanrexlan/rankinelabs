@@ -10,16 +10,16 @@
 <style>
 /* ── DESIGN TOKENS ─────────────────────────────────────────────────── */
 :root {
-  --chocolate:   #180c06;
-  --espresso:    #241208;
+  --chocolate:   #24150F;
+  --espresso:    #2B1A14;
   --brown:       #3a1c0e;
   --mahogany:    #5c2d18;
-  --copper:      #a05c38;
-  --copper-lt:   #c47a52;
+  --copper:      #C89A5A;
+  --copper-lt:   #D8B07A;
   --sand:        #c9ab84;
   --sand-lt:     #ddc9a8;
-  --cream:       #f4ede0;
-  --cream-lt:    #faf6ef;
+  --cream:       #F6F0E8;
+  --cream-lt:    #FBF7F1;
   --sage:        #687558;
   --sage-lt:     #8e9e78;
   --white:       #fffcf8;
@@ -76,7 +76,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .nav.transparent { background: transparent; }
 .nav.solid {
-  background: rgba(24, 12, 6, 0.97);
+  background: rgba(36, 21, 15, 0.97);
   backdrop-filter: blur(18px);
   box-shadow: 0 1px 0 rgba(201,171,132,0.15);
 }
@@ -117,7 +117,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(244,237,224,0.72);
+  color: rgba(246,240,232,0.88);
   transition: color 0.3s;
   position: relative;
 }
@@ -166,7 +166,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(24, 12, 6, 0.98);
+  background: rgba(36,21,15,0.98);
   backdrop-filter: blur(20px);
   z-index: 999;
   flex-direction: column;
@@ -219,21 +219,18 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* Slide backgrounds via layered gradients */
 .hero-slide:nth-child(1) .hero-bg {
   background:
-    radial-gradient(ellipse 100% 80% at 70% 30%, rgba(94,44,18,0.55) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 20% 80%, rgba(104,117,88,0.2) 0%, transparent 55%),
-    linear-gradient(135deg, #180c06 0%, #3a1c0e 45%, #1c1006 100%);
+    linear-gradient(135deg, rgba(18,11,8,0.78) 0%, rgba(36,21,15,0.82) 55%, rgba(18,11,8,0.82) 100%),
+    url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
 }
 .hero-slide:nth-child(2) .hero-bg {
   background:
-    radial-gradient(ellipse 90% 70% at 30% 40%, rgba(72,90,58,0.5) 0%, transparent 60%),
-    radial-gradient(ellipse 70% 50% at 80% 75%, rgba(160,92,56,0.25) 0%, transparent 55%),
-    linear-gradient(145deg, #0e1508 0%, #1c2810 40%, #180c06 100%);
+    linear-gradient(140deg, rgba(18,11,8,0.8) 0%, rgba(36,21,15,0.76) 58%, rgba(18,11,8,0.84) 100%),
+    url('https://images.unsplash.com/photo-1592982537447-6f2a6a0f4d14?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
 }
 .hero-slide:nth-child(3) .hero-bg {
   background:
-    radial-gradient(ellipse 85% 70% at 65% 35%, rgba(142,104,56,0.45) 0%, transparent 58%),
-    radial-gradient(ellipse 60% 45% at 15% 70%, rgba(58,28,14,0.6) 0%, transparent 55%),
-    linear-gradient(130deg, #100a04 0%, #2e1e0a 50%, #1a0c06 100%);
+    linear-gradient(130deg, rgba(18,11,8,0.76) 0%, rgba(43,26,20,0.72) 52%, rgba(18,11,8,0.82) 100%),
+    url('https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
 }
 .hero-bg {
   position: absolute;
@@ -392,7 +389,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   padding: 1rem 2.2rem;
   background: transparent;
   color: var(--cream);
-  border: 1px solid rgba(244,237,224,0.3);
+  border: 1px solid rgba(216,201,186,0.72);
   border-radius: 2px;
   transition: border-color 0.35s, color 0.35s, transform 0.35s;
 }
@@ -421,7 +418,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .hero-dot {
   width: 6px; height: 6px;
   border-radius: 50%;
-  background: rgba(244,237,224,0.3);
+  background: rgba(216,201,186,0.72);
   transition: all 0.4s var(--ease-out);
   cursor: pointer;
 }
@@ -432,7 +429,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .hero-arrow {
   width: 44px; height: 44px;
-  border: 1px solid rgba(244,237,224,0.2);
+  border: 1px solid rgba(216,201,186,0.68);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   color: rgba(244,237,224,0.5);
@@ -462,7 +459,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-size: 0.6rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(244,237,224,0.35);
+  color: rgba(216,201,186,0.82);
   writing-mode: vertical-rl;
 }
 .hero-scroll-line {
@@ -724,7 +721,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .method-header .section-label { color: var(--copper); justify-content: center; }
 .method-header .section-label-line { background: var(--copper); }
 .method-header .section-heading { color: var(--cream); margin-inline: auto; }
-.method-header .section-subheading { color: rgba(244,237,224,0.55); margin-inline: auto; }
+.method-header .section-subheading { color: rgba(216,201,186,0.82); margin-inline: auto; }
 .method-tagline {
   font-family: var(--font-display);
   font-style: italic;
@@ -1049,7 +1046,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .knowledge-left .section-label { color: var(--sand); }
 .knowledge-left .section-label-line { background: var(--sand); }
 .knowledge-left .section-heading { color: var(--cream); }
-.knowledge-left .section-subheading { color: rgba(244,237,224,0.55); }
+.knowledge-left .section-subheading { color: rgba(216,201,186,0.82); }
 .knowledge-left .btn-primary { margin-top: 2.5rem; }
 .knowledge-right { }
 .knowledge-items {
@@ -1436,7 +1433,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .footer-tagline {
   font-size: 0.85rem;
   line-height: 1.7;
-  color: rgba(244,237,224,0.35);
+  color: rgba(216,201,186,0.82);
   font-weight: 300;
   max-width: 260px;
 }
@@ -1451,7 +1448,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
 .footer-links a {
   font-size: 0.83rem;
-  color: rgba(244,237,224,0.35);
+  color: rgba(216,201,186,0.82);
   transition: color 0.3s;
 }
 .footer-links a:hover { color: var(--sand); }
@@ -1466,7 +1463,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .footer-copy {
   font-size: 0.78rem;
-  color: rgba(244,237,224,0.2);
+  color: rgba(216,201,186,0.68);
 }
 .footer-copy em { color: var(--copper); font-style: normal; }
 .footer-legal {
@@ -1475,7 +1472,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .footer-legal a {
   font-size: 0.75rem;
-  color: rgba(244,237,224,0.2);
+  color: rgba(216,201,186,0.68);
   transition: color 0.3s;
 }
 .footer-legal a:hover { color: var(--sand); }
@@ -1494,7 +1491,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   top: calc(100% + 10px);
   left: 0;
   min-width: 220px;
-  background: rgba(24, 12, 6, 0.98);
+  background: rgba(36,21,15,0.98);
   border: 1px solid rgba(201,171,132,0.2);
   box-shadow: 0 20px 44px rgba(0,0,0,0.28);
   padding: .5rem 0;
@@ -2047,7 +2044,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
             Ecosystem of<br>
             <em>Applied Knowledge</em>
           </h2>
-          <p class="section-subheading reveal reveal-delay-2" style="color:rgba(244,237,224,0.55)">
+          <p class="section-subheading reveal reveal-delay-2" style="color:rgba(216,201,186,0.82)">
             We do not just build programmes — we generate a living body of knowledge: frameworks, pilot studies, explainers, toolkits, and lab notes that the broader research and innovation community can draw from.
           </p>
           <a href="knowledge-hub.html" class="btn-primary reveal reveal-delay-3" style="margin-top:2.5rem; display:inline-flex">Access Research Hub</a>

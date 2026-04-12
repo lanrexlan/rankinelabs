@@ -13,16 +13,16 @@
    DESIGN TOKENS — exact site-wide system
 ══════════════════════════════════════════════════════════════════════ */
 :root {
-  --chocolate:  #180c06;
-  --espresso:   #241208;
+  --chocolate:  #24150F;
+  --espresso:   #2B1A14;
   --brown:      #3a1c0e;
   --mahogany:   #5c2d18;
-  --copper:     #a05c38;
-  --copper-lt:  #c47a52;
+  --copper:     #C89A5A;
+  --copper-lt:  #D8B07A;
   --sand:       #c9ab84;
   --sand-lt:    #ddc9a8;
-  --cream:      #f4ede0;
-  --cream-lt:   #faf6ef;
+  --cream:      #F6F0E8;
+  --cream-lt:   #FBF7F1;
   --sage:       #687558;
   --sage-lt:    #8e9e78;
   --white:      #fffcf8;
@@ -131,7 +131,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
 .btn--ghost-light {
   background: transparent; color: var(--cream);
-  border: 1px solid rgba(244,237,224,0.28);
+  border: 1px solid rgba(216,201,186,0.7);
 }
 .btn--ghost-light:hover { border-color: var(--sand); color: var(--sand); }
 
@@ -150,7 +150,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .nav.transparent { background: transparent; }
 .nav.solid {
-  background: rgba(24,12,6,0.97);
+  background: rgba(36,21,15,0.97);
   backdrop-filter: blur(18px);
   box-shadow: 0 1px 0 rgba(201,171,132,0.15);
 }
@@ -174,7 +174,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .nav-links a {
   font-family: var(--font-body); font-size: 0.8rem; font-weight: 500;
   letter-spacing: 0.1em; text-transform: uppercase;
-  color: rgba(244,237,224,0.72); transition: color 0.3s; position: relative;
+  color: rgba(246,240,232,0.88); transition: color 0.3s; position: relative;
 }
 .nav-links a::after {
   content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
@@ -199,7 +199,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 .mobile-menu {
   display: none; position: fixed; inset: 0;
-  background: rgba(24,12,6,0.98); backdrop-filter: blur(20px);
+  background: rgba(36,21,15,0.98); backdrop-filter: blur(20px);
   z-index: 999; flex-direction: column; align-items: center; justify-content: center;
   gap: 2.5rem; transform: translateY(-100%); transition: transform 0.5s var(--ease-out);
 }
@@ -228,10 +228,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .prog-hero-bg {
   position: absolute; inset: 0;
   background:
-    radial-gradient(ellipse 65% 70% at 100% 0%,   rgba(120,64,22,0.5)  0%, transparent 55%),
-    radial-gradient(ellipse 50% 55% at 0%  100%,  rgba(72,90,58,0.18)  0%, transparent 55%),
-    radial-gradient(ellipse 35% 35% at 50% 50%,   rgba(160,92,56,0.06) 0%, transparent 55%),
-    linear-gradient(155deg, #0c0806 0%, #1a1006 40%, #180e04 100%);
+    linear-gradient(155deg, rgba(18,11,8,0.78) 0%, rgba(36,21,15,0.78) 48%, rgba(18,11,8,0.83) 100%),
+    url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
 }
 
 /* Very fine dot grid — different texture from about page's ruled lines */
@@ -333,7 +331,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: flex; align-items: center; gap: 0.6rem;
   font-family: var(--font-label); font-size: 0.62rem;
   letter-spacing: 0.2em; text-transform: uppercase;
-  color: rgba(244,237,224,0.28); margin-bottom: 2.5rem;
+  color: rgba(216,201,186,0.7); margin-bottom: 2.5rem;
   opacity: 0; transform: translateY(14px);
   animation: heroUp 0.7s 0.1s var(--ease-out) forwards;
 }
@@ -364,7 +362,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .prog-hero-sub {
   font-size: clamp(1rem, 1.55vw, 1.15rem);
   line-height: 1.78;
-  color: rgba(244,237,224,0.55);
+  color: rgba(216,201,186,0.82);
   font-weight: 300; max-width: 560px;
   margin-bottom: 3rem;
   opacity: 0; transform: translateY(26px);
@@ -405,7 +403,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-weight: 500; color: var(--cream); margin-bottom: 0.2rem;
 }
 .prog-hero-pillar-sub {
-  font-size: 0.75rem; color: rgba(244,237,224,0.35);
+  font-size: 0.75rem; color: rgba(216,201,186,0.82);
   font-weight: 300; line-height: 1.55;
 }
 
@@ -590,13 +588,13 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-size: clamp(0.95rem, 1.4vw, 1.15rem);
   font-weight: 300;
   font-style: italic;
-  color: rgba(244,237,224,0.55);
+  color: rgba(216,201,186,0.82);
   text-align: center;
 }
 .tab-intro-count {
   font-family: var(--font-display);
   font-size: 0.85rem;
-  color: rgba(244,237,224,0.3);
+  color: rgba(216,201,186,0.72);
 }
 
 /* ── PROGRAMME CARD ─────────────────────────────────────────────────── */
@@ -662,7 +660,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 /* Domain dot colours by category */
-.dot--ai      { background: #a05c38; box-shadow: 0 0 8px rgba(160,92,56,0.4); }
+.dot--ai      { background: #C89A5A; box-shadow: 0 0 8px rgba(160,92,56,0.4); }
 .dot--sustain { background: #687558; box-shadow: 0 0 8px rgba(104,117,88,0.4); }
 .dot--agri    { background: #8e9e78; box-shadow: 0 0 8px rgba(142,158,120,0.4); }
 .dot--innov   { background: #c9ab84; box-shadow: 0 0 8px rgba(201,171,132,0.4); }
@@ -1386,20 +1384,20 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .footer-logo-name { font-family: var(--font-display); font-size: 1.4rem; font-weight: 500; color: var(--cream); margin-bottom: 0.25rem; }
 .footer-logo-sub  { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; color: var(--copper); text-transform: uppercase; margin-bottom: 1.25rem; }
-.footer-tagline   { font-size: 0.85rem; line-height: 1.7; color: rgba(244,237,224,0.35); font-weight: 300; max-width: 260px; }
+.footer-tagline   { font-size: 0.85rem; line-height: 1.7; color: rgba(216,201,186,0.82); font-weight: 300; max-width: 260px; }
 .footer-col-title { font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1.25rem; }
 .footer-links     { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
-.footer-links a   { font-size: 0.83rem; color: rgba(244,237,224,0.35); transition: color 0.3s; }
+.footer-links a   { font-size: 0.83rem; color: rgba(216,201,186,0.82); transition: color 0.3s; }
 .footer-links a:hover { color: var(--sand); }
 .footer-bottom {
   border-top: 1px solid rgba(201,171,132,0.1);
   padding-top: 2rem;
   display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
 }
-.footer-copy   { font-size: 0.78rem; color: rgba(244,237,224,0.2); }
+.footer-copy   { font-size: 0.78rem; color: rgba(216,201,186,0.68); }
 .footer-copy em { color: var(--copper); font-style: normal; }
 .footer-legal  { display: flex; gap: 1.5rem; }
-.footer-legal a { font-size: 0.75rem; color: rgba(244,237,224,0.2); transition: color 0.3s; }
+.footer-legal a { font-size: 0.75rem; color: rgba(216,201,186,0.68); transition: color 0.3s; }
 .footer-legal a:hover { color: var(--sand); }
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -1416,7 +1414,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   top: calc(100% + 10px);
   left: 0;
   min-width: 220px;
-  background: rgba(24, 12, 6, 0.98);
+  background: rgba(36,21,15,0.98);
   border: 1px solid rgba(201,171,132,0.2);
   box-shadow: 0 20px 44px rgba(0,0,0,0.28);
   padding: .5rem 0;
@@ -2173,7 +2171,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         </h2>
       </div>
       <div>
-        <p class="reveal d2" style="font-size:clamp(0.95rem,1.4vw,1.05rem); line-height:1.85; color:rgba(244,237,224,0.48); font-weight:300; margin-top:0">
+        <p class="reveal d2" style="font-size:clamp(0.95rem,1.4vw,1.05rem); line-height:1.85; color:rgba(216,201,186,0.8); font-weight:300; margin-top:0">
           There are many places to access information about AI, sustainability, or precision agriculture. There is only one place where all three are integrated, practically taught, research-grounded, and built for real deployment from the first session.
         </p>
       </div>
