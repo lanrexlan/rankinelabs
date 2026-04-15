@@ -402,24 +402,37 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .pi-profile--reverse > * { direction: ltr; }
 
 /* ── PORTRAIT PANEL ── */
+/* ══════════════════════════════════════════════════════════════════════
+   PORTRAIT SECTION — professional photographic treatment
+   The previous approach layered abstract decorative elements (crosshatch,
+   coloured radial gradients, concentric rings) on top of the actual photos.
+   Those elements work beautifully as placeholder abstract backgrounds but
+   fight destructively with real photography — tinting skin tones, adding
+   visual noise over faces, and making the photos look murky and posterized.
+   This replacement uses a clean, editorial, photographic approach:
+   · The photo fills the panel as a colour-graded cinematic portrait
+   · A single bottom-only scrim gradient ensures text legibility
+   · Edge vignetting replaces the abstract overlays for depth
+   · A warm film grade unifies both photos against the site palette
+   · Decorative elements (cross, rings) are removed from the photo context
+══════════════════════════════════════════════════════════════════════ */
+
 .pi-portrait {
   position: relative;
   min-height: 600px;
   overflow: hidden;
-  display: flex; flex-direction: column;
+  display: flex;
+  flex-direction: column;
   justify-content: flex-end;
-  padding: clamp(2rem,4vw,3.5rem);
+  padding: clamp(2rem, 4vw, 3.5rem);
+  /* Fallback background colour while photo loads */
+  background: var(--espresso);
 }
 
-.pi-portrait::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(to top, rgba(12, 6, 3, 0.72) 0%, rgba(12, 6, 3, 0.32) 35%, rgba(12, 6, 3, 0.08) 70%);
-  pointer-events: none;
-}
-
+/* ── PHOTO CONTAINER ─────────────────────────────────────────────────
+   The media wrapper is the entire panel. The photo is treated as a
+   full-panel portrait, not a card thumbnail.
+──────────────────────────────────────────────────────────────────── */
 .pi-portrait-media {
   position: absolute;
   inset: 0;
@@ -430,94 +443,154 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 24%;
+  /* Centre on the face — slightly above vertical centre
+     so that even a full-body or 3/4 shot keeps the face
+     in the upper portion of the visible frame              */
+  object-position: center 12%;
   display: block;
+  /* Warm film grade: nudge toward the site's espresso/amber palette.
+     sepia(0.12)     → adds warmth without visibly desaturating
+     contrast(1.06)  → slight punch so photo reads sharply over dark bg
+     brightness(0.96)→ pulls exposure down marginally, helping the
+                        scrim at the bottom stay seamless              */
+  filter: sepia(0.12) contrast(1.06) brightness(0.96);
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.65s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Subtle zoom-in on hover — gives the panel life without distraction */
+.pi-profile:hover .pi-portrait-photo {
+  transform: scale(1.03);
+  filter: sepia(0.08) contrast(1.04) brightness(1.0);
+}
+
+/* ── FOCAL POINT TUNING per pioneer ─────────────────────────────────
+   Adjust object-position individually once you know each photo's
+   composition. If a photo is a head-and-shoulders close-up, use a
+   higher percentage (closer to top). If it is a 3/4 body shot with
+   the person standing, use a lower percentage to show more body.
+──────────────────────────────────────────────────────────────────── */
+.pi-profile:nth-child(2) .pi-portrait-photo {
+  object-position: center 10%;
+}
 .pi-profile:nth-child(3) .pi-portrait-photo {
-  object-position: center 18%;
+  object-position: center 8%;
 }
 
-/* Pioneer 1 — amber-copper composition */
-.pi-profile:nth-child(2) .pi-portrait {
-  background: linear-gradient(145deg, #1c1006 0%, #3a1c0e 45%, #0e1208 100%);
-}
-/* Pioneer 2 — sage-green composition */
-.pi-profile:nth-child(3) .pi-portrait {
-  background: linear-gradient(145deg, #0c1408 0%, #1c2a12 45%, #180e06 100%);
+/* ── SCRIM GRADIENT ──────────────────────────────────────────────────
+   Bottom-only. Dark enough at the very base for white text to be
+   legible; completely transparent by 50% of the panel height so
+   the face and upper body are unobscured.
+   This is the only layer that sits over the photo.
+──────────────────────────────────────────────────────────────────── */
+.pi-portrait::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    /* primary bottom scrim — text legibility zone */
+    linear-gradient(
+      to top,
+      rgba(10, 5, 2, 0.88) 0%,
+      rgba(10, 5, 2, 0.60) 20%,
+      rgba(10, 5, 2, 0.22) 38%,
+      transparent 52%
+    ),
+    /* edge vignette — replaces the abstract ring overlays;
+       adds depth and draws the eye inward to the subject  */
+    radial-gradient(
+      ellipse 100% 100% at 50% 50%,
+      transparent 45%,
+      rgba(10, 5, 2, 0.28) 100%
+    );
 }
 
-.pi-portrait-grad {
-  position: absolute; inset: 0;
+/* ── LEFT ACCENT BORDER ──────────────────────────────────────────────
+   A thin copper vertical bar on the left edge of the portrait panel,
+   consistent with the site-wide left-edge accent motif used on
+   the About and Research pages.
+──────────────────────────────────────────────────────────────────── */
+.pi-portrait::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 12%; bottom: 12%;
+  width: 3px;
+  z-index: 2;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--copper) 30%,
+    var(--copper) 70%,
+    transparent
+  );
+  opacity: 0.55;
   pointer-events: none;
 }
-.pi-profile:nth-child(2) .pi-portrait-grad {
-  background:
-    radial-gradient(ellipse 70% 60% at 70% 25%, rgba(160,92,56,0.22), transparent 55%),
-    radial-gradient(ellipse 50% 45% at 20% 80%, rgba(104,117,88,0.12), transparent 55%);
-}
-.pi-profile:nth-child(3) .pi-portrait-grad {
-  background:
-    radial-gradient(ellipse 70% 60% at 30% 25%, rgba(104,117,88,0.22), transparent 55%),
-    radial-gradient(ellipse 50% 45% at 80% 80%, rgba(160,92,56,0.12), transparent 55%);
-}
 
-.pi-portrait-cross {
-  position: absolute; inset: 0;
-  background-image:
-    repeating-linear-gradient( 45deg, rgba(201,171,132,0.04) 0, rgba(201,171,132,0.04) 1px, transparent 1px, transparent 52px),
-    repeating-linear-gradient(-45deg, rgba(201,171,132,0.03) 0, rgba(201,171,132,0.03) 1px, transparent 1px, transparent 52px);
-  z-index: 1;
-}
+/* ── DECORATIVE ELEMENTS — suppressed when photo is present ──────────
+   The crosshatch, coloured radial gradients, and concentric rings
+   were placeholder elements for when no photo existed. With real
+   photography they compete with the subject. They are hidden.
+   If photos are ever removed, un-comment these to restore the
+   abstract background treatment.
+──────────────────────────────────────────────────────────────────── */
+.pi-portrait-grad   { display: none; }
+.pi-portrait-cross  { display: none; }
+.pi-portrait-rings  { display: none; }
 
-/* Abstract portrait rings */
-.pi-portrait-rings {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-}
-.pi-portrait-ring {
-  position: absolute; border-radius: 50%;
-  border: 1px solid rgba(201,171,132,0.06);
-}
-.pi-portrait-ring:nth-child(1){ width: 70%; height: 70%; }
-.pi-portrait-ring:nth-child(2){ width: 50%; height: 50%; border-color: rgba(160,92,56,0.09); }
-.pi-portrait-ring:nth-child(3){ width: 28%; height: 28%; border-color: rgba(201,171,132,0.12); }
-
-/* Large initials — the portrait placeholder */
-.pi-portrait-initials {
-  position: absolute; inset: 0;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display);
-  font-size: clamp(8rem,14vw,14rem);
-  font-weight: 300; letter-spacing: -0.06em; line-height: 1;
-  pointer-events: none; user-select: none;
-}
-.pi-profile:nth-child(2) .pi-portrait-initials { color: rgba(201,171,132,0.07); }
-.pi-profile:nth-child(3) .pi-portrait-initials { color: rgba(104,117,88,0.1); }
-
-/* Bottom accent node */
+/* ── COPPER ACCENT NODE ──────────────────────────────────────────────
+   Kept — it is a subtle brand signature, sits at z-index 3 above the
+   scrim, and does not compete with the photo subject.
+──────────────────────────────────────────────────────────────────── */
 .pi-portrait-node {
-  position: absolute; bottom: 2.5rem; right: 2.5rem;
-  width: 10px; height: 10px; border-radius: 50%;
+  position: absolute;
+  bottom: 2.5rem; right: 2.5rem;
+  width: 9px; height: 9px;
+  border-radius: 50%;
   background: var(--copper);
-  box-shadow: 0 0 20px rgba(160,92,56,0.5);
+  box-shadow: 0 0 18px rgba(160, 92, 56, 0.6);
+  z-index: 3;
 }
 
-/* Portrait content overlay */
-.pi-portrait-content { position: relative; z-index: 2; }
+/* ── NAME / ROLE OVERLAY ─────────────────────────────────────────────
+   Sits above the scrim at z-index 2. Text is now sharp against the
+   dark scrim below — no change to typography, only ensuring correct
+   stacking and adding a micro text-shadow for maximum legibility
+   even on lighter-toned photos.
+──────────────────────────────────────────────────────────────────── */
+.pi-portrait-content {
+  position: relative;
+  z-index: 2;
+}
 .pi-portrait-num {
-  font-family: var(--font-display); font-size: 0.75rem; font-weight: 400;
-  letter-spacing: 0.14em; color: var(--copper); display: block; margin-bottom: 0.5rem;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: var(--copper);
+  display: block;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 1px 8px rgba(10, 5, 2, 0.6);
 }
 .pi-portrait-name {
-  font-family: var(--font-display); font-size: clamp(2rem,4vw,3.5rem);
-  font-weight: 300; color: var(--cream); line-height: 1.08; margin-bottom: 0.4rem;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-weight: 300;
+  color: var(--cream);
+  line-height: 1.08;
+  margin-bottom: 0.4rem;
+  text-shadow: 0 2px 16px rgba(10, 5, 2, 0.55);
 }
 .pi-portrait-name em { font-style: italic; color: var(--sand); }
 .pi-portrait-role {
-  font-family: var(--font-label); font-size: 0.6rem;
-  letter-spacing: 0.22em; text-transform: uppercase;
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
   color: var(--sand-lt);
+  text-shadow: 0 1px 8px rgba(10, 5, 2, 0.6);
 }
 
 /* ── CONTENT PANEL ── */
@@ -1008,7 +1081,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .pi-profile { grid-template-columns: 1fr; }
   .pi-profile--reverse { direction: ltr; }
   .pi-portrait { min-height: 340px; }
-  .pi-portrait-photo { object-position: center 20%; }
+  .pi-portrait-photo { object-position: center 10%; }
   .pi-expertise-header { grid-template-columns: 1fr; gap: 2rem; }
   .pi-fellows-header { grid-template-columns: 1fr; gap: 2rem; }
   .pi-fellows-grid { grid-template-columns: 1fr; }
