@@ -127,7 +127,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(246,240,232,0.88);
+  color: rgba(246,240,232,0.96);
   transition: color 0.3s;
   position: relative;
 }
@@ -229,17 +229,17 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* Slide backgrounds via layered gradients */
 .hero-slide:nth-child(1) .hero-bg {
   background:
-    linear-gradient(135deg, rgba(18,11,8,0.78) 0%, rgba(36,21,15,0.82) 55%, rgba(18,11,8,0.82) 100%),
+    linear-gradient(135deg, rgba(18,11,8,0.9) 0%, rgba(36,21,15,0.88) 55%, rgba(18,11,8,0.88) 100%),
     url('https://unsplash.com/photos/pLh_n9pnRhw/download?force=true&w=2000') center/cover no-repeat;
 }
 .hero-slide:nth-child(2) .hero-bg {
   background:
-    linear-gradient(140deg, rgba(18,11,8,0.8) 0%, rgba(36,21,15,0.76) 58%, rgba(18,11,8,0.84) 100%),
+    linear-gradient(140deg, rgba(18,11,8,0.86) 0%, rgba(36,21,15,0.76) 58%, rgba(18,11,8,0.9) 100%),
     url('https://unsplash.com/photos/ugnrXk1129g/download?force=true&w=2000') center/cover no-repeat;
 }
 .hero-slide:nth-child(3) .hero-bg {
   background:
-    linear-gradient(130deg, rgba(18,11,8,0.76) 0%, rgba(43,26,20,0.72) 52%, rgba(18,11,8,0.82) 100%),
+    linear-gradient(130deg, rgba(18,11,8,0.76) 0%, rgba(43,26,20,0.72) 52%, rgba(18,11,8,0.88) 100%),
     url('https://unsplash.com/photos/2vcHDUNYui4/download?force=true&w=2000') center/cover no-repeat;
 }
 .hero-bg {
@@ -439,7 +439,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .hero-arrow {
   width: 44px; height: 44px;
-  border: 1px solid rgba(216,201,186,0.68);
+  border: 1px solid rgba(216,201,186,0.82);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   color: rgba(244,237,224,0.5);
@@ -469,12 +469,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-size: 0.6rem;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: rgba(216,201,186,0.82);
+  color: rgba(216,201,186,0.92);
   writing-mode: vertical-rl;
 }
 .hero-scroll-line {
   width: 1px; height: 52px;
-  background: linear-gradient(to bottom, rgba(201,171,132,0.4), transparent);
+  background: linear-gradient(to bottom, rgba(201,171,132,0.68), transparent);
   animation: scrollPulse 2.2s ease-in-out infinite;
 }
 @keyframes scrollPulse {
@@ -731,7 +731,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .method-header .section-label { color: var(--copper); justify-content: center; }
 .method-header .section-label-line { background: var(--copper); }
 .method-header .section-heading { color: var(--cream); margin-inline: auto; }
-.method-header .section-subheading { color: rgba(216,201,186,0.82); margin-inline: auto; }
+.method-header .section-subheading { color: rgba(216,201,186,0.92); margin-inline: auto; }
 .method-tagline {
   font-family: var(--font-display);
   font-style: italic;
@@ -803,7 +803,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .method-desc {
   font-size: 0.87rem;
   line-height: 1.8;
-  color: rgba(244,237,224,0.45);
+  color: rgba(244,237,224,0.78);
   font-weight: 300;
 }
 
@@ -1056,7 +1056,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .knowledge-left .section-label { color: var(--sand); }
 .knowledge-left .section-label-line { background: var(--sand); }
 .knowledge-left .section-heading { color: var(--cream); }
-.knowledge-left .section-subheading { color: rgba(216,201,186,0.82); }
+.knowledge-left .section-subheading { color: rgba(216,201,186,0.92); }
 .knowledge-left .btn-primary { margin-top: 2.5rem; }
 .knowledge-right { }
 .knowledge-items {
@@ -1107,7 +1107,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .knowledge-item-arrow {
   font-size: 1rem;
-  color: rgba(201,171,132,0.3);
+  color: rgba(201,171,132,0.58);
   transition: color 0.3s, transform 0.3s;
   flex-shrink: 0;
 }
@@ -1188,7 +1188,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-family: var(--font-display);
   font-size: 4rem;
   font-weight: 300;
-  color: rgba(201,171,132,0.3);
+  color: rgba(201,171,132,0.58);
   line-height: 1;
   letter-spacing: -0.02em;
 }
@@ -1444,7 +1444,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .footer-tagline {
   font-size: 0.85rem;
   line-height: 1.7;
-  color: rgba(216,201,186,0.82);
+  color: rgba(216,201,186,0.92);
   font-weight: 300;
   max-width: 260px;
 }
@@ -1459,7 +1459,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .footer-links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
 .footer-links a {
   font-size: 0.83rem;
-  color: rgba(216,201,186,0.82);
+  color: rgba(216,201,186,0.92);
   transition: color 0.3s;
 }
 .footer-links a:hover { color: var(--sand); }
@@ -1474,7 +1474,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .footer-copy {
   font-size: 0.78rem;
-  color: rgba(216,201,186,0.68);
+  color: rgba(216,201,186,0.82);
 }
 .footer-copy em { color: var(--copper); font-style: normal; }
 .footer-legal {
@@ -1483,7 +1483,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .footer-legal a {
   font-size: 0.75rem;
-  color: rgba(216,201,186,0.68);
+  color: rgba(216,201,186,0.82);
   transition: color 0.3s;
 }
 .footer-legal a:hover { color: var(--sand); }
@@ -1519,7 +1519,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   padding: .68rem 1rem;
   font-size: .74rem;
   letter-spacing: .08em;
-  color: rgba(244,237,224,0.82);
+  color: rgba(244,237,224,0.92);
 }
 .nav-links .dropdown-menu a:hover { color: var(--sand); background: rgba(201,171,132,0.08); }
 .mobile-group { width: min(86vw, 420px); border: 1px solid rgba(201,171,132,0.18); }
@@ -2058,7 +2058,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
             Ecosystem of<br>
             <em>Applied Knowledge</em>
           </h2>
-          <p class="section-subheading reveal reveal-delay-2" style="color:rgba(216,201,186,0.82)">
+          <p class="section-subheading reveal reveal-delay-2" style="color:rgba(216,201,186,0.92)">
             We do not just build programmes — we generate a living body of knowledge: frameworks, pilot studies, explainers, toolkits, and lab notes that the broader research and innovation community can draw from.
           </p>
           <a href="knowledge-hub.html" class="btn-primary reveal reveal-delay-3" style="margin-top:2.5rem; display:inline-flex">Access Research Hub</a>
