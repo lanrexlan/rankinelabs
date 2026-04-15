@@ -107,12 +107,12 @@ input, select, textarea { font-family: var(--font-body); }
 .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; transition: background 0.45s var(--ease-circ), box-shadow 0.45s var(--ease-circ); }
 .nav.transparent { background: transparent; }
 .nav.solid { background: rgba(36,21,15,0.97); backdrop-filter: blur(18px); box-shadow: 0 1px 0 rgba(201,171,132,0.15); }
-.nav-inner { display: flex; align-items: center; justify-content: space-between; height: clamp(60px,7vw,76px); }
-.nav-logo  { display: inline-flex; align-items: center; gap: clamp(0.45rem,1vw,0.7rem); line-height: 1; }
-.nav-logo-icon { width: clamp(32px,3.2vw,40px); height: auto; flex-shrink: 0; }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: clamp(68px,7.6vw,86px); }
+.nav-logo  { display: inline-flex; align-items: center; gap: clamp(0.65rem,1.15vw,0.95rem); line-height: 1; }
+.nav-logo-icon { width: clamp(42px,4.2vw,54px); height: auto; flex-shrink: 0; padding: clamp(0.28rem,0.45vw,0.42rem); border-radius: 10px; background: rgba(251,247,241,0.92); border: 1px solid rgba(201,171,132,0.38); box-shadow: 0 8px 22px rgba(0,0,0,0.16); }
 .nav-logo-text { display: flex; flex-direction: column; }
-.nav-logo-mark { font-family: var(--font-label); font-size: clamp(0.82rem,1.1vw,0.92rem); letter-spacing: 0.25em; color: var(--copper); text-transform: uppercase; }
-.nav-logo-name { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.1rem,1.6vw,1.35rem); color: var(--cream); letter-spacing: 0.02em; }
+.nav-logo-mark { font-family: var(--font-label); font-size: clamp(0.84rem,1.12vw,0.96rem); letter-spacing: 0.25em; color: var(--copper); text-transform: uppercase; }
+.nav-logo-name { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.14rem,1.72vw,1.45rem); color: var(--cream); letter-spacing: 0.02em; }
 .nav-links { display: flex; align-items: center; gap: clamp(1rem,2.2vw,2rem); list-style: none; }
 .nav-links a { font-family: var(--font-body); font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(246,240,232,0.96); transition: color 0.3s; position: relative; }
 .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 1px; background: var(--copper); transform: scaleX(0); transform-origin: left; transition: transform 0.35s var(--ease-out); }
@@ -981,7 +981,6 @@ input, select, textarea { font-family: var(--font-body); }
     <div class="mobile-group-links">
       <a href="research.html" onclick="closeMobile()">Research &amp; Project</a>
       <a href="partnership.html" onclick="closeMobile()">Partnerships</a>
-      <a href="partnership.html" onclick="closeMobile()">Partnerships</a>
     </div>
   </details>
   <a href="programmes.html" onclick="closeMobile()">Programmes</a>
@@ -1284,35 +1283,35 @@ input, select, textarea { font-family: var(--font-body); }
         <!-- Contact rows -->
         <div class="ct-contacts" aria-label="Direct contact information">
 
-          <a href="mailto:hello@rankineinnovation.org" class="ct-contact-row" style="text-decoration:none">
+          <a href="mailto:hello@rankineinnovationlab.com" class="ct-contact-row" style="text-decoration:none">
             <div class="ct-contact-icon" aria-hidden="true">✉</div>
             <div class="ct-contact-text">
               <div class="ct-contact-label">General Enquiries</div>
-              <div class="ct-contact-value">hello@rankineinnovation.org</div>
+              <div class="ct-contact-value">hello@rankineinnovationlab.com</div>
             </div>
           </a>
 
-          <a href="mailto:partnerships@rankineinnovation.org" class="ct-contact-row" style="text-decoration:none">
+          <a href="mailto:ridwan@rankineinnovationlab.com" class="ct-contact-row" style="text-decoration:none">
             <div class="ct-contact-icon" aria-hidden="true">⬡</div>
             <div class="ct-contact-text">
-              <div class="ct-contact-label">Partnerships</div>
-              <div class="ct-contact-value">partnerships@rankineinnovation.org</div>
+              <div class="ct-contact-label">Ridwan Taiwo</div>
+              <div class="ct-contact-value">ridwan@rankineinnovationlab.com</div>
             </div>
           </a>
 
-          <a href="mailto:research@rankineinnovation.org" class="ct-contact-row" style="text-decoration:none">
+          <a href="mailto:habeeb.adegoke@rankineinnovationlab.com" class="ct-contact-row" style="text-decoration:none">
             <div class="ct-contact-icon" aria-hidden="true">🔬</div>
             <div class="ct-contact-text">
-              <div class="ct-contact-label">Research</div>
-              <div class="ct-contact-value">research@rankineinnovation.org</div>
+              <div class="ct-contact-label">Habeeb Adegoke</div>
+              <div class="ct-contact-value">habeeb.adegoke@rankineinnovationlab.com</div>
             </div>
           </a>
 
-          <a href="mailto:speaking@rankineinnovation.org" class="ct-contact-row" style="text-decoration:none">
+          <a href="mailto:hello@rankineinnovationlab.com" class="ct-contact-row" style="text-decoration:none">
             <div class="ct-contact-icon" aria-hidden="true">◎</div>
             <div class="ct-contact-text">
               <div class="ct-contact-label">Speaking &amp; Events</div>
-              <div class="ct-contact-value">speaking@rankineinnovation.org</div>
+              <div class="ct-contact-value">hello@rankineinnovationlab.com</div>
             </div>
           </a>
 
@@ -1565,18 +1564,15 @@ input, select, textarea { font-family: var(--font-body); }
           <li><a href="research.html">Research &amp; Project</a></li>
           <li><a href="knowledge-hub.html">Knowledge Hub</a></li>
           <li><a href="partnership.html">Partnerships</a></li>
-        <li><a href="team.html">Team</a></li>
-        <li><a href="partnership.html">Partnerships</a></li>
+          <li><a href="team.html">Team</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-title">Contact</div>
         <ul class="footer-links">
-          <li><a href="mailto:hello@rankineinnovation.org">hello@rankineinnovation.org</a></li>
-          <li><a href="mailto:partnerships@rankineinnovation.org">partnerships@</a></li>
-          <li><a href="mailto:research@rankineinnovation.org">research@</a></li>
-          <li><a href="mailto:speaking@rankineinnovation.org">speaking@</a></li>
-          <li><a href="mailto:programmes@rankineinnovation.org">programmes@</a></li>
+          <li><a href="mailto:hello@rankineinnovationlab.com">hello@rankineinnovationlab.com</a></li>
+          <li><a href="mailto:ridwan@rankineinnovationlab.com">ridwan@rankineinnovationlab.com</a></li>
+          <li><a href="mailto:habeeb.adegoke@rankineinnovationlab.com">habeeb.adegoke@rankineinnovationlab.com</a></li>
         </ul>
       </div>
       <div>

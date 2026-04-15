@@ -84,18 +84,23 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: clamp(60px, 7vw, 76px);
+  height: clamp(68px, 7.6vw, 86px);
 }
 .nav-logo {
   display: inline-flex;
   align-items: center;
-  gap: clamp(0.45rem, 1vw, 0.7rem);
+  gap: clamp(0.65rem, 1.15vw, 0.95rem);
   line-height: 1;
 }
 .nav-logo-icon {
-  width: clamp(32px, 3.2vw, 40px);
+  width: clamp(42px, 4.2vw, 54px);
   height: auto;
   flex-shrink: 0;
+  padding: clamp(0.28rem, 0.45vw, 0.42rem);
+  border-radius: 10px;
+  background: rgba(251, 247, 241, 0.92);
+  border: 1px solid rgba(201,171,132,0.38);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.16);
 }
 .nav-logo-text {
   display: flex;
@@ -103,7 +108,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 .nav-logo-mark {
   font-family: var(--font-label);
-  font-size: clamp(0.82rem, 1.1vw, 0.92rem);
+  font-size: clamp(0.84rem, 1.12vw, 0.96rem);
   letter-spacing: 0.25em;
   color: var(--copper);
   text-transform: uppercase;
@@ -111,7 +116,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .nav-logo-name {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(1.1rem, 1.6vw, 1.35rem);
+  font-size: clamp(1.14rem, 1.72vw, 1.45rem);
   color: var(--cream);
   letter-spacing: 0.02em;
 }
@@ -665,12 +670,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   padding: 3rem;
 }
 .about-visual-text {
-  font-family: var(--font-display);
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  font-weight: 300;
-  color: rgba(201,171,132,0.12);
-  text-align: center;
-  line-height: 1;
   pointer-events: none;
   user-select: none;
   position: absolute;
@@ -678,6 +677,12 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.about-visual-logo {
+  width: clamp(92px, 12vw, 148px);
+  height: auto;
+  opacity: 0.72;
+  filter: drop-shadow(0 12px 24px rgba(0,0,0,0.22));
 }
 .about-visual-grid {
   position: absolute;
@@ -1627,7 +1632,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
     <div class="mobile-group-links">
       <a href="research.html" onclick="closeMobile()">Research &amp; Project</a>
       <a href="partnership.html" onclick="closeMobile()">Partnerships</a>
-      <a href="partnership.html" onclick="closeMobile()">Partnerships</a>
     </div>
   </details>
   <a href="programmes.html" onclick="closeMobile()">Programmes</a>
@@ -1818,20 +1822,20 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       </div>
       <div class="about-right">
         <p class="reveal reveal-delay-1">
-          Rankine Innovation Lab is a forward-thinking educational service and knowledge hub dedicated to bridging the gap between advanced technology and sustainable development. We operate at the intersection of artificial intelligence, environmental science, smart agriculture, and applied research.
+          Rankine Innovation Lab bridges advanced technology with sustainable development through applied research, education, and systems innovation across AI, environmental science, and smart agriculture.
         </p>
         <p class="reveal reveal-delay-2">
-          We are not a generic consultancy, nor a traditional research institution. We are an applied innovation engine — one that builds practical capability, translates complex scientific knowledge into accessible frameworks, and designs programmes that generate real-world change.
+          More than a consultancy or traditional research centre, we turn complex science into practical frameworks, build capability, and deliver programmes that create measurable change.
         </p>
         <p class="reveal reveal-delay-3">
-          Rooted in African excellence and oriented toward global relevance, Rankine combines intellectual rigour with systems thinking, educational depth with technological fluency, and research ambition with practical applicability.
+          Rooted in African excellence and globally relevant, Rankine combines intellectual rigour with practical applicability.
         </p>
 
         <!-- Abstract visual -->
         <div class="about-visual reveal reveal-delay-4" aria-hidden="true">
           <div class="about-visual-frame">
             <div class="about-visual-grid"></div>
-            <div class="about-visual-text">R</div>
+            <div class="about-visual-text"><img src="Images/rakine_logo.svg" class="about-visual-logo" alt="Rankine Innovation Lab logo mark" /></div>
             <div class="about-visual-accent"></div>
             <div class="about-visual-node"></div>
             <div class="about-visual-node"></div>
@@ -1981,7 +1985,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         Programmes Built<br>for <em>Real Outcomes</em>
       </h2>
       <p class="section-subheading reveal reveal-delay-2" style="color:var(--brown)">
-        Designed for researchers, educators, practitioners, and institutions — each programme creates measurable capability and applies immediately to real challenges.
+        Selected programme pathways designed to build measurable capability. Explore the full catalogue for deeper tracks and custom delivery.
       </p>
     </div>
 
@@ -1989,56 +1993,34 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
       <div class="programme-card reveal">
         <div class="programme-num">Programme 01</div>
         <h3 class="programme-title">AI for STEM and Research Practice</h3>
-        <p class="programme-desc">A structured pathway that equips scientists, researchers, and educators with applied machine learning, data analysis, and AI-assisted research methodologies.</p>
+        <p class="programme-desc">Applied machine learning and AI-assisted research workflows for scientists, researchers, and educators.</p>
         <ul class="programme-outcomes">
           <li>Data pipeline design for research contexts</li>
-          <li>ML model interpretation and application</li>
           <li>AI-augmented scientific communication</li>
         </ul>
       </div>
       <div class="programme-card reveal reveal-delay-1">
         <div class="programme-num">Programme 02</div>
         <h3 class="programme-title">Circular Systems &amp; Sustainability Training</h3>
-        <p class="programme-desc">A rigorous but accessible programme on circular economy principles, ecological accounting, and designing for sustainability across industrial and social systems.</p>
+        <p class="programme-desc">Practical training in circular design, ecological accounting, and sustainability strategy.</p>
         <ul class="programme-outcomes">
           <li>Circular design frameworks</li>
           <li>Life-cycle assessment literacy</li>
-          <li>Sustainability strategy development</li>
         </ul>
       </div>
       <div class="programme-card reveal reveal-delay-2">
         <div class="programme-num">Programme 03</div>
-        <h3 class="programme-title">Smart Agriculture &amp; Food Security Labs</h3>
-        <p class="programme-desc">Intensive applied training bringing together soil sensing, remote data, climate modelling, and agronomy practice for the next generation of food systems thinkers.</p>
+        <h3 class="programme-title">Innovation Sprints for Institutions</h3>
+        <p class="programme-desc">Focused sprint engagements for organisations tackling high-priority sustainability and technology challenges.</p>
         <ul class="programme-outcomes">
-          <li>IoT and precision sensing for farms</li>
-          <li>Climate-adaptive crop planning</li>
-          <li>Food systems resilience assessment</li>
+          <li>Challenge framing and rapid testing</li>
+          <li>Institutional action roadmap</li>
         </ul>
       </div>
     </div>
 
-    <div class="programmes-grid programmes-grid-2" style="margin-top:1.5rem">
-      <div class="programme-card reveal">
-        <div class="programme-num">Programme 04</div>
-        <h3 class="programme-title">Innovation Sprints for Institutions</h3>
-        <p class="programme-desc">A time-bounded, immersive problem-solving experience for organisations ready to apply innovation methodology to their most complex sustainability or technology challenges.</p>
-        <ul class="programme-outcomes">
-          <li>Challenge scoping and framing</li>
-          <li>Rapid prototyping and evidence testing</li>
-          <li>Institutional action roadmap delivery</li>
-        </ul>
-      </div>
-      <div class="programme-card reveal reveal-delay-1">
-        <div class="programme-num">Programme 05</div>
-        <h3 class="programme-title">Organisational Capacity-Building Partnerships</h3>
-        <p class="programme-desc">Long-term embedded partnerships with institutions, universities, and organisations to build internal capacity in AI, sustainability, and research-led decision-making.</p>
-        <ul class="programme-outcomes">
-          <li>Bespoke curriculum co-design</li>
-          <li>Internal trainer development</li>
-          <li>Research infrastructure advisory</li>
-        </ul>
-      </div>
+    <div class="reveal" style="margin-top:1.8rem; text-align:center">
+      <a href="programmes.html" class="btn-outline-dark">View Full Programme Portfolio</a>
     </div>
   </div>
 </section>
@@ -2059,7 +2041,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
             <em>Applied Knowledge</em>
           </h2>
           <p class="section-subheading reveal reveal-delay-2" style="color:rgba(216,201,186,0.92)">
-            We do not just build programmes — we generate a living body of knowledge: frameworks, pilot studies, explainers, toolkits, and lab notes that the broader research and innovation community can draw from.
+            Our research hub shares practical frameworks, pilot studies, and toolkits that teams can apply quickly.
           </p>
           <a href="knowledge-hub.html" class="btn-primary reveal reveal-delay-3" style="margin-top:2.5rem; display:inline-flex">Access Research Hub</a>
         </div>
@@ -2087,22 +2069,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
               <div class="knowledge-item-text">
                 <div class="knowledge-item-type">Toolkit</div>
                 <div class="knowledge-item-title">Research Communication Toolkit for Applied Scientists</div>
-              </div>
-              <span class="knowledge-item-arrow">→</span>
-            </div>
-            <div class="knowledge-item reveal reveal-delay-3">
-              <div class="knowledge-item-icon">📔</div>
-              <div class="knowledge-item-text">
-                <div class="knowledge-item-type">Lab Notes</div>
-                <div class="knowledge-item-title">Integrating Remote Sensing Data into Agricultural Extension Services</div>
-              </div>
-              <span class="knowledge-item-arrow">→</span>
-            </div>
-            <div class="knowledge-item reveal reveal-delay-4">
-              <div class="knowledge-item-icon">💡</div>
-              <div class="knowledge-item-text">
-                <div class="knowledge-item-type">Explainer</div>
-                <div class="knowledge-item-title">What Machine Learning Actually Means for Environmental Scientists</div>
               </div>
               <span class="knowledge-item-arrow">→</span>
             </div>
@@ -2190,7 +2156,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         </div>
         <div>
           <p class="section-subheading reveal reveal-delay-2" style="color:rgba(244,237,224,0.5); margin-top:0">
-            We are built differently, think differently, and measure success differently. Rankine engages where inspiration ends and real transformation begins.
+            Rankine pairs intellectual depth with practical delivery, so ideas convert into durable capability and measurable outcomes.
           </p>
         </div>
       </div>
@@ -2220,18 +2186,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
           <h3 class="why-item-title">Future-Oriented Capability</h3>
           <p class="why-item-desc">We build for where the world is going, not where it has been. Every programme is designed to remain relevant as technology, climate, and society evolve.</p>
         </div>
-        <div class="why-item reveal reveal-delay-2">
-          <span class="why-item-num">05</span>
-          <span class="why-item-icon">⟁</span>
-          <h3 class="why-item-title">African-Rooted, Globally Fluent</h3>
-          <p class="why-item-desc">We are built from African intellectual excellence — and oriented toward global conversation. Our work is locally meaningful and globally relevant by design.</p>
-        </div>
-        <div class="why-item reveal reveal-delay-3">
-          <span class="why-item-num">06</span>
-          <span class="why-item-icon">∿</span>
-          <h3 class="why-item-title">Sustainability-Rooted Innovation</h3>
-          <p class="why-item-desc">Innovation without an ecological conscience is incomplete. Rankine holds sustainability not as a programme topic, but as a foundational operating principle.</p>
-        </div>
       </div>
     </div>
   </div>
@@ -2253,7 +2207,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         Whether you are an institution seeking a research and innovation partner, an organisation looking to build internal capability, or a researcher exploring collaboration — Rankine is where serious work gets done.
       </p>
       <div class="cta-actions reveal reveal-delay-3">
-        <a href="mailto:hello@rankineinnovation.org" class="btn-dark">Start a Conversation</a>
+        <a href="mailto:hello@rankineinnovationlab.com" class="btn-dark">Start a Conversation</a>
         <a href="programmes.html" class="btn-outline-dark">View Programmes</a>
       </div>
       <div class="cta-channels reveal reveal-delay-4">
@@ -2286,7 +2240,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
           <li><a href="programmes.html">Programmes</a></li>
           <li><a href="partnership.html">Partnerships</a></li>
         <li><a href="team.html">Team</a></li>
-        <li><a href="partnership.html">Partnerships</a></li>
         </ul>
       </div>
       <div>
@@ -2306,7 +2259,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
           <li><a href="#contact">Research Collaboration</a></li>
           <li><a href="#contact">Training Enquiries</a></li>
           <li><a href="#contact">Speaking</a></li>
-          <li><a href="mailto:hello@rankineinnovation.org">hello@rankineinnovation.org</a></li>
+          <li><a href="mailto:hello@rankineinnovationlab.com">hello@rankineinnovationlab.com</a></li>
         </ul>
       </div>
     </div>
