@@ -411,6 +411,33 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   padding: clamp(2rem,4vw,3.5rem);
 }
 
+.pi-portrait::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to top, rgba(12, 6, 3, 0.72) 0%, rgba(12, 6, 3, 0.32) 35%, rgba(12, 6, 3, 0.08) 70%);
+  pointer-events: none;
+}
+
+.pi-portrait-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.pi-portrait-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 24%;
+  display: block;
+}
+
+.pi-profile:nth-child(3) .pi-portrait-photo {
+  object-position: center 18%;
+}
+
 /* Pioneer 1 — amber-copper composition */
 .pi-profile:nth-child(2) .pi-portrait {
   background: linear-gradient(145deg, #1c1006 0%, #3a1c0e 45%, #0e1208 100%);
@@ -440,6 +467,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   background-image:
     repeating-linear-gradient( 45deg, rgba(201,171,132,0.04) 0, rgba(201,171,132,0.04) 1px, transparent 1px, transparent 52px),
     repeating-linear-gradient(-45deg, rgba(201,171,132,0.03) 0, rgba(201,171,132,0.03) 1px, transparent 1px, transparent 52px);
+  z-index: 1;
 }
 
 /* Abstract portrait rings */
@@ -488,7 +516,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .pi-portrait-name em { font-style: italic; color: var(--sand); }
 .pi-portrait-role {
   font-family: var(--font-label); font-size: 0.6rem;
-  letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper);
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--sand-lt);
 }
 
 /* ── CONTENT PANEL ── */
@@ -979,6 +1008,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .pi-profile { grid-template-columns: 1fr; }
   .pi-profile--reverse { direction: ltr; }
   .pi-portrait { min-height: 340px; }
+  .pi-portrait-photo { object-position: center 20%; }
   .pi-expertise-header { grid-template-columns: 1fr; gap: 2rem; }
   .pi-fellows-header { grid-template-columns: 1fr; gap: 2rem; }
   .pi-fellows-grid { grid-template-columns: 1fr; }
@@ -1130,10 +1160,10 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
           </div>
         </div>
         <div class="pi-hero-name-item">
-          <div class="pi-hero-name-initials" aria-hidden="true">AA</div>
+          <div class="pi-hero-name-initials" aria-hidden="true">HA</div>
           <div class="pi-hero-name-text">
             <div class="pi-hero-name-label">Co-Founder</div>
-            <div class="pi-hero-name-full">Adesola Adegoke</div>
+            <div class="pi-hero-name-full">Habeeb Adegoke</div>
           </div>
         </div>
       </div>
@@ -1219,6 +1249,9 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
       <!-- Portrait panel -->
       <div class="pi-portrait">
+        <div class="pi-portrait-media">
+          <img src="Images/New-Ridwan.jpeg" alt="Portrait of Taiwo Ridwan, Co-Founder of Rankine Innovation Lab" class="pi-portrait-photo" />
+        </div>
         <div class="pi-portrait-grad"></div>
         <div class="pi-portrait-cross"></div>
         <div class="pi-portrait-rings" aria-hidden="true">
@@ -1226,7 +1259,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
           <div class="pi-portrait-ring"></div>
           <div class="pi-portrait-ring"></div>
         </div>
-        <div class="pi-portrait-initials" aria-hidden="true">TR</div>
         <div class="pi-portrait-node" aria-hidden="true"></div>
         <div class="pi-portrait-content">
           <span class="pi-portrait-num" aria-hidden="true">Pioneer 01</span>
@@ -1285,11 +1317,14 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
     </article>
 
-    <!-- ── PIONEER 2: ADESOLA ADEGOKE ── -->
+    <!-- ── PIONEER 2: HABEEB ADEGOKE ── -->
     <article class="pi-profile pi-profile--reverse reveal" aria-labelledby="aa-name">
 
       <!-- Portrait panel -->
       <div class="pi-portrait">
+        <div class="pi-portrait-media">
+          <img src="Images/adesola.jpeg" alt="Portrait of Habeeb Adegoke, Co-Founder and Co-Director of Rankine Innovation Lab" class="pi-portrait-photo" />
+        </div>
         <div class="pi-portrait-grad"></div>
         <div class="pi-portrait-cross"></div>
         <div class="pi-portrait-rings" aria-hidden="true">
@@ -1297,38 +1332,37 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
           <div class="pi-portrait-ring"></div>
           <div class="pi-portrait-ring"></div>
         </div>
-        <div class="pi-portrait-initials" aria-hidden="true">AA</div>
         <div class="pi-portrait-node" aria-hidden="true"></div>
         <div class="pi-portrait-content">
           <span class="pi-portrait-num" aria-hidden="true">Pioneer 02</span>
           <h2 class="pi-portrait-name" id="aa-name">
-            Adesola<br><em>Adegoke</em>
+            Habeeb<br><em>Adegoke</em>
           </h2>
-          <div class="pi-portrait-role">Co-Founder · Rankine Innovation Lab</div>
+          <div class="pi-portrait-role">Co-Founder · Co-Director · Rankine Innovation Lab</div>
         </div>
       </div>
 
       <!-- Bio panel -->
       <div class="pi-bio">
         <blockquote class="pi-bio-tagline">
-          "Sustainability is not a constraint on innovation — it is the condition under which innovation becomes worth doing."
+          "Institutional research is strongest where intelligent systems, infrastructure, and biological innovation are designed to work together."
         </blockquote>
 
         <div class="pi-bio-body">
-          <p>Adesola Adegoke is a co-founder of Rankine Innovation Lab, where she anchors the lab's programme architecture and research philosophy in intelligent systems thinking, sustainability science, and a future-facing commitment to equitable capability building. Her contribution to Rankine is grounded in the conviction that the most important work in applied research is not the discovery of new facts — but the design of systems that allow those facts to be understood, acted on, and built upon by the people who need them most.</p>
-          <p>Adesola's approach at Rankine draws from environmental systems thinking, circular design, and educational architecture — oriented toward building programmes and frameworks that create genuine, durable capability rather than surface-level awareness. Her work ensures that the lab remains scientifically credible while being genuinely accessible: that its outputs are rigorous without being impenetrable, and ambitious without being disconnected from the practical realities of the contexts they are designed to serve.</p>
+          <p>Habeeb Adegoke serves as Co-Founder and Co-Director of Rankine Innovation Lab, where he leads research at the intersection of artificial intelligence, sustainable infrastructure, and biotechnology (biogeotechnics). His work advances an applied research agenda focused on building robust frameworks that connect scientific insight to institutional decision-making and real-world implementation.</p>
+          <p>At Rankine, his leadership combines systems-oriented scientific thinking with translational discipline, ensuring that research outputs are methodologically rigorous, operationally relevant, and suited to complex environments. He focuses on developing integrated models and programmes that strengthen long-term capability across infrastructure resilience, intelligent systems, and biotechnology-enabled sustainability.</p>
         </div>
 
         <!-- Focus areas -->
         <div class="pi-bio-areas">
           <span class="pi-bio-areas-label">Areas of Focus</span>
           <div class="pi-bio-area-list">
-            <span class="pi-bio-area">Intelligent Systems</span>
-            <span class="pi-bio-area">Sustainability Design</span>
-            <span class="pi-bio-area">Environmental Science</span>
-            <span class="pi-bio-area">Research Architecture</span>
-            <span class="pi-bio-area">Capacity Building</span>
-            <span class="pi-bio-area">Circular Systems</span>
+            <span class="pi-bio-area">Artificial Intelligence</span>
+            <span class="pi-bio-area">Sustainable Infrastructure</span>
+            <span class="pi-bio-area">Biotechnology</span>
+            <span class="pi-bio-area">Biogeotechnics</span>
+            <span class="pi-bio-area">Research Leadership</span>
+            <span class="pi-bio-area">Translational Systems</span>
           </div>
         </div>
 
@@ -1336,20 +1370,20 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         <div class="pi-bio-principles" aria-label="Working principles">
           <div class="pi-bio-principle">
             <span class="pi-bio-principle-icon" aria-hidden="true">→</span>
-            <span>The measure of a programme is not what participants know when they leave — it is what they can do.</span>
+            <span>Strong research programmes are built to guide real institutional choices, not just produce isolated findings.</span>
           </div>
           <div class="pi-bio-principle">
             <span class="pi-bio-principle-icon" aria-hidden="true">→</span>
-            <span>Environmental intelligence is not a specialisation. It is a foundational competency for anyone building in the 21st century.</span>
+            <span>AI, sustainable infrastructure, and biogeotechnics deliver the greatest value when designed as one integrated system.</span>
           </div>
           <div class="pi-bio-principle">
             <span class="pi-bio-principle-icon" aria-hidden="true">→</span>
-            <span>Sustainable systems are designed for the long run from the beginning — not retrofitted with ethics at the end.</span>
+            <span>Scientific rigour matters most when it translates into durable capability across organisations and communities.</span>
           </div>
         </div>
 
         <div class="pi-bio-footer">
-          <a href="#pi-cta" class="btn btn--copper">Collaborate with Adesola</a>
+          <a href="#pi-cta" class="btn btn--copper">Collaborate with Habeeb</a>
           <a href="mailto:hello@rankineinnovation.org" class="btn btn--ghost-dark">Get in Touch</a>
         </div>
       </div>
@@ -1700,7 +1734,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         <div class="footer-col-title">Team</div>
         <ul class="footer-links">
           <li><a href="#pi-profiles">Taiwo Ridwan</a></li>
-          <li><a href="#pi-profiles">Adesola Adegoke</a></li>
+          <li><a href="#pi-profiles">Habeeb Adegoke</a></li>
           <li><a href="#pi-expertise">Areas of Expertise</a></li>
           <li><a href="#pi-fellows">Future Fellows</a></li>
           <li><a href="#pi-cta">Collaborate</a></li>
