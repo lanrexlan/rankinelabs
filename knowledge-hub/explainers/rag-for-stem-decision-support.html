@@ -1,1 +1,365 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>RAG for STEM Decision Support — Knowledge Hub | Rankine Innovation Lab</title><meta name="description" content="Large language models are persuasive pattern generators, but they are poor substitutes for current, authoritative, domain-specific knowledge. In technical env"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet"/><link rel="icon" type="image/svg+xml" href="../../Images/rakine_logo.svg"/><link rel="stylesheet" href="../resource-template.css"/></head><body class="resource-page resource-explainer"><nav class="nav transparent" id="mainNav" aria-label="Main navigation"><div class="container"><div class="nav-inner"><a href="../../index.html" class="nav-logo"><img src="../../Images/rakine_logo.svg" class="nav-logo-icon" alt="Rankine Innovation Lab logo"/><div class="nav-logo-text"><span class="nav-logo-mark">Rankine</span><span class="nav-logo-name">Innovation Lab</span></div></a><ul class="nav-links"><li><a href="../../index.html">Home</a></li><li><a href="../../about.html">About</a></li><li><a href="../../research.html">Research &amp; Project</a></li><li><a href="../../programmes.html">Programmes</a></li><li><a href="../../knowledge-hub.html" class="active-page">Knowledge Hub</a></li><li><a href="../../team.html">Team</a></li><li><a href="../../contact.html">Contact</a></li></ul><button class="hamburger" id="hamburgerBtn" aria-expanded="false"><span></span><span></span><span></span></button></div></div></nav><div class="mobile-menu" id="mobileMenu"><a href="../../index.html" onclick="closeMobile()">Home</a><a href="../../about.html" onclick="closeMobile()">About</a><a href="../../research.html" onclick="closeMobile()">Research &amp; Project</a><a href="../../programmes.html" onclick="closeMobile()">Programmes</a><a href="../../knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a><a href="../../team.html" onclick="closeMobile()">Team</a><a href="../../contact.html" onclick="closeMobile()">Contact</a></div><section class="khr-hero"><div class="container"><nav class="breadcrumb"><a href="../../index.html">Home</a><span>—</span><a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span><strong>Explainer</strong></nav><span class="khr-type">Explainer</span><h1 class="khr-title">RAG for STEM Decision Support</h1><p class="khr-dek">Large language models are persuasive pattern generators, but they are poor substitutes for current, authoritative, domain-specific knowledge. In technical environments, that gap creates three problems at once: hallucinated facts, weak traceability, and stale responses. The research synthesis positions retrieval-augmented generation, or RAG, as the practical pattern that helps institutions address those weaknesses when they need an assistant that works over contracts, standard operating procedures, laboratory notes, policy documents, or knowledge libraries rather than over generic public text.</p><div class="khr-meta"><span><strong>Domain:</strong> AI for STEM Innovation</span><span><strong>Reading time:</strong> 4 min read</span><span><strong>Updated:</strong> April 2026</span></div><div class="khr-feature"><div class="khr-feature-head"><div><p class="khr-feature-kicker">Feature visual</p><h2 class="khr-feature-title">RAG Signal Flow</h2></div><p class="khr-feature-sub">Documents → retrieval → grounded answer</p></div><div class="khr-diagram"><img class="khr-feature-image" src="../../Images/knowledge/rag-for-stem-decision-support.jpg" alt="RAG Signal Flow" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/><div class="khr-feature-fallback" aria-hidden="true"><span>Feature visual</span></div></div><div class="khr-feature-tags"><span>Curated Corpus</span><span>Retriever</span><span>Evidence Window</span><span>Decision Answer</span></div></div></div></section><main class="khr-main"><div class="container"><div class="khr-grid"><article class="khr-article"><h2>What problem this solves</h2><h2>What RAG actually is</h2><p>RAG combines two different knowledge sources in one workflow. The first is parametric knowledge, which lives inside the model weights and gives the system general language ability. The second is retrieved knowledge, which is pulled at response time from a defined corpus of documents. In practice, a user asks a question, the system retrieves relevant passages from indexed material, and the model generates an answer using those retrieved passages as grounding. That distinction matters because it shifts the model away from pure improvisation and toward evidence-linked response generation.</p><section class="khr-module khr-module--chips"><h3>What this explains</h3><p>RAG improves decision support when each answer is tied to a governed evidence path.</p><ul><li>Keep the corpus bounded and current.</li><li>Measure retrieval quality before generation quality.</li><li>Require citation discipline and refusal behavior.</li></ul></section><h2>Why it matters for STEM decision support</h2><p>The document you uploaded makes the case for RAG not as a novelty, but as a serious institutional pattern. It ties the idea both to the original RAG formulation and to founder-linked applied evidence where a RAG-style contract-document workflow improved a baseline GPT-4 setup on quality, relevance, and reproducibility metrics. In the context of Rankine, that matters because your audiences work with structured knowledge, technical constraints, and implementation risk. They are less interested in chatbot fluency than in getting useful, reviewable responses that point back to source material.</p><h2>Core workflow</h2><p>A practical RAG workflow has five blocks. First, define the document boundary. That means deciding exactly which materials the assistant is allowed to use. Second, prepare and index the corpus so the system can search the material efficiently. Third, retrieve the most relevant passages for each query. Fourth, generate a response that cites or paraphrases the retrieved evidence. Fifth, review the output against quality, scope, and safety expectations. If any one of those stages is weak, the whole system becomes less trustworthy.</p><h2>Where RAG works well</h2><p>RAG is strongest when the task depends on a finite, curated corpus that matters more than open-ended world knowledge. Internal SOP guidance, policy interpretation, standards explanation, laboratory method support, document comparison, and institutional briefing support are good fits. It is also helpful where users need the answer to point back to an evidence trail. That makes it a strong fit for technical helpdesks, quality teams, standards-heavy operations, and capability-building environments where the answer must be traceable to documents, not just plausible in tone.</p><h2>Where RAG still fails</h2><p>RAG reduces some failure modes, but it does not remove them. Bad retrieval can still send the model to the wrong passages. Poor chunking can break the meaning of the underlying text. Confidential data can leak if permissions are not handled properly. Prompt injection and malicious instructions inside source documents can distort output. A confident answer can still overstate what the underlying material actually says. For that reason, the research synthesis is right to position evaluation and governance as part of the design, not as afterthoughts.</p><h2>How to evaluate it</h2><p>For Rankine-style deployment, evaluation should begin with task realism rather than benchmark theatre. Start by defining the actual decisions or support scenarios the tool is supposed to help with. Then test whether the retrieval step is surfacing the right evidence, whether the answer remains faithful to that evidence, whether the system stays inside its permitted scope, and whether the output is reproducible enough for institutional use. Accuracy, relevance, citation quality, refusal behaviour, and update discipline matter more here than impressive demo fluency.</p><h2>Security, compliance, and governance</h2><p>A high-quality RAG assistant is as much an information-governance project as it is a model project. Teams need access control, document hygiene, version control, logging, and explicit non-answer policies for situations where the system should defer to a human or refuse unsupported claims. This is especially important when the underlying material includes contracts, regulated procedures, confidential data, or evolving operational guidance. In practice, a weak governance layer can undo the value of a strong retrieval layer.</p><h2>When not to use RAG</h2><p>RAG is not the right answer when the underlying knowledge base is too poor, too outdated, or too fragmented to support reliable retrieval. It is also the wrong choice when the task needs calculation, formal reasoning, or expert judgment that cannot be reduced to document retrieval. In those cases, retrieval can support the workflow, but it should not be mistaken for a complete decision engine. The simplest rule is this: if the question demands accountable professional judgment, the system can support the user, but it should not replace them.</p><h2>Practical checklist</h2><p>Before deployment, a team should be able to answer six questions clearly. What is the corpus? Who can access it? What questions is the assistant designed to answer? How will retrieval quality be tested? What is the review protocol for unsafe or weak answers? How will the corpus be updated and versioned over time? If those answers are vague, the system is not ready for serious use.</p><h2>Sources &amp; further reading</h2><ul><li>Knowledge Hub research brief for Rankine Innovation Lab: Explainer A brief, outline, SEO package, and curation notes.</li><li>Founder-anchored evidence base cited in the research synthesis: Generative artificial intelligence in construction: A Delphi approach, framework, and case study; Generative AI in the Construction Industry: A State-of-the-art Analysis.</li><li>Primary reference spine cited in the research synthesis: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks.</li><li>Quality and governance framing cited in the research synthesis: NIST AI Risk Management Framework concepts for governance, mapping, measurement, and management.</li></ul></article><aside><div class="khr-sidecard"><h3>Key takeaway</h3><p>Part of the Rankine Knowledge Hub series, this resource translates technical evidence into decision-ready guidance.</p></div><div class="khr-sidecard"><h3>Related resources</h3><div class="khr-related"><a href="../frameworks/ai-adoption-readiness-for-research-teams.html">AI Adoption Readiness for Research Teams</a><a href="../explainers/why-retrieval-augmented-generation-matters-for-technical-domains.html">Why Retrieval-Augmented Generation Matters for Technical Domains</a><a href="../playbooks/how-to-run-a-small-ai-for-stem-capability-session.html">How to Run a Small AI-for-STEM Capability Session</a></div></div><div class="khr-sidecard"><h3>Continue exploring</h3><p>Browse resources by format, then continue through explainers, frameworks, playbooks, and lab notes.</p><a class="btn" href="../../knowledge-hub.html">Back to Knowledge Hub</a></div></aside></div></div></main><footer class="footer"><div class="container"><div class="footer-grid"><div><img src="../../Images/rakine_logo.svg" class="footer-logo-icon" alt="Rankine Innovation Lab logo"/><div class="footer-logo-name">Rankine Innovation Lab</div><div class="footer-logo-sub">Intelligence for a Liveable Future</div><p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p></div><div><div class="footer-col-title">Navigation</div><ul class="footer-links"><li><a href="../../about.html">About the Lab</a></li><li><a href="../../research.html">Research &amp; Project</a></li><li><a href="../../programmes.html">Programmes</a></li><li><a href="../../partnership.html">Partnerships</a></li><li><a href="../../team.html">Team</a></li></ul></div><div><div class="footer-col-title">Domains</div><ul class="footer-links"><li><a href="../../research.html">AI for STEM</a></li><li><a href="../../research.html">Sustainability</a></li><li><a href="../../research.html">Smart Agriculture</a></li><li><a href="../../research.html">Cross-Disciplinary</a></li><li><a href="../../knowledge-hub.html">Knowledge Hub</a></li></ul></div><div><div class="footer-col-title">Engage</div><ul class="footer-links"><li><a href="../../contact.html">Partnerships</a></li><li><a href="../../contact.html">Research Collaboration</a></li><li><a href="../../contact.html">Training Enquiries</a></li><li><a href="../../contact.html">Speaking</a></li><li><a href="mailto:hello@rankineinnovationlab.com">hello@rankineinnovationlab.com</a></li></ul></div></div><div class="footer-bottom"><p class="footer-copy">&copy; 2025 <em>Rankine Innovation Lab</em>. All rights reserved.</p><div class="footer-legal"><a href="../../privacy.html">Privacy</a> <a href="../../terms.html">Terms</a> <a href="../../sitemap.html">Sitemap</a></div></div></div></footer><script>const hamburgerBtn=document.getElementById('hamburgerBtn');const mobileMenu=document.getElementById('mobileMenu');const mainNav=document.getElementById('mainNav');function syncNav(){if(window.scrollY>18){mainNav.classList.add('solid');mainNav.classList.remove('transparent');}else{mainNav.classList.add('transparent');mainNav.classList.remove('solid');}}function closeMobile(){hamburgerBtn.classList.remove('open');mobileMenu.classList.remove('open');document.body.style.overflow='';hamburgerBtn.setAttribute('aria-expanded','false');}hamburgerBtn.addEventListener('click',()=>{const open=mobileMenu.classList.toggle('open');hamburgerBtn.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';hamburgerBtn.setAttribute('aria-expanded',open?'true':'false');});window.addEventListener('scroll',syncNav,{passive:true});syncNav();</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RAG for STEM Decision Support — Knowledge Hub | Rankine Innovation Lab</title>
+  <meta name="description" content="Understand retrieval-augmented generation (RAG), when it works, and how to evaluate it for technical decision workflows."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet"/>
+  <link rel="icon" type="image/svg+xml" href="../../Images/rakine_logo.svg"/>
+  <link rel="stylesheet" href="../resource-template.css"/>
+</head>
+<body class="resource-page resource-explainer">
+  <nav class="nav transparent" id="mainNav" aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="../../index.html" class="nav-logo">
+          <img src="../../Images/rakine_logo.svg" class="nav-logo-icon" alt="Rankine Innovation Lab logo"/>
+          <div class="nav-logo-text">
+            <span class="nav-logo-mark">Rankine</span>
+            <span class="nav-logo-name">Innovation Lab</span>
+          </div>
+        </a>
+        <ul class="nav-links">
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../about.html">About</a></li>
+          <li><a href="../../research.html">Research &amp; Project</a></li>
+          <li><a href="../../programmes.html">Programmes</a></li>
+          <li><a href="../../knowledge-hub.html" class="active-page">Knowledge Hub</a></li>
+          <li><a href="../../team.html">Team</a></li>
+          <li><a href="../../contact.html">Contact</a></li>
+        </ul>
+        <button class="hamburger" id="hamburgerBtn" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html" onclick="closeMobile()">Home</a>
+    <a href="../../about.html" onclick="closeMobile()">About</a>
+    <a href="../../research.html" onclick="closeMobile()">Research &amp; Project</a>
+    <a href="../../programmes.html" onclick="closeMobile()">Programmes</a>
+    <a href="../../knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
+    <a href="../../team.html" onclick="closeMobile()">Team</a>
+    <a href="../../contact.html" onclick="closeMobile()">Contact</a>
+  </div>
+
+  <section class="khr-hero">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="../../index.html">Home</a>
+        <span>—</span>
+        <a href="../../knowledge-hub.html">Knowledge Hub</a>
+        <span>—</span>
+        <strong>Explainer</strong>
+      </nav>
+
+      <span class="khr-type">Explainer</span>
+      <h1 class="khr-title">RAG for STEM Decision Support</h1>
+      <p class="khr-dek">
+        Large language models are persuasive pattern generators, but they are poor substitutes for current,
+        authoritative, domain-specific knowledge. In technical environments, that gap creates three problems at once:
+        hallucinated facts, weak traceability, and stale responses. Retrieval-augmented generation (RAG) is a practical
+        pattern for reducing those weaknesses when an assistant must work over contracts, SOPs, laboratory notes,
+        policy documents, or institutional knowledge libraries.
+      </p>
+
+      <div class="khr-meta">
+        <span><strong>Domain:</strong> AI for STEM Innovation</span>
+        <span><strong>Reading time:</strong> 8 min read</span>
+        <span><strong>Updated:</strong> April 2026</span>
+      </div>
+
+      <div class="khr-feature">
+        <div class="khr-feature-head">
+          <div>
+            <p class="khr-feature-kicker">Feature visual</p>
+            <h2 class="khr-feature-title">Retrieval-to-Answer Flow</h2>
+          </div>
+          <p class="khr-feature-sub">Bounded corpus → retrieval layer → grounded response → human decision review.</p>
+        </div>
+
+        <div class="khr-diagram">
+          <img
+            class="khr-feature-image"
+            src="../../Images/knowledge/rag-for-stem-decision-support.jpg"
+            alt="RAG retrieval to answer workflow for STEM decision support"
+            loading="lazy"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+          />
+          <div class="khr-feature-fallback" aria-hidden="true">
+            <span>Feature visual</span>
+          </div>
+        </div>
+
+        <div class="khr-feature-tags">
+          <span>Curated Corpus</span>
+          <span>Retriever</span>
+          <span>Grounding Window</span>
+          <span>Evidence-linked Answer</span>
+          <span>Human Oversight</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="khr-main">
+    <div class="container">
+      <div class="khr-grid">
+        <article class="khr-article">
+          <h2>What problem this solves</h2>
+          <p>
+            Large language models are persuasive pattern generators, but they are poor substitutes for current,
+            authoritative, domain-specific knowledge. In technical environments, that gap creates three problems at once:
+            hallucinated facts, weak traceability, and stale responses. RAG helps institutions address those weaknesses
+            when they need an assistant to reason across technical documents rather than generic public text.
+          </p>
+
+          <section class="khr-infographic" aria-label="RAG knowledge grounding layers">
+            <div class="khr-infographic-head">
+              <h3>Knowledge Grounding Layers</h3>
+              <span>Why responses become more decision-ready</span>
+            </div>
+            <div class="khr-infographic-grid">
+              <div class="khr-infographic-cell">
+                <strong>Layer 1</strong>
+                <p><em>Corpus quality:</em> define the allowed documents and keep versioning explicit.</p>
+              </div>
+              <div class="khr-infographic-cell">
+                <strong>Layer 2</strong>
+                <p><em>Retrieval quality:</em> surface the right passages before evaluating generation style.</p>
+              </div>
+              <div class="khr-infographic-cell">
+                <strong>Layer 3</strong>
+                <p><em>Answer quality:</em> keep outputs faithful to evidence and clear about uncertainty.</p>
+              </div>
+            </div>
+          </section>
+
+          <h2>What RAG actually is</h2>
+          <p>
+            RAG combines two different knowledge sources in one workflow. The first is parametric knowledge, which lives
+            inside model weights and provides general language ability. The second is retrieved knowledge, pulled at
+            response time from a defined corpus. In practice, a user asks a question, the system retrieves relevant
+            passages from indexed material, and the model generates an answer using those passages as grounding.
+          </p>
+
+          <h2>Why it matters for STEM decision support</h2>
+          <p>
+            RAG is not a novelty pattern. It is an institutional approach for teams that operate with structured
+            knowledge, technical constraints, and implementation risk. In this context, users value reviewable answers
+            that point back to source material more than conversational fluency.
+          </p>
+
+          <blockquote class="khr-pullquote">
+            In technical workflows, trust comes from answer quality <em>and</em> evidence lineage.
+          </blockquote>
+
+          <h2>Core workflow</h2>
+          <p>
+            A practical RAG workflow has five blocks: define document boundaries, prepare and index the corpus,
+            retrieve relevant passages, generate an evidence-linked response, and review output quality against scope
+            and safety requirements.
+          </p>
+
+          <section class="khr-module khr-module--grid" aria-label="Task suitability framework">
+            <h3>Task suitability framework</h3>
+            <p>Use RAG when the task is document-grounded and traceability is operationally important.</p>
+            <div class="khr-card">
+              <strong>Good fit</strong>
+              <p>SOP interpretation, policy support, standards clarification, and technical briefing workflows.</p>
+            </div>
+            <div class="khr-card">
+              <strong>Poor fit</strong>
+              <p>Tasks requiring novel calculation, specialist judgment, or authoritative decisions without human review.</p>
+            </div>
+            <p class="khr-module-note">
+              Rule of thumb: retrieval can support accountable professionals, but it should not replace accountable
+              judgment.
+            </p>
+          </section>
+
+          <h2>Where RAG works well</h2>
+          <p>
+            RAG is strongest when decisions depend on a finite, curated corpus that matters more than open-ended world
+            knowledge. It performs well for internal guidance, document comparison, policy interpretation, and support
+            tasks where every answer needs an evidence path.
+          </p>
+
+          <h2>Where RAG still fails</h2>
+          <p>
+            RAG reduces failure modes, but does not remove them. Poor retrieval can pull the wrong passages. Weak
+            chunking can fracture meaning. Confidentiality can be exposed if access control is weak. Prompt injection
+            inside source documents can distort behavior, and confident tone can still overstate evidence.
+          </p>
+
+          <section class="khr-module khr-module--check" aria-label="Trust and governance checks">
+            <h3>Trust and governance checks</h3>
+            <ul>
+              <li>Evaluate retrieval precision and recall before generation polish.</li>
+              <li>Test faithfulness between cited passages and final answers.</li>
+              <li>Define refusal behavior for unsupported or out-of-scope requests.</li>
+              <li>Enforce permissions, logging, and corpus update discipline.</li>
+            </ul>
+          </section>
+
+          <h2>How to evaluate it</h2>
+          <p>
+            Evaluation should begin with real decision scenarios, not benchmark theatre. Test whether retrieval surfaces
+            the right evidence, whether outputs remain faithful to that evidence, whether the system stays within
+            permitted scope, and whether response quality is reproducible for institutional use.
+          </p>
+
+          <h2>Security, compliance, and governance</h2>
+          <p>
+            A high-quality RAG assistant is as much an information-governance project as a model project. Teams need
+            access control, document hygiene, versioning, logging, and explicit escalation or non-answer policies for
+            decisions requiring human review.
+          </p>
+
+          <h2>When not to use RAG</h2>
+          <p>
+            RAG is the wrong choice when the knowledge base is outdated, fragmented, or weakly governed. It is also not
+            a substitute for expert judgment when decisions require formal reasoning and accountable responsibility.
+          </p>
+
+          <h2>Practical checklist</h2>
+          <p>
+            Before deployment, teams should answer six questions clearly: What is the corpus? Who has access? What
+            decision tasks are in scope? How is retrieval quality tested? What is the unsafe-answer review protocol?
+            How are updates versioned over time?
+          </p>
+
+          <h2>References &amp; further reading</h2>
+          <ul>
+            <li>Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (Lewis et al.).</li>
+            <li>NIST AI Risk Management Framework concepts for governance, mapping, measurement, and management.</li>
+            <li>Applied evidence from construction-sector generative AI studies on quality, relevance, and reproducibility.</li>
+          </ul>
+        </article>
+
+        <aside>
+          <div class="khr-sidecard">
+            <h3>Key takeaway</h3>
+            <p>
+              RAG becomes decision-support infrastructure when retrieval quality, evidence fidelity, and governance are
+              treated as first-class design requirements.
+            </p>
+          </div>
+
+          <div class="khr-sidecard">
+            <h3>At-a-glance suitability</h3>
+            <p>
+              Use RAG for bounded-document assistance where traceability matters. Avoid using it as an autonomous
+              decision engine in high-accountability contexts.
+            </p>
+          </div>
+
+          <div class="khr-sidecard">
+            <h3>Related resources</h3>
+            <div class="khr-related">
+              <a href="../frameworks/ai-adoption-readiness-for-research-teams.html">AI Adoption Readiness for Research Teams</a>
+              <a href="../explainers/why-retrieval-augmented-generation-matters-for-technical-domains.html">Why Retrieval-Augmented Generation Matters for Technical Domains</a>
+              <a href="../playbooks/how-to-run-a-small-ai-for-stem-capability-session.html">How to Run a Small AI-for-STEM Capability Session</a>
+            </div>
+          </div>
+
+          <div class="khr-sidecard">
+            <h3>Continue exploring</h3>
+            <p>Browse explainers, frameworks, playbooks, and lab notes across the Knowledge Hub.</p>
+            <a class="btn" href="../../knowledge-hub.html">Back to Knowledge Hub</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img src="../../Images/rakine_logo.svg" class="footer-logo-icon" alt="Rankine Innovation Lab logo"/>
+          <div class="footer-logo-name">Rankine Innovation Lab</div>
+          <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
+          <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Navigation</div>
+          <ul class="footer-links">
+            <li><a href="../../about.html">About the Lab</a></li>
+            <li><a href="../../research.html">Research &amp; Project</a></li>
+            <li><a href="../../programmes.html">Programmes</a></li>
+            <li><a href="../../partnership.html">Partnerships</a></li>
+            <li><a href="../../team.html">Team</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Domains</div>
+          <ul class="footer-links">
+            <li><a href="../../research.html">AI for STEM</a></li>
+            <li><a href="../../research.html">Sustainability</a></li>
+            <li><a href="../../research.html">Smart Agriculture</a></li>
+            <li><a href="../../research.html">Cross-Disciplinary</a></li>
+            <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Engage</div>
+          <ul class="footer-links">
+            <li><a href="../../contact.html">Partnerships</a></li>
+            <li><a href="../../contact.html">Research Collaboration</a></li>
+            <li><a href="../../contact.html">Training Enquiries</a></li>
+            <li><a href="../../contact.html">Speaking</a></li>
+            <li><a href="mailto:hello@rankineinnovationlab.com">hello@rankineinnovationlab.com</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">&copy; 2025 <em>Rankine Innovation Lab</em>. All rights reserved.</p>
+        <div class="footer-legal">
+          <a href="../../privacy.html">Privacy</a>
+          <a href="../../terms.html">Terms</a>
+          <a href="../../sitemap.html">Sitemap</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mainNav = document.getElementById('mainNav');
+
+    function syncNav() {
+      if (window.scrollY > 18) {
+        mainNav.classList.add('solid');
+        mainNav.classList.remove('transparent');
+      } else {
+        mainNav.classList.add('transparent');
+        mainNav.classList.remove('solid');
+      }
+    }
+
+    function closeMobile() {
+      hamburgerBtn.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      document.body.style.overflow = '';
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    hamburgerBtn.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      hamburgerBtn.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+      hamburgerBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    window.addEventListener('scroll', syncNav, { passive: true });
+    syncNav();
+  </script>
+</body>
+</html>
