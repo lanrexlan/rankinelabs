@@ -1683,11 +1683,18 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         <!-- Media column (image + video placeholders) -->
         <div class="flagship-media">
           <!-- Image placeholder -->
-          <img 
-  src="Images/aquapulse.jpg" 
-  alt="AquaPulse AP-100 product render" 
-  class="flagship-image reveal"
-/>
+          <div class="flagship-placeholder reveal" role="img" aria-label="AquaPulse AP-100 product render">
+  
+  <img 
+    src="Images/aquapulse.jpg" 
+    alt="AquaPulse AP-100 product render"
+    class="flagship-img"
+  />
+
+
+  <div class="flagship-ph-corners"><span></span><span></span><span></span><span></span></div>
+
+</div>
 
           <!-- Video placeholder -->
           <div class="flagship-placeholder reveal reveal-delay-1" role="button" tabindex="0" aria-label="Video placeholder: Field deployment demo">
