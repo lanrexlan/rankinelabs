@@ -3,54 +3,74 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Research &amp; Project — Rankine Innovation Lab</title>
+<title>Research &amp; Projects — Rankine Innovation Lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet" />
 <style>
+/* ─── TOKENS ─── */
 :root {
-  --chocolate:#24150F; --espresso:#2B1A14; --brown:#3a1c0e; --copper:#C89A5A; --copper-lt:#D8B07A;
+  --chocolate:#1e1008; --espresso:#2B1A14; --brown:#3a1c0e;
+  --copper:#C89A5A; --copper-lt:#D8B07A; --copper-dim:rgba(200,154,90,.18);
   --sand:#c9ab84; --cream:#F6F0E8; --cream-lt:#FBF7F1; --white:#fffcf8;
-  --font-display:'Cormorant Garamond', Georgia, serif; --font-label:'Cinzel', serif; --font-body:'DM Sans', sans-serif;
-  --ease-out:cubic-bezier(0.16, 1, 0.3, 1); --ease-circ:cubic-bezier(0.4, 0, 0.2, 1);
-  --section-pad:clamp(4.4rem, 8vw, 7rem);
+  --teal:#1a4a4a; --teal-lt:#225e5e;
+  --font-display:'Cormorant Garamond',Georgia,serif;
+  --font-label:'Cinzel',serif;
+  --font-body:'DM Sans',sans-serif;
+  --ease-out:cubic-bezier(0.16,1,0.3,1);
+  --ease-circ:cubic-bezier(0.4,0,0.2,1);
+  --sp:clamp(4.4rem,8vw,7rem);
+  --r:14px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
 body{font-family:var(--font-body);background:var(--cream-lt);color:var(--espresso);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-a{text-decoration:none;color:inherit} button{cursor:pointer;border:none;background:none;font-family:inherit}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
 .container{width:min(1340px,100%);margin-inline:auto;padding-inline:clamp(1.25rem,4vw,3.5rem)}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease-out),transform .8s var(--ease-out)}
-.reveal.visible{opacity:1;transform:translateY(0)}
-section{padding:var(--section-pad) 0}
+section{padding:var(--sp) 0}
 
-/* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:1000;transition:background .45s var(--ease-circ), box-shadow .45s var(--ease-circ)}
+/* ─── REVEAL ─── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .85s var(--ease-out),transform .85s var(--ease-out)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-l{opacity:0;transform:translateX(-28px);transition:opacity .85s var(--ease-out),transform .85s var(--ease-out)}
+.reveal-l.visible{opacity:1;transform:translateX(0)}
+.reveal-r{opacity:0;transform:translateX(28px);transition:opacity .85s var(--ease-out),transform .85s var(--ease-out)}
+.reveal-r.visible{opacity:1;transform:translateX(0)}
+.delay-1{transition-delay:.1s}.delay-2{transition-delay:.2s}.delay-3{transition-delay:.3s}.delay-4{transition-delay:.4s}.delay-5{transition-delay:.5s}
+
+/* ─── NAV ─── */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;transition:background .45s var(--ease-circ),box-shadow .45s var(--ease-circ)}
 .nav.transparent{background:transparent}
-.nav.solid{background:rgba(36,21,15,.97);backdrop-filter:blur(18px);box-shadow:0 1px 0 rgba(201,171,132,.15)}
+.nav.solid{background:rgba(30,16,8,.97);backdrop-filter:blur(18px);box-shadow:0 1px 0 rgba(201,171,132,.15)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:clamp(68px,7.6vw,86px)}
-.nav-logo{display:inline-flex;align-items:center;gap:clamp(.62rem,1.05vw,.88rem);line-height:1}.nav-logo-icon{width:clamp(46px,4.6vw,50px);height:clamp(46px,4.6vw,50px);flex-shrink:0;display:block;object-fit:cover;object-position:center;border-radius:10px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.18))}.nav-logo-text{display:flex;flex-direction:column}
+.nav-logo{display:inline-flex;align-items:center;gap:clamp(.62rem,1.05vw,.88rem);line-height:1}
+.nav-logo-icon{width:clamp(46px,4.6vw,50px);height:clamp(46px,4.6vw,50px);flex-shrink:0;display:block;object-fit:cover;border-radius:10px;filter:drop-shadow(0 6px 14px rgba(0,0,0,.18))}
+.nav-logo-text{display:flex;flex-direction:column}
 .nav-logo-mark{font-family:var(--font-label);font-size:clamp(.84rem,1.12vw,.96rem);letter-spacing:.25em;color:var(--copper);text-transform:uppercase}
 .nav-logo-name{font-family:var(--font-display);font-weight:600;font-size:clamp(1.14rem,1.72vw,1.45rem);color:var(--cream)}
 .nav-links{display:flex;align-items:center;gap:clamp(1rem,2.2vw,2rem);list-style:none}
 .nav-links a{font-size:.8rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(246,240,232,.96);position:relative;transition:color .3s}
 .nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--copper);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease-out)}
 .nav-links a:hover{color:var(--cream)}
-.nav-links a:hover::after{transform:scaleX(1)}
+.nav-links a:hover::after,.nav-links a.active-page::after{transform:scaleX(1)}
 .nav-links a.active-page{color:var(--sand)}
-.nav-links a.active-page::after{transform:scaleX(1);background:var(--sand)}
+.nav-links a.active-page::after{background:var(--sand)}
 .nav-links .has-dropdown{position:relative}
 .nav-links .dropdown-toggle{display:inline-flex;align-items:center;gap:.35rem}
 .nav-links .dropdown-toggle::before{content:'\25BE';font-size:.62rem;opacity:.7;order:2}
-.nav-links .dropdown-menu{position:absolute;top:calc(100% + .9rem);left:0;min-width:220px;display:flex;flex-direction:column;gap:.15rem;padding:.45rem;border:1px solid rgba(201,171,132,.28);background:rgba(36,21,15,.98);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .22s ease,transform .22s ease,visibility .22s ease;z-index:60;list-style:none}
+.nav-links .dropdown-menu{position:absolute;top:calc(100% + .9rem);left:0;min-width:220px;display:flex;flex-direction:column;gap:.15rem;padding:.45rem;border:1px solid rgba(201,171,132,.28);background:rgba(30,16,8,.98);backdrop-filter:blur(10px);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .22s ease,transform .22s ease,visibility .22s ease;z-index:60;list-style:none}
 .nav-links .has-dropdown:hover .dropdown-menu,.nav-links .has-dropdown:focus-within .dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
 .nav-links .dropdown-menu a{font-size:.74rem;letter-spacing:.08em;padding:.52rem .6rem;color:rgba(246,240,232,.96)}
 .nav-links .dropdown-menu a:hover{color:var(--sand);background:rgba(201,171,132,.08)}
-.nav-cta{font-size:.78rem !important;letter-spacing:.12em !important;font-weight:600 !important;padding:.55rem 1.4rem;border:1px solid var(--copper);border-radius:2px;color:var(--cream)!important;transition:background .3s !important}
+.nav-cta{font-size:.78rem!important;letter-spacing:.12em!important;font-weight:600!important;padding:.55rem 1.4rem;border:1px solid var(--copper);border-radius:2px;color:var(--cream)!important;transition:background .3s!important}
 .nav-cta:hover{background:var(--copper)!important}.nav-cta::after{display:none!important}
 .hamburger{display:none;flex-direction:column;gap:5px;padding:8px}
 .hamburger span{display:block;width:26px;height:2px;background:var(--cream);transition:all .3s}
-.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}.hamburger.open span:nth-child(2){opacity:0}.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mobile-menu{display:none;position:fixed;inset:0;background:rgba(36,21,15,.98);backdrop-filter:blur(20px);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2.2rem;transform:translateY(-100%);transition:transform .5s var(--ease-out)}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mobile-menu{display:none;position:fixed;inset:0;background:rgba(30,16,8,.98);backdrop-filter:blur(20px);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:2.2rem;transform:translateY(-100%);transition:transform .5s var(--ease-out)}
 .mobile-menu.open{display:flex;transform:translateY(0)}
 .mobile-menu a{font-family:var(--font-display);font-size:clamp(1.55rem,6vw,2.7rem);font-weight:300;color:var(--cream)}
 .mobile-group{width:min(86vw,420px);border:1px solid rgba(201,171,132,.18)}
@@ -61,94 +81,207 @@ section{padding:var(--section-pad) 0}
 .mobile-group-links{display:flex;flex-direction:column;gap:.2rem;padding:0 1rem 1rem}
 .mobile-group-links a{font-size:1.03rem;line-height:1.35;color:var(--cream)}
 
-/* HERO */
-.research-hero{min-height:82vh;display:flex;align-items:center;position:relative;background:
-linear-gradient(115deg, rgba(18,11,8,.9), rgba(36,21,15,.82) 58%, rgba(18,11,8,.9)),
-url('https://unsplash.com/photos/kKYDdRoTydk/download?force=true&w=2000') center/cover no-repeat;color:var(--cream);padding-top:6rem}
-.research-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(transparent 40%, rgba(0,0,0,.35));pointer-events:none}
-.research-hero-inner{position:relative;max-width:900px}
-.eyebrow{display:inline-flex;gap:.8rem;align-items:center;font-family:var(--font-label);font-size:.67rem;letter-spacing:.26em;text-transform:uppercase;color:var(--copper);margin-bottom:1.2rem}
-.eyebrow::before{content:'';width:32px;height:1px;background:var(--copper)}
-h1{font-family:var(--font-display);font-size:clamp(2.7rem,7.2vw,5rem);font-weight:300;line-height:1.02;margin-bottom:.8rem}
-.subtitle{font-size:1.12rem;color:rgba(246,240,232,.91);margin-bottom:1rem}
-.lead{max-width:75ch;line-height:1.82;color:rgba(246,240,232,.86)}
+/* ─── HERO ─── */
+.hero{min-height:88vh;display:flex;align-items:flex-end;position:relative;
+  background:linear-gradient(135deg,rgba(12,6,3,.92) 0%,rgba(36,21,15,.75) 55%,rgba(12,6,3,.9) 100%),
+  url('https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
+  color:var(--cream);padding-top:7rem}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:220px;background:linear-gradient(transparent,var(--cream-lt));pointer-events:none}
+.hero-inner{position:relative;z-index:2;padding-bottom:clamp(3rem,7vw,6rem)}
+.eyebrow{display:inline-flex;gap:.9rem;align-items:center;font-family:var(--font-label);font-size:.67rem;letter-spacing:.3em;text-transform:uppercase;color:var(--copper);margin-bottom:1.4rem}
+.eyebrow::before{content:'';width:40px;height:1px;background:var(--copper)}
+.hero h1{font-family:var(--font-display);font-size:clamp(3rem,8vw,6rem);font-weight:300;line-height:1;margin-bottom:1.2rem;letter-spacing:-.01em}
+.hero h1 em{font-style:italic;color:var(--copper)}
+.hero-lead{max-width:68ch;font-size:1.1rem;line-height:1.84;color:rgba(246,240,232,.85);margin-bottom:2.4rem}
+.focus-strip{display:flex;gap:.6rem;flex-wrap:wrap}
+.focus-chip{padding:.4rem .9rem;border-radius:999px;background:rgba(201,171,132,.12);border:1px solid rgba(201,171,132,.35);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(246,240,232,.8);backdrop-filter:blur(8px)}
 
-.focus-strip{background:var(--white);padding:1.6rem;border:1px solid rgba(58,28,14,.1);border-radius:14px;display:flex;gap:.7rem;flex-wrap:wrap;box-shadow:0 18px 50px rgba(43,26,20,.07)}
-.focus-chip{padding:.45rem .85rem;border-radius:999px;background:rgba(201,171,132,.16);border:1px solid rgba(201,171,132,.32);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--brown)}
+/* ─── SECTION LABELS ─── */
+.sec-eyebrow{font-family:var(--font-label);font-size:.65rem;letter-spacing:.28em;text-transform:uppercase;color:var(--copper);margin-bottom:.9rem;display:flex;align-items:center;gap:.7rem}
+.sec-eyebrow::after{content:'';flex:1;max-width:60px;height:1px;background:var(--copper);opacity:.5}
+.sec-title{font-family:var(--font-display);font-size:clamp(2rem,4.5vw,3.2rem);font-weight:400;line-height:1.05;margin-bottom:1rem}
+.sec-title em{font-style:italic;color:var(--copper)}
+.sec-sub{max-width:72ch;line-height:1.82;color:#4b3529;font-size:1.02rem}
 
-.sec-title{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:400;margin-bottom:1rem}
-.sec-sub{max-width:72ch;line-height:1.78;color:#4b3529;margin-bottom:2rem}
-.process-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
-.process-step{background:linear-gradient(160deg,#fff, #f8f2eb);border:1px solid rgba(58,28,14,.11);border-radius:14px;padding:1.2rem}
-.process-index{font-family:var(--font-label);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:#84593a;margin-bottom:.55rem}
-.process-step h3{font-family:var(--font-display);font-size:1.45rem;font-weight:500;margin-bottom:.55rem}
-.process-step p{font-size:.93rem;line-height:1.65;color:#4a3327}
+/* ─── PROCESS STEPS ─── */
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(58,28,14,.12);border:1px solid rgba(58,28,14,.12);border-radius:var(--r);overflow:hidden;margin-top:2.5rem}
+.process-step{background:var(--white);padding:clamp(1.4rem,2.5vw,2rem) 1.6rem;position:relative}
+.process-step::before{content:attr(data-n);position:absolute;top:1.2rem;right:1.4rem;font-family:var(--font-display);font-size:4rem;font-weight:300;line-height:1;color:rgba(200,154,90,.1);pointer-events:none}
+.process-index{font-family:var(--font-label);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--copper);margin-bottom:.7rem}
+.process-step h3{font-family:var(--font-display);font-size:1.55rem;font-weight:500;margin-bottom:.6rem}
+.process-step p{font-size:.92rem;line-height:1.7;color:#4a3327}
 
-.research-group-title{font-family:var(--font-display);font-size:1.65rem;font-weight:500;margin:1.5rem 0 1rem}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem}
-.research-card,.project-card,.concept-card{background:#fff;border:1px solid rgba(43,26,20,.12);border-radius:14px;overflow:hidden;box-shadow:0 14px 36px rgba(43,26,20,.06)}
-.card-cover{height:160px;background:radial-gradient(circle at 15% 15%, rgba(201,171,132,.5), transparent 50%), linear-gradient(130deg,#3a1c0e,#6f4028 60%,#2b1a14);display:flex;align-items:flex-end;padding:.75rem;color:rgba(246,240,232,.94);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;background-size:cover;background-position:center}
-.research-card .content,.project-card .content,.concept-card .content{padding:1rem}
-.meta{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:#7c5537;margin-bottom:.45rem}
-.research-card h4,.project-card h4,.concept-card h4{font-family:var(--font-display);font-size:1.33rem;line-height:1.2;font-weight:500;margin-bottom:.45rem}
-.research-card p,.project-card p,.concept-card p{font-size:.92rem;line-height:1.67;color:#4a3327}
-.research-card a{display:inline-block;margin-top:.7rem;color:#7a4d2f;text-decoration:underline}
-.badge{display:inline-block;padding:.25rem .6rem;border-radius:999px;font-size:.67rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(122,77,47,.34);color:#7a4d2f;background:#fbf4ed;margin-bottom:.65rem}
-.project-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.project-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.55rem;margin:.9rem 0}
-.project-meta div{background:#f8f1e9;border-radius:8px;padding:.55rem;font-size:.78rem;line-height:1.35}
-.project-meta strong{display:block;font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;color:#7a5539}
+/* ─── AQUAPULSE FLAGSHIP ─── */
+#aquapulse{padding:var(--sp) 0;background:var(--chocolate);color:var(--cream);overflow:hidden;position:relative}
+#aquapulse::before{content:'';position:absolute;top:-120px;right:-180px;width:600px;height:600px;background:radial-gradient(circle,rgba(200,154,90,.12) 0%,transparent 70%);pointer-events:none}
+#aquapulse .sec-eyebrow{color:var(--copper)}
+#aquapulse .sec-eyebrow::after{background:var(--copper)}
+#aquapulse .sec-title em{color:var(--copper-lt)}
+.aq-layout{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:start;margin-top:3rem}
+.aq-lead{font-size:1.05rem;line-height:1.85;color:rgba(246,240,232,.82);margin-bottom:2rem}
+.aq-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,171,132,.2);border:1px solid rgba(201,171,132,.2);border-radius:var(--r);overflow:hidden;margin-bottom:2rem}
+.aq-stat{background:rgba(255,255,255,.04);padding:1.4rem;text-align:center}
+.aq-stat-num{font-family:var(--font-display);font-size:clamp(2rem,4vw,2.8rem);font-weight:400;color:var(--copper-lt);line-height:1}
+.aq-stat-label{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(246,240,232,.55);margin-top:.35rem;line-height:1.4}
+.aq-features{list-style:none;display:flex;flex-direction:column;gap:.75rem;margin-bottom:2rem}
+.aq-features li{display:flex;gap:.85rem;align-items:flex-start;font-size:.95rem;line-height:1.65;color:rgba(246,240,232,.85)}
+.aq-features li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--copper);flex-shrink:0;margin-top:.55rem}
+.aq-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-copper{display:inline-flex;align-items:center;gap:.55rem;font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:1rem 1.8rem;background:var(--copper);color:var(--white);border:1px solid var(--copper);border-radius:2px;transition:background .3s,border-color .3s}
+.btn-copper:hover{background:var(--copper-lt);border-color:var(--copper-lt)}
+.btn-outline{display:inline-flex;align-items:center;gap:.55rem;font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:1rem 1.8rem;background:transparent;color:var(--cream);border:1px solid rgba(201,171,132,.4);border-radius:2px;transition:border-color .3s,color .3s}
+.btn-outline:hover{border-color:var(--copper);color:var(--copper)}
+/* Product visual */
+.aq-visual{position:relative}
+.aq-img-wrap{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/3}
+.aq-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.aq-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(45deg,rgba(30,16,8,.6) 0%,transparent 60%)}
+.aq-badge{position:absolute;bottom:1.5rem;left:1.5rem;background:rgba(200,154,90,.92);color:var(--white);font-family:var(--font-label);font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;padding:.55rem 1rem;border-radius:2px;backdrop-filter:blur(8px)}
+.aq-specs{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1.2rem}
+.aq-spec{background:rgba(255,255,255,.06);border:1px solid rgba(201,171,132,.2);border-radius:10px;padding:1rem 1.1rem}
+.aq-spec-icon{font-size:1.2rem;margin-bottom:.4rem}
+.aq-spec-label{font-family:var(--font-label);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--copper);margin-bottom:.25rem}
+.aq-spec-val{font-size:.88rem;color:rgba(246,240,232,.85);line-height:1.45}
+/* Competitive strip */
+.aq-compare{margin-top:3rem;border-top:1px solid rgba(201,171,132,.2);padding-top:2.5rem}
+.aq-compare-title{font-family:var(--font-display);font-size:1.7rem;font-weight:400;color:var(--cream);margin-bottom:1.4rem}
+.compare-table{width:100%;border-collapse:collapse;font-size:.83rem}
+.compare-table th{font-family:var(--font-label);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--copper);padding:.7rem 1rem;text-align:left;border-bottom:1px solid rgba(201,171,132,.2)}
+.compare-table td{padding:.75rem 1rem;border-bottom:1px solid rgba(255,255,255,.06);color:rgba(246,240,232,.78);vertical-align:top;line-height:1.45}
+.compare-table tr.aq-row td{color:var(--cream);font-weight:500;background:rgba(200,154,90,.1)}
+.compare-table tr:hover td{background:rgba(255,255,255,.03)}
+.tick{color:#6ecb90;font-size:.9rem}
+.cross{color:rgba(246,240,232,.3);font-size:.9rem}
+.tag-unique{display:inline-block;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;padding:.2rem .5rem;background:rgba(200,154,90,.25);border:1px solid rgba(200,154,90,.4);border-radius:4px;color:var(--copper-lt);margin-left:.4rem}
 
-.concept-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
-.principles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.8rem}
-.principle{background:var(--chocolate);color:rgba(246,240,232,.96);padding:1rem;border-radius:12px;border:1px solid rgba(201,171,132,.25)}
-.principle h4{font-family:var(--font-display);font-size:1.35rem;font-weight:400;margin-bottom:.4rem;color:var(--sand)}
-.principle p{font-size:.88rem;line-height:1.6}
+/* ─── RESEARCH CARDS ─── */
+.research-section{background:var(--cream-lt)}
+.group-label{font-family:var(--font-display);font-size:1.55rem;font-weight:500;margin:2.5rem 0 1.2rem;padding-left:1.1rem;border-left:3px solid var(--copper);color:var(--brown)}
+.research-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.1rem}
+.r-card{background:var(--white);border:1px solid rgba(43,26,20,.1);border-radius:var(--r);overflow:hidden;box-shadow:0 8px 32px rgba(43,26,20,.06);transition:transform .4s var(--ease-out),box-shadow .4s var(--ease-out);display:flex;flex-direction:column}
+.r-card:hover{transform:translateY(-5px);box-shadow:0 20px 50px rgba(43,26,20,.13)}
+.r-card-cover{height:170px;position:relative;overflow:hidden}
+.r-card-cover img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease-out)}
+.r-card:hover .r-card-cover img{transform:scale(1.06)}
+.r-card-cover-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(43,26,20,.85) 0%,rgba(43,26,20,.2) 60%,transparent 100%)}
+.r-card-tag{position:absolute;bottom:.75rem;left:.8rem;font-family:var(--font-label);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase;color:var(--copper-lt)}
+.r-card-body{padding:1.3rem 1.4rem;flex:1;display:flex;flex-direction:column}
+.r-meta{font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;color:#7c5537;margin-bottom:.5rem}
+.r-card-body h4{font-family:var(--font-display);font-size:1.28rem;line-height:1.22;font-weight:500;margin-bottom:.6rem;color:var(--espresso)}
+.r-card-body p{font-size:.9rem;line-height:1.7;color:#4a3327;flex:1}
+.r-card-link{display:inline-flex;align-items:center;gap:.4rem;margin-top:1rem;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--brown);border-bottom:1px solid rgba(122,77,47,.35);padding-bottom:.15rem;transition:color .25s,border-color .25s;align-self:flex-start}
+.r-card-link:hover{color:var(--copper);border-color:var(--copper)}
+.r-card-link::after{content:'→';font-size:.85rem}
 
-.cta{background:linear-gradient(145deg,#2b1a14,#1f120d);color:var(--cream);border-radius:16px;padding:2rem;border:1px solid rgba(201,171,132,.25)}
-.cta h3{font-family:var(--font-display);font-size:2rem;font-weight:400;margin-bottom:.5rem}
-.cta p{max-width:70ch;line-height:1.75;color:rgba(246,240,232,.86);margin-bottom:1rem}
-.btn-primary{display:inline-flex;align-items:center;font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.95rem 1.65rem;background:var(--copper);color:var(--white);border:1px solid var(--copper);border-radius:2px}
-.btn-primary:hover{background:var(--copper-lt);border-color:var(--copper-lt)}
+/* ─── COMPLETED PROJECTS ─── */
+.completed-section{background:var(--white)}
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.proj-card{border-radius:var(--r);overflow:hidden;border:1px solid rgba(43,26,20,.1);box-shadow:0 8px 30px rgba(43,26,20,.07);transition:transform .4s var(--ease-out),box-shadow .4s;display:flex;flex-direction:column}
+.proj-card:hover{transform:translateY(-4px);box-shadow:0 18px 50px rgba(43,26,20,.13)}
+.proj-cover{height:180px;position:relative;overflow:hidden}
+.proj-cover img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease-out)}
+.proj-card:hover .proj-cover img{transform:scale(1.06)}
+.proj-cover-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(43,26,20,.88) 0%,transparent 55%)}
+.proj-cover-badge{position:absolute;bottom:.85rem;left:.9rem;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;font-family:var(--font-label);color:var(--cream);display:flex;align-items:center;gap:.4rem}
+.proj-cover-badge::before{content:'';width:8px;height:8px;border-radius:50%;background:#6ecb90}
+.proj-body{padding:1.4rem 1.5rem;background:var(--white);flex:1}
+.proj-badge{display:inline-block;padding:.22rem .65rem;border-radius:999px;font-size:.65rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(122,77,47,.34);color:#7a4d2f;background:#fbf4ed;margin-bottom:.7rem}
+.proj-body h4{font-family:var(--font-display);font-size:1.45rem;line-height:1.15;font-weight:500;margin-bottom:.8rem;color:var(--espresso)}
+.proj-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:.85rem}
+.proj-meta-item{background:var(--cream-lt);border-radius:8px;padding:.55rem .65rem}
+.proj-meta-item strong{display:block;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:#7a5539;margin-bottom:.2rem}
+.proj-meta-item span{font-size:.82rem;color:var(--espresso);line-height:1.3}
+.proj-body p{font-size:.9rem;line-height:1.7;color:#4a3327}
 
-/* ===== NEW: Video Placeholders ===== */
-.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
-.video-placeholder{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;border:1px solid rgba(201,171,132,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .3s,box-shadow .3s}
-.video-placeholder:hover{border-color:var(--copper);box-shadow:0 12px 40px rgba(43,26,20,.15)}
-.video-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.35)}
-.video-overlay{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:.7rem;text-align:center}
-.video-play-btn{width:68px;height:68px;border-radius:50%;background:rgba(200,154,90,.92);display:flex;align-items:center;justify-content:center;transition:transform .35s var(--ease-out),background .3s}
-.video-play-btn svg{width:24px;height:24px;fill:var(--white);margin-left:3px}
-.video-placeholder:hover .video-play-btn{transform:scale(1.12);background:var(--copper-lt)}
-.video-label{font-family:var(--font-display);font-size:1.15rem;color:var(--cream);font-weight:400}
-.video-sub{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(246,240,232,.55)}
-
-/* ===== NEW: Concept Card Covers ===== */
-.concept-cover{height:150px;overflow:hidden}
+/* ─── CONCEPTS ─── */
+.concepts-section{background:var(--cream-lt)}
+.concept-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.1rem}
+.concept-card{background:var(--white);border:1px solid rgba(43,26,20,.1);border-radius:var(--r);overflow:hidden;box-shadow:0 6px 24px rgba(43,26,20,.06);transition:transform .4s var(--ease-out),box-shadow .4s;display:flex;flex-direction:column}
+.concept-card:hover{transform:translateY(-5px);box-shadow:0 18px 48px rgba(43,26,20,.12)}
+.concept-cover{height:150px;overflow:hidden;position:relative}
 .concept-cover img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease-out)}
-.concept-card:hover .concept-cover img{transform:scale(1.06)}
+.concept-card:hover .concept-cover img{transform:scale(1.08)}
+.concept-cover-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(43,26,20,.65) 0%,transparent 50%)}
+.concept-body{padding:1.2rem 1.3rem;flex:1;display:flex;flex-direction:column}
+.concept-tag{display:inline-block;padding:.22rem .6rem;border-radius:999px;font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(122,77,47,.3);color:#7a4d2f;background:#fbf4ed;margin-bottom:.7rem;align-self:flex-start}
+.concept-body h4{font-family:var(--font-display);font-size:1.35rem;line-height:1.15;font-weight:500;margin-bottom:.8rem;color:var(--espresso)}
+.concept-row{margin-bottom:.45rem;font-size:.88rem;line-height:1.6;color:#4a3327}
+.concept-row strong{color:var(--brown);font-weight:600}
 
-/* FOOTER */
-.footer{background:var(--chocolate);padding:4rem 0 2rem;color:rgba(216,201,186,.9)}
-.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:2rem;padding-bottom:2rem;border-bottom:1px solid rgba(201,171,132,.15)}
-.footer-logo-icon{width:38px;height:auto;margin-bottom:.85rem}.footer-logo-name{font-family:var(--font-display);font-size:1.5rem;color:var(--cream)}
+/* ─── VIDEO SECTION ─── */
+.video-section{background:var(--white)}
+.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.video-card{position:relative;aspect-ratio:16/9;border-radius:var(--r);overflow:hidden;border:1px solid rgba(43,26,20,.12);cursor:pointer}
+.video-card:hover .video-play{transform:scale(1.1);background:var(--copper-lt)}
+.video-card img{width:100%;height:100%;object-fit:cover;filter:brightness(.35);transition:filter .4s}
+.video-card:hover img{filter:brightness(.25)}
+.video-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.8rem}
+.video-play{width:70px;height:70px;border-radius:50%;background:rgba(200,154,90,.9);display:flex;align-items:center;justify-content:center;transition:transform .4s var(--ease-out),background .3s}
+.video-play svg{width:26px;height:26px;fill:white;margin-left:4px}
+.video-title{font-family:var(--font-display);font-size:1.2rem;color:var(--cream);font-weight:400}
+.video-sub{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(246,240,232,.5)}
+
+/* ─── PRINCIPLES ─── */
+.principles-section{background:var(--chocolate);color:var(--cream)}
+.principles-section .sec-eyebrow{color:var(--copper)}
+.principles-section .sec-eyebrow::after{background:var(--copper)}
+.principles-section .sec-title{color:var(--cream)}
+.principles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,171,132,.18);border:1px solid rgba(201,171,132,.18);border-radius:var(--r);overflow:hidden;margin-top:2.5rem}
+.principle{background:rgba(255,255,255,.04);padding:clamp(1.4rem,2.5vw,2rem) 1.6rem;position:relative;overflow:hidden;transition:background .3s}
+.principle:hover{background:rgba(255,255,255,.07)}
+.principle::before{content:attr(data-icon);position:absolute;top:1rem;right:1rem;font-size:2.4rem;opacity:.12;pointer-events:none}
+.principle h4{font-family:var(--font-display);font-size:1.4rem;font-weight:400;margin-bottom:.55rem;color:var(--sand)}
+.principle p{font-size:.9rem;line-height:1.68;color:rgba(246,240,232,.72)}
+
+/* ─── CTA ─── */
+.cta-section{background:linear-gradient(145deg,rgba(43,26,20,.97),rgba(30,16,8,.99)),url('https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?auto=format&fit=crop&w=1600&q=60') center/cover no-repeat;color:var(--cream)}
+.cta-inner{border:1px solid rgba(201,171,132,.22);border-radius:var(--r);padding:clamp(2.5rem,5vw,4rem);text-align:center;position:relative;overflow:hidden}
+.cta-inner::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(200,154,90,.1),transparent 70%);pointer-events:none}
+.cta-inner h3{font-family:var(--font-display);font-size:clamp(2rem,4vw,3rem);font-weight:300;margin-bottom:.8rem;position:relative}
+.cta-inner h3 em{font-style:italic;color:var(--copper-lt)}
+.cta-inner p{max-width:70ch;margin:0 auto 2rem;line-height:1.78;color:rgba(246,240,232,.82);font-size:1.02rem;position:relative}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;position:relative}
+
+/* ─── FOOTER ─── */
+.footer{background:var(--chocolate);padding:4.5rem 0 2.2rem;color:rgba(216,201,186,.9)}
+.footer-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:2.5rem;padding-bottom:2.2rem;border-bottom:1px solid rgba(201,171,132,.15)}
+.footer-logo-icon{width:38px;height:auto;margin-bottom:.85rem}
+.footer-logo-name{font-family:var(--font-display);font-size:1.5rem;color:var(--cream)}
 .footer-logo-sub{font-family:var(--font-label);letter-spacing:.2em;font-size:.62rem;text-transform:uppercase;color:var(--copper);margin-top:.35rem}
-.footer-tagline{font-size:.9rem;line-height:1.75;color:rgba(216,201,186,.9);margin-top:1rem;max-width:36ch}
+.footer-tagline{font-size:.9rem;line-height:1.78;color:rgba(216,201,186,.85);margin-top:1rem;max-width:36ch}
 .footer-col-title{font-family:var(--font-label);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:var(--copper);margin-bottom:1rem}
 .footer-links{list-style:none;display:flex;flex-direction:column;gap:.7rem}
-.footer-links a{font-size:.83rem;color:rgba(216,201,186,.92)}
+.footer-links a{font-size:.83rem;color:rgba(216,201,186,.88);transition:color .25s}
 .footer-links a:hover{color:var(--sand)}
-.footer-bottom{margin-top:1.2rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-.footer-copy{font-size:.78rem;color:rgba(216,201,186,.68)}
+.footer-bottom{margin-top:1.4rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.footer-copy{font-size:.78rem;color:rgba(216,201,186,.6)}
 .footer-copy em{color:var(--copper);font-style:normal}
-.footer-legal{display:flex;gap:1.5rem}.footer-legal a{font-size:.75rem;color:rgba(216,201,186,.68)}
+.footer-legal{display:flex;gap:1.5rem}
+.footer-legal a{font-size:.75rem;color:rgba(216,201,186,.6);transition:color .25s}
+.footer-legal a:hover{color:var(--sand)}
 
-@media (max-width:1080px){.process-grid{grid-template-columns:repeat(2,1fr)}.project-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}.nav-links{display:none}.hamburger{display:flex}.video-grid{grid-template-columns:1fr 1fr}}
-@media (max-width:700px){.process-grid,.principles{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.video-grid{grid-template-columns:1fr}}
+/* ─── RESPONSIVE ─── */
+@media(max-width:1080px){
+  .aq-layout{grid-template-columns:1fr}
+  .aq-stats{grid-template-columns:repeat(3,1fr)}
+  .proj-grid{grid-template-columns:1fr}
+  .nav-links{display:none}.hamburger{display:flex}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .video-grid{grid-template-columns:1fr}
+  .process-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:700px){
+  .process-grid,.principles-grid,.aq-stats,.aq-specs,.proj-meta{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .compare-table{font-size:.75rem}
+  .compare-table th,.compare-table td{padding:.55rem .6rem}
+}
 </style>
-  <link rel="icon" type="image/svg+xml" href="Images/rakine_logo.svg" />
+<link rel="icon" type="image/svg+xml" href="Images/rakine_logo.svg" />
 </head>
 <body>
+
+<!-- ─── NAV ─── -->
 <nav class="nav transparent" id="mainNav" aria-label="Main navigation">
   <div class="container">
     <div class="nav-inner">
@@ -203,56 +336,352 @@ h1{font-family:var(--font-display);font-size:clamp(2.7rem,7.2vw,5rem);font-weigh
   <a href="contact.html" onclick="closeMobile()">Contact</a>
 </div>
 
-<header class="research-hero" aria-labelledby="researchTitle">
-  <div class="container research-hero-inner reveal">
-    <div class="eyebrow">Research &amp; Project</div>
-    <h1 id="researchTitle">Research &amp; Project</h1>
-    <p class="subtitle">Applied inquiry. Practical systems. Real-world direction.</p>
-    <p class="lead">We develop original research and project concepts at the intersection of intelligent systems, sustainable infrastructure, and environmental resilience. Our work is designed to move from insight to application.</p>
+<!-- ─── HERO ─── -->
+<header class="hero" aria-labelledby="pageTitle">
+  <div class="container hero-inner">
+    <div class="eyebrow reveal">Research &amp; Projects</div>
+    <h1 id="pageTitle" class="reveal delay-1">Applied Science.<br><em>Real Impact.</em></h1>
+    <p class="hero-lead reveal delay-2">We develop original research and field-validated projects at the intersection of intelligent systems, sustainable infrastructure, and environmental resilience — designed to move from insight to application.</p>
+    <div class="focus-strip reveal delay-3">
+      <span class="focus-chip">Applied AI</span>
+      <span class="focus-chip">Water Intelligence</span>
+      <span class="focus-chip">Sustainable Materials</span>
+      <span class="focus-chip">Resilient Infrastructure</span>
+      <span class="focus-chip">Environmental Systems</span>
+    </div>
   </div>
 </header>
 
-<section id="focus-areas">
+<!-- ─── HOW RESEARCH BECOMES ACTION ─── -->
+<section id="research-action">
   <div class="container">
-    <h2 class="sec-title reveal">Focus Areas</h2>
-    <div class="focus-strip reveal">
-      <span class="focus-chip">Applied AI</span><span class="focus-chip">Sustainable Materials</span><span class="focus-chip">Resilient Infrastructure</span><span class="focus-chip">Water Intelligence</span><span class="focus-chip">Environmental Systems</span>
-    </div>
-  </div>
-</section>
-
-<section id="research-action" style="padding-top:0;">
-  <div class="container">
-    <h2 class="sec-title reveal">How Research Becomes Action</h2>
-    <p class="sec-sub reveal">A practical pathway from inquiry to implementation, designed to keep research grounded in real systems and institutions.</p>
+    <div class="sec-eyebrow reveal">Our Methodology</div>
+    <h2 class="sec-title reveal delay-1">How Research Becomes <em>Action</em></h2>
+    <p class="sec-sub reveal delay-2">A practical pathway from inquiry to implementation — designed to keep research grounded in real systems and institutions.</p>
     <div class="process-grid">
-      <article class="process-step reveal"><div class="process-index">Step 01</div><h3>Research</h3><p>We investigate high-impact questions across intelligent systems, infrastructure resilience, and environmental realities.</p></article>
-      <article class="process-step reveal"><div class="process-index">Step 02</div><h3>Frameworks</h3><p>Findings are translated into decision frameworks that institutions and practitioners can actually use.</p></article>
-      <article class="process-step reveal"><div class="process-index">Step 03</div><h3>Prototypes / Concepts</h3><p>We shape testable concepts that connect technical possibilities with local constraints and user needs.</p></article>
-      <article class="process-step reveal"><div class="process-index">Step 04</div><h3>Applied Partnerships</h3><p>We work with partners to pilot, validate, and adapt solutions for context-specific deployment.</p></article>
+      <article class="process-step reveal delay-1" data-n="01">
+        <div class="process-index">Step 01</div>
+        <h3>Research</h3>
+        <p>We investigate high-impact questions across intelligent systems, infrastructure resilience, and environmental realities.</p>
+      </article>
+      <article class="process-step reveal delay-2" data-n="02">
+        <div class="process-index">Step 02</div>
+        <h3>Frameworks</h3>
+        <p>Findings are translated into decision frameworks that institutions and practitioners can actually use.</p>
+      </article>
+      <article class="process-step reveal delay-3" data-n="03">
+        <div class="process-index">Step 03</div>
+        <h3>Prototypes</h3>
+        <p>We shape testable concepts that connect technical possibilities with local constraints and user needs.</p>
+      </article>
+      <article class="process-step reveal delay-4" data-n="04">
+        <div class="process-index">Step 04</div>
+        <h3>Applied Partnerships</h3>
+        <p>We work with partners to pilot, validate, and adapt solutions for context-specific deployment.</p>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ===== NEW: VIDEO PLACEHOLDERS SECTION ===== -->
-<section id="videos" style="padding-top:0;">
+<!-- ─── AQUAPULSE FLAGSHIP ─── -->
+<section id="aquapulse">
   <div class="container">
-    <h2 class="sec-title reveal">Watch &amp; Learn</h2>
-    <p class="sec-sub reveal">Visual overviews of our research approach, lab methodology, and project concepts in development.</p>
-    <div class="video-grid">
-      <div class="video-placeholder reveal" role="button" tabindex="0" aria-label="Play lab overview video">
-        <img class="video-bg" src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy" />
+    <div class="sec-eyebrow reveal">Flagship Project · 2026</div>
+    <h2 class="sec-title reveal delay-1" style="color:var(--cream)">Introducing <em>AquaPulse</em></h2>
+    <p style="color:rgba(246,240,232,.75);max-width:72ch;line-height:1.82;font-size:1.02rem" class="reveal delay-2">The AP-100 Smart Leak Detection Sensor — field-validated AI powering the world's water networks. The only solution combining acoustic sensing, soil moisture probing, and onboard AI at a fraction of existing costs.</p>
+
+    <div class="aq-layout">
+      <!-- Left: Info -->
+      <div>
+        <div class="aq-stats reveal delay-1">
+          <div class="aq-stat">
+            <div class="aq-stat-num">94%</div>
+            <div class="aq-stat-label">Detection Accuracy</div>
+          </div>
+          <div class="aq-stat">
+            <div class="aq-stat-num">10×</div>
+            <div class="aq-stat-label">Cheaper than Existing Solutions</div>
+          </div>
+          <div class="aq-stat">
+            <div class="aq-stat-num">$800</div>
+            <div class="aq-stat-label">Starting Price per Unit</div>
+          </div>
+        </div>
+
+        <ul class="aq-features reveal delay-2">
+          <li><strong>Dual sensing advantage:</strong> Piezo-electric acoustic sensor + subsurface soil moisture probe — uniquely capturing leaks that acoustic-only systems miss.</li>
+          <li><strong>Onboard AST-MLP AI engine</strong> classifies leaks in near-real-time with interpretable attention maps. No black-box decisions.</li>
+          <li><strong>Solar-battery hybrid power</strong> — fully off-grid capable for rural, remote, and infrastructure-poor deployments.</li>
+          <li><strong>Non-invasive clamp-on installation</strong> to valves, hydrants, and pipe saddles. No excavation. No service interruption.</li>
+          <li><strong>Real-time alerts</strong> via cloud dashboard, WiFi, 4G, and SMS. Peer-reviewed research submitted to <em>Water Research</em> (Elsevier, IF: 12.4).</li>
+        </ul>
+
+        <div class="aq-actions reveal delay-3">
+          <a href="AquaPulse_Pitch_Deck.pdf" target="_blank" class="btn-copper">View Investor Deck</a>
+          <a href="contact.html" class="btn-outline">Partner With Us</a>
+        </div>
+      </div>
+
+      <!-- Right: Visual -->
+      <div class="aq-visual">
+        <div class="aq-img-wrap reveal-r">
+          <img src="Images/aquapulse.jpg" alt="AquaPulse AP-100 sensor installed on pipe network" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=900&q=80'" />
+          <div class="aq-badge">AP-100 · Acoustic + Moisture</div>
+        </div>
+        <div class="aq-specs reveal delay-1">
+          <div class="aq-spec">
+            <div class="aq-spec-icon">🔊</div>
+            <div class="aq-spec-label">Acoustic Range</div>
+            <div class="aq-spec-val">500 – 4,500 Hz leak-signature band</div>
+          </div>
+          <div class="aq-spec">
+            <div class="aq-spec-icon">💧</div>
+            <div class="aq-spec-label">Moisture Sensing</div>
+            <div class="aq-spec-val">Subsurface soil anomaly detection</div>
+          </div>
+          <div class="aq-spec">
+            <div class="aq-spec-icon">🔋</div>
+            <div class="aq-spec-label">Power</div>
+            <div class="aq-spec-val">Solar-battery hybrid, fully off-grid</div>
+          </div>
+          <div class="aq-spec">
+            <div class="aq-spec-icon">📡</div>
+            <div class="aq-spec-label">Connectivity</div>
+            <div class="aq-spec-val">WiFi · 4G · Cloud dashboard · SMS</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Competitive comparison -->
+    <div class="aq-compare reveal">
+      <h3 class="aq-compare-title">How AquaPulse <em style="font-style:italic;color:var(--copper-lt)">Stands Apart</em></h3>
+      <div style="overflow-x:auto">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>AquaPulse AP-100</th>
+              <th>Echologics LeakFinderST</th>
+              <th>HWM Permalog+</th>
+              <th>Sewerin CORRELUX P-2</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="aq-row">
+              <td>Detection Method</td>
+              <td>Acoustic + Moisture <span class="tag-unique">Unique</span></td>
+              <td>Acoustic only</td>
+              <td>Noise logging only</td>
+              <td>Acoustic correlation</td>
+            </tr>
+            <tr>
+              <td>AI / Machine Learning</td>
+              <td><span class="tick">✓</span> 94% accuracy</td>
+              <td>Cross-correlation only</td>
+              <td>Cloud analytics</td>
+              <td><span class="cross">✗</span></td>
+            </tr>
+            <tr class="aq-row">
+              <td>Real-time Alerts</td>
+              <td><span class="tick">✓</span> Cloud + SMS</td>
+              <td><span class="cross">✗</span></td>
+              <td>Partial (scheduled)</td>
+              <td><span class="cross">✗</span></td>
+            </tr>
+            <tr>
+              <td>Moisture Sensing</td>
+              <td><span class="tick">✓</span> Unique advantage</td>
+              <td><span class="cross">✗</span></td>
+              <td><span class="cross">✗</span></td>
+              <td><span class="cross">✗</span></td>
+            </tr>
+            <tr class="aq-row">
+              <td>Off-grid / Solar Power</td>
+              <td><span class="tick">✓</span> Fully capable</td>
+              <td><span class="cross">✗</span></td>
+              <td>Battery only</td>
+              <td>Battery only</td>
+            </tr>
+            <tr>
+              <td>Cost per Unit (est.)</td>
+              <td style="color:var(--copper-lt);font-weight:600">$800 – $1,500</td>
+              <td>&gt;$15,000</td>
+              <td>&gt;$8,000</td>
+              <td>&gt;$5,000</td>
+            </tr>
+            <tr class="aq-row">
+              <td>Emerging Market Fit</td>
+              <td style="color:#6ecb90;font-weight:500">Excellent</td>
+              <td>Poor</td>
+              <td>Moderate</td>
+              <td>Moderate</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURED RESEARCH ─── -->
+<section id="featured-research" class="research-section">
+  <div class="container">
+    <div class="sec-eyebrow reveal">Publications</div>
+    <h2 class="sec-title reveal delay-1">Featured <em>Research</em></h2>
+
+    <h3 class="group-label reveal">Intelligent Systems &amp; Decision Support</h3>
+    <div class="research-grid">
+      <article class="r-card reveal delay-1">
+        <div class="r-card-cover">
+          <img src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80" alt="AI and construction" loading="lazy" />
+          <div class="r-card-cover-overlay"></div>
+          <span class="r-card-tag">Applied AI</span>
+        </div>
+        <div class="r-card-body">
+          <div class="r-meta">AI · Construction Systems</div>
+          <h4>Generative AI in Construction: A Delphi Approach, Framework &amp; Case Study</h4>
+          <p>Delphi-informed framework showing practical pathways for generative AI integration in construction systems.</p>
+          <a href="https://westminsterresearch.westminster.ac.uk/download/3985c1f2dda9cfd733dca4af6a34fd6cdd10bc8fa3e54ba93d516c4c7ed4f35d/22707923/Taiwo%20et%20al%20%282025%29.pdf" target="_blank" rel="noopener" class="r-card-link">Read Publication</a>
+        </div>
+      </article>
+      <article class="r-card reveal delay-2">
+        <div class="r-card-cover">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Data analysis" loading="lazy" />
+          <div class="r-card-cover-overlay"></div>
+          <span class="r-card-tag">Decision Support</span>
+        </div>
+        <div class="r-card-body">
+          <div class="r-meta">Generative AI · Analysis</div>
+          <h4>Generative AI in the Construction Industry: A State-of-the-art Analysis</h4>
+          <p>A concise synthesis of opportunities, constraints, and implementation conditions for generative AI in construction workflows.</p>
+          <a href="https://www.researchgate.net/publication/378242291_Generative_AI_in_the_Construction_Industry_A_State-of-the-art_Analysis" target="_blank" rel="noopener" class="r-card-link">Read Publication</a>
+        </div>
+      </article>
+      <article class="r-card reveal delay-3">
+        <div class="r-card-cover">
+          <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80" alt="Environmental systems" loading="lazy" />
+          <div class="r-card-cover-overlay"></div>
+          <span class="r-card-tag">Environmental Systems</span>
+        </div>
+        <div class="r-card-body">
+          <div class="r-meta">Geotechnics · Biocover Systems</div>
+          <h4>Geotechnical Characterization of Biochar-Based Biocover</h4>
+          <p>Geotechnical study supporting sustainable environmental cover systems with practical implications for resilient infrastructure.</p>
+          <a href="https://research.amanote.com/publication/SqWZAXQBKQvf0Bhi4sW3/geotechnical-characterization-of-biochar-based-biocover" target="_blank" rel="noopener" class="r-card-link">Read Publication</a>
+        </div>
+      </article>
+    </div>
+
+    <h3 class="group-label reveal" style="margin-top:3rem">Sustainable Materials &amp; Resilient Infrastructure</h3>
+    <div class="research-grid">
+      <article class="r-card reveal delay-1">
+        <div class="r-card-cover">
+          <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80" alt="Construction materials" loading="lazy" />
+          <div class="r-card-cover-overlay"></div>
+          <span class="r-card-tag">Sustainable Materials</span>
+        </div>
+        <div class="r-card-body">
+          <div class="r-meta">Review · Resilience Materials</div>
+          <h4>Polymer-Enhanced Concrete: Innovations &amp; Pathways for Resilient Materials</h4>
+          <p>Comprehensive review focused on durability, sustainability performance, and resilient construction pathways.</p>
+          <a href="https://ira.lib.polyu.edu.hk/bitstream/10397/115044/1/1-s2.0-S2949822824001229-main.pdf" target="_blank" rel="noopener" class="r-card-link">Read Publication</a>
+        </div>
+      </article>
+      <article class="r-card reveal delay-2">
+        <div class="r-card-cover">
+          <img src="https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&w=800&q=80" alt="Road infrastructure" loading="lazy" />
+          <div class="r-card-cover-overlay"></div>
+          <span class="r-card-tag">Infrastructure</span>
+        </div>
+        <div class="r-card-body">
+          <div class="r-meta">Road Systems · Ground Resilience</div>
+          <h4>Dynamic Cone Penetration Resistance of Fibre-Reinforced Road Subgrades</h4>
+          <p>Investigation of reinforced subgrade behavior for stronger road performance under demanding geotechnical conditions.</p>
+          <a href="https://ujcontent.uj.ac.za/esploro/outputs/graduate/Dynamic-cone-penetration-resistance-of-fibre-reinforced/9949610107691" target="_blank" rel="noopener" class="r-card-link">Read Publication</a>
+        </div>
+      </article>
+      <article class="r-card reveal delay-3">
+        <div class="r-card-cover">
+          <img src="https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80" alt="Pavement systems" loading="lazy" />
+          <div class="r-card-cover-overlay"></div>
+          <span class="r-card-tag">Pavement Systems</span>
+        </div>
+        <div class="r-card-body">
+          <div class="r-meta">Pavement Materials · Performance</div>
+          <h4>Performance of Polypropylene Fiber in Compacted Residual Soil for Pavement Applications</h4>
+          <p>Performance-oriented material study supporting practical soil improvement strategies for pavement applications.</p>
+          <a href="https://jglobal.jst.go.jp/en/public/202602254896573998" target="_blank" rel="noopener" class="r-card-link">Read Publication</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─── COMPLETED PROJECTS ─── -->
+<section id="completed-projects" class="completed-section">
+  <div class="container">
+    <div class="sec-eyebrow reveal">Portfolio</div>
+    <h2 class="sec-title reveal delay-1">Completed <em>Projects</em></h2>
+    <div class="proj-grid">
+      <article class="proj-card reveal delay-1">
+        <div class="proj-cover">
+          <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=900&q=80" alt="Polymer concrete research" loading="lazy" />
+          <div class="proj-cover-overlay"></div>
+          <span class="proj-cover-badge">Completed</span>
+        </div>
+        <div class="proj-body">
+          <span class="proj-badge">Review Article</span>
+          <h4>Polymer-Enhanced Concrete</h4>
+          <div class="proj-meta">
+            <div class="proj-meta-item"><strong>Lead</strong><span>Ridwan Taiwo</span></div>
+            <div class="proj-meta-item"><strong>Type</strong><span>Review Article</span></div>
+            <div class="proj-meta-item"><strong>Focus</strong><span>Sustainable Materials</span></div>
+          </div>
+          <p>A structured review of polymer-enhanced concrete innovations with emphasis on durability, resilience, and sustainable pathways for construction systems.</p>
+        </div>
+      </article>
+      <article class="proj-card reveal delay-2">
+        <div class="proj-cover">
+          <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt="AI in construction" loading="lazy" />
+          <div class="proj-cover-overlay"></div>
+          <span class="proj-cover-badge">Completed</span>
+        </div>
+        <div class="proj-body">
+          <span class="proj-badge">Framework + Case Study</span>
+          <h4>Generative AI in Construction</h4>
+          <div class="proj-meta">
+            <div class="proj-meta-item"><strong>Lead</strong><span>Ridwan Taiwo</span></div>
+            <div class="proj-meta-item"><strong>Type</strong><span>Delphi + Case Study</span></div>
+            <div class="proj-meta-item"><strong>Focus</strong><span>Applied AI</span></div>
+          </div>
+          <p>A Delphi-guided research framework with a practical case-study pathway showing how generative AI can support construction decision systems.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ─── VIDEO SECTION ─── -->
+<section id="videos" class="video-section">
+  <div class="container">
+    <div class="sec-eyebrow reveal">Media</div>
+    <h2 class="sec-title reveal delay-1">Watch &amp; <em>Learn</em></h2>
+    <p class="sec-sub reveal delay-2">Visual overviews of our research approach, lab methodology, and project concepts in development.</p>
+    <div class="video-grid" style="margin-top:2.5rem">
+      <div class="video-card reveal delay-1" role="button" tabindex="0" aria-label="Lab overview video">
+        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy" />
         <div class="video-overlay">
-          <div class="video-play-btn"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
-          <span class="video-label">Lab Overview</span>
+          <div class="video-play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+          <span class="video-title">Lab Overview</span>
           <span class="video-sub">Coming Soon</span>
         </div>
       </div>
-      <div class="video-placeholder reveal" role="button" tabindex="0" aria-label="Play research methodology video">
-        <img class="video-bg" src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy" />
+      <div class="video-card reveal delay-2" role="button" tabindex="0" aria-label="Research methodology video">
+        <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=900&q=80" alt="" loading="lazy" />
         <div class="video-overlay">
-          <div class="video-play-btn"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
-          <span class="video-label">Research Methodology</span>
+          <div class="video-play"><svg viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg></div>
+          <span class="video-title">Research Methodology</span>
           <span class="video-sub">Coming Soon</span>
         </div>
       </div>
@@ -260,125 +689,128 @@ h1{font-family:var(--font-display);font-size:clamp(2.7rem,7.2vw,5rem);font-weigh
   </div>
 </section>
 
-<section id="featured-research" style="padding-top:0;">
+<!-- ─── CONCEPTS IN DEVELOPMENT ─── -->
+<section id="concepts" class="concepts-section">
   <div class="container">
-    <h2 class="sec-title reveal">Featured Research</h2>
-    <h3 class="research-group-title reveal">Intelligent Systems &amp; Decision Support</h3>
-    <div class="cards">
-      <!-- Card 1: AI + Construction — with placeholder image -->
-      <article class="research-card reveal">
-        <div class="card-cover" style="background:linear-gradient(to top,rgba(58,28,14,.82),rgba(58,28,14,.3)),url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;">Applied AI</div>
-        <div class="content"><div class="meta">AI · Construction systems</div><h4>Generative artificial intelligence in construction: A Delphi approach, framework, and case study</h4><p>Delphi-informed framework showing practical pathways for generative AI integration in construction systems.</p><a href="https://westminsterresearch.westminster.ac.uk/download/3985c1f2dda9cfd733dca4af6a34fd6cdd10bc8fa3e54ba93d516c4c7ed4f35d/22707923/Taiwo%20et%20al%20%282025%29.pdf" target="_blank" rel="noopener">Publication</a></div>
+    <div class="sec-eyebrow reveal">Pipeline</div>
+    <h2 class="sec-title reveal delay-1">Concepts in <em>Development</em></h2>
+    <p class="sec-sub reveal delay-2">Ideas moving from insight to prototype — each targeting an underserved gap in water, environment, and infrastructure intelligence.</p>
+    <div class="concept-grid" style="margin-top:2.5rem">
+      <article class="concept-card reveal delay-1">
+        <div class="concept-cover">
+          <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80" alt="Water infrastructure monitoring" loading="lazy" />
+          <div class="concept-cover-overlay"></div>
+        </div>
+        <div class="concept-body">
+          <span class="concept-tag">Concept</span>
+          <h4>BoreholeIQ</h4>
+          <p class="concept-row"><strong>Domain:</strong> Water infrastructure intelligence.</p>
+          <p class="concept-row"><strong>Problem:</strong> Boreholes are often managed reactively and fail without warning.</p>
+          <p class="concept-row"><strong>Approach:</strong> Low-cost sensor monitoring with predictive failure analytics for private borehole systems.</p>
+          <p class="concept-row"><strong>Users:</strong> Estates, schools, hospitals, churches, private facility operators.</p>
+        </div>
       </article>
-      <!-- Card 2: Decision Support — with placeholder image -->
-      <article class="research-card reveal">
-        <div class="card-cover" style="background:linear-gradient(to top,rgba(58,28,14,.82),rgba(58,28,14,.3)),url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;">Decision Support</div>
-        <div class="content"><div class="meta">Generative AI · Analysis</div><h4>Generative AI in the Construction Industry: A State-of-the-art Analysis</h4><p>A concise synthesis of opportunities, constraints, and implementation conditions for generative AI in construction workflows.</p><a href="https://www.researchgate.net/publication/378242291_Generative_AI_in_the_Construction_Industry_A_State-of-the-art_Analysis" target="_blank" rel="noopener">Publication</a></div>
+      <article class="concept-card reveal delay-2">
+        <div class="concept-cover">
+          <img src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=800&q=80" alt="Water quality testing" loading="lazy" />
+          <div class="concept-cover-overlay"></div>
+        </div>
+        <div class="concept-body">
+          <span class="concept-tag">Concept</span>
+          <h4>AquaCheck</h4>
+          <p class="concept-row"><strong>Domain:</strong> Water quality intelligence.</p>
+          <p class="concept-row"><strong>Problem:</strong> Many households and communities consume untested water.</p>
+          <p class="concept-row"><strong>Approach:</strong> Portable testing with mobile logging, contamination mapping, and treatment recommendations.</p>
+          <p class="concept-row"><strong>Users:</strong> Households, small labs, NGOs, and community health actors.</p>
+        </div>
       </article>
-      <!-- Card 3: Environmental — with placeholder image -->
-      <article class="research-card reveal">
-        <div class="card-cover" style="background:linear-gradient(to top,rgba(58,28,14,.82),rgba(58,28,14,.3)),url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;">Environmental Systems</div>
-        <div class="content"><div class="meta">Geotechnics · Biocover systems</div><h4>Geotechnical Characterization of Biochar-Based Biocover</h4><p>Geotechnical study supporting sustainable environmental cover systems with practical implications for resilient infrastructure.</p><a href="https://research.amanote.com/publication/SqWZAXQBKQvf0Bhi4sW3/geotechnical-characterization-of-biochar-based-biocover" target="_blank" rel="noopener">Publication</a></div>
+      <article class="concept-card reveal delay-3">
+        <div class="concept-cover">
+          <img src="https://images.unsplash.com/photo-1547683905-f686c993aae5?auto=format&fit=crop&w=800&q=80" alt="Flood risk monitoring" loading="lazy" />
+          <div class="concept-cover-overlay"></div>
+        </div>
+        <div class="concept-body">
+          <span class="concept-tag">Concept</span>
+          <h4>FloodSense Nigeria</h4>
+          <p class="concept-row"><strong>Domain:</strong> Flood risk intelligence.</p>
+          <p class="concept-row"><strong>Problem:</strong> Communities face recurring flooding with limited early warning.</p>
+          <p class="concept-row"><strong>Approach:</strong> Public geospatial, rainfall, elevation, and river data for prediction and alerts.</p>
+          <p class="concept-row"><strong>Users:</strong> Community leaders, emergency agencies, NGOs, and local authorities.</p>
+        </div>
       </article>
-    </div>
-
-    <h3 class="research-group-title reveal">Sustainable Materials &amp; Resilient Infrastructure</h3>
-    <div class="cards">
-      <!-- Card 4: Sustainable Materials — with placeholder image -->
-      <article class="research-card reveal">
-        <div class="card-cover" style="background:linear-gradient(to top,rgba(58,28,14,.82),rgba(58,28,14,.3)),url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;">Sustainable Materials</div>
-        <div class="content"><div class="meta">Review · Resilience materials</div><h4>Polymer-enhanced concrete: A comprehensive review of innovations and pathways for resilient and sustainable materials</h4><p>Comprehensive review focused on durability, sustainability performance, and resilient construction pathways.</p><a href="https://ira.lib.polyu.edu.hk/bitstream/10397/115044/1/1-s2.0-S2949822824001229-main.pdf" target="_blank" rel="noopener">Publication</a></div>
+      <article class="concept-card reveal delay-4">
+        <div class="concept-cover">
+          <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80" alt="Decentralized water treatment" loading="lazy" />
+          <div class="concept-cover-overlay"></div>
+        </div>
+        <div class="concept-body">
+          <span class="concept-tag">Concept</span>
+          <h4>PureFlow</h4>
+          <p class="concept-row"><strong>Domain:</strong> Decentralized water treatment.</p>
+          <p class="concept-row"><strong>Problem:</strong> Rural communities face unsafe or expensive water access.</p>
+          <p class="concept-row"><strong>Approach:</strong> Solar-powered modular micro-stations with remote monitoring and health tracking.</p>
+          <p class="concept-row"><strong>Users:</strong> Community operators, rural entrepreneurs, and local institutions.</p>
+        </div>
       </article>
-      <!-- Card 5: Infrastructure — with placeholder image -->
-      <article class="research-card reveal">
-        <div class="card-cover" style="background:linear-gradient(to top,rgba(58,28,14,.82),rgba(58,28,14,.3)),url('https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;">Infrastructure</div>
-        <div class="content"><div class="meta">Road systems · Ground resilience</div><h4>Dynamic cone penetration resistance of fibre-reinforced road subgrades</h4><p>Investigation of reinforced subgrade behavior for stronger road performance under demanding geotechnical conditions.</p><a href="https://ujcontent.uj.ac.za/esploro/outputs/graduate/Dynamic-cone-penetration-resistance-of-fibre-reinforced/9949610107691" target="_blank" rel="noopener">Publication</a></div>
-      </article>
-      <!-- Card 6: Pavement — with placeholder image -->
-      <article class="research-card reveal">
-        <div class="card-cover" style="background:linear-gradient(to top,rgba(58,28,14,.82),rgba(58,28,14,.3)),url('https://images.unsplash.com/photo-1589939705384-5185137a7f0f?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;">Pavement Systems</div>
-        <div class="content"><div class="meta">Pavement materials · Performance</div><h4>Performance of polypropylene fiber in compacted residual soil for pavement applications</h4><p>Performance-oriented material study supporting practical soil improvement strategies for pavement applications.</p><a href="https://jglobal.jst.go.jp/en/public/202602254896573998" target="_blank" rel="noopener">Publication</a></div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section id="completed-projects" style="padding-top:0;">
-  <div class="container">
-    <h2 class="sec-title reveal">Completed Research Projects</h2>
-    <div class="project-grid">
-      <!-- Project 1 — with placeholder image -->
-      <article class="project-card reveal">
-        <div class="card-cover" style="background:linear-gradient(to top,rgba(58,28,14,.82),rgba(58,28,14,.3)),url('https://unsplash.com/photos/2vcHDUNYui4/download?force=true&w=800') center/cover no-repeat;">Completed Project</div>
-        <div class="content"><span class="badge">Completed</span><h4>Polymer-Enhanced Concrete</h4><div class="project-meta"><div><strong>Type</strong>Review article</div><div><strong>Lead</strong>Ridwan Taiwo</div><div><strong>Focus</strong>Sustainable and resilient materials</div></div><p>A structured review of polymer-enhanced concrete innovations with emphasis on durability, resilience, and sustainable pathways for construction systems.</p></div>
-      </article>
-      <!-- Project 2 — with placeholder image -->
-      <article class="project-card reveal">
-        <div class="card-cover" style="background:linear-gradient(to top,rgba(58,28,14,.82),rgba(58,28,14,.3)),url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80') center/cover no-repeat;">Completed Project</div>
-        <div class="content"><span class="badge">Completed</span><h4>Generative AI in Construction</h4><div class="project-meta"><div><strong>Type</strong>Framework + Delphi + case study</div><div><strong>Lead</strong>Ridwan Taiwo</div><div><strong>Focus</strong>Applied AI for built environments</div></div><p>A Delphi-guided research framework with a practical case-study pathway showing how generative AI can support construction decision systems.</p></div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section id="concepts" style="padding-top:0;">
-  <div class="container">
-    <h2 class="sec-title reveal">Concepts in Development</h2>
-    <div class="concept-grid">
-      <!-- Concept 1: BoreholeIQ — with placeholder image -->
-      <article class="concept-card reveal">
-        <div class="concept-cover"><img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=800&q=80" alt="Water infrastructure monitoring" loading="lazy" /></div>
-        <div class="content"><span class="badge">Concept</span><h4>BoreholeIQ</h4><p><strong>Domain:</strong> Water infrastructure intelligence.</p><p><strong>Problem:</strong> Boreholes are often managed reactively and fail without warning.</p><p><strong>Approach:</strong> Low-cost sensor monitoring with predictive failure analytics for private borehole systems.</p><p><strong>Potential users:</strong> Estates, schools, hospitals, churches, private facility operators.</p></div>
-      </article>
-      <!-- Concept 2: AquaCheck — with placeholder image -->
-      <article class="concept-card reveal">
-        <div class="concept-cover"><img src="https://images.unsplash.com/photo-1548839140-29a749e1cf4d?auto=format&fit=crop&w=800&q=80" alt="Water quality testing" loading="lazy" /></div>
-        <div class="content"><span class="badge">Concept</span><h4>AquaCheck</h4><p><strong>Domain:</strong> Water quality intelligence.</p><p><strong>Problem:</strong> Many households and communities consume untested water.</p><p><strong>Approach:</strong> Portable testing with mobile logging, contamination mapping, and treatment recommendations.</p><p><strong>Potential users:</strong> Households, small labs, NGOs, and community health actors.</p></div>
-      </article>
-      <!-- Concept 3: FloodSense Nigeria — with placeholder image -->
-      <article class="concept-card reveal">
-        <div class="concept-cover"><img src="https://images.unsplash.com/photo-1547683905-f686c993aae5?auto=format&fit=crop&w=800&q=80" alt="Flood risk monitoring" loading="lazy" /></div>
-        <div class="content"><span class="badge">Concept</span><h4>FloodSense Nigeria</h4><p><strong>Domain:</strong> Flood risk intelligence.</p><p><strong>Problem:</strong> Communities face recurring flooding with limited early warning.</p><p><strong>Approach:</strong> Public geospatial, rainfall, elevation, and river data for prediction and alerts.</p><p><strong>Potential users:</strong> Community leaders, emergency agencies, NGOs, and local authorities.</p></div>
-      </article>
-      <!-- Concept 4: PureFlow — with placeholder image -->
-      <article class="concept-card reveal">
-        <div class="concept-cover"><img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80" alt="Decentralized water treatment" loading="lazy" /></div>
-        <div class="content"><span class="badge">Concept</span><h4>PureFlow</h4><p><strong>Domain:</strong> Decentralized water treatment.</p><p><strong>Problem:</strong> Rural communities face unsafe or expensive water access.</p><p><strong>Approach:</strong> Solar-powered modular micro-stations with remote monitoring and health tracking.</p><p><strong>Potential users:</strong> Community operators, rural entrepreneurs, and local institutions.</p></div>
-      </article>
-      <!-- Concept 5: HydroScout — with placeholder image -->
-      <article class="concept-card reveal">
-        <div class="concept-cover"><img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=80" alt="Satellite water access mapping" loading="lazy" /></div>
-        <div class="content"><span class="badge">Concept</span><h4>HydroScout</h4><p><strong>Domain:</strong> Water access intelligence.</p><p><strong>Problem:</strong> Reliable mapping of informal water infrastructure is limited.</p><p><strong>Approach:</strong> Satellite imagery, OpenStreetMap, drone surveys, and community data collection.</p><p><strong>Potential users:</strong> Governments, development agencies, NGOs, and planning institutions.</p></div>
+      <article class="concept-card reveal delay-5">
+        <div class="concept-cover">
+          <img src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=80" alt="Satellite water access mapping" loading="lazy" />
+          <div class="concept-cover-overlay"></div>
+        </div>
+        <div class="concept-body">
+          <span class="concept-tag">Concept</span>
+          <h4>HydroScout</h4>
+          <p class="concept-row"><strong>Domain:</strong> Water access intelligence.</p>
+          <p class="concept-row"><strong>Problem:</strong> Reliable mapping of informal water infrastructure is limited.</p>
+          <p class="concept-row"><strong>Approach:</strong> Satellite imagery, OpenStreetMap, drone surveys, and community data collection.</p>
+          <p class="concept-row"><strong>Users:</strong> Governments, development agencies, NGOs, and planning institutions.</p>
+        </div>
       </article>
     </div>
   </div>
 </section>
 
-<section id="principles" style="padding-top:0;">
+<!-- ─── PRINCIPLES ─── -->
+<section class="principles-section">
   <div class="container">
-    <h2 class="sec-title reveal">Principles</h2>
-    <div class="principles">
-      <article class="principle reveal"><h4>Human-centred AI</h4><p>We design intelligence systems around human judgment, transparency, and social relevance.</p></article>
-      <article class="principle reveal"><h4>Evidence-led decisions</h4><p>Our recommendations are grounded in tested data, validated methods, and contextual interpretation.</p></article>
-      <article class="principle reveal"><h4>Sustainability by design</h4><p>Environmental resilience and long-term viability are embedded at concept and implementation stages.</p></article>
+    <div class="sec-eyebrow reveal">Philosophy</div>
+    <h2 class="sec-title reveal delay-1">Our Research <em>Principles</em></h2>
+    <div class="principles-grid">
+      <article class="principle reveal delay-1" data-icon="◉">
+        <h4>Human-Centred AI</h4>
+        <p>We design intelligence systems around human judgment, transparency, and social relevance — never the other way around.</p>
+      </article>
+      <article class="principle reveal delay-2" data-icon="⬡">
+        <h4>Evidence-Led Decisions</h4>
+        <p>Our recommendations are grounded in tested data, validated methods, and contextual interpretation of real-world systems.</p>
+      </article>
+      <article class="principle reveal delay-3" data-icon="◈">
+        <h4>Sustainability by Design</h4>
+        <p>Environmental resilience and long-term viability are embedded at concept and implementation stages — not added on later.</p>
+      </article>
     </div>
   </div>
 </section>
 
-<section id="engage" style="padding-top:0;">
+<!-- ─── CTA ─── -->
+<section class="cta-section">
   <div class="container">
-    <div class="cta reveal">
-      <h3>Collaborate with the Lab</h3>
+    <div class="cta-inner reveal">
+      <h3>Collaborate with <em>the Lab</em></h3>
       <p>We welcome institutional conversations, applied research collaborations, and partnership opportunities focused on intelligent systems, sustainable infrastructure, and environmental resilience.</p>
-      <a class="btn-primary" href="contact.html">Start a Conversation</a>
+      <div class="cta-btns">
+        <a class="btn-copper" href="contact.html">Start a Conversation</a>
+        <a class="btn-outline" href="partnership.html">View Partnerships</a>
+      </div>
     </div>
   </div>
 </section>
 
+<!-- ─── FOOTER ─── -->
 <footer class="footer" aria-label="Site footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand">
+      <div>
         <img src="Images/rakine_logo.svg" class="footer-logo-icon" alt="Rankine Innovation Lab logo" />
         <div class="footer-logo-name">Rankine Innovation Lab</div>
         <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
@@ -388,8 +820,8 @@ h1{font-family:var(--font-display);font-size:clamp(2.7rem,7.2vw,5rem);font-weigh
         <div class="footer-col-title">Navigation</div>
         <ul class="footer-links">
           <li><a href="about.html">About the Lab</a></li>
-          <li><a href="#method">The Rankine Method</a></li>
-          <li><a href="#focus">Focus Areas</a></li>
+          <li><a href="index.html#method">The Rankine Method</a></li>
+          <li><a href="index.html#focus">Focus Areas</a></li>
           <li><a href="programmes.html">Programmes</a></li>
           <li><a href="partnership.html">Partnerships</a></li>
           <li><a href="team.html">Team</a></li>
@@ -398,20 +830,20 @@ h1{font-family:var(--font-display);font-size:clamp(2.7rem,7.2vw,5rem);font-weigh
       <div>
         <div class="footer-col-title">Domains</div>
         <ul class="footer-links">
-          <li><a href="#focus">AI for STEM</a></li>
-          <li><a href="#focus">Sustainability</a></li>
-          <li><a href="#focus">Smart Agriculture</a></li>
-          <li><a href="#focus">Cross-Disciplinary</a></li>
+          <li><a href="index.html#focus">AI for STEM</a></li>
+          <li><a href="index.html#focus">Sustainability</a></li>
+          <li><a href="index.html#focus">Smart Agriculture</a></li>
+          <li><a href="index.html#focus">Cross-Disciplinary</a></li>
           <li><a href="knowledge-hub.html">Knowledge Hub</a></li>
         </ul>
       </div>
       <div>
         <div class="footer-col-title">Engage</div>
         <ul class="footer-links">
-          <li><a href="#contact">Partnerships</a></li>
-          <li><a href="#contact">Research Collaboration</a></li>
-          <li><a href="#contact">Training Enquiries</a></li>
-          <li><a href="#contact">Speaking</a></li>
+          <li><a href="contact.html">Partnerships</a></li>
+          <li><a href="contact.html">Research Collaboration</a></li>
+          <li><a href="contact.html">Training Enquiries</a></li>
+          <li><a href="contact.html">Speaking</a></li>
           <li><a href="mailto:hello@rankineinnovationlab.com">hello@rankineinnovationlab.com</a></li>
         </ul>
       </div>
@@ -424,6 +856,7 @@ h1{font-family:var(--font-display);font-size:clamp(2.7rem,7.2vw,5rem);font-weigh
 </footer>
 
 <script>
+// Nav scroll
 const nav = document.getElementById('mainNav');
 const syncNav = () => {
   if (window.scrollY > 80) { nav.classList.remove('transparent'); nav.classList.add('solid'); }
@@ -432,6 +865,7 @@ const syncNav = () => {
 window.addEventListener('scroll', syncNav, { passive: true });
 syncNav();
 
+// Hamburger
 const hamburger = document.getElementById('hamburgerBtn');
 const mobileMenu = document.getElementById('mobileMenu');
 let menuOpen = false;
@@ -450,7 +884,8 @@ hamburger.addEventListener('click', () => {
   document.body.style.overflow = menuOpen ? 'hidden' : '';
 });
 
-const revealEls = document.querySelectorAll('.reveal');
+// Reveal on scroll
+const allReveal = document.querySelectorAll('.reveal, .reveal-l, .reveal-r');
 const revealObs = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
@@ -458,8 +893,8 @@ const revealObs = new IntersectionObserver((entries) => {
       revealObs.unobserve(entry.target);
     }
   });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-revealEls.forEach(el => revealObs.observe(el));
+}, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+allReveal.forEach(el => revealObs.observe(el));
 </script>
 </body>
 </html>
