@@ -82,18 +82,14 @@
     <div class="khr-feature">
       <div class="khr-feature-head">
         <div>
-          <div class="khr-feature-kicker">Feature visual</div>
+          <div class="khr-feature-kicker">System Diagram</div>
           <div class="khr-feature-title">Retrieval-to-Answer Flow</div>
         </div>
         <p class="khr-feature-sub">Bounded corpus → retrieval layer → grounded response → human decision review.</p>
       </div>
-      <div class="khr-diagram khr-system-visual" role="img" aria-label="Retrieval-to-Answer Flow">
-      <div class="khr-hero-node"><span>01</span><strong>Curated Corpus</strong></div>
-      <div class="khr-hero-node"><span>02</span><strong>Retriever</strong></div>
-      <div class="khr-hero-node"><span>03</span><strong>Grounding Window</strong></div>
-      <div class="khr-hero-node"><span>04</span><strong>Evidence-Linked Answer</strong></div>
-      <div class="khr-hero-node"><span>05</span><strong>Human Oversight</strong></div>
-      </div>
+      <figure class="khr-diagram khr-hero-visual" role="group" aria-label="Retrieval-to-Answer Flow">
+        <img class="khr-feature-image" src="../../Images/knowledge/rag-evidence-loop.svg" alt="Retrieval-to-Answer Flow visual showing curated corpus, retriever, grounding window stages" width="1600" height="600">
+      </figure>
       <div class="khr-feature-tags">
       <span>Corpus</span>
       <span>Retrieval</span>
@@ -319,5 +315,6 @@
   }
 </script>
 
+<script src="../resource-template.js"></script>
 </body>
 </html>

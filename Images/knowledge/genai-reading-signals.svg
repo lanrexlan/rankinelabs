@@ -1,0 +1,22 @@
+<svg xmlns='http://www.w3.org/2000/svg' width='1600' height='600' viewBox='0 0 1600 600' role='img' aria-label='Repeated Reading Lens'>
+  <defs>
+    <linearGradient id='bg' x1='0' y1='0' x2='1' y2='1'>
+      <stop offset='0%' stop-color='#23140e'/>
+      <stop offset='55%' stop-color='#3a2217'/>
+      <stop offset='100%' stop-color='#1d120d'/>
+    </linearGradient>
+    <radialGradient id='glow' cx='0.8' cy='0.2' r='0.9'>
+      <stop offset='0%' stop-color='rgba(200,154,90,0.34)'/>
+      <stop offset='100%' stop-color='rgba(200,154,90,0)'/>
+    </radialGradient>
+  </defs>
+  <rect width='1600' height='600' fill='url(#bg)'/>
+  <rect width='1600' height='600' fill='url(#glow)'/>
+  <g opacity='0.2'>
+    <path d='M0 450 H1600' stroke='#c9ab84' stroke-width='1'/>
+    <path d='M0 390 H1600' stroke='#c9ab84' stroke-width='1'/>
+    <path d='M0 330 H1600' stroke='#c9ab84' stroke-width='1'/>
+  </g>
+  <text x='120' y='90' font-family='Cormorant Garamond, serif' font-size='54' fill='#f6f0e8'>Repeated Reading Lens</text>
+  <line x1='166' y1='150' x2='244' y2='150' stroke='rgba(200,154,90,0.45)' stroke-width='2' stroke-linecap='round'/><line x1='316' y1='150' x2='394' y2='150' stroke='rgba(200,154,90,0.45)' stroke-width='2' stroke-linecap='round'/><line x1='466' y1='150' x2='544' y2='150' stroke='rgba(200,154,90,0.45)' stroke-width='2' stroke-linecap='round'/><line x1='616' y1='150' x2='694' y2='150' stroke='rgba(200,154,90,0.45)' stroke-width='2' stroke-linecap='round'/><circle cx='130' cy='150' r='36' fill='rgba(200,154,90,0.16)' stroke='rgba(216,201,186,0.5)' stroke-width='1.2'/><circle cx='280' cy='150' r='36' fill='rgba(200,154,90,0.16)' stroke='rgba(216,201,186,0.5)' stroke-width='1.2'/><circle cx='430' cy='150' r='36' fill='rgba(200,154,90,0.16)' stroke='rgba(216,201,186,0.5)' stroke-width='1.2'/><circle cx='580' cy='150' r='36' fill='rgba(200,154,90,0.16)' stroke='rgba(216,201,186,0.5)' stroke-width='1.2'/><circle cx='730' cy='150' r='36' fill='rgba(200,154,90,0.16)' stroke='rgba(216,201,186,0.5)' stroke-width='1.2'/><text x='130' y='155' text-anchor='middle' font-family='Cinzel, serif' font-size='16' fill='#e4bc84'>01</text><text x='280' y='155' text-anchor='middle' font-family='Cinzel, serif' font-size='16' fill='#e4bc84'>02</text><text x='430' y='155' text-anchor='middle' font-family='Cinzel, serif' font-size='16' fill='#e4bc84'>03</text><text x='580' y='155' text-anchor='middle' font-family='Cinzel, serif' font-size='16' fill='#e4bc84'>04</text><text x='730' y='155' text-anchor='middle' font-family='Cinzel, serif' font-size='16' fill='#e4bc84'>05</text><g transform='translate(100,260)'><rect x='-58' y='-16' rx='8' ry='8' width='116' height='32' fill='rgba(255,252,248,0.14)' stroke='rgba(216,201,186,0.45)'/><text x='0' y='5' text-anchor='middle' font-family='DM Sans, Arial, sans-serif' font-size='11' fill='#f6f0e8'>Use Cases</text></g><g transform='translate(250,260)'><rect x='-58' y='-16' rx='8' ry='8' width='116' height='32' fill='rgba(255,252,248,0.14)' stroke='rgba(216,201,186,0.45)'/><text x='0' y='5' text-anchor='middle' font-family='DM Sans, Arial, sans-serif' font-size='11' fill='#f6f0e8'>Grounding</text></g><g transform='translate(400,260)'><rect x='-58' y='-16' rx='8' ry='8' width='116' height='32' fill='rgba(255,252,248,0.14)' stroke='rgba(216,201,186,0.45)'/><text x='0' y='5' text-anchor='middle' font-family='DM Sans, Arial, sans-serif' font-size='11' fill='#f6f0e8'>Governance</text></g><g transform='translate(550,260)'><rect x='-58' y='-16' rx='8' ry='8' width='116' height='32' fill='rgba(255,252,248,0.14)' stroke='rgba(216,201,186,0.45)'/><text x='0' y='5' text-anchor='middle' font-family='DM Sans, Arial, sans-serif' font-size='11' fill='#f6f0e8'>Implementation</text></g><g transform='translate(700,260)'><rect x='-58' y='-16' rx='8' ry='8' width='116' height='32' fill='rgba(255,252,248,0.14)' stroke='rgba(216,201,186,0.45)'/><text x='0' y='5' text-anchor='middle' font-family='DM Sans, Arial, sans-serif' font-size='11' fill='#f6f0e8'>Review</text></g>
+</svg>
