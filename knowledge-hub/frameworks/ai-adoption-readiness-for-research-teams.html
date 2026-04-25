@@ -1,92 +1,488 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AI Adoption Readiness for Research Teams — Knowledge Hub | Rankine Innovation Lab</title>
-  <meta name="description" content="A readiness model helps research teams move from tool enthusiasm to the conditions required for useful, safe, repeatable AI-assisted work.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../resource-template.css">
-</head>
-<body class="resource-page resource-framework">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI Adoption Readiness for Research Teams — Knowledge Hub | Rankine Innovation Lab</title>
+<meta name="description" content="A six-dimension readiness framework for assessing whether your research team can adopt AI tools responsibly across data, workflows, and governance."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
 
-<nav class="nav transparent" id="siteNav" aria-label="Primary navigation">
-  <div class="container nav-inner">
-    <a class="nav-logo" href="../../index.html" aria-label="Rankine Innovation Lab home">
-      <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="nav-logo-icon">
-      <span class="nav-logo-text">
-        <span class="nav-logo-mark">Rankine</span>
-        <span class="nav-logo-name">Innovation Lab</span>
-      </span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="../../index.html">Home</a></li>
-      <li><a href="../../about.html">About</a></li>
-      <li class="has-dropdown">
-        <a href="../../research.html" class="dropdown-toggle" aria-haspopup="true">Work</a>
-        <ul class="dropdown-menu" aria-label="Work menu">
-          <li><a href="../../research.html">Research &amp; Project</a></li>
-          <li><a href="../../partnership.html">Partnerships</a></li>
-        </ul>
-      </li>
-      <li><a href="../../programmes.html">Programmes</a></li>
-      <li class="has-dropdown">
-        <a href="../../knowledge-hub.html" class="dropdown-toggle active-page" aria-haspopup="true">Insights</a>
-        <ul class="dropdown-menu" aria-label="Insights menu">
-          <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
-        </ul>
-      </li>
-      <li><a href="../../team.html">Team</a></li>
-      <li><a href="../../contact.html">Contact</a></li>
-    </ul>
-    <button class="hamburger" id="mobileToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span><span></span><span></span>
-    </button>
+/* ══════════════════════════════════════════════════════
+   TOKENS
+══════════════════════════════════════════════════════ */
+:root {
+  --chocolate:  #180c06;
+  --espresso:   #241208;
+  --brown:      #3a1c0e;
+  --mahogany:   #5c2d18;
+  --copper:     #a05c38;
+  --copper-lt:  #c47a52;
+  --sand:       #c9ab84;
+  --sand-lt:    #ddc9a8;
+  --cream:      #f4ede0;
+  --cream-lt:   #faf6ef;
+  --sage:       #687558;
+  --sage-lt:    #8e9e78;
+  --teal:       #2a5c5c;
+  --teal-lt:    #3e8080;
+  --white:      #fffcf8;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-label:   'Cinzel', serif;
+  --font-body:    'DM Sans', sans-serif;
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-circ: cubic-bezier(0.4, 0, 0.2, 1);
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--cream-lt); color: var(--espresso); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+img { display: block; max-width: 100%; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 2px; }
+.container { width: min(1220px, 100%); margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3rem); }
+
+/* ══ PROGRESS BAR ══ */
+.progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--teal), var(--sage-lt), var(--sand)); z-index: 2000; transition: width 0.1s linear; }
+
+/* ══ NAV ══ */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(24,12,6,0.97); backdrop-filter: blur(18px); box-shadow: 0 1px 0 rgba(201,171,132,0.12); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+.nav-logo { display: inline-flex; align-items: center; gap: 0.75rem; }
+.nav-logo-icon { width: 40px; height: 40px; border-radius: 8px; }
+.nav-logo-mark { display: block; font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.25em; color: var(--copper); text-transform: uppercase; }
+.nav-logo-name { font-family: var(--font-display); font-size: 1.25rem; color: var(--cream); letter-spacing: 0.02em; }
+.nav-links { display: flex; align-items: center; gap: clamp(0.8rem,1.8vw,1.5rem); list-style: none; }
+.nav-links a { font-size: 0.76rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(244,237,224,0.7); transition: color 0.3s; }
+.nav-links a:hover { color: var(--cream); }
+.nav-links a.active-page { color: var(--sand); }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--cream); transition: all 0.3s; }
+.hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; }
+.hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 0; background: rgba(24,12,6,0.98); backdrop-filter: blur(20px); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; transform: translateY(-100%); transition: transform 0.5s var(--ease-out); }
+.mobile-menu.open { display: flex; transform: translateY(0); }
+.mobile-menu a { font-family: var(--font-display); font-size: 2rem; font-weight: 300; color: var(--cream); }
+
+/* ══ HERO ══ */
+.khr-hero {
+  min-height: 92vh;
+  background:
+    radial-gradient(ellipse 55% 50% at 85% 20%, rgba(42,92,92,0.3), transparent 55%),
+    radial-gradient(ellipse 50% 50% at 15% 75%, rgba(90,40,12,0.2), transparent 55%),
+    linear-gradient(158deg, #080e0e 0%, #0c1a1a 35%, #100d08 70%, #0a0604 100%);
+  display: flex; align-items: center;
+  padding-top: 72px; position: relative; overflow: hidden;
+}
+.khr-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 71px, rgba(201,171,132,0.022) 71px, rgba(201,171,132,0.022) 72px);
+  pointer-events: none;
+}
+.khr-hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 256px; opacity: 0.5; pointer-events: none;
+}
+.khr-hero-inner { position: relative; z-index: 2; width: 100%; padding-block: clamp(3rem,6vw,6rem); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,5vw,6rem); align-items: center; }
+
+.breadcrumb { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,237,224,0.3); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.75rem; }
+.breadcrumb a:hover { color: var(--sand); }
+.breadcrumb strong { color: var(--copper); font-weight: 400; }
+
+.khr-type-badge { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal-lt); border: 1px solid rgba(42,92,92,0.45); background: rgba(42,92,92,0.12); padding: 0.4rem 0.9rem; border-radius: 2px; margin-bottom: 1.5rem; }
+.khr-type-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal-lt); box-shadow: 0 0 8px rgba(42,92,92,0.6); }
+
+.khr-title { font-family: var(--font-display); font-size: clamp(2.4rem, 4.5vw, 4.2rem); font-weight: 300; line-height: 1.08; letter-spacing: -0.012em; color: var(--cream-lt); margin-bottom: 1.4rem; }
+.khr-title em { font-style: italic; color: var(--sand); }
+.khr-dek { font-size: clamp(0.92rem,1.35vw,1.05rem); line-height: 1.82; color: rgba(244,237,224,0.55); font-weight: 300; max-width: 560px; margin-bottom: 2.2rem; }
+.khr-meta-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding-top: 1.5rem; border-top: 1px solid rgba(201,171,132,0.1); }
+.khr-meta-item { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(201,171,132,0.4); }
+.khr-meta-item strong { color: var(--teal-lt); font-weight: 400; }
+
+/* ══ HERO SVG: Readiness Matrix ══ */
+.hero-diagram-wrap { display: flex; align-items: center; justify-content: center; }
+.hero-diagram { width: 100%; max-width: 480px; aspect-ratio: 1; }
+.matrix-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 40px rgba(42,92,92,0.12)); }
+
+/* Matrix cell reveal */
+.matrix-cell { opacity: 0; animation: cellReveal 0.6s var(--ease-out) forwards; }
+@keyframes cellReveal { to { opacity: 1; } }
+
+/* Score dot pulse */
+.score-dot { animation: scorePulse 3s ease-in-out infinite; }
+.score-dot:nth-child(2n) { animation-delay: 0.5s; }
+.score-dot:nth-child(3n) { animation-delay: 1s; }
+@keyframes scorePulse { 0%,100%{r:5} 50%{r:7.5} }
+
+/* Axis label fade in */
+.axis-label { animation: labelIn 1.2s var(--ease-out) forwards; opacity: 0; }
+@keyframes labelIn { to { opacity: 1; } }
+
+/* ══ LAYOUT ══ */
+.khr-layout { display: grid; grid-template-columns: 1fr 340px; gap: 3rem; padding-block: clamp(3rem,6vw,5.5rem); align-items: start; }
+.khr-article { min-width: 0; }
+.khr-section { margin-bottom: clamp(3rem,5vw,4.5rem); padding-bottom: clamp(3rem,5vw,4.5rem); border-bottom: 1px solid rgba(58,28,14,0.08); }
+.khr-section:last-child { border-bottom: none; margin-bottom: 0; }
+.section-eyebrow { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.75rem; }
+.section-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--teal); }
+.khr-h2 { font-family: var(--font-display); font-size: clamp(1.6rem,2.8vw,2.2rem); font-weight: 400; line-height: 1.15; color: var(--espresso); letter-spacing: -0.01em; margin-bottom: 1.25rem; }
+.khr-h2 em { font-style: italic; color: var(--teal); }
+.khr-body { font-size: clamp(0.95rem,1.35vw,1.03rem); line-height: 1.88; color: var(--brown); font-weight: 300; }
+.khr-body + .khr-body { margin-top: 1.1rem; }
+
+/* ══ PULL QUOTE ══ */
+.pull-quote { margin: 2.5rem 0; padding: 2rem 2rem 2rem 2.5rem; border-left: 4px solid var(--teal); background: linear-gradient(135deg, rgba(42,92,92,0.05), rgba(201,171,132,0.02)); border-radius: 0 var(--radius-md) var(--radius-md) 0; position: relative; overflow: hidden; }
+.pull-quote::before { content: '"'; position: absolute; top: -1rem; left: 1rem; font-family: var(--font-display); font-size: 8rem; font-weight: 700; color: rgba(42,92,92,0.07); line-height: 1; pointer-events: none; }
+.pull-quote p { font-family: var(--font-display); font-style: italic; font-size: clamp(1.15rem,2vw,1.45rem); font-weight: 300; line-height: 1.55; color: var(--mahogany); position: relative; z-index: 1; }
+.pull-quote cite { display: block; margin-top: 0.75rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); font-style: normal; }
+
+/* ══ INFOGRAPHIC WRAPPER ══ */
+.infographic { margin: 2.5rem 0; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid rgba(58,28,14,0.1); }
+.infographic-header { background: var(--espresso); padding: 1.25rem 1.75rem; display: flex; align-items: center; gap: 1rem; }
+.infographic-header-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal-lt); }
+.infographic-header-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 400; color: var(--cream); }
+.infographic-header-line { flex: 1; height: 1px; background: rgba(201,171,132,0.12); }
+.infographic-body { background: var(--white); padding: 2rem 1.75rem; }
+
+/* ══ INFOGRAPHIC 1: SIX DIMENSIONS GRID ══ */
+.dimensions-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+.dimension-card { padding: 1.5rem 1.25rem; background: var(--cream-lt); border-radius: var(--radius-md); border: 1px solid rgba(58,28,14,0.1); cursor: default; position: relative; overflow: hidden; transition: transform 0.4s var(--ease-out), box-shadow 0.4s, border-color 0.4s; }
+.dimension-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(24,12,6,0.1); border-color: rgba(42,92,92,0.3); }
+.dimension-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--sage-lt)); transform: scaleX(0); transform-origin: left; transition: transform 0.5s var(--ease-out); }
+.dimension-card:hover::before { transform: scaleX(1); }
+.dim-num { font-family: var(--font-display); font-size: 3rem; font-weight: 300; color: rgba(42,92,92,0.12); line-height: 1; position: absolute; bottom: 0.5rem; right: 0.75rem; pointer-events: none; }
+.dim-icon { font-size: 1.4rem; margin-bottom: 0.85rem; display: block; }
+.dim-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 500; color: var(--espresso); line-height: 1.2; margin-bottom: 0.4rem; }
+.dim-desc { font-size: 0.78rem; line-height: 1.65; color: var(--brown); font-weight: 300; position: relative; }
+.dim-focus { display: inline-block; margin-top: 0.6rem; font-family: var(--font-label); font-size: 0.52rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--teal); border: 1px solid rgba(42,92,92,0.25); background: rgba(42,92,92,0.06); padding: 0.25rem 0.55rem; border-radius: 2px; }
+
+/* ══ INFOGRAPHIC 2: READINESS SPECTRUM ══ */
+.readiness-spectrum { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; }
+.readiness-level { padding: 1.75rem 1.5rem; position: relative; }
+.readiness-level--low { background: rgba(92,45,24,0.07); border-right: 1px solid rgba(58,28,14,0.08); }
+.readiness-level--mid { background: rgba(201,171,132,0.07); border-right: 1px solid rgba(58,28,14,0.08); }
+.readiness-level--high { background: rgba(42,92,92,0.07); }
+.readiness-level-header { margin-bottom: 1.1rem; }
+.readiness-level-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; margin-bottom: 0.35rem; }
+.readiness-level--low .readiness-level-label { color: var(--mahogany); }
+.readiness-level--mid .readiness-level-label { color: var(--sand); }
+.readiness-level--high .readiness-level-label { color: var(--teal-lt); }
+.readiness-level-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 500; color: var(--espresso); }
+.readiness-bar { height: 4px; border-radius: 2px; margin-bottom: 1.1rem; }
+.readiness-level--low .readiness-bar { background: var(--mahogany); width: 30%; }
+.readiness-level--mid .readiness-bar { background: var(--sand); width: 60%; }
+.readiness-level--high .readiness-bar { background: var(--teal); width: 95%; }
+.readiness-items { display: flex; flex-direction: column; gap: 0.5rem; }
+.readiness-item { display: flex; align-items: flex-start; gap: 0.55rem; font-size: 0.8rem; line-height: 1.55; color: var(--espresso); }
+.r-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 0.4em; }
+.readiness-level--low .r-dot { background: var(--mahogany); }
+.readiness-level--mid .r-dot { background: var(--sand); }
+.readiness-level--high .r-dot { background: var(--teal); }
+
+/* ══ INFOGRAPHIC 3: SCORING SCALE ══ */
+.scoring-scale { display: flex; flex-direction: column; gap: 0.75rem; }
+.score-row { display: grid; grid-template-columns: 48px 1fr auto; gap: 1rem; align-items: center; padding: 0.9rem 1.1rem; border-radius: var(--radius-sm); border: 1px solid transparent; transition: transform 0.3s; }
+.score-row:hover { transform: translateX(4px); }
+.score-row:nth-child(1) { background: rgba(92,45,24,0.06); border-color: rgba(92,45,24,0.15); }
+.score-row:nth-child(2) { background: rgba(201,171,132,0.07); border-color: rgba(201,171,132,0.18); }
+.score-row:nth-child(3) { background: rgba(62,128,128,0.07); border-color: rgba(62,128,128,0.2); }
+.score-row:nth-child(4) { background: rgba(42,92,92,0.1); border-color: rgba(42,92,92,0.25); }
+.score-num { font-family: var(--font-display); font-size: 1.6rem; font-weight: 300; text-align: center; line-height: 1; }
+.score-row:nth-child(1) .score-num { color: rgba(92,45,24,0.5); }
+.score-row:nth-child(2) .score-num { color: rgba(160,92,56,0.55); }
+.score-row:nth-child(3) .score-num { color: rgba(62,128,128,0.55); }
+.score-row:nth-child(4) .score-num { color: rgba(42,92,92,0.65); }
+.score-info {}
+.score-level { font-family: var(--font-display); font-size: 1rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.25rem; }
+.score-desc { font-size: 0.78rem; line-height: 1.6; color: var(--brown); font-weight: 300; }
+.score-badge { font-family: var(--font-label); font-size: 0.52rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.28rem 0.6rem; border-radius: 2px; flex-shrink: 0; }
+.score-row:nth-child(1) .score-badge { background: rgba(92,45,24,0.1); color: var(--mahogany); border: 1px solid rgba(92,45,24,0.2); }
+.score-row:nth-child(2) .score-badge { background: rgba(160,92,56,0.08); color: var(--copper); border: 1px solid rgba(160,92,56,0.2); }
+.score-row:nth-child(3) .score-badge { background: rgba(62,128,128,0.08); color: var(--teal-lt); border: 1px solid rgba(62,128,128,0.2); }
+.score-row:nth-child(4) .score-badge { background: rgba(42,92,92,0.12); color: var(--teal-lt); border: 1px solid rgba(42,92,92,0.3); }
+
+/* ══ INFOGRAPHIC 4: SIX QUESTIONS CHECKLIST ══ */
+.questions-checklist { background: var(--espresso); border-radius: var(--radius-lg); padding: 2rem; position: relative; overflow: hidden; }
+.questions-checklist::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(201,171,132,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,171,132,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+.questions-checklist-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; position: relative; z-index: 1; }
+.q-header-icon { font-size: 1.4rem; color: var(--teal-lt); }
+.q-header-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal-lt); }
+.q-header-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 300; color: var(--cream); line-height: 1.25; }
+.q-items { display: flex; flex-direction: column; gap: 0.75rem; position: relative; z-index: 1; }
+.q-item { display: flex; align-items: flex-start; gap: 1rem; padding: 0.9rem 1rem; background: rgba(255,252,248,0.035); border: 1px solid rgba(201,171,132,0.08); border-radius: var(--radius-sm); cursor: pointer; transition: background 0.35s, border-color 0.35s; }
+.q-item:hover { background: rgba(255,252,248,0.07); border-color: rgba(42,92,92,0.25); }
+.q-check { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(42,92,92,0.4); background: rgba(42,92,92,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.65rem; color: var(--teal-lt); transition: background 0.35s, border-color 0.35s; }
+.q-item:hover .q-check { background: rgba(42,92,92,0.2); border-color: var(--teal-lt); }
+.q-text { font-family: var(--font-display); font-size: 0.95rem; font-weight: 400; color: rgba(244,237,224,0.72); line-height: 1.45; flex: 1; font-style: italic; }
+
+/* ══ INFOGRAPHIC 5: COMMON MISTAKES ══ */
+.mistakes-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.mistake-card { padding: 1.5rem 1.25rem; background: var(--espresso); border-radius: var(--radius-md); position: relative; overflow: hidden; cursor: default; transition: transform 0.35s var(--ease-out); }
+.mistake-card:hover { transform: translateY(-5px); }
+.mistake-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--mahogany), var(--copper)); }
+.mistake-num { font-family: var(--font-display); font-size: 4rem; font-weight: 300; color: rgba(201,171,132,0.05); line-height: 1; position: absolute; bottom: 0.5rem; right: 0.75rem; pointer-events: none; }
+.mistake-icon { font-size: 1.3rem; margin-bottom: 0.9rem; display: block; color: rgba(196,122,82,0.7); }
+.mistake-title { font-family: var(--font-display); font-size: 1rem; font-weight: 500; color: var(--cream); line-height: 1.3; margin-bottom: 0.55rem; }
+.mistake-desc { font-size: 0.78rem; line-height: 1.7; color: rgba(244,237,224,0.4); font-weight: 300; }
+
+/* ══ REFERENCES ══ */
+.references { background: var(--cream); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); padding: 1.5rem 1.75rem; }
+.references-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1rem; display: block; }
+.references ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.references li { font-size: 0.82rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+
+/* ══ SIDEBAR ══ */
+.khr-sidebar { position: sticky; top: calc(72px + 2rem); display: flex; flex-direction: column; gap: 1.25rem; }
+.side-card { background: var(--white); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); overflow: hidden; }
+.side-card-header { background: var(--espresso); padding: 0.9rem 1.25rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal-lt); }
+.side-card-body { padding: 1.25rem; }
+.side-card-body p { font-size: 0.84rem; line-height: 1.72; color: var(--brown); font-weight: 300; }
+.domain-badge { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1rem; background: var(--cream-lt); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-sm); margin-bottom: 0.75rem; }
+.domain-badge:last-child { margin-bottom: 0; }
+.domain-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.domain-label { font-size: 0.8rem; color: var(--espresso); font-weight: 400; }
+.domain-sub { font-size: 0.72rem; color: var(--mahogany); font-weight: 300; }
+.related-link { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.85rem 0; border-bottom: 1px solid rgba(58,28,14,0.07); transition: transform 0.3s; }
+.related-link:last-child { border-bottom: none; padding-bottom: 0; }
+.related-link:hover { transform: translateX(4px); }
+.related-link-arrow { color: var(--copper); flex-shrink: 0; font-size: 0.7rem; margin-top: 0.15em; transition: transform 0.3s; }
+.related-link:hover .related-link-arrow { transform: translateX(3px); }
+.related-link-text { font-size: 0.83rem; line-height: 1.5; color: var(--espresso); font-weight: 400; }
+.related-link-tag { display: block; font-family: var(--font-label); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--copper); margin-bottom: 0.2rem; }
+.reading-meter { height: 4px; background: rgba(58,28,14,0.08); border-radius: 2px; overflow: hidden; margin: 0.75rem 0 0.4rem; }
+.reading-meter-fill { height: 100%; background: linear-gradient(90deg, var(--teal), var(--sage-lt), var(--sand)); width: 0%; transition: width 0.2s linear; border-radius: 2px; }
+.reading-meter-label { font-family: var(--font-label); font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(58,28,14,0.35); display: flex; justify-content: space-between; }
+.btn-side { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.85rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; background: var(--espresso); color: var(--cream); border: none; border-radius: var(--radius-sm); cursor: pointer; margin-top: 0.75rem; transition: background 0.3s; }
+.btn-side:hover { background: var(--brown); }
+
+/* ══ REVEAL ══ */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: none; }
+.d1{ transition-delay: 0.1s; } .d2{ transition-delay: 0.2s; } .d3{ transition-delay: 0.3s; }
+
+/* ══ FOOTER ══ */
+.footer { background: var(--chocolate); padding: 4rem 0 2.5rem; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-logo-icon { width: 38px; margin-bottom: 0.75rem; }
+.footer-logo-name { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; color: var(--cream); }
+.footer-logo-sub  { font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.22em; color: var(--copper); text-transform: uppercase; margin: 0.3rem 0 1rem; }
+.footer-tagline   { font-size: 0.83rem; line-height: 1.7; color: rgba(244,237,224,0.35); font-weight: 300; max-width: 240px; }
+.footer-col-title { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1.1rem; }
+.footer-links     { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.footer-links a   { font-size: 0.82rem; color: rgba(244,237,224,0.35); transition: color 0.3s; }
+.footer-links a:hover { color: var(--sand); }
+.footer-bottom    { border-top: 1px solid rgba(201,171,132,0.1); padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-copy      { font-size: 0.76rem; color: rgba(244,237,224,0.2); }
+.footer-copy em   { color: var(--copper); font-style: normal; }
+.footer-legal     { display: flex; gap: 1.5rem; }
+.footer-legal a   { font-size: 0.73rem; color: rgba(244,237,224,0.2); transition: color 0.3s; }
+.footer-legal a:hover { color: var(--sand); }
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 1024px) {
+  .khr-hero-inner { grid-template-columns: 1fr; }
+  .hero-diagram-wrap { display: none; }
+  .khr-layout { grid-template-columns: 1fr; }
+  .khr-sidebar { position: static; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .dimensions-grid { grid-template-columns: 1fr 1fr; }
+  .readiness-spectrum { grid-template-columns: 1fr; }
+  .mistakes-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .dimensions-grid { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="nav" id="mainNav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">
+        <img src="../../Images/rakine_logo.svg" class="nav-logo-icon" alt="Rankine Innovation Lab logo"/>
+        <div>
+          <span class="nav-logo-mark">Rankine</span>
+          <span class="nav-logo-name">Innovation Lab</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../../research.html">Research &amp; Project</a></li>
+        <li><a href="../../programmes.html">Programmes</a></li>
+        <li><a href="../../knowledge-hub.html" class="active-page">Knowledge Hub</a></li>
+        <li><a href="../../team.html">Team</a></li>
+        <li><a href="../../contact.html">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
-<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-  <a href="../../index.html">Home</a>
-  <a href="../../about.html">About</a>
-  <details class="mobile-group">
-    <summary>Work</summary>
-    <div class="mobile-group-links">
-      <a href="../../research.html">Research &amp; Project</a>
-      <a href="../../partnership.html">Partnerships</a>
-    </div>
-  </details>
-  <a href="../../programmes.html">Programmes</a>
-  <details class="mobile-group">
-    <summary>Insights</summary>
-    <div class="mobile-group-links">
-      <a href="../../knowledge-hub.html">Knowledge Hub</a>
-    </div>
-  </details>
-  <a href="../../team.html">Team</a>
-  <a href="../../contact.html">Contact</a>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../../index.html"         onclick="closeMobile()">Home</a>
+  <a href="../../about.html"         onclick="closeMobile()">About</a>
+  <a href="../../research.html"      onclick="closeMobile()">Research &amp; Project</a>
+  <a href="../../programmes.html"    onclick="closeMobile()">Programmes</a>
+  <a href="../../knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
+  <a href="../../team.html"          onclick="closeMobile()">Team</a>
+  <a href="../../contact.html"       onclick="closeMobile()">Contact</a>
 </div>
 
-<header class="khr-hero">
-    <div class="container">
-      <div class="breadcrumb"><a href="../../index.html">Home</a><span>—</span><a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span><strong>Framework</strong></div>
-      <div class="khr-type">Framework · AI for STEM Innovation</div>
-      <h1 class="khr-title">AI Adoption Readiness for Research Teams</h1>
-      <p class="khr-dek">A readiness model helps research teams move from tool enthusiasm to the conditions required for useful, safe, repeatable AI-assisted work.</p>
-      <div class="khr-meta">
-        <span><strong>Domain</strong> AI for STEM Innovation</span>
-        <span><strong>Reading time</strong> 7 min read</span>
-        <span><strong>Level</strong> Practitioner</span>
+<!-- ═══════════ HERO ═══════════ -->
+<section class="khr-hero">
+  <div class="container">
+    <div class="khr-hero-inner">
+
+      <div>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="../../index.html">Home</a><span>—</span>
+          <a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span>
+          <strong>Framework</strong>
+        </nav>
+
+        <div class="khr-type-badge">
+          <span class="khr-type-badge-dot" aria-hidden="true"></span>
+          Framework · AI for STEM Innovation
+        </div>
+
+        <h1 class="khr-title">
+          AI Adoption Readiness<br>for <em>Research Teams</em>
+        </h1>
+
+        <p class="khr-dek">
+          Many teams are experimenting with AI before they are ready to use it well. Access to tools is not the same as the conditions needed to use those tools responsibly, safely, and sustainably. This six-dimension framework reveals where a team is strong, where it is weak, and which improvements will create the biggest increase in real-world readiness.
+        </p>
+
+        <div class="khr-meta-row">
+          <div class="khr-meta-item"><strong>Domain</strong> AI for STEM Innovation</div>
+          <div class="khr-meta-item"><strong>Reading time</strong> 13 min read</div>
+          <div class="khr-meta-item"><strong>Level</strong> Institutional · Team Lead</div>
+        </div>
       </div>
 
+<<<<<<< HEAD
+      <!-- Hero SVG: Readiness Matrix Diagram -->
+      <div class="hero-diagram-wrap" aria-hidden="true">
+        <div class="hero-diagram">
+          <svg class="matrix-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Grid background -->
+            <rect x="40" y="40" width="320" height="320" fill="rgba(42,92,92,0.04)" stroke="rgba(42,92,92,0.1)" stroke-width="1"/>
+
+            <!-- Grid lines: 6 columns, 4 rows -->
+            <!-- Vertical lines -->
+            <line x1="93"  y1="40" x2="93"  y2="360" stroke="rgba(42,92,92,0.12)" stroke-width="0.8"/>
+            <line x1="147" y1="40" x2="147" y2="360" stroke="rgba(42,92,92,0.12)" stroke-width="0.8"/>
+            <line x1="200" y1="40" x2="200" y2="360" stroke="rgba(42,92,92,0.12)" stroke-width="0.8"/>
+            <line x1="253" y1="40" x2="253" y2="360" stroke="rgba(42,92,92,0.12)" stroke-width="0.8"/>
+            <line x1="307" y1="40" x2="307" y2="360" stroke="rgba(42,92,92,0.12)" stroke-width="0.8"/>
+            <!-- Horizontal lines -->
+            <line x1="40" y1="120" x2="360" y2="120" stroke="rgba(42,92,92,0.12)" stroke-width="0.8"/>
+            <line x1="40" y1="200" x2="360" y2="200" stroke="rgba(42,92,92,0.12)" stroke-width="0.8"/>
+            <line x1="40" y1="280" x2="360" y2="280" stroke="rgba(42,92,92,0.12)" stroke-width="0.8"/>
+
+            <!-- Axis labels (left) — six dimensions -->
+            <g class="axis-label" style="animation-delay:0.1s">
+              <text x="35" y="85"  font-family="Cinzel,serif" font-size="7.5" fill="rgba(62,128,128,0.55)" text-anchor="end">Problem Fit</text>
+            </g>
+            <g class="axis-label" style="animation-delay:0.2s">
+              <text x="35" y="165" font-family="Cinzel,serif" font-size="7.5" fill="rgba(62,128,128,0.55)" text-anchor="end">Data Quality</text>
+            </g>
+            <g class="axis-label" style="animation-delay:0.3s">
+              <text x="35" y="245" font-family="Cinzel,serif" font-size="7.5" fill="rgba(62,128,128,0.55)" text-anchor="end">People</text>
+            </g>
+            <g class="axis-label" style="animation-delay:0.4s">
+              <text x="35" y="325" font-family="Cinzel,serif" font-size="7.5" fill="rgba(62,128,128,0.55)" text-anchor="end">Workflow</text>
+            </g>
+
+            <!-- Score level labels (top) -->
+            <g class="axis-label" style="animation-delay:0.5s">
+              <text x="67"  y="30" font-family="Cinzel,serif" font-size="7" fill="rgba(92,45,24,0.55)" text-anchor="middle">1</text>
+              <text x="120" y="30" font-family="Cinzel,serif" font-size="7" fill="rgba(160,92,56,0.55)" text-anchor="middle">2</text>
+              <text x="174" y="30" font-family="Cinzel,serif" font-size="7" fill="rgba(160,92,56,0.6)" text-anchor="middle">3</text>
+              <text x="227" y="30" font-family="Cinzel,serif" font-size="7" fill="rgba(62,128,128,0.6)" text-anchor="middle">4</text>
+              <text x="280" y="30" font-family="Cinzel,serif" font-size="7" fill="rgba(42,92,92,0.65)" text-anchor="middle">5</text>
+            </g>
+
+            <!-- MATRIX SCORE CELLS — varying fill to show readiness pattern -->
+            <!-- Row 1: Problem Fit — strong -->
+            <rect class="matrix-cell" style="animation-delay:0.1s" x="42" y="42" width="49" height="76" rx="3" fill="rgba(92,45,24,0.15)"/>
+            <rect class="matrix-cell" style="animation-delay:0.15s" x="95" y="42" width="50" height="76" rx="3" fill="rgba(160,92,56,0.2)"/>
+            <rect class="matrix-cell" style="animation-delay:0.2s" x="149" y="42" width="49" height="76" rx="3" fill="rgba(160,92,56,0.35)"/>
+            <rect class="matrix-cell" style="animation-delay:0.25s" x="202" y="42" width="49" height="76" rx="3" fill="rgba(62,128,128,0.38)"/>
+            <rect class="matrix-cell" style="animation-delay:0.3s" x="256" y="42" width="49" height="76" rx="3" fill="rgba(42,92,92,0.42)"/>
+
+            <!-- Row 2: Data Quality — weak -->
+            <rect class="matrix-cell" style="animation-delay:0.2s" x="42" y="122" width="49" height="76" rx="3" fill="rgba(92,45,24,0.25)"/>
+            <rect class="matrix-cell" style="animation-delay:0.25s" x="95" y="122" width="50" height="76" rx="3" fill="rgba(92,45,24,0.15)"/>
+            <rect class="matrix-cell" style="animation-delay:0.3s" x="149" y="122" width="49" height="76" rx="3" fill="rgba(160,92,56,0.12)"/>
+            <rect class="matrix-cell" style="animation-delay:0.35s" x="202" y="122" width="49" height="76" rx="3" fill="rgba(62,128,128,0.08)"/>
+            <rect class="matrix-cell" style="animation-delay:0.4s" x="256" y="122" width="49" height="76" rx="3" fill="rgba(42,92,92,0.06)"/>
+
+            <!-- Row 3: People — medium -->
+            <rect class="matrix-cell" style="animation-delay:0.3s" x="42" y="202" width="49" height="76" rx="3" fill="rgba(92,45,24,0.1)"/>
+            <rect class="matrix-cell" style="animation-delay:0.35s" x="95" y="202" width="50" height="76" rx="3" fill="rgba(160,92,56,0.22)"/>
+            <rect class="matrix-cell" style="animation-delay:0.4s" x="149" y="202" width="49" height="76" rx="3" fill="rgba(160,92,56,0.3)"/>
+            <rect class="matrix-cell" style="animation-delay:0.45s" x="202" y="202" width="49" height="76" rx="3" fill="rgba(62,128,128,0.25)"/>
+            <rect class="matrix-cell" style="animation-delay:0.5s" x="256" y="202" width="49" height="76" rx="3" fill="rgba(42,92,92,0.12)"/>
+
+            <!-- Row 4: Workflow — medium-weak -->
+            <rect class="matrix-cell" style="animation-delay:0.4s" x="42" y="282" width="49" height="76" rx="3" fill="rgba(92,45,24,0.18)"/>
+            <rect class="matrix-cell" style="animation-delay:0.45s" x="95" y="282" width="50" height="76" rx="3" fill="rgba(92,45,24,0.22)"/>
+            <rect class="matrix-cell" style="animation-delay:0.5s" x="149" y="282" width="49" height="76" rx="3" fill="rgba(160,92,56,0.28)"/>
+            <rect class="matrix-cell" style="animation-delay:0.55s" x="202" y="282" width="49" height="76" rx="3" fill="rgba(62,128,128,0.15)"/>
+            <rect class="matrix-cell" style="animation-delay:0.6s" x="256" y="282" width="49" height="76" rx="3" fill="rgba(42,92,92,0.08)"/>
+
+            <!-- ACTIVE SCORE DOTS — showing a typical team profile -->
+            <circle class="score-dot" cx="280" cy="80"  r="5" fill="rgba(42,92,92,0.7)"  stroke="rgba(201,171,132,0.3)" stroke-width="1.5"/> <!-- Problem Fit: 5 -->
+            <circle class="score-dot" cx="120" cy="160" r="5" fill="rgba(92,45,24,0.75)" stroke="rgba(201,171,132,0.3)" stroke-width="1.5"/> <!-- Data: 2 -->
+            <circle class="score-dot" cx="227" cy="240" r="5" fill="rgba(62,128,128,0.7)" stroke="rgba(201,171,132,0.3)" stroke-width="1.5"/> <!-- People: 4 -->
+            <circle class="score-dot" cx="174" cy="320" r="5" fill="rgba(160,92,56,0.7)" stroke="rgba(201,171,132,0.3)" stroke-width="1.5"/> <!-- Workflow: 3 -->
+
+            <!-- Profile line connecting dots -->
+            <polyline points="280,80 120,160 227,240 174,320" stroke="rgba(201,171,132,0.25)" stroke-width="1.5" fill="none" stroke-dasharray="5 3"/>
+
+            <!-- Legend -->
+            <circle cx="310" cy="375" r="4" fill="rgba(42,92,92,0.6)" stroke="rgba(201,171,132,0.3)" stroke-width="1"/>
+            <text x="320" y="379" font-family="Cinzel,serif" font-size="7" fill="rgba(201,171,132,0.4)">Team profile</text>
+
+            <!-- Outer border -->
+            <rect x="40" y="40" width="320" height="320" fill="none" stroke="rgba(42,92,92,0.2)" stroke-width="1.5"/>
+          </svg>
+=======
     <div class="khr-feature">
       <div class="khr-feature-head">
         <div>
           <div class="khr-feature-kicker">Readiness Matrix</div>
           <div class="khr-feature-title">Readiness Matrix</div>
+>>>>>>> 3e866ce5ebd7d682b2c492d8ce2c5e40418cf6e4
         </div>
-        <p class="khr-feature-sub">Capability, workflow, governance, risk, and learning conditions before adoption.</p>
       </div>
+<<<<<<< HEAD
+=======
       <figure class="khr-diagram khr-hero-visual" role="group" aria-label="Readiness Matrix">
         <img class="khr-feature-image" src="../../Images/knowledge/ai-readiness-matrix.svg" alt="Readiness Matrix visual showing problem fit, knowledge quality, people & skill stages" width="1600" height="600">
       </figure>
@@ -98,131 +494,379 @@
       <span>Learning</span>
       </div>
     </div>
+>>>>>>> 3e866ce5ebd7d682b2c492d8ce2c5e40418cf6e4
 
     </div>
-  </header>
+  </div>
+</section>
 
-  <main class="khr-main">
-    <div class="container khr-grid">
-      <article class="khr-article">
+<!-- ═══════════ CONTENT ═══════════ -->
+<div class="container">
+  <div class="khr-layout">
+    <article class="khr-article" id="articleBody">
 
-  <section class="khr-editorial-section" id="what-problem-this-framework-solves">
-    <div class="khr-section-kicker">Framework Purpose</div>
-    <h2>What problem this framework solves</h2>
-    <p>Many teams experiment with AI before they are ready to use it well. They may have access to tools, but lack clear use cases, good data habits, review workflows, and governance boundaries.</p>
-    <p>A readiness model helps teams slow down in the right way. It does not ask whether a team is enthusiastic. It asks whether the conditions exist for AI to be useful, safe, and sustainable.</p>
-  </section>
+      <!-- ─── SECTION 1: The Problem ─── -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">The Core Problem</p>
+        <h2 class="khr-h2">Why enthusiasm outruns <em>readiness</em></h2>
 
+        <div class="pull-quote">
+          <p>A burst of excitement followed by uneven quality, confusion about accountability, and low trust from the people who are meant to benefit from the work — this is the pattern that a readiness framework is designed to interrupt.</p>
+          <cite>— Rankine Innovation Lab · Knowledge Hub</cite>
+        </div>
 
-  <section class="khr-matrix" aria-label="Six Readiness Dimensions">
-    <h3>Six Readiness Dimensions</h3>
-    <p>A useful readiness model must be simple enough to apply and rigorous enough to guide decisions.</p>
-    <div class="khr-matrix-rows">
-      <div class="khr-matrix-row"><strong>Problem fit</strong><span>The team knows which workflow problem AI should improve and which tasks remain outside scope.</span></div>
-      <div class="khr-matrix-row"><strong>Data and knowledge quality</strong><span>Documents, datasets, notes, and source material are reliable, current, and organised enough to support use.</span></div>
-      <div class="khr-matrix-row"><strong>People and skill</strong><span>Domain experts, technical users, editors, and reviewers understand limits and validation duties.</span></div>
-      <div class="khr-matrix-row"><strong>Workflow design</strong><span>AI fits into repeatable intake, drafting, checking, approval, and storage steps.</span></div>
-      <div class="khr-matrix-row"><strong>Governance and assurance</strong><span>Responsibility, restricted information, checking standards, and failure behavior are explicit.</span></div>
-      <div class="khr-matrix-row"><strong>Learning and improvement</strong><span>The team collects feedback, errors, examples, and performance signals over time.</span></div>
-    </div>
-  </section>
-
-
-  <section class="khr-infographic" aria-label="Scoring Logic">
-    <div class="khr-infographic-head">
-      <h3>Scoring Logic</h3>
-      <span>Rate each dimension before deciding scope</span>
-    </div>
-    <div class="khr-infographic-grid">
-      <div class="khr-infographic-cell"><strong>1 — Absent</strong><p>The capability is informal, inconsistent, or missing.</p></div>
-      <div class="khr-infographic-cell"><strong>2 — Emerging</strong><p>A few practices exist, but ownership and quality are uneven.</p></div>
-      <div class="khr-infographic-cell"><strong>3 — Partial</strong><p>There is structure, but it depends on motivated individuals.</p></div>
-      <div class="khr-infographic-cell"><strong>4 — Repeatable</strong><p>The workflow is explicit, documented, and used more than once.</p></div>
-      <div class="khr-infographic-cell"><strong>5 — Reviewed</strong><p>The capability is monitored, improved, and explainable to stakeholders.</p></div>
-      <div class="khr-infographic-cell"><strong>Pattern &gt; total</strong><p>A low governance score can block readiness even when enthusiasm is high.</p></div>
-    </div>
-  </section>
-
-
-  <section class="khr-editorial-section" id="what-low-medium-and-high-readiness-look-like">
-    <div class="khr-section-kicker">Readiness Levels</div>
-    <h2>What low, medium, and high readiness look like</h2>
-    <p>Low readiness looks like casual tool exploration without a narrow problem, trusted source base, or review process. Outputs vary widely, and accountability is unclear.</p>
-    <p>Medium readiness means one or two promising use cases exist and some checking practices are emerging, but governance, documentation, or evaluation still depend too much on a few people.</p>
-    <p>High readiness means the team knows where AI fits, where it does not fit, what knowledge grounds it, who reviews it, and how performance is monitored.</p>
-  </section>
-
-
-  <section class="khr-module khr-module--grid">
-    <h3>Decision Gates</h3>
-    <p>Readiness should lead to decisions, not just a maturity label.</p>
-    <div class="khr-card"><strong>Gate 1: Use case clarity</strong><p>Do not launch until the team can state the exact workflow and user need.</p></div>
-    <div class="khr-card"><strong>Gate 2: Source quality</strong><p>Do not ground outputs on documents that are stale, fragmented, or unowned.</p></div>
-    <div class="khr-card"><strong>Gate 3: Review owner</strong><p>Do not publish or operationalise outputs without a named human review role.</p></div>
-    <div class="khr-card"><strong>Gate 4: Risk boundary</strong><p>Do not include confidential, high-stakes, or restricted material without explicit controls.</p></div>
-
-  </section>
-
-
-  <section class="khr-editorial-section" id="a-short-worked-example">
-    <div class="khr-section-kicker">Worked Example</div>
-    <h2>A short worked example</h2>
-    <p>Consider a research support team that wants AI for literature briefing, workshop preparation, and document querying. It may score highly on problem fit because tasks are clear. It may score moderately on people and workflow if staff understand the use cases but do not yet document procedures consistently.</p>
-    <p>If it scores low on data quality because documents are spread across email threads and cloud folders without version control, the next priority is not another tool. It is a better knowledge base and an explicit review process.</p>
-  </section>
-
-
-  <section class="khr-split-panel">
-    <div class="khr-split-panel-head">Common Mistakes</div>
-    <div class="khr-split-grid">
-      <div>
-        <h3>Avoid</h3>
-        <ul>
-        <li>Confusing tool access with readiness.</li>
-        <li>Over-scoring because of isolated success stories.</li>
-        <li>Assessing readiness without risk or governance.</li>
-        <li>Treating readiness as a one-time exercise.</li>
-        </ul>
+        <p class="khr-body">
+          Many teams experimenting with AI today have access to impressive tools. What they often lack is the less visible infrastructure that makes those tools worth using: clear problem definitions, governed data habits, review workflows, and accountability structures. The absence of that infrastructure does not prevent teams from producing outputs. It prevents them from producing outputs that are trustworthy, reproducible, or institutionally defensible.
+        </p>
+        <p class="khr-body">
+          This framework does not ask whether a team is enthusiastic about AI. It asks whether the team has the conditions needed to use AI in a way that is useful, safe, and sustainable. For research institutions, programme teams, and technical organisations, those conditions are identifiable and improvable — and the first step is understanding which ones are weak.
+        </p>
       </div>
-      <div>
-        <h3>Do instead</h3>
-        <ul>
-        <li>Use evidence for every score.</li>
-        <li>Repeat the assessment after a pilot.</li>
-        <li>Connect each score to one improvement action.</li>
-        <li>Document what remains out of scope.</li>
-        </ul>
+
+      <!-- ─── SECTION 2: Six Dimensions ─── -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Framework Structure</p>
+        <h2 class="khr-h2">The six <em>readiness dimensions</em></h2>
+
+        <p class="khr-body">
+          The framework assesses readiness across six dimensions. Each dimension addresses a distinct enabling condition. The pattern of scores — not the total — is where the most useful information lives. A single weak dimension in governance or data quality can constrain the entire initiative, regardless of how strong the other five appear.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Readiness Architecture</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Six Enabling Dimensions</span>
+          </div>
+          <div class="infographic-body">
+            <p style="font-size:0.82rem;color:var(--brown);font-weight:300;margin-bottom:1.5rem;line-height:1.65;">Rate each dimension 1–5. Look for patterns, not totals. A low score on Governance or Data overrides high scores elsewhere.</p>
+            <div class="dimensions-grid">
+              <div class="dimension-card">
+                <span class="dim-num" aria-hidden="true">1</span>
+                <span class="dim-icon">🎯</span>
+                <div class="dim-title">Problem Fit</div>
+                <div class="dim-desc">Does the team know precisely what problem it wants AI to improve? Teams with low readiness start with tools and search for justification after. High readiness starts with workflow pain points.</div>
+                <span class="dim-focus">What and why</span>
+              </div>
+              <div class="dimension-card">
+                <span class="dim-num" aria-hidden="true">2</span>
+                <span class="dim-icon">🗄</span>
+                <div class="dim-title">Data &amp; Knowledge Quality</div>
+                <div class="dim-desc">What documents or datasets ground the work? How current are they? Who owns them? Even the most capable model amplifies the weaknesses of a fragile knowledge base.</div>
+                <span class="dim-focus">Foundation layer</span>
+              </div>
+              <div class="dimension-card">
+                <span class="dim-num" aria-hidden="true">3</span>
+                <span class="dim-icon">👥</span>
+                <div class="dim-title">People &amp; Skill</div>
+                <div class="dim-desc">Does the team combine domain knowledge, technical literacy, editorial judgment, and oversight capacity? The right question is not whether there are AI experts — but whether there are experts who can challenge weak outputs.</div>
+                <span class="dim-focus">Human capital</span>
+              </div>
+              <div class="dimension-card">
+                <span class="dim-num" aria-hidden="true">4</span>
+                <span class="dim-icon">⚙</span>
+                <div class="dim-title">Workflow Design</div>
+                <div class="dim-desc">AI adds value when it fits a repeatable workflow. Teams with low readiness treat AI interactions as isolated prompts. High readiness teams define steps, output expectations, and handoff points.</div>
+                <span class="dim-focus">Repeatability</span>
+              </div>
+              <div class="dimension-card">
+                <span class="dim-num" aria-hidden="true">5</span>
+                <span class="dim-icon">⚖</span>
+                <div class="dim-title">Governance &amp; Assurance</div>
+                <div class="dim-desc">A team is not ready if it cannot explain who owns risk, what information is restricted, how outputs are checked, and what happens when the tool fails. Governance enables quality without improvisation.</div>
+                <span class="dim-focus">Accountability</span>
+              </div>
+              <div class="dimension-card">
+                <span class="dim-num" aria-hidden="true">6</span>
+                <span class="dim-icon">📈</span>
+                <div class="dim-title">Learning &amp; Improvement</div>
+                <div class="dim-desc">Mature teams collect examples, error patterns, and user feedback. Immature teams repeat experiments without evaluation loops. Readiness treated as one-time quickly becomes cosmetic.</div>
+                <span class="dim-focus">Feedback discipline</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
 
+      <!-- ─── SECTION 3: Readiness Levels ─── -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Scoring Guidance</p>
+        <h2 class="khr-h2">What <em>low, medium and high</em> readiness look like</h2>
 
-  <section class="khr-checklist-panel">
-    <div class="khr-checklist-symbol">◎</div>
-    <div>
-      <h3>Before Moving Forward</h3>
-    <p>If these questions cannot be answered clearly, the team is ready only for limited experimentation.</p>
-      <ul>
-      <li>What problem are we solving?</li>
-      <li>What source base grounds the work?</li>
-      <li>Who reviews the output?</li>
-      <li>What information is restricted?</li>
-      <li>How do we know the workflow is working?</li>
-      <li>What will we improve next?</li>
-      </ul>
-    </div>
-  </section>
+        <p class="khr-body">
+          Understanding what each readiness level looks like in practice is more useful than an abstract score. These descriptions help teams locate themselves honestly across each dimension — and identify which transitions are within reach in the short term.
+        </p>
 
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Level Definitions</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Readiness Spectrum Across Three Bands</span>
+          </div>
+          <div class="infographic-body" style="padding:0">
+            <div class="readiness-spectrum">
+              <div class="readiness-level readiness-level--low">
+                <div class="readiness-level-header">
+                  <div class="readiness-level-label">Scores 1–2</div>
+                  <div class="readiness-level-title">Low Readiness</div>
+                </div>
+                <div class="readiness-bar"></div>
+                <div class="readiness-items">
+                  <div class="readiness-item"><span class="r-dot"></span>Exploring tools casually with no defined problem</div>
+                  <div class="readiness-item"><span class="r-dot"></span>Output quality varies widely across team members</div>
+                  <div class="readiness-item"><span class="r-dot"></span>No source base or document boundaries defined</div>
+                  <div class="readiness-item"><span class="r-dot"></span>Roles, quality thresholds, and review steps unclear</div>
+                  <div class="readiness-item"><span class="r-dot"></span>Governance not yet a design consideration</div>
+                </div>
+              </div>
+              <div class="readiness-level readiness-level--mid">
+                <div class="readiness-level-header">
+                  <div class="readiness-level-label">Scores 3</div>
+                  <div class="readiness-level-title">Medium Readiness</div>
+                </div>
+                <div class="readiness-bar"></div>
+                <div class="readiness-items">
+                  <div class="readiness-item"><span class="r-dot"></span>One or two clear use cases emerging</div>
+                  <div class="readiness-item"><span class="r-dot"></span>Some internal patterns for prompting or retrieval</div>
+                  <div class="readiness-item"><span class="r-dot"></span>Governance still dependent on motivated individuals</div>
+                  <div class="readiness-item"><span class="r-dot"></span>Documentation and evaluation inconsistent</div>
+                  <div class="readiness-item"><span class="r-dot"></span>Moving in the right direction but not yet stable</div>
+                </div>
+              </div>
+              <div class="readiness-level readiness-level--high">
+                <div class="readiness-level-header">
+                  <div class="readiness-level-label">Scores 4–5</div>
+                  <div class="readiness-level-title">High Readiness</div>
+                </div>
+                <div class="readiness-bar"></div>
+                <div class="readiness-items">
+                  <div class="readiness-item"><span class="r-dot"></span>Clear problem scope with explicit out-of-scope boundaries</div>
+                  <div class="readiness-item"><span class="r-dot"></span>Maintained knowledge base with versioning and access rules</div>
+                  <div class="readiness-item"><span class="r-dot"></span>Reviewable outputs with documented quality standards</div>
+                  <div class="readiness-item"><span class="r-dot"></span>Performance monitored; improvement pathway explicit</div>
+                  <div class="readiness-item"><span class="r-dot"></span>Can explain standards to external stakeholders credibly</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-  <section class="khr-editorial-section" id="references-and-further-reading">
-    <div class="khr-section-kicker">Reading Trail</div>
-    <h2>References and further reading</h2>
-    <p>Pair this framework with AI risk-management guidance, retrieval-grounded design patterns, and case studies where AI is implemented through real workflow, not generic prompting.</p>
-    <p>The practical takeaway: AI adoption readiness is less about access to tools and more about people, knowledge, governance, and repeatable work.</p>
-  </section>
+        <p class="khr-body" style="margin-top:1.75rem;">
+          A lower score is not a failure. It is useful evidence. The framework works best when it reveals where to focus next: improving the knowledge base, assigning a review owner, documenting a standard workflow for a single narrow task. Readiness is built incrementally — not declared.
+        </p>
+      </div>
 
-      </article>
+      <!-- ─── SECTION 4: Scoring Scale ─── -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Practical Application</p>
+        <h2 class="khr-h2">How to <em>score your team</em> honestly</h2>
 
+        <p class="khr-body">
+          Rate each of the six dimensions on this four-level scale. The descriptions below help calibrate scoring against evidence rather than aspiration. Teams should be able to justify each score with a concrete recent example — either a success that illustrates the capability or a failure that illustrates the gap.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Scoring Reference</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Four-Level Assessment Scale</span>
+          </div>
+          <div class="infographic-body">
+            <div class="scoring-scale">
+              <div class="score-row">
+                <span class="score-num">1</span>
+                <div class="score-info">
+                  <div class="score-level">Largely Absent</div>
+                  <div class="score-desc">The capability is informal or missing. No explicit policy, process, or ownership exists. AI use depends entirely on individual initiative and self-regulation.</div>
+                </div>
+                <span class="score-badge">Not ready</span>
+              </div>
+              <div class="score-row">
+                <span class="score-num">2–3</span>
+                <div class="score-info">
+                  <div class="score-level">Isolated &amp; Inconsistent</div>
+                  <div class="score-desc">There are efforts and experiments, but they are not integrated or repeatable. Progress depends on a small number of motivated individuals rather than institutional habit.</div>
+                </div>
+                <span class="score-badge">Emerging</span>
+              </div>
+              <div class="score-row">
+                <span class="score-num">4</span>
+                <div class="score-info">
+                  <div class="score-level">Operational in Selected Workflows</div>
+                  <div class="score-desc">The capability is explicitly documented and practiced in at least one workflow. Others in the team can follow the same approach without custom instruction from a key individual.</div>
+                </div>
+                <span class="score-badge">Credible</span>
+              </div>
+              <div class="score-row">
+                <span class="score-num">5</span>
+                <div class="score-info">
+                  <div class="score-level">Embedded &amp; Reviewed</div>
+                  <div class="score-desc">The capability is consistently practiced, documented, reviewed, and improved over time. It would survive a key person leaving the team. External stakeholders could be shown how it works.</div>
+                </div>
+                <span class="score-badge">Strong</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── SECTION 5: Six Questions Before Proceeding ─── -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Decision Gate</p>
+        <h2 class="khr-h2">Six questions before moving <em>beyond experimentation</em></h2>
+
+        <p class="khr-body">
+          Before moving from limited experimentation to operational use of AI tools, a team should be able to answer all six questions clearly and specifically. Vague or aspirational answers indicate that readiness is not yet there — and that proceeding will likely produce the fragile pattern this framework is designed to interrupt.
+        </p>
+
+        <div class="questions-checklist">
+          <div class="questions-checklist-header">
+            <span class="q-header-icon" aria-hidden="true">◎</span>
+            <div>
+              <div class="q-header-label">Readiness Gate Checklist</div>
+              <div class="q-header-title">Tap each question to mark your readiness</div>
+            </div>
+          </div>
+          <div class="q-items">
+            <div class="q-item">
+              <span class="q-check" aria-hidden="true">?</span>
+              <span class="q-text">What problem are we solving — specifically, and for which users?</span>
+            </div>
+            <div class="q-item">
+              <span class="q-check" aria-hidden="true">?</span>
+              <span class="q-text">What source base grounds the work — and who owns it, versions it, and keeps it current?</span>
+            </div>
+            <div class="q-item">
+              <span class="q-check" aria-hidden="true">?</span>
+              <span class="q-text">Who reviews the output — at what stage, and against what quality standard?</span>
+            </div>
+            <div class="q-item">
+              <span class="q-check" aria-hidden="true">?</span>
+              <span class="q-text">What information is restricted — and does the system know this and enforce it?</span>
+            </div>
+            <div class="q-item">
+              <span class="q-check" aria-hidden="true">?</span>
+              <span class="q-text">How do we know the workflow is working — what evidence will we collect and review?</span>
+            </div>
+            <div class="q-item">
+              <span class="q-check" aria-hidden="true">?</span>
+              <span class="q-text">What will we improve next — and who is responsible for driving that improvement?</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── SECTION 6: Common Mistakes ─── -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Critical Awareness</p>
+        <h2 class="khr-h2">Mistakes that <em>undermine</em> the framework's value</h2>
+
+        <p class="khr-body">
+          The readiness framework is most useful when it generates an ordered improvement path. Its value collapses when teams use it to confirm their existing assumptions rather than challenge them. Three misuses account for most of the failure cases.
+        </p>
+
+        <div class="mistakes-row reveal d1">
+          <div class="mistake-card">
+            <span class="mistake-num" aria-hidden="true">1</span>
+            <span class="mistake-icon" aria-hidden="true">🎭</span>
+            <h3 class="mistake-title">Confusing Access with Readiness</h3>
+            <p class="mistake-desc">Having tools available is the starting point, not the measure of readiness. A team that can prompt effectively but cannot govern its outputs or maintain its knowledge base is not ready for operational use.</p>
+          </div>
+          <div class="mistake-card">
+            <span class="mistake-num" aria-hidden="true">2</span>
+            <span class="mistake-icon" aria-hidden="true">✨</span>
+            <h3 class="mistake-title">Over-Scoring on Isolated Successes</h3>
+            <p class="mistake-desc">One impressive output is not evidence of institutional readiness. Readiness is demonstrated through repeatability, not individual performance. Score from typical outputs, not best cases.</p>
+          </div>
+          <div class="mistake-card">
+            <span class="mistake-num" aria-hidden="true">3</span>
+            <span class="mistake-icon" aria-hidden="true">🕰</span>
+            <h3 class="mistake-title">Treating Readiness as Static</h3>
+            <p class="mistake-desc">Teams, tools, document bases, and policy environments change quickly. A readiness assessment should be repeated at meaningful intervals — not treated as a one-time certification that remains valid indefinitely.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── REFERENCES ─── -->
+      <div class="khr-section reveal">
+        <div class="references">
+          <span class="references-label">References &amp; Source Base</span>
+          <ol>
+            <li>Rankine Innovation Lab Knowledge Hub research brief: Framework treatment of AI risk, RAG, and quality assurance across research and programme teams.</li>
+            <li>Founder-connected GenAI evidence base: Construction and water-systems papers on grounded use cases and review-oriented adoption patterns.</li>
+            <li>NIST AI Risk Management Framework: Govern, Map, Measure, Manage — assurance spine for governance design across AI adoption stages.</li>
+          </ol>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="khr-sidebar">
+
+      <div class="side-card">
+        <div class="side-card-header">Reading Progress</div>
+        <div class="side-card-body">
+          <div class="reading-meter"><div class="reading-meter-fill" id="sidebarMeter"></div></div>
+          <div class="reading-meter-label"><span>Start</span><span id="progressPct">0%</span></div>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-card-header">Resource Details</div>
+        <div class="side-card-body">
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--teal);box-shadow:0 0 8px rgba(42,92,92,0.5)"></span>
+            <div>
+              <div class="domain-label">AI for STEM Innovation</div>
+              <div class="domain-sub">Core domain · First-wave resource</div>
+            </div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--copper);box-shadow:0 0 8px rgba(160,92,56,0.4)"></span>
+            <div>
+              <div class="domain-label">Institutional · Team Lead</div>
+              <div class="domain-sub">Research orgs · Programme teams</div>
+            </div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--sand);box-shadow:0 0 8px rgba(201,171,132,0.4)"></span>
+            <div>
+              <div class="domain-label">13 min read · 5 modules</div>
+              <div class="domain-sub">Updated 2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<<<<<<< HEAD
+      <div class="side-card">
+        <div class="side-card-header">Continue Reading</div>
+        <div class="side-card-body">
+          <a href="../explainers/rag-for-stem-decision-support.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text">
+              <span class="related-link-tag">Explainer</span>
+              RAG for STEM Decision Support
+            </span>
+          </a>
+          <a href="../playbooks/how-to-run-a-small-ai-for-stem-capability-session.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text">
+              <span class="related-link-tag">Playbook</span>
+              How to Run a Small AI-for-STEM Capability Session
+            </span>
+          </a>
+          <a href="../lab-notes/what-repeated-reading-of-genai-papers-is-revealing.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text">
+              <span class="related-link-tag">Lab Note</span>
+              What Repeated Reading of GenAI Papers Is Revealing
+            </span>
+          </a>
+          <button class="btn-side" onclick="window.location.href='../../knowledge-hub.html'">← Back to Knowledge Hub</button>
+        </div>
+=======
   <aside class="khr-sidebar" aria-label="Resource sidebar">
     <div class="khr-sidecard khr-progress-card">
       <h3>Reading Progress</h3>
@@ -243,53 +887,55 @@
       <a href="../playbooks/how-to-run-a-small-ai-for-stem-capability-session.html">How to Run a Small AI-for-STEM Capability Session</a>
       <a href="../lab-notes/what-repeated-reading-of-genai-papers-is-revealing.html">What Repeated Reading of GenAI Papers Is Revealing</a>
         <a href="../../knowledge-hub.html">← Back to Knowledge Hub</a>
+>>>>>>> 3e866ce5ebd7d682b2c492d8ce2c5e40418cf6e4
       </div>
-    </div>
-    <div class="khr-sidecard khr-engage-card">
-      <h3>Engage with Rankine</h3>
-      <p>Use this framework before launching an AI pilot, training programme, or research-support workflow.</p>
-      <a class="btn" href="../../contact.html">Discuss a Partnership →</a>
-    </div>
-  </aside>
 
-    </div>
-  </main>
+      <div class="side-card">
+        <div class="side-card-header">Engage with Rankine</div>
+        <div class="side-card-body">
+          <p>This framework connects to our AI for STEM programmes. If you are assessing your organisation's readiness to adopt AI tools responsibly, we would like to hear from you.</p>
+          <button class="btn-side" onclick="window.location.href='../../contact.html'">Discuss a Partnership →</button>
+        </div>
+      </div>
 
+    </aside>
+  </div>
+</div>
 
+<!-- ═══════════ FOOTER ═══════════ -->
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="footer-logo-icon">
+      <div>
+        <img src="../../Images/rakine_logo.svg" class="footer-logo-icon" alt="Rankine Innovation Lab logo"/>
         <div class="footer-logo-name">Rankine Innovation Lab</div>
         <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
         <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
       </div>
       <div>
-        <h3 class="footer-col-title">Navigation</h3>
+        <div class="footer-col-title">Navigation</div>
         <ul class="footer-links">
           <li><a href="../../about.html">About the Lab</a></li>
-          <li><a href="../../index.html#method">The Rankine Method</a></li>
-          <li><a href="../../index.html#focus">Focus Areas</a></li>
+          <li><a href="../../research.html">Research &amp; Project</a></li>
           <li><a href="../../programmes.html">Programmes</a></li>
           <li><a href="../../partnership.html">Partnerships</a></li>
           <li><a href="../../team.html">Team</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Domains</h3>
+        <div class="footer-col-title">Domains</div>
         <ul class="footer-links">
-          <li><a href="../../research.html#ai">AI for STEM</a></li>
-          <li><a href="../../research.html#sustainability">Sustainability</a></li>
-          <li><a href="../../research.html#smart-agriculture">Smart Agriculture</a></li>
-          <li><a href="../../research.html#cross-disciplinary">Cross-Disciplinary</a></li>
+          <li><a href="../../research.html">AI for STEM</a></li>
+          <li><a href="../../research.html">Sustainability</a></li>
+          <li><a href="../../research.html">Smart Agriculture</a></li>
+          <li><a href="../../research.html">Cross-Disciplinary</a></li>
           <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Engage</h3>
+        <div class="footer-col-title">Engage</div>
         <ul class="footer-links">
-          <li><a href="../../partnership.html">Partnerships</a></li>
+          <li><a href="../../contact.html">Partnerships</a></li>
           <li><a href="../../contact.html">Research Collaboration</a></li>
           <li><a href="../../contact.html">Training Enquiries</a></li>
           <li><a href="../../contact.html">Speaking</a></li>
@@ -298,7 +944,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Rankine Innovation Lab. All rights reserved.</p>
+      <p class="footer-copy">&copy; 2025 <em>Rankine Innovation Lab</em>. All rights reserved.</p>
       <div class="footer-legal">
         <a href="../../privacy.html">Privacy</a>
         <a href="../../terms.html">Terms</a>
@@ -308,27 +954,21 @@
   </div>
 </footer>
 
-
 <script>
-  const nav = document.getElementById('siteNav');
-  const toggle = document.getElementById('mobileToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  function setNavState(){
-    if(window.scrollY > 24){ nav.classList.remove('transparent'); nav.classList.add('solid'); }
-    else { nav.classList.add('transparent'); nav.classList.remove('solid'); }
-  }
-  setNavState();
-  window.addEventListener('scroll', setNavState, { passive: true });
-  if(toggle && mobileMenu){
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.classList.toggle('open');
-      mobileMenu.classList.toggle('open', isOpen);
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-      document.body.classList.toggle('menu-open', isOpen);
-    });
-  }
-</script>
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu   = document.getElementById('mobileMenu');
+function closeMobile() {
+  hamburgerBtn.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+  hamburgerBtn.setAttribute('aria-expanded','false');
+}
+hamburgerBtn.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburgerBtn.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+  hamburgerBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
 
 <script src="../resource-template.js"></script>
 </body>

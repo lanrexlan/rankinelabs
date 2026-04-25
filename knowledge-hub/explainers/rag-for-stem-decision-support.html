@@ -1,92 +1,503 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>RAG for STEM Decision Support — Knowledge Hub | Rankine Innovation Lab</title>
-  <meta name="description" content="Retrieval-augmented generation becomes useful in technical settings when it turns a language model into an evidence-aware assistant working over a bounded, governed knowledge base.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../resource-template.css">
-</head>
-<body class="resource-page resource-explainer">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RAG for STEM Decision Support — Knowledge Hub | Rankine Innovation Lab</title>
+<meta name="description" content="Understand retrieval-augmented generation (RAG), when it works, and how to evaluate it for technical decision workflows in engineering and research environments."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
 
-<nav class="nav transparent" id="siteNav" aria-label="Primary navigation">
-  <div class="container nav-inner">
-    <a class="nav-logo" href="../../index.html" aria-label="Rankine Innovation Lab home">
-      <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="nav-logo-icon">
-      <span class="nav-logo-text">
-        <span class="nav-logo-mark">Rankine</span>
-        <span class="nav-logo-name">Innovation Lab</span>
-      </span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="../../index.html">Home</a></li>
-      <li><a href="../../about.html">About</a></li>
-      <li class="has-dropdown">
-        <a href="../../research.html" class="dropdown-toggle" aria-haspopup="true">Work</a>
-        <ul class="dropdown-menu" aria-label="Work menu">
-          <li><a href="../../research.html">Research &amp; Project</a></li>
-          <li><a href="../../partnership.html">Partnerships</a></li>
-        </ul>
-      </li>
-      <li><a href="../../programmes.html">Programmes</a></li>
-      <li class="has-dropdown">
-        <a href="../../knowledge-hub.html" class="dropdown-toggle active-page" aria-haspopup="true">Insights</a>
-        <ul class="dropdown-menu" aria-label="Insights menu">
-          <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
-        </ul>
-      </li>
-      <li><a href="../../team.html">Team</a></li>
-      <li><a href="../../contact.html">Contact</a></li>
-    </ul>
-    <button class="hamburger" id="mobileToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span><span></span><span></span>
-    </button>
+/* ══════════════════════════════════════════════════════
+   TOKENS
+══════════════════════════════════════════════════════ */
+:root {
+  --chocolate:  #180c06;
+  --espresso:   #241208;
+  --brown:      #3a1c0e;
+  --mahogany:   #5c2d18;
+  --copper:     #a05c38;
+  --copper-lt:  #c47a52;
+  --sand:       #c9ab84;
+  --sand-lt:    #ddc9a8;
+  --cream:      #f4ede0;
+  --cream-lt:   #faf6ef;
+  --sage:       #687558;
+  --sage-lt:    #8e9e78;
+  --ai-blue:    #3d5a80;
+  --ai-blue-lt: #5b7fa6;
+  --white:      #fffcf8;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-label:   'Cinzel', serif;
+  --font-body:    'DM Sans', sans-serif;
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-circ: cubic-bezier(0.4, 0, 0.2, 1);
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--cream-lt); color: var(--espresso); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+img { display: block; max-width: 100%; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--copper); border-radius: 2px; }
+.container { width: min(1220px, 100%); margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3rem); }
+
+/* ══ PROGRESS BAR ══ */
+.progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--ai-blue), var(--copper), var(--sand)); z-index: 2000; transition: width 0.1s linear; }
+
+/* ══ NAV ══ */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(24,12,6,0.97); backdrop-filter: blur(18px); box-shadow: 0 1px 0 rgba(201,171,132,0.12); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+.nav-logo { display: inline-flex; align-items: center; gap: 0.75rem; }
+.nav-logo-icon { width: 40px; height: 40px; border-radius: 8px; }
+.nav-logo-mark { display: block; font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.25em; color: var(--copper); text-transform: uppercase; }
+.nav-logo-name { font-family: var(--font-display); font-size: 1.25rem; color: var(--cream); letter-spacing: 0.02em; }
+.nav-links { display: flex; align-items: center; gap: clamp(0.8rem,1.8vw,1.5rem); list-style: none; }
+.nav-links a { font-size: 0.76rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(244,237,224,0.7); transition: color 0.3s; }
+.nav-links a:hover { color: var(--cream); }
+.nav-links a.active-page { color: var(--sand); }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--cream); transition: all 0.3s; }
+.hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; }
+.hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 0; background: rgba(24,12,6,0.98); backdrop-filter: blur(20px); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; transform: translateY(-100%); transition: transform 0.5s var(--ease-out); }
+.mobile-menu.open { display: flex; transform: translateY(0); }
+.mobile-menu a { font-family: var(--font-display); font-size: 2rem; font-weight: 300; color: var(--cream); }
+
+/* ══ HERO ══ */
+.khr-hero {
+  min-height: 92vh;
+  background:
+    radial-gradient(ellipse 55% 50% at 88% 18%, rgba(61,90,128,0.35), transparent 55%),
+    radial-gradient(ellipse 45% 45% at 12% 80%, rgba(90,40,12,0.25), transparent 55%),
+    linear-gradient(155deg, #080c12 0%, #0e1620 35%, #130d08 75%, #0e0906 100%);
+  display: flex; align-items: center;
+  padding-top: 72px; position: relative; overflow: hidden;
+}
+.khr-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 71px, rgba(201,171,132,0.022) 71px, rgba(201,171,132,0.022) 72px);
+  pointer-events: none;
+}
+.khr-hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 256px; opacity: 0.5; pointer-events: none;
+}
+.khr-hero-inner { position: relative; z-index: 2; width: 100%; padding-block: clamp(3rem,6vw,6rem); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,5vw,6rem); align-items: center; }
+
+.breadcrumb { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,237,224,0.3); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.75rem; }
+.breadcrumb a:hover { color: var(--sand); }
+.breadcrumb strong { color: var(--copper); font-weight: 400; }
+
+.khr-type-badge { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ai-blue-lt); border: 1px solid rgba(61,90,128,0.4); background: rgba(61,90,128,0.1); padding: 0.4rem 0.9rem; border-radius: 2px; margin-bottom: 1.5rem; }
+.khr-type-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ai-blue-lt); box-shadow: 0 0 8px rgba(61,90,128,0.6); }
+
+.khr-title { font-family: var(--font-display); font-size: clamp(2.4rem, 4.5vw, 4.2rem); font-weight: 300; line-height: 1.08; letter-spacing: -0.012em; color: var(--cream-lt); margin-bottom: 1.4rem; }
+.khr-title em { font-style: italic; color: var(--sand); }
+
+.khr-dek { font-size: clamp(0.92rem,1.35vw,1.05rem); line-height: 1.82; color: rgba(244,237,224,0.55); font-weight: 300; max-width: 560px; margin-bottom: 2.2rem; }
+
+.khr-meta-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding-top: 1.5rem; border-top: 1px solid rgba(201,171,132,0.1); }
+.khr-meta-item { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(201,171,132,0.4); }
+.khr-meta-item strong { color: var(--copper); font-weight: 400; }
+
+/* ══ HERO SVG — RAG Retrieval Flow ══ */
+.hero-diagram-wrap { display: flex; align-items: center; justify-content: center; position: relative; }
+.hero-diagram { width: 100%; max-width: 480px; aspect-ratio: 1; position: relative; }
+.rag-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 40px rgba(61,90,128,0.12)); }
+
+/* Animated nodes */
+.rag-node { animation: ragNodePulse 3s ease-in-out infinite; }
+.rag-node:nth-child(2n) { animation-delay: 0.5s; }
+.rag-node:nth-child(3n) { animation-delay: 1s; }
+@keyframes ragNodePulse { 0%,100%{opacity:0.6} 50%{opacity:1} }
+
+/* Flow line dash animation */
+.rag-flow { stroke-dasharray: 8 4; animation: ragFlow 2s linear infinite; }
+.rag-flow-rev { stroke-dasharray: 8 4; animation: ragFlowRev 2s linear infinite; }
+@keyframes ragFlow { to { stroke-dashoffset: -24; } }
+@keyframes ragFlowRev { to { stroke-dashoffset: 24; } }
+
+/* Retrieval arc draws in */
+.rag-arc { stroke-dasharray: 600; stroke-dashoffset: 600; animation: ragArcDraw 2s 0.5s var(--ease-out) forwards; }
+@keyframes ragArcDraw { to { stroke-dashoffset: 0; } }
+
+/* Data packet travel */
+.data-packet { animation: packetTravel 3s ease-in-out infinite; }
+.data-packet:nth-child(2) { animation-delay: 1s; }
+.data-packet:nth-child(3) { animation-delay: 2s; }
+@keyframes packetTravel {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translate(140px, 0); opacity: 0; }
+}
+
+/* ══ LAYOUT ══ */
+.khr-layout { display: grid; grid-template-columns: 1fr 340px; gap: 3rem; padding-block: clamp(3rem,6vw,5.5rem); align-items: start; }
+
+/* ══ ARTICLE ══ */
+.khr-article { min-width: 0; }
+.khr-section { margin-bottom: clamp(3rem,5vw,4.5rem); padding-bottom: clamp(3rem,5vw,4.5rem); border-bottom: 1px solid rgba(58,28,14,0.08); }
+.khr-section:last-child { border-bottom: none; margin-bottom: 0; }
+.section-eyebrow { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ai-blue); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.75rem; }
+.section-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--ai-blue); }
+.khr-h2 { font-family: var(--font-display); font-size: clamp(1.6rem,2.8vw,2.2rem); font-weight: 400; line-height: 1.15; color: var(--espresso); letter-spacing: -0.01em; margin-bottom: 1.25rem; }
+.khr-h2 em { font-style: italic; color: var(--ai-blue); }
+.khr-body { font-size: clamp(0.95rem,1.35vw,1.03rem); line-height: 1.88; color: var(--brown); font-weight: 300; }
+.khr-body + .khr-body { margin-top: 1.1rem; }
+
+/* ══ PULL QUOTE ══ */
+.pull-quote { margin: 2.5rem 0; padding: 2rem 2rem 2rem 2.5rem; border-left: 4px solid var(--ai-blue); background: linear-gradient(135deg, rgba(61,90,128,0.05), rgba(201,171,132,0.02)); border-radius: 0 var(--radius-md) var(--radius-md) 0; position: relative; overflow: hidden; }
+.pull-quote::before { content: '"'; position: absolute; top: -1rem; left: 1rem; font-family: var(--font-display); font-size: 8rem; font-weight: 700; color: rgba(61,90,128,0.07); line-height: 1; pointer-events: none; }
+.pull-quote p { font-family: var(--font-display); font-style: italic; font-size: clamp(1.15rem,2vw,1.45rem); font-weight: 300; line-height: 1.55; color: var(--mahogany); position: relative; z-index: 1; }
+.pull-quote cite { display: block; margin-top: 0.75rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ai-blue); font-style: normal; }
+
+/* ══ INFOGRAPHIC WRAPPER ══ */
+.infographic { margin: 2.5rem 0; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid rgba(58,28,14,0.1); }
+.infographic-header { background: var(--espresso); padding: 1.25rem 1.75rem; display: flex; align-items: center; gap: 1rem; }
+.infographic-header-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ai-blue-lt); }
+.infographic-header-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 400; color: var(--cream); }
+.infographic-header-line { flex: 1; height: 1px; background: rgba(201,171,132,0.12); }
+.infographic-body { background: var(--white); padding: 2rem 1.75rem; }
+
+/* ══ INFOGRAPHIC 1: THREE GROUNDING LAYERS ══ */
+.grounding-layers { display: flex; flex-direction: column; gap: 1rem; }
+.grounding-layer { display: grid; grid-template-columns: 48px 1fr auto; gap: 1.25rem; align-items: center; padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid transparent; transition: transform 0.35s var(--ease-out), box-shadow 0.35s; }
+.grounding-layer:hover { transform: translateX(6px); box-shadow: 0 4px 20px rgba(24,12,6,0.08); }
+.grounding-layer:nth-child(1) { background: #0e1620; border-color: rgba(61,90,128,0.35); }
+.grounding-layer:nth-child(2) { background: #182030; border-color: rgba(61,90,128,0.22); }
+.grounding-layer:nth-child(3) { background: #f4ede0; border-color: rgba(58,28,14,0.12); }
+.layer-num { font-family: var(--font-display); font-size: 2rem; font-weight: 300; text-align: center; line-height: 1; }
+.grounding-layer:nth-child(1) .layer-num,
+.grounding-layer:nth-child(2) .layer-num { color: rgba(91,127,166,0.35); }
+.grounding-layer:nth-child(3) .layer-num { color: rgba(58,28,14,0.15); }
+.layer-content {}
+.layer-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 500; margin-bottom: 0.3rem; }
+.grounding-layer:nth-child(1) .layer-title,
+.grounding-layer:nth-child(2) .layer-title { color: var(--cream); }
+.grounding-layer:nth-child(3) .layer-title { color: var(--espresso); }
+.layer-desc { font-size: 0.8rem; line-height: 1.6; font-weight: 300; }
+.grounding-layer:nth-child(1) .layer-desc,
+.grounding-layer:nth-child(2) .layer-desc { color: rgba(244,237,224,0.45); }
+.grounding-layer:nth-child(3) .layer-desc { color: var(--brown); }
+.layer-badge { font-family: var(--font-label); font-size: 0.52rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 0.3rem 0.65rem; border-radius: 2px; flex-shrink: 0; }
+.grounding-layer:nth-child(1) .layer-badge { background: rgba(61,90,128,0.2); color: var(--ai-blue-lt); border: 1px solid rgba(61,90,128,0.35); }
+.grounding-layer:nth-child(2) .layer-badge { background: rgba(91,127,166,0.15); color: var(--ai-blue-lt); border: 1px solid rgba(91,127,166,0.25); }
+.grounding-layer:nth-child(3) .layer-badge { background: rgba(104,117,88,0.08); color: var(--sage); border: 1px solid rgba(104,117,88,0.2); }
+
+/* ══ INFOGRAPHIC 2: RAG WORKFLOW STEPS ══ */
+.workflow-steps { display: grid; grid-template-columns: repeat(5,1fr); gap: 0; position: relative; }
+.workflow-steps::before { content: ''; position: absolute; top: 44px; left: 10%; right: 10%; height: 2px; background: linear-gradient(90deg, var(--ai-blue), var(--copper)); opacity: 0.3; }
+.workflow-step { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; padding: 1rem 0.5rem; cursor: default; transition: transform 0.35s; }
+.workflow-step:hover { transform: translateY(-4px); }
+.step-circle { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1.4rem; font-weight: 300; position: relative; z-index: 1; flex-shrink: 0; }
+.workflow-step:nth-child(1) .step-circle { background: rgba(61,90,128,0.15); border: 1.5px solid rgba(61,90,128,0.4); color: var(--ai-blue-lt); }
+.workflow-step:nth-child(2) .step-circle { background: rgba(61,90,128,0.2); border: 1.5px solid rgba(61,90,128,0.5); color: var(--ai-blue-lt); }
+.workflow-step:nth-child(3) .step-circle { background: rgba(61,90,128,0.28); border: 1.5px solid rgba(91,127,166,0.5); color: var(--ai-blue-lt); }
+.workflow-step:nth-child(4) .step-circle { background: rgba(160,92,56,0.15); border: 1.5px solid rgba(160,92,56,0.35); color: var(--copper-lt); }
+.workflow-step:nth-child(5) .step-circle { background: rgba(104,117,88,0.15); border: 1.5px solid rgba(104,117,88,0.35); color: var(--sage-lt); }
+.step-label { font-family: var(--font-label); font-size: 0.54rem; letter-spacing: 0.18em; text-transform: uppercase; text-align: center; line-height: 1.4; }
+.workflow-step:nth-child(1) .step-label,
+.workflow-step:nth-child(2) .step-label,
+.workflow-step:nth-child(3) .step-label { color: rgba(61,90,128,0.7); }
+.workflow-step:nth-child(4) .step-label { color: rgba(160,92,56,0.7); }
+.workflow-step:nth-child(5) .step-label { color: rgba(104,117,88,0.7); }
+.step-desc { font-size: 0.72rem; line-height: 1.55; color: var(--brown); text-align: center; font-weight: 300; }
+
+/* ══ INFOGRAPHIC 3: SUITABILITY CARDS ══ */
+.suitability-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.suitability-card { padding: 1.5rem; border-radius: var(--radius-md); }
+.suitability-card--fit { background: rgba(104,117,88,0.07); border: 1px solid rgba(104,117,88,0.2); }
+.suitability-card--poor { background: rgba(92,45,24,0.05); border: 1px solid rgba(92,45,24,0.15); }
+.suitability-card-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+.suitability-icon { font-size: 1.3rem; }
+.suitability-label { font-family: var(--font-label); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; }
+.suitability-card--fit .suitability-label { color: var(--sage); }
+.suitability-card--poor .suitability-label { color: var(--mahogany); }
+.suitability-items { display: flex; flex-direction: column; gap: 0.6rem; }
+.suitability-item { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.83rem; line-height: 1.55; color: var(--espresso); font-weight: 400; }
+.suit-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 0.4em; }
+.suitability-card--fit .suit-dot { background: var(--sage); }
+.suitability-card--poor .suit-dot { background: var(--mahogany); }
+
+/* ══ INFOGRAPHIC 4: GOVERNANCE CHECKLIST ══ */
+.gov-checklist { background: var(--espresso); border-radius: var(--radius-lg); padding: 2rem; position: relative; overflow: hidden; }
+.gov-checklist::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(201,171,132,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,171,132,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+.gov-checklist-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; position: relative; z-index: 1; }
+.gov-checklist-icon { font-size: 1.4rem; color: var(--ai-blue-lt); }
+.gov-checklist-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ai-blue-lt); }
+.gov-checklist-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 300; color: var(--cream); line-height: 1.25; }
+.gov-items { display: flex; flex-direction: column; gap: 0.75rem; position: relative; z-index: 1; }
+.gov-item { display: flex; align-items: flex-start; gap: 1rem; padding: 0.9rem 1rem; background: rgba(255,252,248,0.035); border: 1px solid rgba(201,171,132,0.08); border-radius: var(--radius-sm); cursor: pointer; transition: background 0.35s, border-color 0.35s; }
+.gov-item:hover { background: rgba(255,252,248,0.07); border-color: rgba(61,90,128,0.25); }
+.gov-check { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(61,90,128,0.35); background: rgba(61,90,128,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.65rem; color: var(--ai-blue-lt); transition: background 0.35s, border-color 0.35s; }
+.gov-item:hover .gov-check { background: rgba(61,90,128,0.2); border-color: var(--ai-blue-lt); }
+.gov-question { font-family: var(--font-display); font-size: 0.95rem; font-weight: 400; color: rgba(244,237,224,0.7); line-height: 1.45; flex: 1; font-style: italic; }
+
+/* ══ INFOGRAPHIC 5: FAILURE MODES ══ */
+.failure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.failure-card { padding: 1.25rem; background: var(--cream-lt); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); cursor: default; transition: transform 0.35s var(--ease-out), box-shadow 0.35s, border-color 0.35s; }
+.failure-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(24,12,6,0.1); border-color: rgba(160,92,56,0.25); }
+.failure-icon { font-size: 1.5rem; margin-bottom: 0.75rem; display: block; }
+.failure-title { font-family: var(--font-display); font-size: 1rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.4rem; }
+.failure-desc { font-size: 0.8rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+
+/* ══ REFERENCES ══ */
+.references { background: var(--cream); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); padding: 1.5rem 1.75rem; }
+.references-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1rem; display: block; }
+.references ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.references li { font-size: 0.82rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+
+/* ══ SIDEBAR ══ */
+.khr-sidebar { position: sticky; top: calc(72px + 2rem); display: flex; flex-direction: column; gap: 1.25rem; }
+.side-card { background: var(--white); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); overflow: hidden; }
+.side-card-header { background: var(--espresso); padding: 0.9rem 1.25rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ai-blue-lt); }
+.side-card-body { padding: 1.25rem; }
+.side-card-body p { font-size: 0.84rem; line-height: 1.72; color: var(--brown); font-weight: 300; }
+.domain-badge { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1rem; background: var(--cream-lt); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-sm); margin-bottom: 0.75rem; }
+.domain-badge:last-child { margin-bottom: 0; }
+.domain-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.domain-label { font-size: 0.8rem; color: var(--espresso); font-weight: 400; }
+.domain-sub { font-size: 0.72rem; color: var(--mahogany); font-weight: 300; }
+.related-link { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.85rem 0; border-bottom: 1px solid rgba(58,28,14,0.07); transition: transform 0.3s; text-decoration: none; }
+.related-link:last-child { border-bottom: none; padding-bottom: 0; }
+.related-link:hover { transform: translateX(4px); }
+.related-link-arrow { color: var(--copper); flex-shrink: 0; font-size: 0.7rem; margin-top: 0.15em; transition: transform 0.3s; }
+.related-link:hover .related-link-arrow { transform: translateX(3px); }
+.related-link-text { font-size: 0.83rem; line-height: 1.5; color: var(--espresso); font-weight: 400; }
+.related-link-tag { display: block; font-family: var(--font-label); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--copper); margin-bottom: 0.2rem; }
+.reading-meter { height: 4px; background: rgba(58,28,14,0.08); border-radius: 2px; overflow: hidden; margin: 0.75rem 0 0.4rem; }
+.reading-meter-fill { height: 100%; background: linear-gradient(90deg, var(--ai-blue), var(--copper), var(--sand)); width: 0%; transition: width 0.2s linear; border-radius: 2px; }
+.reading-meter-label { font-family: var(--font-label); font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(58,28,14,0.35); display: flex; justify-content: space-between; }
+.btn-side { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.85rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; background: var(--espresso); color: var(--cream); border: none; border-radius: var(--radius-sm); cursor: pointer; margin-top: 0.75rem; transition: background 0.3s; }
+.btn-side:hover { background: var(--brown); }
+
+/* ══ REVEAL ══ */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: none; }
+.d1{ transition-delay: 0.1s; } .d2{ transition-delay: 0.2s; } .d3{ transition-delay: 0.3s; }
+
+/* ══ FOOTER ══ */
+.footer { background: var(--chocolate); padding: 4rem 0 2.5rem; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-logo-icon { width: 38px; margin-bottom: 0.75rem; }
+.footer-logo-name { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; color: var(--cream); }
+.footer-logo-sub  { font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.22em; color: var(--copper); text-transform: uppercase; margin: 0.3rem 0 1rem; }
+.footer-tagline   { font-size: 0.83rem; line-height: 1.7; color: rgba(244,237,224,0.35); font-weight: 300; max-width: 240px; }
+.footer-col-title { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1.1rem; }
+.footer-links     { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.footer-links a   { font-size: 0.82rem; color: rgba(244,237,224,0.35); transition: color 0.3s; }
+.footer-links a:hover { color: var(--sand); }
+.footer-bottom    { border-top: 1px solid rgba(201,171,132,0.1); padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-copy      { font-size: 0.76rem; color: rgba(244,237,224,0.2); }
+.footer-copy em   { color: var(--copper); font-style: normal; }
+.footer-legal     { display: flex; gap: 1.5rem; }
+.footer-legal a   { font-size: 0.73rem; color: rgba(244,237,224,0.2); transition: color 0.3s; }
+.footer-legal a:hover { color: var(--sand); }
+
+/* ══ RESPONSIVE ══ */
+@media (max-width: 1024px) {
+  .khr-hero-inner { grid-template-columns: 1fr; }
+  .hero-diagram-wrap { display: none; }
+  .khr-layout { grid-template-columns: 1fr; }
+  .khr-sidebar { position: static; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .workflow-steps { grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .workflow-steps::before { display: none; }
+  .suitability-grid { grid-template-columns: 1fr; }
+  .failure-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="nav" id="mainNav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">
+        <img src="../../Images/rakine_logo.svg" class="nav-logo-icon" alt="Rankine Innovation Lab logo"/>
+        <div>
+          <span class="nav-logo-mark">Rankine</span>
+          <span class="nav-logo-name">Innovation Lab</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../../research.html">Research &amp; Project</a></li>
+        <li><a href="../../programmes.html">Programmes</a></li>
+        <li><a href="../../knowledge-hub.html" class="active-page">Knowledge Hub</a></li>
+        <li><a href="../../team.html">Team</a></li>
+        <li><a href="../../contact.html">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
-<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-  <a href="../../index.html">Home</a>
-  <a href="../../about.html">About</a>
-  <details class="mobile-group">
-    <summary>Work</summary>
-    <div class="mobile-group-links">
-      <a href="../../research.html">Research &amp; Project</a>
-      <a href="../../partnership.html">Partnerships</a>
-    </div>
-  </details>
-  <a href="../../programmes.html">Programmes</a>
-  <details class="mobile-group">
-    <summary>Insights</summary>
-    <div class="mobile-group-links">
-      <a href="../../knowledge-hub.html">Knowledge Hub</a>
-    </div>
-  </details>
-  <a href="../../team.html">Team</a>
-  <a href="../../contact.html">Contact</a>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../../index.html"         onclick="closeMobile()">Home</a>
+  <a href="../../about.html"         onclick="closeMobile()">About</a>
+  <a href="../../research.html"      onclick="closeMobile()">Research &amp; Project</a>
+  <a href="../../programmes.html"    onclick="closeMobile()">Programmes</a>
+  <a href="../../knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
+  <a href="../../team.html"          onclick="closeMobile()">Team</a>
+  <a href="../../contact.html"       onclick="closeMobile()">Contact</a>
 </div>
 
-<header class="khr-hero">
-    <div class="container">
-      <div class="breadcrumb"><a href="../../index.html">Home</a><span>—</span><a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span><strong>Explainer</strong></div>
-      <div class="khr-type">Explainer · AI for STEM Innovation</div>
-      <h1 class="khr-title">RAG for STEM Decision Support</h1>
-      <p class="khr-dek">Retrieval-augmented generation becomes useful in technical settings when it turns a language model into an evidence-aware assistant working over a bounded, governed knowledge base.</p>
-      <div class="khr-meta">
-        <span><strong>Domain</strong> AI for STEM Innovation</span>
-        <span><strong>Reading time</strong> 8 min read</span>
-        <span><strong>Level</strong> Practitioner</span>
+<!-- ═══════════ HERO ═══════════ -->
+<section class="khr-hero">
+  <div class="container">
+    <div class="khr-hero-inner">
+
+      <div>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="../../index.html">Home</a><span>—</span>
+          <a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span>
+          <strong>Explainer</strong>
+        </nav>
+
+        <div class="khr-type-badge">
+          <span class="khr-type-badge-dot" aria-hidden="true"></span>
+          Explainer · AI for STEM Innovation
+        </div>
+
+        <h1 class="khr-title">
+          RAG for STEM<br><em>Decision Support</em>
+        </h1>
+
+        <p class="khr-dek">
+          Large language models are persuasive pattern generators, but they are poor substitutes for current, authoritative, domain-specific knowledge. In technical environments, that gap creates three problems at once: hallucinated facts, weak traceability, and stale responses. Retrieval-augmented generation is the practical pattern for reducing those weaknesses.
+        </p>
+
+        <div class="khr-meta-row">
+          <div class="khr-meta-item"><strong>Domain</strong> AI for STEM Innovation</div>
+          <div class="khr-meta-item"><strong>Reading time</strong> 8 min read</div>
+          <div class="khr-meta-item"><strong>Level</strong> Technical Practitioner</div>
+        </div>
       </div>
 
+<<<<<<< HEAD
+      <!-- Hero SVG: RAG Retrieval Flow Diagram -->
+      <div class="hero-diagram-wrap" aria-hidden="true">
+        <div class="hero-diagram">
+          <svg class="rag-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Background orbit rings -->
+            <circle cx="200" cy="200" r="175" stroke="rgba(61,90,128,0.06)" stroke-width="1"/>
+            <circle cx="200" cy="200" r="140" stroke="rgba(61,90,128,0.06)" stroke-width="1"/>
+
+            <!-- CORPUS STORE — left cluster -->
+            <g class="rag-node" style="animation-delay:0s">
+              <rect x="22" y="80" width="72" height="52" rx="6" fill="rgba(61,90,128,0.12)" stroke="rgba(61,90,128,0.4)" stroke-width="1.2"/>
+              <line x1="32" y1="98" x2="84" y2="98" stroke="rgba(91,127,166,0.5)" stroke-width="1"/>
+              <line x1="32" y1="108" x2="76" y2="108" stroke="rgba(91,127,166,0.4)" stroke-width="1"/>
+              <line x1="32" y1="118" x2="80" y2="118" stroke="rgba(91,127,166,0.35)" stroke-width="1"/>
+              <text x="58" y="148" font-family="Cinzel,serif" font-size="7" letter-spacing="1" fill="rgba(91,127,166,0.6)" text-anchor="middle">CORPUS</text>
+            </g>
+            <g class="rag-node" style="animation-delay:0.3s">
+              <rect x="30" y="150" width="64" height="46" rx="6" fill="rgba(61,90,128,0.09)" stroke="rgba(61,90,128,0.3)" stroke-width="1"/>
+              <line x1="38" y1="165" x2="86" y2="165" stroke="rgba(91,127,166,0.4)" stroke-width="1"/>
+              <line x1="38" y1="175" x2="80" y2="175" stroke="rgba(91,127,166,0.3)" stroke-width="1"/>
+              <line x1="38" y1="185" x2="84" y2="185" stroke="rgba(91,127,166,0.25)" stroke-width="1"/>
+            </g>
+            <g class="rag-node" style="animation-delay:0.6s">
+              <rect x="22" y="210" width="72" height="46" rx="6" fill="rgba(61,90,128,0.07)" stroke="rgba(61,90,128,0.25)" stroke-width="1"/>
+              <line x1="32" y1="225" x2="84" y2="225" stroke="rgba(91,127,166,0.3)" stroke-width="1"/>
+              <line x1="32" y1="235" x2="72" y2="235" stroke="rgba(91,127,166,0.25)" stroke-width="1"/>
+              <line x1="32" y1="245" x2="80" y2="245" stroke="rgba(91,127,166,0.2)" stroke-width="1"/>
+            </g>
+
+            <!-- RETRIEVER LAYER — centre-left circle -->
+            <circle cx="165" cy="200" r="38" fill="rgba(61,90,128,0.15)" stroke="rgba(91,127,166,0.45)" stroke-width="1.5"/>
+            <circle cx="165" cy="200" r="28" fill="rgba(61,90,128,0.1)" stroke="rgba(91,127,166,0.25)" stroke-width="1" stroke-dasharray="4 3"/>
+            <text x="165" y="196" font-family="Cinzel,serif" font-size="7" letter-spacing="0.5" fill="rgba(91,127,166,0.7)" text-anchor="middle">RETRIEVAL</text>
+            <text x="165" y="208" font-family="Cinzel,serif" font-size="7" letter-spacing="0.5" fill="rgba(91,127,166,0.7)" text-anchor="middle">ENGINE</text>
+
+            <!-- FLOW LINES: corpus → retriever -->
+            <path class="rag-flow" d="M 96 106 Q 130 106 128 170" stroke="rgba(61,90,128,0.35)" stroke-width="1.5" fill="none"/>
+            <path class="rag-flow" d="M 96 173 L 128 190" stroke="rgba(61,90,128,0.3)" stroke-width="1.5" fill="none"/>
+            <path class="rag-flow" d="M 96 233 Q 130 233 128 218" stroke="rgba(61,90,128,0.25)" stroke-width="1.5" fill="none"/>
+
+            <!-- GENERATION MODEL — centre circle -->
+            <circle cx="254" cy="200" r="42" fill="rgba(160,92,56,0.12)" stroke="rgba(160,92,56,0.4)" stroke-width="1.5"/>
+            <circle cx="254" cy="200" r="30" fill="rgba(160,92,56,0.07)" stroke="rgba(160,92,56,0.2)" stroke-width="1" stroke-dasharray="3 4"/>
+            <text x="254" y="196" font-family="Cinzel,serif" font-size="7" letter-spacing="0.5" fill="rgba(196,122,82,0.75)" text-anchor="middle">LANGUAGE</text>
+            <text x="254" y="208" font-family="Cinzel,serif" font-size="7" letter-spacing="0.5" fill="rgba(196,122,82,0.75)" text-anchor="middle">MODEL</text>
+
+            <!-- FLOW LINE: retriever → model -->
+            <path d="M 203 200 L 212 200" stroke="rgba(160,92,56,0.5)" stroke-width="2" fill="none"/>
+            <polygon points="212,195 222,200 212,205" fill="rgba(160,92,56,0.5)"/>
+            <text x="207" y="190" font-family="Cinzel,serif" font-size="6.5" fill="rgba(201,171,132,0.4)" text-anchor="middle">context</text>
+
+            <!-- HUMAN REVIEW — right -->
+            <g class="rag-node" style="animation-delay:0.9s">
+              <rect x="312" y="168" width="72" height="64" rx="8" fill="rgba(104,117,88,0.12)" stroke="rgba(104,117,88,0.4)" stroke-width="1.2"/>
+              <!-- Person icon -->
+              <circle cx="348" cy="184" r="7" fill="rgba(104,117,88,0.3)" stroke="rgba(142,158,120,0.6)" stroke-width="1"/>
+              <path d="M 334 210 Q 348 202 362 210" stroke="rgba(142,158,120,0.5)" stroke-width="1.2" fill="none"/>
+              <text x="348" y="228" font-family="Cinzel,serif" font-size="7" letter-spacing="0.5" fill="rgba(142,158,120,0.65)" text-anchor="middle">REVIEW</text>
+            </g>
+
+            <!-- FLOW LINE: model → review -->
+            <path d="M 296 200 L 308 200" stroke="rgba(104,117,88,0.4)" stroke-width="2" fill="none"/>
+            <polygon points="308,195 318,200 308,205" fill="rgba(104,117,88,0.4)"/>
+
+            <!-- OUTPUT GROUNDED ANSWER — bottom -->
+            <rect x="130" y="300" width="140" height="46" rx="8" fill="rgba(201,171,132,0.06)" stroke="rgba(201,171,132,0.25)" stroke-width="1.2"/>
+            <line x1="148" y1="315" x2="258" y2="315" stroke="rgba(201,171,132,0.3)" stroke-width="1"/>
+            <line x1="148" y1="325" x2="240" y2="325" stroke="rgba(201,171,132,0.25)" stroke-width="1"/>
+            <text x="200" y="340" font-family="Cinzel,serif" font-size="7" letter-spacing="1" fill="rgba(201,171,132,0.5)" text-anchor="middle">GROUNDED ANSWER</text>
+
+            <!-- FLOW: model → answer -->
+            <path class="rag-flow-rev" d="M 240 242 L 210 298" stroke="rgba(201,171,132,0.3)" stroke-width="1.5" fill="none"/>
+
+            <!-- QUERY input — top -->
+            <rect x="148" y="54" width="104" height="40" rx="6" fill="rgba(61,90,128,0.1)" stroke="rgba(61,90,128,0.35)" stroke-width="1"/>
+            <text x="200" y="75" font-family="Cinzel,serif" font-size="8" letter-spacing="1.5" fill="rgba(91,127,166,0.7)" text-anchor="middle">QUERY</text>
+
+            <!-- FLOW: query → retriever -->
+            <path d="M 200 94 L 200 110 L 165 160" stroke="rgba(61,90,128,0.3)" stroke-width="1.5" fill="none" stroke-dasharray="5 3"/>
+
+            <!-- Arc label annotations -->
+            <text x="108" y="50" font-family="Cinzel,serif" font-size="7" fill="rgba(91,127,166,0.4)" text-anchor="middle">Knowledge</text>
+            <text x="108" y="60" font-family="Cinzel,serif" font-size="7" fill="rgba(91,127,166,0.4)" text-anchor="middle">Base</text>
+          </svg>
+=======
     <div class="khr-feature">
       <div class="khr-feature-head">
         <div>
           <div class="khr-feature-kicker">System Diagram</div>
           <div class="khr-feature-title">Retrieval-to-Answer Flow</div>
+>>>>>>> 3e866ce5ebd7d682b2c492d8ce2c5e40418cf6e4
         </div>
-        <p class="khr-feature-sub">Bounded corpus → retrieval layer → grounded response → human decision review.</p>
       </div>
+<<<<<<< HEAD
+=======
       <figure class="khr-diagram khr-hero-visual" role="group" aria-label="Retrieval-to-Answer Flow">
         <img class="khr-feature-image" src="../../Images/knowledge/rag-evidence-loop.svg" alt="Retrieval-to-Answer Flow visual showing curated corpus, retriever, grounding window stages" width="1600" height="600">
       </figure>
@@ -98,116 +509,306 @@
       <span>Review</span>
       </div>
     </div>
+>>>>>>> 3e866ce5ebd7d682b2c492d8ce2c5e40418cf6e4
 
     </div>
-  </header>
+  </div>
+</section>
 
-  <main class="khr-main">
-    <div class="container khr-grid">
-      <article class="khr-article">
+<!-- ═══════════ CONTENT ═══════════ -->
+<div class="container">
+  <div class="khr-layout">
+    <article class="khr-article" id="articleBody">
 
-  <section class="khr-editorial-section" id="what-problem-this-actually-solves">
-    <div class="khr-section-kicker">Core Problem</div>
-    <h2>What problem this actually solves</h2>
-    <p>Large language models are fluent, persuasive pattern generators, but they are weak substitutes for current, authoritative, domain-specific knowledge. In STEM and technical environments, that weakness shows up as hallucinated facts, stale answers, and outputs that cannot be traced to a trusted source.</p>
-    <p>RAG addresses that gap by pairing generation with retrieval from a defined corpus: contracts, SOPs, laboratory notes, policy documents, standards, or curated teaching materials. The point is not to make the model sound smarter. The point is to make the answer more grounded, reviewable, and useful for a person who remains accountable for the decision.</p>
-  </section>
+      <!-- ─── SECTION 1: The Problem ─── -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">The Core Problem</p>
+        <h2 class="khr-h2">Why LLMs alone are <em>not enough</em> in technical work</h2>
 
-  <blockquote class="khr-pullquote">In technical workflows, trust comes from answer quality and evidence lineage, not conversational fluency alone.</blockquote>
+        <div class="pull-quote">
+          <p>In technical environments, the gap between fluent language generation and source-grounded decision support creates three concurrent failures: hallucinated facts, weak traceability, and stale responses.</p>
+          <cite>— Rankine Innovation Lab · Knowledge Hub</cite>
+        </div>
 
-  <section class="khr-infographic" aria-label="Knowledge Grounding Layers">
-    <div class="khr-infographic-head">
-      <h3>Knowledge Grounding Layers</h3>
-      <span>Why responses become more decision-ready</span>
-    </div>
-    <div class="khr-infographic-grid">
-      <div class="khr-infographic-cell"><strong>Corpus quality</strong><p>Define the allowed documents, remove stale material, and keep versioning explicit.</p></div>
-      <div class="khr-infographic-cell"><strong>Retrieval quality</strong><p>Surface the right passages before judging answer style or tone.</p></div>
-      <div class="khr-infographic-cell"><strong>Answer fidelity</strong><p>Require outputs to stay faithful to retrieved evidence and name uncertainty.</p></div>
-      <div class="khr-infographic-cell"><strong>Review loop</strong><p>Give humans a clear route back to the evidence used in the answer.</p></div>
-      <div class="khr-infographic-cell"><strong>Access control</strong><p>Ensure people only retrieve material they are authorised to use.</p></div>
-      <div class="khr-infographic-cell"><strong>Update discipline</strong><p>Treat the knowledge base as maintained infrastructure, not a one-time upload.</p></div>
-    </div>
-  </section>
-
-
-  <section class="khr-editorial-section" id="what-rag-actually-is">
-    <div class="khr-section-kicker">Conceptual Foundation</div>
-    <h2>What RAG actually is</h2>
-    <p>RAG combines two forms of knowledge. The model contributes general language ability from its parametric knowledge. The system contributes retrieved knowledge from a selected source base at the moment of use. A user asks a question, relevant passages are retrieved, and the model drafts an answer constrained by those passages.</p>
-    <p>That architecture changes the operating question. Instead of asking “what can the model guess?”, a technical team can ask “what can the model say when supplied with the right evidence?” The distinction is crucial for documents, methods, standards, and institutional knowledge that must remain current.</p>
-  </section>
-
-
-  <section class="khr-flow" aria-label="A Practical RAG Workflow">
-    <div class="khr-flow-head"><h3>A Practical RAG Workflow</h3><p>A system is only as strong as the weakest block in the retrieval-to-answer chain.</p></div>
-    <div class="khr-flow-grid">
-    <div class="khr-flow-step"><span>01</span><strong>Define boundaries</strong><p>Name which documents are in scope, which are excluded, and who owns updates.</p></div>
-    <div class="khr-flow-step"><span>02</span><strong>Prepare the corpus</strong><p>Clean, chunk, tag, and index material so retrieval can preserve meaning.</p></div>
-    <div class="khr-flow-step"><span>03</span><strong>Retrieve evidence</strong><p>Use search and ranking methods that return relevant passages before generation begins.</p></div>
-    <div class="khr-flow-step"><span>04</span><strong>Draft with grounding</strong><p>Generate an answer that cites, paraphrases, or clearly reflects retrieved evidence.</p></div>
-    <div class="khr-flow-step"><span>05</span><strong>Review and improve</strong><p>Test retrieval accuracy, faithfulness, unsafe-answer behavior, and user usefulness.</p></div>
-    </div>
-  </section>
-
-
-  <section class="khr-split-panel">
-    <div class="khr-split-panel-head">Task Suitability Framework</div>
-    <div class="khr-split-grid">
-      <div>
-        <h3>Good fit</h3>
-        <ul>
-        <li>SOP interpretation and policy support over approved documents.</li>
-        <li>Technical briefing workflows where every claim needs an evidence trail.</li>
-        <li>Standards clarification, document comparison, and internal knowledge support.</li>
-        </ul>
+        <p class="khr-body">
+          Large language models generate language by predicting what text plausibly follows a given input — drawing on patterns absorbed during training. That process produces fluent, confident prose. But fluency is not accuracy, and confidence is not traceability. In engineering, science, operations, and policy-heavy environments, users need answers grounded in specific documents, methods, standards, and institutional records — not pattern-completion from a model that may not have encountered those documents, or that encountered them months or years before the current policy landscape.
+        </p>
+        <p class="khr-body">
+          Retrieval-augmented generation (RAG) addresses this directly. Instead of asking a model to generate from memory alone, RAG supplies relevant retrieved passages from a trusted knowledge base at the moment the query arrives. The model then generates an answer grounded in that retrieved context. The result is a system that combines linguistic fluency with document-level specificity — a combination that matters enormously in technical decision workflows.
+        </p>
       </div>
-      <div>
-        <h3>Poor fit</h3>
-        <ul>
-        <li>Tasks requiring novel expert judgment without human review.</li>
-        <li>Workflows where the source corpus is outdated, fragmented, or politically contested.</li>
-        <li>High-accountability decisions where the system is expected to act autonomously.</li>
-        </ul>
+
+      <!-- ─── SECTION 2: What RAG Is ─── -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Conceptual Foundations</p>
+        <h2 class="khr-h2">The three <em>grounding layers</em> that change reliability</h2>
+
+        <p class="khr-body">
+          A useful way to understand RAG is through its three quality layers. Each layer addresses a distinct failure mode of ungrounded generation. Institutions that treat these as a stack — rather than as separate concerns — build the most durable decision-support infrastructure.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Core Architecture</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Knowledge Grounding Layers</span>
+          </div>
+          <div class="infographic-body">
+            <div class="grounding-layers">
+              <div class="grounding-layer">
+                <span class="layer-num">1</span>
+                <div class="layer-content">
+                  <div class="layer-title">Corpus Quality</div>
+                  <div class="layer-desc">Define allowed documents and keep versioning explicit. The system is only as trustworthy as its knowledge base. Fragmented, stale, or poorly governed source material produces fragmented, stale output regardless of model sophistication.</div>
+                </div>
+                <span class="layer-badge">Foundation</span>
+              </div>
+              <div class="grounding-layer">
+                <span class="layer-num">2</span>
+                <div class="layer-content">
+                  <div class="layer-title">Retrieval Quality</div>
+                  <div class="layer-desc">Surface the right passages before evaluating generation style. Retrieval precision and recall — whether the system fetches the relevant chunks and avoids the irrelevant ones — determines whether the rest of the pipeline has a chance to succeed.</div>
+                </div>
+                <span class="layer-badge">Critical Gate</span>
+              </div>
+              <div class="grounding-layer">
+                <span class="layer-num">3</span>
+                <div class="layer-content">
+                  <div class="layer-title">Answer Quality</div>
+                  <div class="layer-desc">Keep outputs faithful to evidence and clear about uncertainty. A retrieved passage that is accurate can still be misused if the generation layer overstates certainty, loses the source nuance, or conflates separate passages.</div>
+                </div>
+                <span class="layer-badge">Decision-Ready</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
 
+      <!-- ─── SECTION 3: Core Workflow ─── -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">System Architecture</p>
+        <h2 class="khr-h2">The five-stage <em>RAG workflow</em></h2>
 
-  <section class="khr-editorial-section" id="where-rag-still-fails">
-    <div class="khr-section-kicker">Failure Modes</div>
-    <h2>Where RAG still fails</h2>
-    <p>RAG reduces important failure modes, but it does not eliminate them. Poor chunking can fracture meaning. Weak search can retrieve the wrong passages. Confidential material can leak if permissions are poorly designed. Prompt injection inside source documents can distort behaviour. A confident answer can still overstate what the evidence supports.</p>
-    <p>That is why RAG should be treated as decision-support infrastructure, not a credibility sticker. Its value depends on testing, governance, and refusal behaviour when evidence is insufficient.</p>
-  </section>
+        <p class="khr-body">
+          A practical RAG workflow is not simply a matter of connecting a language model to a document store. Each stage has failure modes that must be designed against. Weakness at any stage propagates forward.
+        </p>
 
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Implementation Blueprint</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">End-to-End RAG Workflow</span>
+          </div>
+          <div class="infographic-body">
+            <p style="font-size:0.82rem;color:var(--brown);font-weight:300;margin-bottom:1.5rem;line-height:1.65;">Each stage must be explicitly designed, tested, and governed. A strong prompt cannot rescue consistently weak retrieval.</p>
+            <div class="workflow-steps">
+              <div class="workflow-step">
+                <div class="step-circle">📂</div>
+                <div class="step-label">Define Document<br>Boundaries</div>
+                <div class="step-desc">Curate approved sources. Establish version control and access rules.</div>
+              </div>
+              <div class="workflow-step">
+                <div class="step-circle">⚙</div>
+                <div class="step-label">Prepare &amp;<br>Index Corpus</div>
+                <div class="step-desc">Chunk documents meaningfully. Index for semantic search quality.</div>
+              </div>
+              <div class="workflow-step">
+                <div class="step-circle">⌕</div>
+                <div class="step-label">Retrieve<br>Passages</div>
+                <div class="step-desc">Select most relevant chunks for the incoming query. Precision matters here above all.</div>
+              </div>
+              <div class="workflow-step">
+                <div class="step-circle">✦</div>
+                <div class="step-label">Generate<br>Response</div>
+                <div class="step-desc">Produce an evidence-linked answer using the retrieved context window.</div>
+              </div>
+              <div class="workflow-step">
+                <div class="step-circle">◎</div>
+                <div class="step-label">Review &amp;<br>Govern</div>
+                <div class="step-desc">Evaluate faithfulness, scope compliance, and safety before deployment use.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <section class="khr-checklist-panel">
-    <div class="khr-checklist-symbol">◎</div>
-    <div>
-      <h3>Deployment Readiness Questions</h3>
-    <p>Before deployment, a team should answer these questions in plain operational language.</p>
-      <ul>
-      <li>What is the approved corpus, and how is it versioned?</li>
-      <li>Who has access to which sources?</li>
-      <li>Which decision tasks are in scope, and which are explicitly out of scope?</li>
-      <li>How are retrieval precision, recall, and answer faithfulness tested?</li>
-      <li>What should the assistant do when evidence is missing or contradictory?</li>
-      <li>How will logs, updates, and human review be managed over time?</li>
-      </ul>
-    </div>
-  </section>
+      <!-- ─── SECTION 4: Task Suitability ─── -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Practical Application</p>
+        <h2 class="khr-h2">Where RAG works — and where it <em>does not</em></h2>
 
+        <p class="khr-body">
+          RAG is not the right answer for every technical task. Its power lies in specific conditions: a finite, curated knowledge base where answers must trace back to documents. When those conditions are not present, RAG adds complexity without adding quality.
+        </p>
+        <p class="khr-body">
+          The most common misuse is deploying a RAG system before the knowledge base is stable and governed. The second most common is using it for tasks that actually require novel calculation, specialist judgment, or authoritative decision-making — tasks where human expertise must remain primary and retrieval assistance is peripheral at best.
+        </p>
 
-  <section class="khr-editorial-section" id="references-and-further-reading">
-    <div class="khr-section-kicker">Reading Trail</div>
-    <h2>References and further reading</h2>
-    <p>Start with the original retrieval-augmented generation literature for knowledge-intensive NLP, then pair it with AI risk-management guidance, retrieval evaluation methods, and domain-specific studies where document-grounded support is tested in real technical workflows.</p>
-    <p>The practical takeaway is simple: RAG becomes decision-support infrastructure only when retrieval quality, evidence fidelity, and governance are treated as first-class design requirements.</p>
-  </section>
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Suitability Framework</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Task Fit Assessment</span>
+          </div>
+          <div class="infographic-body">
+            <div class="suitability-grid">
+              <div class="suitability-card suitability-card--fit">
+                <div class="suitability-card-header">
+                  <span class="suitability-icon">✓</span>
+                  <span class="suitability-label">Strong Fit</span>
+                </div>
+                <div class="suitability-items">
+                  <div class="suitability-item"><span class="suit-dot"></span>SOP interpretation and policy support queries</div>
+                  <div class="suitability-item"><span class="suit-dot"></span>Standards clarification over curated documents</div>
+                  <div class="suitability-item"><span class="suit-dot"></span>Technical briefing from institutional knowledge libraries</div>
+                  <div class="suitability-item"><span class="suit-dot"></span>Contract document querying and comparison</div>
+                  <div class="suitability-item"><span class="suit-dot"></span>Engineering-stage application support with known source base</div>
+                  <div class="suitability-item"><span class="suit-dot"></span>Literature synthesis over trusted, approved corpora</div>
+                </div>
+              </div>
+              <div class="suitability-card suitability-card--poor">
+                <div class="suitability-card-header">
+                  <span class="suitability-icon">⛔</span>
+                  <span class="suitability-label">Poor Fit</span>
+                </div>
+                <div class="suitability-items">
+                  <div class="suitability-item"><span class="suit-dot"></span>Tasks requiring novel engineering calculation or derivation</div>
+                  <div class="suitability-item"><span class="suit-dot"></span>Decisions requiring formal reasoning with legal accountability</div>
+                  <div class="suitability-item"><span class="suit-dot"></span>Work where source material is unstable, outdated, or ungoverned</div>
+                  <div class="suitability-item"><span class="suit-dot"></span>High-stakes clinical or safety-critical judgments without expert review</div>
+                  <div class="suitability-item"><span class="suit-dot"></span>Creative or generative tasks that benefit from open-world knowledge</div>
+                  <div class="suitability-item"><span class="suit-dot"></span>Contexts where retrieval quality cannot be maintained over time</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      </article>
+      <!-- ─── SECTION 5: Governance Checklist ─── -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Governance &amp; Assurance</p>
+        <h2 class="khr-h2">Six questions before <em>deployment</em></h2>
 
+        <p class="khr-body">
+          A high-quality RAG system is as much an information-governance project as a model project. The technical architecture matters, but it only delivers institutional value if access control, document hygiene, versioning, logging, and escalation policies are also designed. Work through these questions before moving from prototype to operational use.
+        </p>
+
+        <div class="gov-checklist">
+          <div class="gov-checklist-header">
+            <span class="gov-checklist-icon" aria-hidden="true">◎</span>
+            <div>
+              <div class="gov-checklist-label">Pre-Deployment Checklist</div>
+              <div class="gov-checklist-title">Governance readiness for RAG systems</div>
+            </div>
+          </div>
+          <div class="gov-items">
+            <div class="gov-item">
+              <span class="gov-check" aria-hidden="true">?</span>
+              <span class="gov-question">What is the corpus? Which documents are approved, and who can update them?</span>
+            </div>
+            <div class="gov-item">
+              <span class="gov-check" aria-hidden="true">?</span>
+              <span class="gov-question">Who has access to query the system, and what is restricted by role or clearance?</span>
+            </div>
+            <div class="gov-item">
+              <span class="gov-check" aria-hidden="true">?</span>
+              <span class="gov-question">What decision tasks are explicitly in scope — and which tasks require human review before action?</span>
+            </div>
+            <div class="gov-item">
+              <span class="gov-check" aria-hidden="true">?</span>
+              <span class="gov-question">How is retrieval quality tested? What precision and recall standard must be maintained?</span>
+            </div>
+            <div class="gov-item">
+              <span class="gov-check" aria-hidden="true">?</span>
+              <span class="gov-question">What is the protocol for unsafe, out-of-scope, or uncertain answers? How does the system signal its own limits?</span>
+            </div>
+            <div class="gov-item">
+              <span class="gov-check" aria-hidden="true">?</span>
+              <span class="gov-question">How are updates versioned over time? Who reviews corpus changes and monitors output drift?</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── SECTION 6: Where RAG Still Fails ─── -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Critical Awareness</p>
+        <h2 class="khr-h2">Failure modes that <em>retrieval cannot solve</em></h2>
+
+        <p class="khr-body">
+          RAG reduces a specific class of failure — ungrounded generation from model memory alone. But it does not eliminate all failure modes. Teams that deploy RAG without accounting for these risks often find that the system produces a new kind of overconfidence: one grounded in retrieved text, but still wrong in ways that are harder to detect precisely because the text looks sourced.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Risk Landscape</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Residual Failure Modes in RAG Systems</span>
+          </div>
+          <div class="infographic-body">
+            <div class="failure-grid">
+              <div class="failure-card">
+                <span class="failure-icon">📑</span>
+                <div class="failure-title">Weak Chunking</div>
+                <div class="failure-desc">Poor document segmentation fractures meaning across chunks. A clause retrieved without its qualifying sentence produces a technically grounded but contextually wrong answer.</div>
+              </div>
+              <div class="failure-card">
+                <span class="failure-icon">🔍</span>
+                <div class="failure-title">Retrieval Mismatch</div>
+                <div class="failure-desc">Similarity-based retrieval can surface passages that share vocabulary but not intent. A confident-sounding answer drawn from the wrong passage is harder to catch than an obviously invented one.</div>
+              </div>
+              <div class="failure-card">
+                <span class="failure-icon">🔐</span>
+                <div class="failure-title">Access Control Gaps</div>
+                <div class="failure-desc">Confidential material that enters a shared corpus can be surfaced to users without appropriate clearance. Information governance must be designed before indexing begins, not patched after.</div>
+              </div>
+              <div class="failure-card">
+                <span class="failure-icon">⚡</span>
+                <div class="failure-title">Prompt Injection</div>
+                <div class="failure-desc">Malicious or misleading instructions embedded inside indexed documents can distort system behaviour when retrieved. Corpus provenance must be controlled and monitored.</div>
+              </div>
+              <div class="failure-card">
+                <span class="failure-icon">📉</span>
+                <div class="failure-title">Corpus Staleness</div>
+                <div class="failure-desc">A RAG system built on a well-maintained corpus degrades silently when documents are no longer updated. The system remains confident; its answers become progressively outdated.</div>
+              </div>
+              <div class="failure-card">
+                <span class="failure-icon">🎭</span>
+                <div class="failure-title">Confident Tone Mismatch</div>
+                <div class="failure-desc">Even grounded generation can overstate evidence. A passage saying "may indicate" can become "demonstrates" in the generated answer. Faithfulness evaluation must be built into review workflows.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── REFERENCES ─── -->
+      <div class="khr-section reveal">
+        <div class="references">
+          <span class="references-label">References &amp; Source Base</span>
+          <ol>
+            <li>Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks — Lewis et al. (foundational RAG architecture paper).</li>
+            <li>NIST AI Risk Management Framework: Govern, Map, Measure, Manage — applied to AI assurance in institutional contexts.</li>
+            <li>Applied evidence from construction-sector generative AI studies on quality, relevance, reproducibility, and retrieval discipline.</li>
+            <li>Founder-connected GenAI inventory for Rankine Innovation Lab, including water-domain and construction-domain use cases.</li>
+          </ol>
+        </div>
+      </div>
+
+<<<<<<< HEAD
+    </article>
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="khr-sidebar">
+
+      <div class="side-card">
+        <div class="side-card-header">Reading Progress</div>
+        <div class="side-card-body">
+          <div class="reading-meter"><div class="reading-meter-fill" id="sidebarMeter"></div></div>
+          <div class="reading-meter-label"><span>Start</span><span id="progressPct">0%</span></div>
+        </div>
+=======
   <aside class="khr-sidebar" aria-label="Resource sidebar">
     <div class="khr-sidecard khr-progress-card">
       <h3>Reading Progress</h3>
@@ -228,53 +829,110 @@
       <a href="../explainers/why-retrieval-augmented-generation-matters-for-technical-domains.html">Why Retrieval-Augmented Generation Matters for Technical Domains</a>
       <a href="../playbooks/how-to-run-a-small-ai-for-stem-capability-session.html">How to Run a Small AI-for-STEM Capability Session</a>
         <a href="../../knowledge-hub.html">← Back to Knowledge Hub</a>
+>>>>>>> 3e866ce5ebd7d682b2c492d8ce2c5e40418cf6e4
       </div>
-    </div>
-    <div class="khr-sidecard khr-engage-card">
-      <h3>Engage with Rankine</h3>
-      <p>Use this explainer when designing document-grounded assistants, training sessions, or retrieval pilots for technical teams.</p>
-      <a class="btn" href="../../contact.html">Discuss a Partnership →</a>
-    </div>
-  </aside>
 
-    </div>
-  </main>
+      <div class="side-card">
+        <div class="side-card-header">Resource Details</div>
+        <div class="side-card-body">
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--ai-blue);box-shadow:0 0 8px rgba(61,90,128,0.4)"></span>
+            <div>
+              <div class="domain-label">AI for STEM Innovation</div>
+              <div class="domain-sub">Core domain · First-wave resource</div>
+            </div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--copper);box-shadow:0 0 8px rgba(160,92,56,0.4)"></span>
+            <div>
+              <div class="domain-label">Technical Practitioner</div>
+              <div class="domain-sub">Research teams · Infrastructure orgs</div>
+            </div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--sand);box-shadow:0 0 8px rgba(201,171,132,0.4)"></span>
+            <div>
+              <div class="domain-label">8 min read · 5 modules</div>
+              <div class="domain-sub">Updated 2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div class="side-card">
+        <div class="side-card-header">Continue Reading</div>
+        <div class="side-card-body">
+          <a href="../frameworks/ai-adoption-readiness-for-research-teams.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text">
+              <span class="related-link-tag">Framework</span>
+              AI Adoption Readiness for Research Teams
+            </span>
+          </a>
+          <a href="why-retrieval-augmented-generation-matters-for-technical-domains.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text">
+              <span class="related-link-tag">Explainer</span>
+              Why RAG Matters for Technical Domains
+            </span>
+          </a>
+          <a href="../playbooks/how-to-run-a-small-ai-for-stem-capability-session.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text">
+              <span class="related-link-tag">Playbook</span>
+              How to Run a Small AI-for-STEM Capability Session
+            </span>
+          </a>
+          <button class="btn-side" onclick="window.location.href='../../knowledge-hub.html'">← Back to Knowledge Hub</button>
+        </div>
+      </div>
 
+      <div class="side-card">
+        <div class="side-card-header">Engage with Rankine</div>
+        <div class="side-card-body">
+          <p>This explainer connects to our AI for STEM programmes and research translation work. If you are building or evaluating retrieval-grounded systems for technical environments, we would like to hear from you.</p>
+          <button class="btn-side" onclick="window.location.href='../../contact.html'">Discuss a Partnership →</button>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="footer-logo-icon">
+      <div>
+        <img src="../../Images/rakine_logo.svg" class="footer-logo-icon" alt="Rankine Innovation Lab logo"/>
         <div class="footer-logo-name">Rankine Innovation Lab</div>
         <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
         <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
       </div>
       <div>
-        <h3 class="footer-col-title">Navigation</h3>
+        <div class="footer-col-title">Navigation</div>
         <ul class="footer-links">
           <li><a href="../../about.html">About the Lab</a></li>
-          <li><a href="../../index.html#method">The Rankine Method</a></li>
-          <li><a href="../../index.html#focus">Focus Areas</a></li>
+          <li><a href="../../research.html">Research &amp; Project</a></li>
           <li><a href="../../programmes.html">Programmes</a></li>
           <li><a href="../../partnership.html">Partnerships</a></li>
           <li><a href="../../team.html">Team</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Domains</h3>
+        <div class="footer-col-title">Domains</div>
         <ul class="footer-links">
-          <li><a href="../../research.html#ai">AI for STEM</a></li>
-          <li><a href="../../research.html#sustainability">Sustainability</a></li>
-          <li><a href="../../research.html#smart-agriculture">Smart Agriculture</a></li>
-          <li><a href="../../research.html#cross-disciplinary">Cross-Disciplinary</a></li>
+          <li><a href="../../research.html">AI for STEM</a></li>
+          <li><a href="../../research.html">Sustainability</a></li>
+          <li><a href="../../research.html">Smart Agriculture</a></li>
+          <li><a href="../../research.html">Cross-Disciplinary</a></li>
           <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Engage</h3>
+        <div class="footer-col-title">Engage</div>
         <ul class="footer-links">
-          <li><a href="../../partnership.html">Partnerships</a></li>
+          <li><a href="../../contact.html">Partnerships</a></li>
           <li><a href="../../contact.html">Research Collaboration</a></li>
           <li><a href="../../contact.html">Training Enquiries</a></li>
           <li><a href="../../contact.html">Speaking</a></li>
@@ -283,7 +941,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Rankine Innovation Lab. All rights reserved.</p>
+      <p class="footer-copy">&copy; 2025 <em>Rankine Innovation Lab</em>. All rights reserved.</p>
       <div class="footer-legal">
         <a href="../../privacy.html">Privacy</a>
         <a href="../../terms.html">Terms</a>
@@ -293,27 +951,21 @@
   </div>
 </footer>
 
-
 <script>
-  const nav = document.getElementById('siteNav');
-  const toggle = document.getElementById('mobileToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  function setNavState(){
-    if(window.scrollY > 24){ nav.classList.remove('transparent'); nav.classList.add('solid'); }
-    else { nav.classList.add('transparent'); nav.classList.remove('solid'); }
-  }
-  setNavState();
-  window.addEventListener('scroll', setNavState, { passive: true });
-  if(toggle && mobileMenu){
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.classList.toggle('open');
-      mobileMenu.classList.toggle('open', isOpen);
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-      document.body.classList.toggle('menu-open', isOpen);
-    });
-  }
-</script>
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu   = document.getElementById('mobileMenu');
+function closeMobile() {
+  hamburgerBtn.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+  hamburgerBtn.setAttribute('aria-expanded','false');
+}
+hamburgerBtn.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburgerBtn.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+  hamburgerBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
 
 <script src="../resource-template.js"></script>
 </body>
