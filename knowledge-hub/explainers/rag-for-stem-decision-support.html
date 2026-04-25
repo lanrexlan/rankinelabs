@@ -401,7 +401,6 @@ img { display: block; max-width: 100%; }
         </div>
       </div>
 
-<<<<<<< HEAD
       <!-- Hero SVG: RAG Retrieval Flow Diagram -->
       <div class="hero-diagram-wrap" aria-hidden="true">
         <div class="hero-diagram">
@@ -487,29 +486,8 @@ img { display: block; max-width: 100%; }
             <text x="108" y="50" font-family="Cinzel,serif" font-size="7" fill="rgba(91,127,166,0.4)" text-anchor="middle">Knowledge</text>
             <text x="108" y="60" font-family="Cinzel,serif" font-size="7" fill="rgba(91,127,166,0.4)" text-anchor="middle">Base</text>
           </svg>
-=======
-    <div class="khr-feature">
-      <div class="khr-feature-head">
-        <div>
-          <div class="khr-feature-kicker">System Diagram</div>
-          <div class="khr-feature-title">Retrieval-to-Answer Flow</div>
->>>>>>> 3e866ce5ebd7d682b2c492d8ce2c5e40418cf6e4
         </div>
       </div>
-<<<<<<< HEAD
-=======
-      <figure class="khr-diagram khr-hero-visual" role="group" aria-label="Retrieval-to-Answer Flow">
-        <img class="khr-feature-image" src="../../Images/knowledge/rag-evidence-loop.svg" alt="Retrieval-to-Answer Flow visual showing curated corpus, retriever, grounding window stages" width="1600" height="600">
-      </figure>
-      <div class="khr-feature-tags">
-      <span>Corpus</span>
-      <span>Retrieval</span>
-      <span>Grounding</span>
-      <span>Evidence</span>
-      <span>Review</span>
-      </div>
-    </div>
->>>>>>> 3e866ce5ebd7d682b2c492d8ce2c5e40418cf6e4
 
     </div>
   </div>
@@ -796,7 +774,6 @@ img { display: block; max-width: 100%; }
         </div>
       </div>
 
-<<<<<<< HEAD
     </article>
 
     <!-- ═══ SIDEBAR ═══ -->
@@ -808,28 +785,6 @@ img { display: block; max-width: 100%; }
           <div class="reading-meter"><div class="reading-meter-fill" id="sidebarMeter"></div></div>
           <div class="reading-meter-label"><span>Start</span><span id="progressPct">0%</span></div>
         </div>
-=======
-  <aside class="khr-sidebar" aria-label="Resource sidebar">
-    <div class="khr-sidecard khr-progress-card">
-      <h3>Reading Progress</h3>
-      <div class="khr-progress-track"><span></span></div>
-      <p>Start with the framing, use the visual modules to compare options, then close with the checklist.</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Resource Details</h3>
-      <p><strong>AI for STEM Innovation</strong><br>Explainer · Knowledge Hub resource</p>
-      <p><strong>Practitioner</strong><br>Research teams · STEM educators · technical programme leads</p>
-      <p>8 min read · 5 visual modules</p>
-      <p>Updated April 2026</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Continue Reading</h3>
-      <div class="khr-related">
-      <a href="../frameworks/ai-adoption-readiness-for-research-teams.html">AI Adoption Readiness for Research Teams</a>
-      <a href="../explainers/why-retrieval-augmented-generation-matters-for-technical-domains.html">Why Retrieval-Augmented Generation Matters for Technical Domains</a>
-      <a href="../playbooks/how-to-run-a-small-ai-for-stem-capability-session.html">How to Run a Small AI-for-STEM Capability Session</a>
-        <a href="../../knowledge-hub.html">← Back to Knowledge Hub</a>
->>>>>>> 3e866ce5ebd7d682b2c492d8ce2c5e40418cf6e4
       </div>
 
       <div class="side-card">
@@ -967,6 +922,55 @@ hamburgerBtn.addEventListener('click', () => {
   hamburgerBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
 });
 
-<script src="../resource-template.js"></script>
+// Reading progress
+const progressBar  = document.getElementById('progressBar');
+const sidebarMeter = document.getElementById('sidebarMeter');
+const progressPct  = document.getElementById('progressPct');
+const articleBody  = document.getElementById('articleBody');
+function updateProgress() {
+  const rect    = articleBody.getBoundingClientRect();
+  const total   = rect.height - window.innerHeight;
+  const scrolled = Math.max(0, -rect.top);
+  const pct     = Math.min(100, Math.round((scrolled / total) * 100));
+  progressBar.style.width  = pct + '%';
+  sidebarMeter.style.width = pct + '%';
+  progressPct.textContent  = pct + '%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+
+// Scroll reveals
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      requestAnimationFrame(() => entry.target.classList.add('visible'));
+      revealObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// Checklist interaction
+document.querySelectorAll('.gov-item').forEach(item => {
+  let checked = false;
+  item.addEventListener('click', () => {
+    checked = !checked;
+    const check = item.querySelector('.gov-check');
+    if (checked) {
+      check.textContent = '✓';
+      check.style.background = 'rgba(61,90,128,0.3)';
+      check.style.borderColor = 'var(--ai-blue-lt)';
+      check.style.color = 'var(--ai-blue-lt)';
+      item.style.borderColor = 'rgba(61,90,128,0.25)';
+    } else {
+      check.textContent = '?';
+      check.style.background = '';
+      check.style.borderColor = '';
+      check.style.color = '';
+      item.style.borderColor = '';
+    }
+  });
+  item.style.cursor = 'pointer';
+});
+</script>
 </body>
 </html>
