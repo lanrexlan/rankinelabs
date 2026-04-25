@@ -1,292 +1,708 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>What Repeated Reading of GenAI Papers Is Revealing — Knowledge Hub | Rankine Innovation Lab</title>
-  <meta name="description" content="Reading clusters of generative AI papers reveals a pattern: the strongest work is becoming more domain-specific, grounded, governance-aware, and implementation-focused.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../resource-template.css">
-</head>
-<body class="resource-page resource-lab-note">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>What Repeated Reading of GenAI Papers Is Revealing — Knowledge Hub | Rankine Innovation Lab</title>
+<meta name="description" content="Reading one GenAI paper gives you a result. Reading a cluster closely reveals a pattern — where the field is stabilising, where it is performing confidence theatre, and where real implementation questions sit."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
 
-<nav class="nav transparent" id="siteNav" aria-label="Primary navigation">
-  <div class="container nav-inner">
-    <a class="nav-logo" href="../../index.html" aria-label="Rankine Innovation Lab home">
-      <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="nav-logo-icon">
-      <span class="nav-logo-text">
-        <span class="nav-logo-mark">Rankine</span>
-        <span class="nav-logo-name">Innovation Lab</span>
-      </span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="../../index.html">Home</a></li>
-      <li><a href="../../about.html">About</a></li>
-      <li class="has-dropdown">
-        <a href="../../research.html" class="dropdown-toggle" aria-haspopup="true">Work</a>
-        <ul class="dropdown-menu" aria-label="Work menu">
-          <li><a href="../../research.html">Research &amp; Project</a></li>
-          <li><a href="../../partnership.html">Partnerships</a></li>
-        </ul>
-      </li>
-      <li><a href="../../programmes.html">Programmes</a></li>
-      <li class="has-dropdown">
-        <a href="../../knowledge-hub.html" class="dropdown-toggle active-page" aria-haspopup="true">Insights</a>
-        <ul class="dropdown-menu" aria-label="Insights menu">
-          <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
-        </ul>
-      </li>
-      <li><a href="../../team.html">Team</a></li>
-      <li><a href="../../contact.html">Contact</a></li>
-    </ul>
-    <button class="hamburger" id="mobileToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span><span></span><span></span>
-    </button>
+:root {
+  --chocolate:  #180c06;
+  --espresso:   #241208;
+  --brown:      #3a1c0e;
+  --mahogany:   #5c2d18;
+  --copper:     #a05c38;
+  --copper-lt:  #c47a52;
+  --sand:       #c9ab84;
+  --sand-lt:    #ddc9a8;
+  --cream:      #f4ede0;
+  --cream-lt:   #faf6ef;
+  --sage:       #687558;
+  --sage-lt:    #8e9e78;
+  --slate:      #3a4a5c;
+  --slate-lt:   #5a6e84;
+  --white:      #fffcf8;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-label:   'Cinzel', serif;
+  --font-body:    'DM Sans', sans-serif;
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--cream-lt); color: var(--espresso); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+img { display: block; max-width: 100%; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--slate); border-radius: 2px; }
+.container { width: min(1220px, 100%); margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3rem); }
+
+.progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--slate), var(--sage-lt), var(--sand)); z-index: 2000; transition: width 0.1s linear; }
+
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(24,12,6,0.97); backdrop-filter: blur(18px); box-shadow: 0 1px 0 rgba(201,171,132,0.12); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+.nav-logo { display: inline-flex; align-items: center; gap: 0.75rem; }
+.nav-logo-icon { width: 40px; height: 40px; border-radius: 8px; }
+.nav-logo-mark { display: block; font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.25em; color: var(--copper); text-transform: uppercase; }
+.nav-logo-name { font-family: var(--font-display); font-size: 1.25rem; color: var(--cream); letter-spacing: 0.02em; }
+.nav-links { display: flex; align-items: center; gap: clamp(0.8rem,1.8vw,1.5rem); list-style: none; }
+.nav-links a { font-size: 0.76rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(244,237,224,0.7); transition: color 0.3s; }
+.nav-links a:hover { color: var(--cream); }
+.nav-links a.active-page { color: var(--sand); }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--cream); transition: all 0.3s; }
+.hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; }
+.hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 0; background: rgba(24,12,6,0.98); backdrop-filter: blur(20px); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; transform: translateY(-100%); transition: transform 0.5s var(--ease-out); }
+.mobile-menu.open { display: flex; transform: translateY(0); }
+.mobile-menu a { font-family: var(--font-display); font-size: 2rem; font-weight: 300; color: var(--cream); }
+
+/* HERO — Lab Note tone: slightly warmer, less dramatic than explainer/framework */
+.khr-hero {
+  min-height: 85vh;
+  background:
+    radial-gradient(ellipse 50% 45% at 88% 22%, rgba(58,74,92,0.25), transparent 55%),
+    radial-gradient(ellipse 40% 40% at 12% 80%, rgba(90,40,12,0.18), transparent 55%),
+    linear-gradient(158deg, #080c10 0%, #0e1318 35%, #110d08 70%, #0a0604 100%);
+  display: flex; align-items: center;
+  padding-top: 72px; position: relative; overflow: hidden;
+}
+.khr-hero::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 71px, rgba(201,171,132,0.02) 71px, rgba(201,171,132,0.02) 72px); pointer-events: none; }
+.khr-hero::after { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); background-size: 256px; opacity: 0.45; pointer-events: none; }
+.khr-hero-inner { position: relative; z-index: 2; width: 100%; padding-block: clamp(3rem,6vw,6rem); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,5vw,6rem); align-items: center; }
+
+.breadcrumb { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,237,224,0.3); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.75rem; }
+.breadcrumb strong { color: var(--copper); font-weight: 400; }
+.khr-type-badge { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--slate-lt); border: 1px solid rgba(58,74,92,0.4); background: rgba(58,74,92,0.1); padding: 0.4rem 0.9rem; border-radius: 2px; margin-bottom: 1.5rem; }
+.khr-type-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--slate-lt); box-shadow: 0 0 8px rgba(58,74,92,0.5); }
+.khr-title { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3.8rem); font-weight: 300; line-height: 1.1; letter-spacing: -0.012em; color: var(--cream-lt); margin-bottom: 1.4rem; }
+.khr-title em { font-style: italic; color: var(--sand); }
+.khr-dek { font-size: clamp(0.92rem,1.35vw,1.05rem); line-height: 1.82; color: rgba(244,237,224,0.55); font-weight: 300; max-width: 560px; margin-bottom: 2.2rem; }
+.khr-meta-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding-top: 1.5rem; border-top: 1px solid rgba(201,171,132,0.1); }
+.khr-meta-item { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(201,171,132,0.4); }
+.khr-meta-item strong { color: var(--slate-lt); font-weight: 400; }
+
+/* Hero SVG: Cluster Pattern — repeated reading lens */
+.hero-diagram-wrap { display: flex; align-items: center; justify-content: center; }
+.hero-diagram { width: 100%; max-width: 480px; aspect-ratio: 1; }
+.lens-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 35px rgba(58,74,92,0.1)); }
+
+/* Orbit nodes breathe */
+.orbit-node { animation: orbitBreathe 4s ease-in-out infinite; }
+.orbit-node:nth-child(2n) { animation-delay:0.8s }
+.orbit-node:nth-child(3n) { animation-delay:1.6s }
+@keyframes orbitBreathe { 0%,100%{opacity:0.4} 50%{opacity:0.9} }
+
+/* Pattern lines draw in */
+.pattern-line { stroke-dasharray:300; stroke-dashoffset:300; animation: lineDraw 1.8s var(--ease-out) forwards; }
+.pattern-line:nth-child(1){ animation-delay:0.1s }
+.pattern-line:nth-child(2){ animation-delay:0.3s }
+.pattern-line:nth-child(3){ animation-delay:0.5s }
+.pattern-line:nth-child(4){ animation-delay:0.7s }
+.pattern-line:nth-child(5){ animation-delay:0.9s }
+@keyframes lineDraw { to{ stroke-dashoffset:0 } }
+
+/* Central lens pulse */
+.lens-circle { animation: lensPulse 4s ease-in-out infinite; transform-origin: 200px 200px; }
+@keyframes lensPulse { 0%,100%{opacity:0.2;transform:scale(1)} 50%{opacity:0.4;transform:scale(1.04)} }
+
+/* LAYOUT */
+.khr-layout { display: grid; grid-template-columns: 1fr 340px; gap: 3rem; padding-block: clamp(3rem,6vw,5.5rem); align-items: start; }
+.khr-article { min-width: 0; }
+.khr-section { margin-bottom: clamp(2.5rem,4.5vw,4rem); padding-bottom: clamp(2.5rem,4.5vw,4rem); border-bottom: 1px solid rgba(58,28,14,0.08); }
+.khr-section:last-child { border-bottom: none; margin-bottom: 0; }
+.section-eyebrow { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--slate); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.75rem; }
+.section-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--slate); }
+.khr-h2 { font-family: var(--font-display); font-size: clamp(1.5rem,2.5vw,2rem); font-weight: 400; line-height: 1.18; color: var(--espresso); letter-spacing: -0.01em; margin-bottom: 1.1rem; }
+.khr-h2 em { font-style: italic; color: var(--slate); }
+.khr-body { font-size: clamp(0.95rem,1.35vw,1.03rem); line-height: 1.88; color: var(--brown); font-weight: 300; }
+.khr-body + .khr-body { margin-top: 1rem; }
+
+/* PULL QUOTE */
+.pull-quote { margin: 2.25rem 0; padding: 1.75rem 1.75rem 1.75rem 2.25rem; border-left: 3px solid var(--slate); background: linear-gradient(135deg, rgba(58,74,92,0.04), rgba(201,171,132,0.02)); border-radius: 0 var(--radius-md) var(--radius-md) 0; position: relative; overflow: hidden; }
+.pull-quote::before { content: '"'; position: absolute; top: -1.2rem; left: 0.8rem; font-family: var(--font-display); font-size: 7rem; font-weight: 700; color: rgba(58,74,92,0.06); line-height: 1; pointer-events: none; }
+.pull-quote p { font-family: var(--font-display); font-style: italic; font-size: clamp(1.1rem,1.8vw,1.35rem); font-weight: 300; line-height: 1.58; color: var(--mahogany); position: relative; z-index: 1; }
+.pull-quote cite { display: block; margin-top: 0.65rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate); font-style: normal; }
+
+/* INFOGRAPHIC WRAPPER */
+.infographic { margin: 2rem 0; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid rgba(58,28,14,0.1); }
+.infographic-header { background: var(--espresso); padding: 1.1rem 1.6rem; display: flex; align-items: center; gap: 1rem; }
+.infographic-header-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--slate-lt); }
+.infographic-header-title { font-family: var(--font-display); font-size: 1rem; font-weight: 400; color: var(--cream); }
+.infographic-header-line { flex: 1; height: 1px; background: rgba(201,171,132,0.12); }
+.infographic-body { background: var(--white); padding: 1.75rem; }
+
+/* ── FIVE PATTERNS CARDS (Lab Note style — compact but designed) ── */
+.patterns-list { display: flex; flex-direction: column; gap: 1.1rem; }
+.pattern-card { display: grid; grid-template-columns: 64px 1fr; gap: 1.1rem; align-items: start; padding: 1.1rem 1.25rem; background: var(--cream-lt); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); cursor: default; transition: transform 0.35s var(--ease-out), border-color 0.35s; }
+.pattern-card:hover { transform: translateX(5px); border-color: rgba(58,74,92,0.3); }
+.pattern-num { font-family: var(--font-display); font-size: 2.2rem; font-weight: 300; line-height: 1; }
+.pattern-card:nth-child(1) .pattern-num { color: rgba(58,74,92,0.45); }
+.pattern-card:nth-child(2) .pattern-num { color: rgba(58,74,92,0.38); }
+.pattern-card:nth-child(3) .pattern-num { color: rgba(58,74,92,0.32); }
+.pattern-card:nth-child(4) .pattern-num { color: rgba(58,74,92,0.26); }
+.pattern-card:nth-child(5) .pattern-num { color: rgba(58,74,92,0.2); }
+.pattern-body {}
+.pattern-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.35rem; }
+.pattern-desc { font-size: 0.82rem; line-height: 1.68; color: var(--brown); font-weight: 300; }
+.pattern-signal { display: inline-block; margin-top: 0.55rem; font-family: var(--font-label); font-size: 0.52rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--slate); border: 1px solid rgba(58,74,92,0.25); background: rgba(58,74,92,0.06); padding: 0.25rem 0.55rem; border-radius: 2px; }
+
+/* ── WHAT THE FIELD UNDERESTIMATES — three callout tiles ── */
+.underestimates-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.underestimate-tile { padding: 1.4rem 1.2rem; background: var(--espresso); border-radius: var(--radius-md); position: relative; overflow: hidden; transition: transform 0.35s var(--ease-out); }
+.underestimate-tile:hover { transform: translateY(-4px); }
+.underestimate-tile::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.underestimate-tile:nth-child(1)::before { background: linear-gradient(90deg, var(--slate), var(--slate-lt)); }
+.underestimate-tile:nth-child(2)::before { background: linear-gradient(90deg, var(--copper), var(--sand)); }
+.underestimate-tile:nth-child(3)::before { background: linear-gradient(90deg, var(--sage), var(--sage-lt)); }
+.u-icon { font-size: 1.3rem; margin-bottom: 0.8rem; display: block; }
+.u-title { font-family: var(--font-display); font-size: 0.98rem; font-weight: 500; color: var(--cream); margin-bottom: 0.5rem; }
+.u-desc { font-size: 0.78rem; line-height: 1.65; color: rgba(244,237,224,0.42); font-weight: 300; }
+
+/* ── PRACTICAL CONTRAST BOX ── */
+.contrast-box { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); overflow: hidden; }
+.contrast-col { padding: 1.5rem; }
+.contrast-col--a { background: rgba(92,45,24,0.06); border-right: 1px solid rgba(58,28,14,0.08); }
+.contrast-col--b { background: rgba(58,74,92,0.06); }
+.contrast-col-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.75rem; display: block; }
+.contrast-col--a .contrast-col-label { color: var(--mahogany); }
+.contrast-col--b .contrast-col-label { color: var(--slate-lt); }
+.contrast-col-title { font-family: var(--font-display); font-size: 1rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.5rem; }
+.contrast-col-desc { font-size: 0.82rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+.contrast-arrow { text-align: center; font-size: 1.5rem; margin: 0.6rem 0; color: rgba(58,74,92,0.4); }
+
+/* ── KEY OBSERVATION BLOCK — Lab Note signature element ── */
+.observation-block { background: var(--espresso); border-radius: var(--radius-lg); padding: 2rem; position: relative; overflow: hidden; }
+.observation-block::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(201,171,132,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,171,132,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+.obs-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+.obs-icon { font-size: 1.4rem; color: var(--slate-lt); }
+.obs-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--slate-lt); }
+.obs-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 300; color: var(--cream); }
+.obs-items { display: flex; flex-direction: column; gap: 1rem; position: relative; z-index: 1; }
+.obs-item { padding: 1rem 1.1rem; background: rgba(255,252,248,0.04); border: 1px solid rgba(201,171,132,0.1); border-radius: var(--radius-sm); }
+.obs-item-label { font-family: var(--font-label); font-size: 0.56rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--slate-lt); margin-bottom: 0.4rem; display: block; }
+.obs-item-text { font-family: var(--font-display); font-size: 0.95rem; font-style: italic; color: rgba(244,237,224,0.72); line-height: 1.5; }
+
+/* REFERENCES */
+.references { background: var(--cream); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); padding: 1.5rem 1.75rem; }
+.references-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1rem; display: block; }
+.references ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.references li { font-size: 0.82rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+
+/* SIDEBAR */
+.khr-sidebar { position: sticky; top: calc(72px + 2rem); display: flex; flex-direction: column; gap: 1.25rem; }
+.side-card { background: var(--white); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); overflow: hidden; }
+.side-card-header { background: var(--espresso); padding: 0.9rem 1.25rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--slate-lt); }
+.side-card-body { padding: 1.25rem; }
+.side-card-body p { font-size: 0.84rem; line-height: 1.72; color: var(--brown); font-weight: 300; }
+.domain-badge { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1rem; background: var(--cream-lt); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-sm); margin-bottom: 0.75rem; }
+.domain-badge:last-child { margin-bottom: 0; }
+.domain-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.domain-label { font-size: 0.8rem; color: var(--espresso); font-weight: 400; }
+.domain-sub { font-size: 0.72rem; color: var(--mahogany); font-weight: 300; }
+.related-link { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.85rem 0; border-bottom: 1px solid rgba(58,28,14,0.07); transition: transform 0.3s; }
+.related-link:last-child { border-bottom: none; padding-bottom: 0; }
+.related-link:hover { transform: translateX(4px); }
+.related-link-arrow { color: var(--copper); flex-shrink: 0; font-size: 0.7rem; margin-top: 0.15em; }
+.related-link-text { font-size: 0.83rem; line-height: 1.5; color: var(--espresso); font-weight: 400; }
+.related-link-tag { display: block; font-family: var(--font-label); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--copper); margin-bottom: 0.2rem; }
+.reading-meter { height: 4px; background: rgba(58,28,14,0.08); border-radius: 2px; overflow: hidden; margin: 0.75rem 0 0.4rem; }
+.reading-meter-fill { height: 100%; background: linear-gradient(90deg, var(--slate), var(--sage-lt), var(--sand)); width: 0%; transition: width 0.2s linear; border-radius: 2px; }
+.reading-meter-label { font-family: var(--font-label); font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(58,28,14,0.35); display: flex; justify-content: space-between; }
+.btn-side { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.85rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; background: var(--espresso); color: var(--cream); border-radius: var(--radius-sm); cursor: pointer; margin-top: 0.75rem; transition: background 0.3s; }
+.btn-side:hover { background: var(--brown); }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: none; }
+.d1{ transition-delay: 0.1s; } .d2{ transition-delay: 0.2s; }
+
+.footer { background: var(--chocolate); padding: 4rem 0 2.5rem; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-logo-icon { width: 38px; margin-bottom: 0.75rem; }
+.footer-logo-name { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; color: var(--cream); }
+.footer-logo-sub  { font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.22em; color: var(--copper); text-transform: uppercase; margin: 0.3rem 0 1rem; }
+.footer-tagline   { font-size: 0.83rem; line-height: 1.7; color: rgba(244,237,224,0.35); font-weight: 300; max-width: 240px; }
+.footer-col-title { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1.1rem; }
+.footer-links     { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.footer-links a   { font-size: 0.82rem; color: rgba(244,237,224,0.35); transition: color 0.3s; }
+.footer-links a:hover { color: var(--sand); }
+.footer-bottom    { border-top: 1px solid rgba(201,171,132,0.1); padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-copy      { font-size: 0.76rem; color: rgba(244,237,224,0.2); }
+.footer-copy em   { color: var(--copper); font-style: normal; }
+.footer-legal     { display: flex; gap: 1.5rem; }
+.footer-legal a   { font-size: 0.73rem; color: rgba(244,237,224,0.2); transition: color 0.3s; }
+.footer-legal a:hover { color: var(--sand); }
+
+@media (max-width: 1024px) {
+  .khr-hero-inner { grid-template-columns: 1fr; }
+  .hero-diagram-wrap { display: none; }
+  .khr-layout { grid-template-columns: 1fr; }
+  .khr-sidebar { position: static; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .underestimates-grid { grid-template-columns: 1fr; }
+  .contrast-box { grid-template-columns: 1fr; }
+  .contrast-col--a { border-right: none; border-bottom: 1px solid rgba(58,28,14,0.08); }
+}
+@media (max-width: 640px) { .footer-grid { grid-template-columns: 1fr; gap: 2rem; } }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="nav" id="mainNav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">
+        <img src="../../Images/rakine_logo.svg" class="nav-logo-icon" alt="Rankine Innovation Lab logo"/>
+        <div><span class="nav-logo-mark">Rankine</span><span class="nav-logo-name">Innovation Lab</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../../research.html">Research &amp; Project</a></li>
+        <li><a href="../../programmes.html">Programmes</a></li>
+        <li><a href="../../knowledge-hub.html" class="active-page">Knowledge Hub</a></li>
+        <li><a href="../../team.html">Team</a></li>
+        <li><a href="../../contact.html">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </nav>
-<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-  <a href="../../index.html">Home</a>
-  <a href="../../about.html">About</a>
-  <details class="mobile-group">
-    <summary>Work</summary>
-    <div class="mobile-group-links">
-      <a href="../../research.html">Research &amp; Project</a>
-      <a href="../../partnership.html">Partnerships</a>
-    </div>
-  </details>
-  <a href="../../programmes.html">Programmes</a>
-  <details class="mobile-group">
-    <summary>Insights</summary>
-    <div class="mobile-group-links">
-      <a href="../../knowledge-hub.html">Knowledge Hub</a>
-    </div>
-  </details>
-  <a href="../../team.html">Team</a>
-  <a href="../../contact.html">Contact</a>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../../index.html" onclick="closeMobile()">Home</a>
+  <a href="../../about.html" onclick="closeMobile()">About</a>
+  <a href="../../research.html" onclick="closeMobile()">Research &amp; Project</a>
+  <a href="../../programmes.html" onclick="closeMobile()">Programmes</a>
+  <a href="../../knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
+  <a href="../../team.html" onclick="closeMobile()">Team</a>
+  <a href="../../contact.html" onclick="closeMobile()">Contact</a>
 </div>
 
-<header class="khr-hero">
-    <div class="container">
-      <div class="breadcrumb"><a href="../../index.html">Home</a><span>—</span><a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span><strong>Lab Note</strong></div>
-      <div class="khr-type">Lab Note · AI for STEM Innovation</div>
-      <h1 class="khr-title">What Repeated Reading of GenAI Papers Is Revealing</h1>
-      <p class="khr-dek">Reading clusters of generative AI papers reveals a pattern: the strongest work is becoming more domain-specific, grounded, governance-aware, and implementation-focused.</p>
-      <div class="khr-meta">
-        <span><strong>Domain</strong> AI for STEM Innovation</span>
-        <span><strong>Reading time</strong> 5 min read</span>
-        <span><strong>Level</strong> Reflective</span>
-      </div>
-
-    <div class="khr-feature">
-      <div class="khr-feature-head">
-        <div>
-          <div class="khr-feature-kicker">Signal Lens</div>
-          <div class="khr-feature-title">Repeated Reading Lens</div>
+<!-- ═══ HERO ═══ -->
+<section class="khr-hero">
+  <div class="container">
+    <div class="khr-hero-inner">
+      <div>
+        <nav class="breadcrumb">
+          <a href="../../index.html">Home</a><span>—</span>
+          <a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span>
+          <strong>Lab Note</strong>
+        </nav>
+        <div class="khr-type-badge">
+          <span class="khr-type-badge-dot" aria-hidden="true"></span>
+          Lab Note · AI for STEM Innovation
         </div>
-        <p class="khr-feature-sub">Signals emerging across GenAI evidence clusters.</p>
+        <h1 class="khr-title">What Repeated Reading of<br>GenAI Papers <em>Is Revealing</em></h1>
+        <p class="khr-dek">Reading one generative AI paper gives you a result. Reading a cluster of them closely starts to reveal a pattern — one that is often more valuable than the headline claim of any single paper. This note captures what that pattern is, where it is stabilising, and where the field is still performing confidence theatre.</p>
+        <div class="khr-meta-row">
+          <div class="khr-meta-item"><strong>Domain</strong> AI for STEM Innovation</div>
+          <div class="khr-meta-item"><strong>Reading time</strong> 4 min read</div>
+          <div class="khr-meta-item"><strong>Format</strong> Field Observation · Lab Note</div>
+        </div>
       </div>
-      <figure class="khr-diagram khr-hero-visual" role="group" aria-label="Repeated Reading Lens">
-        <img class="khr-feature-image" src="../../Images/knowledge/genai-reading-signals.svg" alt="Repeated Reading Lens visual showing use cases, grounding, governance stages" width="1600" height="600">
-      </figure>
-      <div class="khr-feature-tags">
-      <span>GenAI</span>
-      <span>Evidence</span>
-      <span>Grounding</span>
-      <span>Governance</span>
-      <span>Workflow</span>
-      </div>
-    </div>
 
-    </div>
-  </header>
+      <!-- Hero SVG: Cluster Reading Lens -->
+      <div class="hero-diagram-wrap" aria-hidden="true">
+        <div class="hero-diagram">
+          <svg class="lens-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-  <main class="khr-main">
-    <div class="container khr-grid">
-      <article class="khr-article">
+            <!-- Outer field — scattered papers -->
+            <!-- Paper 1 -->
+            <g class="orbit-node" style="animation-delay:0s">
+              <rect x="25" y="50" width="64" height="48" rx="4" fill="rgba(58,74,92,0.08)" stroke="rgba(58,74,92,0.25)" stroke-width="1"/>
+              <line x1="33" y1="64" x2="81" y2="64" stroke="rgba(58,74,92,0.3)" stroke-width="0.8"/>
+              <line x1="33" y1="72" x2="75" y2="72" stroke="rgba(58,74,92,0.25)" stroke-width="0.8"/>
+              <line x1="33" y1="80" x2="79" y2="80" stroke="rgba(58,74,92,0.2)" stroke-width="0.8"/>
+            </g>
+            <!-- Paper 2 -->
+            <g class="orbit-node" style="animation-delay:0.6s">
+              <rect x="310" y="40" width="64" height="48" rx="4" fill="rgba(58,74,92,0.07)" stroke="rgba(58,74,92,0.2)" stroke-width="1"/>
+              <line x1="318" y1="54" x2="366" y2="54" stroke="rgba(58,74,92,0.25)" stroke-width="0.8"/>
+              <line x1="318" y1="62" x2="360" y2="62" stroke="rgba(58,74,92,0.2)" stroke-width="0.8"/>
+              <line x1="318" y1="70" x2="364" y2="70" stroke="rgba(58,74,92,0.15)" stroke-width="0.8"/>
+            </g>
+            <!-- Paper 3 -->
+            <g class="orbit-node" style="animation-delay:1.2s">
+              <rect x="15" y="285" width="64" height="48" rx="4" fill="rgba(58,74,92,0.07)" stroke="rgba(58,74,92,0.2)" stroke-width="1"/>
+              <line x1="23" y1="299" x2="71" y2="299" stroke="rgba(58,74,92,0.22)" stroke-width="0.8"/>
+              <line x1="23" y1="307" x2="65" y2="307" stroke="rgba(58,74,92,0.18)" stroke-width="0.8"/>
+              <line x1="23" y1="315" x2="69" y2="315" stroke="rgba(58,74,92,0.14)" stroke-width="0.8"/>
+            </g>
+            <!-- Paper 4 -->
+            <g class="orbit-node" style="animation-delay:1.8s">
+              <rect x="316" y="295" width="64" height="48" rx="4" fill="rgba(58,74,92,0.08)" stroke="rgba(58,74,92,0.22)" stroke-width="1"/>
+              <line x1="324" y1="309" x2="372" y2="309" stroke="rgba(58,74,92,0.25)" stroke-width="0.8"/>
+              <line x1="324" y1="317" x2="366" y2="317" stroke="rgba(58,74,92,0.2)" stroke-width="0.8"/>
+              <line x1="324" y1="325" x2="370" y2="325" stroke="rgba(58,74,92,0.15)" stroke-width="0.8"/>
+            </g>
+            <!-- Paper 5 (top centre) -->
+            <g class="orbit-node" style="animation-delay:0.3s">
+              <rect x="164" y="18" width="72" height="48" rx="4" fill="rgba(58,74,92,0.06)" stroke="rgba(58,74,92,0.18)" stroke-width="1"/>
+              <line x1="172" y1="32" x2="228" y2="32" stroke="rgba(58,74,92,0.2)" stroke-width="0.8"/>
+              <line x1="172" y1="40" x2="220" y2="40" stroke="rgba(58,74,92,0.15)" stroke-width="0.8"/>
+              <line x1="172" y1="48" x2="225" y2="48" stroke="rgba(58,74,92,0.12)" stroke-width="0.8"/>
+            </g>
+            <!-- Paper 6 (bottom centre) -->
+            <g class="orbit-node" style="animation-delay:0.9s">
+              <rect x="164" y="334" width="72" height="48" rx="4" fill="rgba(58,74,92,0.06)" stroke="rgba(58,74,92,0.18)" stroke-width="1"/>
+              <line x1="172" y1="348" x2="228" y2="348" stroke="rgba(58,74,92,0.2)" stroke-width="0.8"/>
+              <line x1="172" y1="356" x2="220" y2="356" stroke="rgba(58,74,92,0.15)" stroke-width="0.8"/>
+              <line x1="172" y1="364" x2="225" y2="364" stroke="rgba(58,74,92,0.12)" stroke-width="0.8"/>
+            </g>
 
-  <section class="khr-editorial-section" id="why-this-note-exists">
-    <div class="khr-section-kicker">Lab Note</div>
-    <h2>Why this note exists</h2>
-    <p>Reading one generative AI paper can give you a result. Reading a cluster closely starts to reveal a pattern. That pattern is often more valuable than the headline claim of any single paper because it shows where the field is stabilising and where implementation questions still sit.</p>
-    <p>This note captures those patterns for readers who need a practical lens rather than a literature review.</p>
-  </section>
+            <!-- Pattern connection lines — papers linking to lens centre -->
+            <line class="pattern-line" x1="89" y1="74" x2="165" y2="165" stroke="rgba(58,74,92,0.2)" stroke-width="1.2"/>
+            <line class="pattern-line" x1="310" y1="64" x2="235" y2="165" stroke="rgba(58,74,92,0.18)" stroke-width="1.2"/>
+            <line class="pattern-line" x1="79" y1="309" x2="165" y2="235" stroke="rgba(58,74,92,0.18)" stroke-width="1.2"/>
+            <line class="pattern-line" x1="316" y1="319" x2="235" y2="235" stroke="rgba(58,74,92,0.2)" stroke-width="1.2"/>
+            <line class="pattern-line" x1="200" y1="66" x2="200" y2="155" stroke="rgba(58,74,92,0.15)" stroke-width="1.2"/>
 
-  <blockquote class="khr-pullquote">The strongest signal in current GenAI literature is not unlimited possibility. It is disciplined narrowing.</blockquote>
+            <!-- Lens rings -->
+            <circle class="lens-circle" cx="200" cy="200" r="88" stroke="rgba(58,74,92,0.2)" stroke-width="1.5" fill="none"/>
+            <circle class="lens-circle" cx="200" cy="200" r="68" stroke="rgba(58,74,92,0.25)" stroke-width="1" fill="none"/>
 
-  <section class="khr-infographic" aria-label="Five Patterns Becoming Harder to Ignore">
-    <div class="khr-infographic-head">
-      <h3>Five Patterns Becoming Harder to Ignore</h3>
-      <span>What repeated reading is revealing</span>
-    </div>
-    <div class="khr-infographic-grid">
-      <div class="khr-infographic-cell"><strong>Domain specificity</strong><p>Generic claims are less useful than bounded workflows such as contracts, water systems, or technical briefings.</p></div>
-      <div class="khr-infographic-cell"><strong>Grounding</strong><p>Trusted sources, retrieval, and evidence design increasingly separate serious use from fluent performance.</p></div>
-      <div class="khr-infographic-cell"><strong>Implementation gap</strong><p>Many papers list use cases; fewer show what deployment actually requires.</p></div>
-      <div class="khr-infographic-cell"><strong>Quality language</strong><p>Attention to relevance, reproducibility, and review is improving but still uneven.</p></div>
-      <div class="khr-infographic-cell"><strong>Human expertise</strong><p>Expert review remains central in high-stakes contexts.</p></div>
-      <div class="khr-infographic-cell"><strong>Systems lens</strong><p>The papers are increasingly about users, documents, workflows, and governance—not only models.</p></div>
-    </div>
-  </section>
+            <!-- Central lens fill -->
+            <circle cx="200" cy="200" r="55" fill="rgba(20,28,36,0.9)" stroke="rgba(58,74,92,0.3)" stroke-width="1.5"/>
 
+            <!-- Lens crosshair -->
+            <line x1="200" y1="155" x2="200" y2="175" stroke="rgba(58,74,92,0.4)" stroke-width="1.2"/>
+            <line x1="200" y1="225" x2="200" y2="245" stroke="rgba(58,74,92,0.4)" stroke-width="1.2"/>
+            <line x1="155" y1="200" x2="175" y2="200" stroke="rgba(58,74,92,0.4)" stroke-width="1.2"/>
+            <line x1="225" y1="200" x2="245" y2="200" stroke="rgba(58,74,92,0.4)" stroke-width="1.2"/>
 
-  <section class="khr-editorial-section" id="pattern-one-usefulness-is-becoming-more-domain-specific">
-    <div class="khr-section-kicker">Observation</div>
-    <h2>Pattern one: usefulness is becoming more domain-specific</h2>
-    <p>Generic claims about GenAI capability are becoming less useful. Stronger papers move into domain-specific workflows such as contract querying, engineering-stage applications, water-network operations, and research translation.</p>
-    <p>That shift moves the conversation away from abstract impressiveness and toward bounded usefulness inside a task environment.</p>
-  </section>
+            <!-- Centre text -->
+            <text x="200" y="195" font-family="Cinzel,serif" font-size="8" letter-spacing="1.5" fill="rgba(90,110,132,0.65)" text-anchor="middle">REPEATED</text>
+            <text x="200" y="207" font-family="Cinzel,serif" font-size="8" letter-spacing="1.5" fill="rgba(90,110,132,0.65)" text-anchor="middle">READING</text>
+            <text x="200" y="219" font-family="Cinzel,serif" font-size="8" letter-spacing="1.5" fill="rgba(90,110,132,0.65)" text-anchor="middle">LENS</text>
 
-
-  <section class="khr-editorial-section" id="pattern-two-grounding-keeps-showing-up-as-the-difference-maker">
-    <div class="khr-section-kicker">Observation</div>
-    <h2>Pattern two: grounding keeps showing up as the difference-maker</h2>
-    <p>Across applied work, retrieval, trusted source material, and explainable workflow design keep appearing as decisive factors. Generic generation may be rhetorically smooth, but grounded generation is what begins to make institutional use defensible.</p>
-    <p>That means serious adoption conversations should focus on source control, retrieval quality, document boundaries, and evaluation rather than prompts alone.</p>
-  </section>
-
-
-  <section class="khr-split-panel">
-    <div class="khr-split-panel-head">What the Field Still Underestimates</div>
-    <div class="khr-split-grid">
-      <div>
-        <h3>Under-discussed realities</h3>
-        <ul>
-        <li>Governance fatigue over time.</li>
-        <li>Data and document messiness inside institutions.</li>
-        <li>Change management and user trust.</li>
-        <li>The burden of keeping systems current and reviewable.</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Better reading questions</h3>
-        <ul>
-        <li>What counts as success in the paper?</li>
-        <li>Would that success satisfy a real deployment context?</li>
-        <li>What constraints and challenge categories are named?</li>
-        <li>Where does expert judgement remain essential?</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-
-  <section class="khr-editorial-section" id="a-minimal-example">
-    <div class="khr-section-kicker">Reflection</div>
-    <h2>A minimal example</h2>
-    <p>Imagine two institutions reading the same GenAI paper. One sees a list of exciting applications and starts experimenting immediately. The other notices the constraints, evaluation logic, and implementation boundaries, then begins by curating its document base and defining a narrow workflow.</p>
-    <p>The second institution is more likely to build something durable because it reads for discipline rather than confidence.</p>
-  </section>
-
-
-  <aside class="khr-module khr-module--note">
-    <h3>Reporting language you can reuse</h3>
-    <p>The evidence suggests promising domain-specific use cases, especially where workflows can be grounded in trusted information sources. However, deployment quality still depends heavily on retrieval design, review workflows, and governance capacity.</p>
-
-
-  </aside>
-
-
-  <section class="khr-checklist-panel">
-    <div class="khr-checklist-symbol">◎</div>
-    <div>
-      <h3>Common Mistakes</h3>
-    <p>A careful reading posture keeps ambition and caution in the same frame.</p>
-      <ul>
-      <li>Reading GenAI papers for confidence rather than discipline.</li>
-      <li>Extracting use cases while ignoring challenge categories.</li>
-      <li>Assuming promise in one domain justifies replication in another.</li>
-      <li>Treating the papers as only about models rather than systems.</li>
-      </ul>
-    </div>
-  </section>
-
-
-  <section class="khr-editorial-section" id="open-question">
-    <div class="khr-section-kicker">Carry Forward</div>
-    <h2>Open question</h2>
-    <p>The question that keeps returning is this: which institutions will treat GenAI as a workflow design challenge rather than a tool adoption race?</p>
-    <p>The answer may matter more than any single benchmark result.</p>
-  </section>
-
-
-  <section class="khr-editorial-section" id="references-and-further-reading">
-    <div class="khr-section-kicker">Reading Trail</div>
-    <h2>References and further reading</h2>
-    <p>Read this note alongside AI readiness frameworks, RAG explainers, and practical capability-session materials for STEM teams.</p>
-    <p>The practical takeaway: repeated reading helps teams move from hype or fear toward disciplined implementation judgement.</p>
-  </section>
-
-      </article>
-
-  <aside class="khr-sidebar" aria-label="Resource sidebar">
-    <div class="khr-sidecard khr-progress-card">
-      <h3>Reading Progress</h3>
-      <div class="khr-progress-track"><span></span></div>
-      <p>Start with the framing, use the visual modules to compare options, then close with the checklist.</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Resource Details</h3>
-      <p><strong>AI for STEM Innovation</strong><br>Lab Note · Knowledge Hub resource</p>
-      <p><strong>Reflective</strong><br>Research teams · AI programme leads · technical educators</p>
-      <p>5 min read · 4 visual modules</p>
-      <p>Updated April 2026</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Continue Reading</h3>
-      <div class="khr-related">
-      <a href="../frameworks/ai-adoption-readiness-for-research-teams.html">AI Adoption Readiness for Research Teams</a>
-      <a href="../explainers/why-retrieval-augmented-generation-matters-for-technical-domains.html">Why Retrieval-Augmented Generation Matters for Technical Domains</a>
-      <a href="../playbooks/how-to-run-a-small-ai-for-stem-capability-session.html">How to Run a Small AI-for-STEM Capability Session</a>
-        <a href="../../knowledge-hub.html">← Back to Knowledge Hub</a>
+            <!-- Emerging pattern labels around lens -->
+            <text x="200" y="143" font-family="Cinzel,serif" font-size="6.5" fill="rgba(201,171,132,0.35)" text-anchor="middle">DOMAIN SPECIFICITY</text>
+            <text x="260" y="200" font-family="Cinzel,serif" font-size="6.5" fill="rgba(201,171,132,0.32)" text-anchor="start" transform="rotate(90,260,200)">GROUNDING</text>
+            <text x="200" y="268" font-family="Cinzel,serif" font-size="6.5" fill="rgba(201,171,132,0.3)" text-anchor="middle">GOVERNANCE</text>
+            <text x="140" y="200" font-family="Cinzel,serif" font-size="6.5" fill="rgba(201,171,132,0.28)" text-anchor="end" transform="rotate(-90,140,200)">EXPERTISE</text>
+          </svg>
+        </div>
       </div>
     </div>
-    <div class="khr-sidecard khr-engage-card">
-      <h3>Engage with Rankine</h3>
-      <p>Use this note when interpreting GenAI papers for adoption, briefing, or research translation conversations.</p>
-      <a class="btn" href="../../contact.html">Discuss a Partnership →</a>
-    </div>
-  </aside>
+  </div>
+</section>
 
-    </div>
-  </main>
+<!-- ═══ CONTENT ═══ -->
+<div class="container">
+  <div class="khr-layout">
+    <article class="khr-article" id="articleBody">
 
+      <!-- ─── SECTION 1 ─── -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Why This Note Exists</p>
+        <h2 class="khr-h2">The pattern is more valuable than <em>any single paper</em></h2>
+
+        <div class="pull-quote">
+          <p>Reading one generative AI paper can give you a result. Reading a cluster of them closely starts to reveal a pattern — and that pattern is often more valuable than the headline claim of any single paper, because it shows where the field is stabilising and where it is still performing confidence theatre.</p>
+          <cite>— Rankine Innovation Lab · Knowledge Hub</cite>
+        </div>
+
+        <p class="khr-body">
+          This note draws from the founder-connected GenAI inventory — particularly the construction and water-domain pieces — and translates emerging patterns into observations that are useful for Rankine's audience. The goal is not to provide a literature review. It is to state what repeated reading is making harder to ignore.
+        </p>
+        <p class="khr-body">
+          The lens matters because institutions reading research to guide adoption decisions need a different output than academics reading it to build theory. They need pattern-level clarity: what is the field learning, collectively, that no single paper states directly?
+        </p>
+      </div>
+
+      <!-- ─── SECTION 2: Five Patterns ─── -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Field Observation</p>
+        <h2 class="khr-h2">Five patterns emerging <em>across the evidence</em></h2>
+
+        <p class="khr-body">
+          These patterns emerge from reading papers not individually but in cluster — paying attention to where language shifts, where caveats appear consistently, and where the strongest work does something qualitatively different from the weakest work.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Pattern Analysis</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">What the Evidence Cluster Is Revealing</span>
+          </div>
+          <div class="infographic-body">
+            <div class="patterns-list">
+              <div class="pattern-card">
+                <div class="pattern-num">01</div>
+                <div class="pattern-body">
+                  <div class="pattern-title">Usefulness Is Becoming More Domain-Specific</div>
+                  <div class="pattern-desc">Generic claims about what GenAI can do are becoming less useful. The more valuable papers move into domain-specific workflows — contract document querying, engineering-stage applications, water-network operations. The strongest work no longer asks whether GenAI is impressive. It asks whether it performs well enough, safely enough, and consistently enough inside a specific task environment.</div>
+                  <span class="pattern-signal">Stabilising signal</span>
+                </div>
+              </div>
+              <div class="pattern-card">
+                <div class="pattern-num">02</div>
+                <div class="pattern-body">
+                  <div class="pattern-title">Grounding Keeps Showing Up as the Difference-Maker</div>
+                  <div class="pattern-desc">Retrieval, trusted source material, and explainable workflow design keep appearing as decisive factors. Generic generation may be rhetorically smooth, but grounded generation is what makes institutional use defensible. Serious adoption conversations are increasingly about source control, retrieval quality, and document boundaries — not about prompts.</div>
+                  <span class="pattern-signal">Strengthening signal</span>
+                </div>
+              </div>
+              <div class="pattern-card">
+                <div class="pattern-num">03</div>
+                <div class="pattern-body">
+                  <div class="pattern-title">Implementation Is Harder Than Ideation</div>
+                  <div class="pattern-desc">Many papers can generate long lists of possible use cases. Far fewer can show what implementation requires. The gap between ideation and deployment is one of the most visible weaknesses in the literature. The stronger founder-connected pieces matter precisely because they move toward implementation frameworks rather than stopping at use-case enumeration.</div>
+                  <span class="pattern-signal">Persistent gap</span>
+                </div>
+              </div>
+              <div class="pattern-card">
+                <div class="pattern-num">04</div>
+                <div class="pattern-body">
+                  <div class="pattern-title">Quality Language Is Improving, but Uneven</div>
+                  <div class="pattern-desc">There is growing attention to quality, relevance, reproducibility, and user-oriented evaluation. That is a good sign. But the field is still uneven in how confidently it speaks about reliability. Some work still leans too heavily on performance narratives without enough operational caution. Papers should be read with two questions: what counts as success here, and would that definition satisfy a real deployment context?</div>
+                  <span class="pattern-signal">Mixed signal</span>
+                </div>
+              </div>
+              <div class="pattern-card">
+                <div class="pattern-num">05</div>
+                <div class="pattern-body">
+                  <div class="pattern-title">Human Expertise Is Not Disappearing</div>
+                  <div class="pattern-desc">Repeated reading does not support the idea that human expertise is becoming optional. If anything, it reinforces the opposite: domain expertise matters more when teams are trying to judge whether the output is grounded, contextually appropriate, or decision-safe. The papers are valuable not because they remove the need for expert review, but because they show where assistance can integrate into an expert-led workflow.</div>
+                  <span class="pattern-signal">Counter-narrative confirmed</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── SECTION 3: What the Field Underestimates ─── -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Critical Gaps</p>
+        <h2 class="khr-h2">What the field still <em>systematically underestimates</em></h2>
+
+        <p class="khr-body">
+          Across all five patterns, three categories of challenge are consistently underdiscussed — not because they are unknown, but because they are harder to make impressive in a paper than capability demonstrations are.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Gap Analysis</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Three Under-Discussed Implementation Challenges</span>
+          </div>
+          <div class="infographic-body">
+            <div class="underestimates-grid">
+              <div class="underestimate-tile">
+                <span class="u-icon">⚖</span>
+                <div class="u-title">Governance Fatigue</div>
+                <div class="u-desc">Too little attention to the operational burden of keeping systems current, governed, and reviewable over time. Many papers discuss risk, but fewer show what sustained governance looks like across a year of use.</div>
+              </div>
+              <div class="underestimate-tile">
+                <span class="u-icon">🗃</span>
+                <div class="u-title">Data Messiness</div>
+                <div class="u-desc">The literature often assumes a cleaner document and data environment than institutions actually have. In practice, adoption stalls because source material is fragmented, outdated, or politically sensitive — problems that no model addresses.</div>
+              </div>
+              <div class="underestimate-tile">
+                <span class="u-icon">🤝</span>
+                <div class="u-title">Change Management</div>
+                <div class="u-desc">Even when a system works technically, people still need to trust it, understand it, and know when not to use it. This human adoption layer is still under-discussed relative to the fascination with model capability and benchmark performance.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── SECTION 4: The Contrast ─── -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Practical Reasoning</p>
+        <h2 class="khr-h2">Two institutions, <em>one paper</em> — entirely different outcomes</h2>
+
+        <p class="khr-body">
+          The contrast below captures what repeated reading is actually revealing. The strongest signal in the current GenAI literature is not unlimited possibility. It is the growing importance of disciplined narrowing.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Decision Contrast</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Reading for Confidence vs Reading for Discipline</span>
+          </div>
+          <div class="infographic-body">
+            <div class="contrast-box">
+              <div class="contrast-col contrast-col--a">
+                <span class="contrast-col-label">⛔ Reads for Confidence</span>
+                <div class="contrast-col-title">Extracts applications. Ignores constraints.</div>
+                <div class="contrast-col-desc">Sees a list of exciting applications, starts experimenting immediately with whichever tools are available. Skips the sections on evaluation, challenge categories, and implementation limits. Confident about capability. Vague about failure modes.</div>
+                <div class="contrast-arrow">↓</div>
+                <div class="contrast-col-desc" style="font-style:italic;color:var(--mahogany)">Produces inconsistent outputs. Builds mistrust when quality degrades. Eventually stalls.</div>
+              </div>
+              <div class="contrast-col contrast-col--b">
+                <span class="contrast-col-label">✓ Reads for Discipline</span>
+                <div class="contrast-col-title">Extracts constraints. Then selects applications.</div>
+                <div class="contrast-col-desc">Notices the sections on constraints, evaluation, and implementation boundaries first. Begins by curating its document base, defining a narrow workflow, and naming the failure modes it will monitor before scaling.</div>
+                <div class="contrast-arrow">↓</div>
+                <div class="contrast-col-desc" style="font-style:italic;color:var(--slate)">Builds something durable. Knows what it is doing and why. Can explain decisions to external stakeholders.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── SECTION 5: Key Observations ─── -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Actionable Takeaways</p>
+        <h2 class="khr-h2">What this means for <em>teams reading GenAI research</em></h2>
+
+        <p class="khr-body">
+          These observation prompts are designed to travel well into internal settings — team meetings, programme reviews, or funding conversations where AI is being discussed on the basis of research. Use them to sharpen the conversation.
+        </p>
+
+        <div class="observation-block">
+          <div class="obs-header">
+            <span class="obs-icon" aria-hidden="true">◎</span>
+            <div>
+              <div class="obs-label">Reading Lens — Observation Prompts</div>
+              <div class="obs-title">Four questions for every GenAI paper your team reads</div>
+            </div>
+          </div>
+          <div class="obs-items">
+            <div class="obs-item">
+              <span class="obs-item-label">On suitability</span>
+              <span class="obs-item-text">Is this paper making a domain-specific claim or a generic one? Domain-specific evidence transfers more reliably to real deployment decisions.</span>
+            </div>
+            <div class="obs-item">
+              <span class="obs-item-label">On success definition</span>
+              <span class="obs-item-text">What counts as success in this paper — and would that definition satisfy an actual deployment context where outputs carry consequences?</span>
+            </div>
+            <div class="obs-item">
+              <span class="obs-item-label">On replication</span>
+              <span class="obs-item-text">What would need to be true in our environment for this result to replicate? Is our document base clean enough? Our governance structure robust enough?</span>
+            </div>
+            <div class="obs-item">
+              <span class="obs-item-label">On the open question</span>
+              <span class="obs-item-text">Which institutions will treat GenAI as a workflow design challenge rather than a tool adoption race? That answer may matter more than any single benchmark result.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── REFERENCES ─── -->
+      <div class="khr-section reveal">
+        <div class="references">
+          <span class="references-label">Sources &amp; Source Base</span>
+          <ol>
+            <li>Rankine Innovation Lab Knowledge Hub research brief: Founder-connected GenAI inventory and the proposed lab note on repeated reading of the literature.</li>
+            <li>Founder-linked GenAI papers in construction and water systems identified in the research synthesis.</li>
+            <li>Rankine positioning: research translation, practical systems, and implementation-aware innovation as the framing lens for AI evidence review.</li>
+          </ol>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="khr-sidebar">
+      <div class="side-card">
+        <div class="side-card-header">Reading Progress</div>
+        <div class="side-card-body">
+          <div class="reading-meter"><div class="reading-meter-fill" id="sidebarMeter"></div></div>
+          <div class="reading-meter-label"><span>Start</span><span id="progressPct">0%</span></div>
+        </div>
+      </div>
+      <div class="side-card">
+        <div class="side-card-header">Resource Details</div>
+        <div class="side-card-body">
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--slate);box-shadow:0 0 8px rgba(58,74,92,0.5)"></span>
+            <div><div class="domain-label">AI for STEM Innovation</div><div class="domain-sub">Core domain · First-wave resource</div></div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--copper);box-shadow:0 0 8px rgba(160,92,56,0.4)"></span>
+            <div><div class="domain-label">Research Teams · Leads</div><div class="domain-sub">For those reading and translating AI evidence</div></div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--sand)"></span>
+            <div><div class="domain-label">4 min read · Lab Note</div><div class="domain-sub">Updated April 2026</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="side-card">
+        <div class="side-card-header">Continue Reading</div>
+        <div class="side-card-body">
+          <a href="../frameworks/ai-adoption-readiness-for-research-teams.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text"><span class="related-link-tag">Framework</span>AI Adoption Readiness for Research Teams</span>
+          </a>
+          <a href="../explainers/why-retrieval-augmented-generation-matters-for-technical-domains.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text"><span class="related-link-tag">Explainer</span>Why RAG Matters for Technical Domains</span>
+          </a>
+          <a href="../playbooks/how-to-run-a-small-ai-for-stem-capability-session.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text"><span class="related-link-tag">Playbook</span>How to Run a Small AI-for-STEM Capability Session</span>
+          </a>
+          <button class="btn-side" onclick="window.location.href='../../knowledge-hub.html'">← Back to Knowledge Hub</button>
+        </div>
+      </div>
+      <div class="side-card">
+        <div class="side-card-header">Engage with Rankine</div>
+        <div class="side-card-body">
+          <p>This lab note is part of Rankine's ongoing research translation programme. If your organisation is navigating GenAI evidence and needs structured support, we would like to hear from you.</p>
+          <button class="btn-side" onclick="window.location.href='../../contact.html'">Discuss a Partnership →</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
 
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="footer-logo-icon">
+      <div>
+        <img src="../../Images/rakine_logo.svg" class="footer-logo-icon" alt="Rankine Innovation Lab logo"/>
         <div class="footer-logo-name">Rankine Innovation Lab</div>
         <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
         <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
       </div>
       <div>
-        <h3 class="footer-col-title">Navigation</h3>
+        <div class="footer-col-title">Navigation</div>
         <ul class="footer-links">
           <li><a href="../../about.html">About the Lab</a></li>
-          <li><a href="../../index.html#method">The Rankine Method</a></li>
-          <li><a href="../../index.html#focus">Focus Areas</a></li>
+          <li><a href="../../research.html">Research &amp; Project</a></li>
           <li><a href="../../programmes.html">Programmes</a></li>
           <li><a href="../../partnership.html">Partnerships</a></li>
           <li><a href="../../team.html">Team</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Domains</h3>
+        <div class="footer-col-title">Domains</div>
         <ul class="footer-links">
-          <li><a href="../../research.html#ai">AI for STEM</a></li>
-          <li><a href="../../research.html#sustainability">Sustainability</a></li>
-          <li><a href="../../research.html#smart-agriculture">Smart Agriculture</a></li>
-          <li><a href="../../research.html#cross-disciplinary">Cross-Disciplinary</a></li>
+          <li><a href="../../research.html">AI for STEM</a></li>
+          <li><a href="../../research.html">Sustainability</a></li>
+          <li><a href="../../research.html">Smart Agriculture</a></li>
+          <li><a href="../../research.html">Cross-Disciplinary</a></li>
           <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Engage</h3>
+        <div class="footer-col-title">Engage</div>
         <ul class="footer-links">
-          <li><a href="../../partnership.html">Partnerships</a></li>
+          <li><a href="../../contact.html">Partnerships</a></li>
           <li><a href="../../contact.html">Research Collaboration</a></li>
           <li><a href="../../contact.html">Training Enquiries</a></li>
           <li><a href="../../contact.html">Speaking</a></li>
@@ -295,7 +711,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Rankine Innovation Lab. All rights reserved.</p>
+      <p class="footer-copy">&copy; 2025 <em>Rankine Innovation Lab</em>. All rights reserved.</p>
       <div class="footer-legal">
         <a href="../../privacy.html">Privacy</a>
         <a href="../../terms.html">Terms</a>
@@ -305,28 +721,34 @@
   </div>
 </footer>
 
-
 <script>
-  const nav = document.getElementById('siteNav');
-  const toggle = document.getElementById('mobileToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  function setNavState(){
-    if(window.scrollY > 24){ nav.classList.remove('transparent'); nav.classList.add('solid'); }
-    else { nav.classList.add('transparent'); nav.classList.remove('solid'); }
-  }
-  setNavState();
-  window.addEventListener('scroll', setNavState, { passive: true });
-  if(toggle && mobileMenu){
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.classList.toggle('open');
-      mobileMenu.classList.toggle('open', isOpen);
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-      document.body.classList.toggle('menu-open', isOpen);
-    });
-  }
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+function closeMobile() {
+  hamburgerBtn.classList.remove('open'); mobileMenu.classList.remove('open');
+  document.body.style.overflow = ''; hamburgerBtn.setAttribute('aria-expanded','false');
+}
+hamburgerBtn.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburgerBtn.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+  hamburgerBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+const progressBar = document.getElementById('progressBar');
+const sidebarMeter = document.getElementById('sidebarMeter');
+const progressPct = document.getElementById('progressPct');
+const articleBody = document.getElementById('articleBody');
+function updateProgress() {
+  const rect = articleBody.getBoundingClientRect();
+  const pct = Math.min(100, Math.round((Math.max(0,-rect.top)/(rect.height-window.innerHeight))*100));
+  progressBar.style.width = sidebarMeter.style.width = pct+'%';
+  progressPct.textContent = pct+'%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 </script>
-
-<script src="../resource-template.js"></script>
 </body>
 </html>
