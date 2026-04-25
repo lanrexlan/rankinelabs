@@ -1,259 +1,761 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Climate-Smart Agriculture: The Three Pillars and How to Measure Them — Knowledge Hub | Rankine Innovation Lab</title>
-  <meta name="description" content="Climate-smart agriculture is useful only when productivity, resilience, and emissions logic are translated into measurable trade-offs rather than treated as a slogan.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../resource-template.css">
-</head>
-<body class="resource-page resource-explainer">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Climate Smart Agriculture — Knowledge Hub | Rankine Innovation Lab</title>
+<meta name="description" content="Climate-smart agriculture is widely referenced but rarely operationalised. This explainer translates the three-pillar framework into measurable indicators, real-world trade-offs, and field decisions."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
 
-<nav class="nav transparent" id="siteNav" aria-label="Primary navigation">
-  <div class="container nav-inner">
-    <a class="nav-logo" href="../../index.html" aria-label="Rankine Innovation Lab home">
-      <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="nav-logo-icon">
-      <span class="nav-logo-text">
-        <span class="nav-logo-mark">Rankine</span>
-        <span class="nav-logo-name">Innovation Lab</span>
-      </span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="../../index.html">Home</a></li>
-      <li><a href="../../about.html">About</a></li>
-      <li><a href="../../research.html">Research &amp; Project</a></li>
-      <li><a href="../../programmes.html">Programmes</a></li>
-      <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
-      <li><a href="../../team.html">Team</a></li>
-      <li><a href="../../contact.html">Contact</a></li>
-    </ul>
-    <button class="hamburger" id="mobileToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span><span></span><span></span>
-    </button>
+:root {
+  --chocolate:  #180c06;
+  --espresso:   #241208;
+  --brown:      #3a1c0e;
+  --mahogany:   #5c2d18;
+  --copper:     #a05c38;
+  --copper-lt:  #c47a52;
+  --sand:       #c9ab84;
+  --sand-lt:    #ddc9a8;
+  --cream:      #f4ede0;
+  --cream-lt:   #faf6ef;
+  --sage:       #687558;
+  --sage-lt:    #8e9e78;
+  --forest:     #2d5016;
+  --forest-lt:  #4a7a28;
+  --earth:      #6b5a2a;
+  --earth-lt:   #8e7a40;
+  --white:      #fffcf8;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-label:   'Cinzel', serif;
+  --font-body:    'DM Sans', sans-serif;
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--cream-lt); color: var(--espresso); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+img { display: block; max-width: 100%; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--sage); border-radius: 2px; }
+.container { width: min(1220px, 100%); margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3rem); }
+
+.progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--forest-lt), var(--sage-lt), var(--sand)); z-index: 2000; transition: width 0.1s linear; }
+
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(24,12,6,0.97); backdrop-filter: blur(18px); box-shadow: 0 1px 0 rgba(201,171,132,0.12); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+.nav-logo { display: inline-flex; align-items: center; gap: 0.75rem; }
+.nav-logo-icon { width: 40px; height: 40px; border-radius: 8px; }
+.nav-logo-mark { display: block; font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.25em; color: var(--copper); text-transform: uppercase; }
+.nav-logo-name { font-family: var(--font-display); font-size: 1.25rem; color: var(--cream); letter-spacing: 0.02em; }
+.nav-links { display: flex; align-items: center; gap: clamp(0.8rem,1.8vw,1.5rem); list-style: none; }
+.nav-links a { font-size: 0.76rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(244,237,224,0.7); transition: color 0.3s; }
+.nav-links a:hover { color: var(--cream); }
+.nav-links a.active-page { color: var(--sand); }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--cream); transition: all 0.3s; }
+.hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; }
+.hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 0; background: rgba(24,12,6,0.98); backdrop-filter: blur(20px); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; transform: translateY(-100%); transition: transform 0.5s var(--ease-out); }
+.mobile-menu.open { display: flex; transform: translateY(0); }
+.mobile-menu a { font-family: var(--font-display); font-size: 2rem; font-weight: 300; color: var(--cream); }
+
+/* HERO */
+.khr-hero {
+  min-height: 92vh;
+  background:
+    radial-gradient(ellipse 60% 55% at 85% 18%, rgba(45,80,22,0.32), transparent 55%),
+    radial-gradient(ellipse 45% 45% at 12% 78%, rgba(90,40,12,0.22), transparent 55%),
+    linear-gradient(158deg, #060e04 0%, #0c1a08 35%, #110d08 70%, #0a0604 100%);
+  display: flex; align-items: center;
+  padding-top: 72px; position: relative; overflow: hidden;
+}
+.khr-hero::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 71px, rgba(201,171,132,0.022) 71px, rgba(201,171,132,0.022) 72px); pointer-events: none; }
+.khr-hero::after { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); background-size: 256px; opacity: 0.5; pointer-events: none; }
+.khr-hero-inner { position: relative; z-index: 2; width: 100%; padding-block: clamp(3rem,6vw,6rem); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,5vw,6rem); align-items: center; }
+
+.breadcrumb { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,237,224,0.3); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.75rem; }
+.breadcrumb strong { color: var(--copper); font-weight: 400; }
+.khr-type-badge { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--forest-lt); border: 1px solid rgba(45,80,22,0.45); background: rgba(45,80,22,0.12); padding: 0.4rem 0.9rem; border-radius: 2px; margin-bottom: 1.5rem; }
+.khr-type-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--forest-lt); box-shadow: 0 0 8px rgba(45,80,22,0.6); }
+.khr-title { font-family: var(--font-display); font-size: clamp(2.4rem, 4.5vw, 4.2rem); font-weight: 300; line-height: 1.08; letter-spacing: -0.012em; color: var(--cream-lt); margin-bottom: 1.4rem; }
+.khr-title em { font-style: italic; color: var(--sand); }
+.khr-dek { font-size: clamp(0.92rem,1.35vw,1.05rem); line-height: 1.82; color: rgba(244,237,224,0.55); font-weight: 300; max-width: 560px; margin-bottom: 2.2rem; }
+.khr-meta-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding-top: 1.5rem; border-top: 1px solid rgba(201,171,132,0.1); }
+.khr-meta-item { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(201,171,132,0.4); }
+.khr-meta-item strong { color: var(--forest-lt); font-weight: 400; }
+
+/* Hero SVG: Three-Pillar Triangle */
+.hero-diagram-wrap { display: flex; align-items: center; justify-content: center; }
+.hero-diagram { width: 100%; max-width: 480px; aspect-ratio: 1; }
+.csa-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 40px rgba(45,80,22,0.12)); }
+
+.pillar-ring { animation: pillarPulse 4s ease-in-out infinite; }
+.pillar-ring:nth-child(2){ animation-delay:1.3s }
+.pillar-ring:nth-child(3){ animation-delay:2.6s }
+@keyframes pillarPulse { 0%,100%{opacity:0.3} 50%{opacity:0.8} }
+
+.pillar-arc { stroke-dasharray: 600; stroke-dashoffset: 600; animation: arcIn 2s var(--ease-out) forwards; }
+.pillar-arc:nth-child(1){ animation-delay:0.1s }
+.pillar-arc:nth-child(2){ animation-delay:0.45s }
+.pillar-arc:nth-child(3){ animation-delay:0.8s }
+@keyframes arcIn { to{ stroke-dashoffset:0 } }
+
+.orbit-dot { animation: dotBreath 3s ease-in-out infinite; }
+.orbit-dot:nth-child(2n){ animation-delay:1s }
+.orbit-dot:nth-child(3n){ animation-delay:2s }
+@keyframes dotBreath { 0%,100%{r:5} 50%{r:7} }
+
+/* LAYOUT */
+.khr-layout { display: grid; grid-template-columns: 1fr 340px; gap: 3rem; padding-block: clamp(3rem,6vw,5.5rem); align-items: start; }
+.khr-article { min-width: 0; }
+.khr-section { margin-bottom: clamp(3rem,5vw,4.5rem); padding-bottom: clamp(3rem,5vw,4.5rem); border-bottom: 1px solid rgba(58,28,14,0.08); }
+.khr-section:last-child { border-bottom: none; margin-bottom: 0; }
+.section-eyebrow { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--forest); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.75rem; }
+.section-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--forest); }
+.khr-h2 { font-family: var(--font-display); font-size: clamp(1.6rem,2.8vw,2.2rem); font-weight: 400; line-height: 1.15; color: var(--espresso); letter-spacing: -0.01em; margin-bottom: 1.25rem; }
+.khr-h2 em { font-style: italic; color: var(--forest); }
+.khr-body { font-size: clamp(0.95rem,1.35vw,1.03rem); line-height: 1.88; color: var(--brown); font-weight: 300; }
+.khr-body + .khr-body { margin-top: 1.1rem; }
+
+/* PULL QUOTE */
+.pull-quote { margin: 2.5rem 0; padding: 2rem 2rem 2rem 2.5rem; border-left: 4px solid var(--sage); background: linear-gradient(135deg, rgba(104,117,88,0.06), rgba(201,171,132,0.02)); border-radius: 0 var(--radius-md) var(--radius-md) 0; position: relative; overflow: hidden; }
+.pull-quote::before { content: '"'; position: absolute; top: -1rem; left: 1rem; font-family: var(--font-display); font-size: 8rem; font-weight: 700; color: rgba(104,117,88,0.07); line-height: 1; pointer-events: none; }
+.pull-quote p { font-family: var(--font-display); font-style: italic; font-size: clamp(1.15rem,2vw,1.45rem); font-weight: 300; line-height: 1.55; color: var(--mahogany); position: relative; z-index: 1; }
+.pull-quote cite { display: block; margin-top: 0.75rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--sage); font-style: normal; }
+
+/* INFOGRAPHIC WRAPPER */
+.infographic { margin: 2.5rem 0; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid rgba(58,28,14,0.1); }
+.infographic-header { background: var(--espresso); padding: 1.25rem 1.75rem; display: flex; align-items: center; gap: 1rem; }
+.infographic-header-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--forest-lt); }
+.infographic-header-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 400; color: var(--cream); }
+.infographic-header-line { flex: 1; height: 1px; background: rgba(201,171,132,0.12); }
+.infographic-body { background: var(--white); padding: 2rem 1.75rem; }
+
+/* ── THREE PILLARS ── */
+.pillars-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+.pillar-card { border-radius: var(--radius-md); overflow: hidden; position: relative; cursor: default; transition: transform 0.4s var(--ease-out), box-shadow 0.4s; }
+.pillar-card:hover { transform: translateY(-6px); box-shadow: 0 20px 55px rgba(24,12,6,0.12); }
+.pillar-card-top { padding: 1.5rem 1.25rem 1.25rem; }
+.pillar-card:nth-child(1) .pillar-card-top { background: rgba(45,80,22,0.1); border: 1px solid rgba(45,80,22,0.25); border-bottom: none; }
+.pillar-card:nth-child(2) .pillar-card-top { background: rgba(107,90,42,0.08); border: 1px solid rgba(107,90,42,0.22); border-bottom: none; }
+.pillar-card:nth-child(3) .pillar-card-top { background: rgba(104,117,88,0.08); border: 1px solid rgba(104,117,88,0.22); border-bottom: none; }
+.pillar-num { font-family: var(--font-display); font-size: 2.5rem; font-weight: 300; line-height: 1; margin-bottom: 0.6rem; }
+.pillar-card:nth-child(1) .pillar-num { color: rgba(45,80,22,0.35); }
+.pillar-card:nth-child(2) .pillar-num { color: rgba(107,90,42,0.3); }
+.pillar-card:nth-child(3) .pillar-num { color: rgba(104,117,88,0.3); }
+.pillar-icon { font-size: 1.5rem; margin-bottom: 0.65rem; display: block; }
+.pillar-name { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.4rem; }
+.pillar-card:nth-child(1) .pillar-name { color: var(--forest-lt); }
+.pillar-card:nth-child(2) .pillar-name { color: var(--earth-lt); }
+.pillar-card:nth-child(3) .pillar-name { color: var(--sage-lt); }
+.pillar-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.5rem; }
+.pillar-card-body { padding: 1.25rem; background: var(--cream-lt); border: 1px solid rgba(58,28,14,0.1); border-top: none; }
+.pillar-desc { font-size: 0.8rem; line-height: 1.68; color: var(--brown); font-weight: 300; }
+.pillar-indicators { margin-top: 0.9rem; }
+.pillar-indicator-label { font-family: var(--font-label); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(58,28,14,0.4); margin-bottom: 0.5rem; display: block; }
+.pillar-indicator-list { display: flex; flex-direction: column; gap: 0.35rem; }
+.pillar-indicator { font-size: 0.75rem; color: var(--espresso); display: flex; align-items: flex-start; gap: 0.45rem; }
+.p-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; margin-top: 0.4em; }
+.pillar-card:nth-child(1) .p-dot { background: var(--forest-lt); }
+.pillar-card:nth-child(2) .p-dot { background: var(--earth-lt); }
+.pillar-card:nth-child(3) .p-dot { background: var(--sage-lt); }
+
+/* ── TRADE-OFFS MATRIX ── */
+.tradeoff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.tradeoff-card { padding: 1.25rem; background: var(--cream-lt); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); cursor: default; transition: transform 0.35s var(--ease-out), border-color 0.35s; }
+.tradeoff-card:hover { transform: translateY(-4px); border-color: rgba(104,117,88,0.3); }
+.tradeoff-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.75rem; }
+.tradeoff-icon { font-size: 1.3rem; }
+.tradeoff-badge { font-family: var(--font-label); font-size: 0.5rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.25rem 0.55rem; border-radius: 2px; flex-shrink: 0; }
+.tradeoff-card:nth-child(1) .tradeoff-badge { background: rgba(107,90,42,0.1); color: var(--earth-lt); border: 1px solid rgba(107,90,42,0.2); }
+.tradeoff-card:nth-child(2) .tradeoff-badge { background: rgba(92,45,24,0.07); color: var(--mahogany); border: 1px solid rgba(92,45,24,0.15); }
+.tradeoff-card:nth-child(3) .tradeoff-badge { background: rgba(104,117,88,0.08); color: var(--sage); border: 1px solid rgba(104,117,88,0.2); }
+.tradeoff-card:nth-child(4) .tradeoff-badge { background: rgba(45,80,22,0.08); color: var(--forest-lt); border: 1px solid rgba(45,80,22,0.2); }
+.tradeoff-title { font-family: var(--font-display); font-size: 1rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.4rem; }
+.tradeoff-desc { font-size: 0.8rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+
+/* ── MEASUREMENT FRAMEWORK ── */
+.measurement-steps { display: flex; flex-direction: column; gap: 0.75rem; }
+.measure-step { display: grid; grid-template-columns: 56px 1fr; gap: 1rem; align-items: start; padding: 1rem 1.1rem; border-radius: var(--radius-md); border: 1px solid rgba(58,28,14,0.1); background: var(--cream-lt); transition: transform 0.3s var(--ease-out), border-color 0.3s; }
+.measure-step:hover { transform: translateX(4px); border-color: rgba(104,117,88,0.3); }
+.measure-num { font-family: var(--font-display); font-size: 1.8rem; font-weight: 300; line-height: 1; text-align: center; color: rgba(104,117,88,0.2); }
+.measure-body {}
+.measure-title { font-family: var(--font-display); font-size: 1rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.3rem; }
+.measure-desc { font-size: 0.82rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+
+/* ── FIVE QUESTIONS CHECKLIST ── */
+.questions-block { background: var(--espresso); border-radius: var(--radius-lg); padding: 2rem; position: relative; overflow: hidden; }
+.questions-block::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(201,171,132,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,171,132,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+.q-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; position: relative; z-index: 1; }
+.q-icon { font-size: 1.4rem; color: var(--forest-lt); }
+.q-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--forest-lt); }
+.q-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 300; color: var(--cream); }
+.q-items { display: flex; flex-direction: column; gap: 0.75rem; position: relative; z-index: 1; }
+.q-item { display: flex; align-items: flex-start; gap: 1rem; padding: 0.9rem 1rem; background: rgba(255,252,248,0.035); border: 1px solid rgba(201,171,132,0.08); border-radius: var(--radius-sm); cursor: pointer; transition: background 0.35s, border-color 0.35s; }
+.q-item:hover { background: rgba(255,252,248,0.07); border-color: rgba(45,80,22,0.25); }
+.q-check { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(45,80,22,0.4); background: rgba(45,80,22,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.65rem; color: var(--forest-lt); transition: background 0.35s, border-color 0.35s; }
+.q-item:hover .q-check { background: rgba(45,80,22,0.2); border-color: var(--forest-lt); }
+.q-text { font-family: var(--font-display); font-size: 0.95rem; font-weight: 400; color: rgba(244,237,224,0.72); line-height: 1.45; flex: 1; font-style: italic; }
+
+/* REFERENCES */
+.references { background: var(--cream); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); padding: 1.5rem 1.75rem; }
+.references-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1rem; display: block; }
+.references ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.references li { font-size: 0.82rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+
+/* SIDEBAR */
+.khr-sidebar { position: sticky; top: calc(72px + 2rem); display: flex; flex-direction: column; gap: 1.25rem; }
+.side-card { background: var(--white); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); overflow: hidden; }
+.side-card-header { background: var(--espresso); padding: 0.9rem 1.25rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--forest-lt); }
+.side-card-body { padding: 1.25rem; }
+.side-card-body p { font-size: 0.84rem; line-height: 1.72; color: var(--brown); font-weight: 300; }
+.domain-badge { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1rem; background: var(--cream-lt); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-sm); margin-bottom: 0.75rem; }
+.domain-badge:last-child { margin-bottom: 0; }
+.domain-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.domain-label { font-size: 0.8rem; color: var(--espresso); font-weight: 400; }
+.domain-sub { font-size: 0.72rem; color: var(--mahogany); font-weight: 300; }
+.related-link { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.85rem 0; border-bottom: 1px solid rgba(58,28,14,0.07); transition: transform 0.3s; }
+.related-link:last-child { border-bottom: none; padding-bottom: 0; }
+.related-link:hover { transform: translateX(4px); }
+.related-link-arrow { color: var(--copper); flex-shrink: 0; font-size: 0.7rem; margin-top: 0.15em; }
+.related-link-text { font-size: 0.83rem; line-height: 1.5; color: var(--espresso); font-weight: 400; }
+.related-link-tag { display: block; font-family: var(--font-label); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--copper); margin-bottom: 0.2rem; }
+.reading-meter { height: 4px; background: rgba(58,28,14,0.08); border-radius: 2px; overflow: hidden; margin: 0.75rem 0 0.4rem; }
+.reading-meter-fill { height: 100%; background: linear-gradient(90deg, var(--forest-lt), var(--sage-lt), var(--sand)); width: 0%; transition: width 0.2s linear; border-radius: 2px; }
+.reading-meter-label { font-family: var(--font-label); font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(58,28,14,0.35); display: flex; justify-content: space-between; }
+.btn-side { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.85rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; background: var(--espresso); color: var(--cream); border-radius: var(--radius-sm); cursor: pointer; margin-top: 0.75rem; transition: background 0.3s; }
+.btn-side:hover { background: var(--brown); }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: none; }
+.d1{ transition-delay: 0.1s; } .d2{ transition-delay: 0.2s; }
+
+.footer { background: var(--chocolate); padding: 4rem 0 2.5rem; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-logo-icon { width: 38px; margin-bottom: 0.75rem; }
+.footer-logo-name { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; color: var(--cream); }
+.footer-logo-sub  { font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.22em; color: var(--copper); text-transform: uppercase; margin: 0.3rem 0 1rem; }
+.footer-tagline   { font-size: 0.83rem; line-height: 1.7; color: rgba(244,237,224,0.35); font-weight: 300; max-width: 240px; }
+.footer-col-title { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1.1rem; }
+.footer-links     { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.footer-links a   { font-size: 0.82rem; color: rgba(244,237,224,0.35); transition: color 0.3s; }
+.footer-links a:hover { color: var(--sand); }
+.footer-bottom    { border-top: 1px solid rgba(201,171,132,0.1); padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-copy      { font-size: 0.76rem; color: rgba(244,237,224,0.2); }
+.footer-copy em   { color: var(--copper); font-style: normal; }
+.footer-legal     { display: flex; gap: 1.5rem; }
+.footer-legal a   { font-size: 0.73rem; color: rgba(244,237,224,0.2); transition: color 0.3s; }
+.footer-legal a:hover { color: var(--sand); }
+
+@media (max-width: 1024px) {
+  .khr-hero-inner { grid-template-columns: 1fr; }
+  .hero-diagram-wrap { display: none; }
+  .khr-layout { grid-template-columns: 1fr; }
+  .khr-sidebar { position: static; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .pillars-grid { grid-template-columns: 1fr; }
+  .tradeoff-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) { .footer-grid { grid-template-columns: 1fr; gap: 2rem; } }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="nav" id="mainNav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">
+        <img src="../../Images/rakine_logo.svg" class="nav-logo-icon" alt="Rankine Innovation Lab logo"/>
+        <div><span class="nav-logo-mark">Rankine</span><span class="nav-logo-name">Innovation Lab</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../../research.html">Research &amp; Project</a></li>
+        <li><a href="../../programmes.html">Programmes</a></li>
+        <li><a href="../../knowledge-hub.html" class="active-page">Knowledge Hub</a></li>
+        <li><a href="../../team.html">Team</a></li>
+        <li><a href="../../contact.html">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </nav>
-<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-  <a href="../../index.html">Home</a>
-  <a href="../../about.html">About</a>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../../index.html" onclick="closeMobile()">Home</a>
+  <a href="../../about.html" onclick="closeMobile()">About</a>
   <a href="../../research.html" onclick="closeMobile()">Research &amp; Project</a>
-  <a href="../../programmes.html">Programmes</a>
+  <a href="../../programmes.html" onclick="closeMobile()">Programmes</a>
   <a href="../../knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
-  <a href="../../team.html">Team</a>
-  <a href="../../contact.html">Contact</a>
+  <a href="../../team.html" onclick="closeMobile()">Team</a>
+  <a href="../../contact.html" onclick="closeMobile()">Contact</a>
 </div>
 
-<header class="khr-hero">
-    <div class="container">
-      <div class="breadcrumb"><a href="../../index.html">Home</a><span>—</span><a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span><strong>Explainer</strong></div>
-      <div class="khr-type">Explainer · Smart Agriculture &amp; Food Security</div>
-      <h1 class="khr-title">Climate-Smart Agriculture: The Three Pillars and How to Measure Them</h1>
-      <p class="khr-dek">Climate-smart agriculture is useful only when productivity, resilience, and emissions logic are translated into measurable trade-offs rather than treated as a slogan.</p>
-      <div class="khr-meta">
-        <span><strong>Domain</strong> Smart Agriculture &amp; Food Security</span>
-        <span><strong>Reading time</strong> 6 min read</span>
-        <span><strong>Level</strong> Practitioner</span>
-      </div>
-
-    <div class="khr-feature">
-      <div class="khr-feature-head">
-        <div>
-          <div class="khr-feature-kicker">Pillar Diagram</div>
-          <div class="khr-feature-title">Three-Pillar System</div>
+<!-- HERO -->
+<section class="khr-hero">
+  <div class="container">
+    <div class="khr-hero-inner">
+      <div>
+        <nav class="breadcrumb">
+          <a href="../../index.html">Home</a><span>—</span>
+          <a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span>
+          <strong>Explainer</strong>
+        </nav>
+        <div class="khr-type-badge">
+          <span class="khr-type-badge-dot" aria-hidden="true"></span>
+          Explainer · Smart Agriculture &amp; Food Security
         </div>
-        <p class="khr-feature-sub">Productivity, resilience, and mitigation joined through field-level decisions.</p>
+        <h1 class="khr-title">Climate-Smart<br><em>Agriculture</em></h1>
+        <p class="khr-dek">Climate-smart agriculture is widely referenced in agriculture and sustainability conversations but is often used without operational clarity. This explainer translates the familiar three-pillar framing into measurable indicators, real-world trade-offs, and field decisions — the moves that turn a label into a planning tool.</p>
+        <div class="khr-meta-row">
+          <div class="khr-meta-item"><strong>Domain</strong> Smart Agriculture &amp; Food Security</div>
+          <div class="khr-meta-item"><strong>Reading time</strong> 7 min read</div>
+          <div class="khr-meta-item"><strong>Level</strong> Practitioner · Field Teams</div>
+        </div>
       </div>
-      <figure class="khr-diagram khr-hero-visual" role="group" aria-label="Three-Pillar System">
-        <img class="khr-feature-image" src="../../Images/knowledge/csa-pillars-tradeoff.svg" alt="Three-Pillar System visual showing productivity, adaptation, mitigation stages" width="1600" height="600">
-      </figure>
-      <div class="khr-feature-tags">
-      <span>Yield Stability</span>
-      <span>Adaptation</span>
-      <span>Mitigation</span>
-      <span>Indicators</span>
-      <span>Governance</span>
-      </div>
-    </div>
 
-    </div>
-  </header>
+      <!-- Hero SVG: CSA Three-Pillar System -->
+      <div class="hero-diagram-wrap" aria-hidden="true">
+        <div class="hero-diagram">
+          <svg class="csa-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-  <main class="khr-main">
-    <div class="container khr-grid">
-      <article class="khr-article">
+            <!-- Outer rings -->
+            <circle cx="200" cy="200" r="175" stroke="rgba(45,80,22,0.06)" stroke-width="1"/>
+            <circle cx="200" cy="200" r="140" stroke="rgba(104,117,88,0.07)" stroke-width="1"/>
 
-  <section class="khr-editorial-section" id="what-problem-this-actually-solves">
-    <div class="khr-section-kicker">Core Problem</div>
-    <h2>What problem this actually solves</h2>
-    <p>Climate-smart agriculture is widely referenced in agriculture and sustainability conversations, but it is often used without operational clarity. Without a measurement mindset, CSA can become a label rather than a planning tool.</p>
-    <p>The three-pillar framing is useful because it prevents one-dimensional interventions. A programme that raises yield while increasing climate vulnerability is incomplete. A programme that reduces emissions while undermining farmer viability is also incomplete.</p>
-  </section>
+            <!-- THREE PILLAR ARCS — 120° each -->
+            <!-- Pillar 1: Productivity (top, green) -->
+            <path class="pillar-arc"
+              d="M 200 30 A 170 170 0 0 1 347.3 115"
+              stroke="#2d5016" stroke-width="7" stroke-linecap="round"/>
+            <!-- Pillar 2: Resilience (bottom-right, earth) -->
+            <path class="pillar-arc"
+              d="M 347.3 115 A 170 170 0 0 1 52.7 285"
+              stroke="#6b5a2a" stroke-width="7" stroke-linecap="round"/>
+            <!-- Pillar 3: Mitigation (bottom-left, sage) -->
+            <path class="pillar-arc"
+              d="M 52.7 285 A 170 170 0 0 1 200 30"
+              stroke="#687558" stroke-width="7" stroke-linecap="round"/>
 
+            <!-- Arc labels -->
+            <text x="296" y="62" font-family="Cinzel,serif" font-size="8" letter-spacing="0.8" fill="rgba(74,122,40,0.65)" text-anchor="middle">PRODUCTIVITY</text>
+            <text x="340" y="220" font-family="Cinzel,serif" font-size="8" letter-spacing="0.8" fill="rgba(107,90,42,0.6)" text-anchor="middle" transform="rotate(60,340,220)">RESILIENCE</text>
+            <text x="60" y="220" font-family="Cinzel,serif" font-size="8" letter-spacing="0.8" fill="rgba(104,117,88,0.6)" text-anchor="middle" transform="rotate(-60,60,220)">MITIGATION</text>
 
-  <section class="khr-infographic" aria-label="The Three Pillars">
-    <div class="khr-infographic-head">
-      <h3>The Three Pillars</h3>
-      <span>Evaluate the pillars as one practical system</span>
-    </div>
-    <div class="khr-infographic-grid">
-      <div class="khr-infographic-cell"><strong>Productivity</strong><p>Improve or stabilise production, income, crop health, input efficiency, and livelihood resilience.</p></div>
-      <div class="khr-infographic-cell"><strong>Resilience</strong><p>Help farms absorb shocks, adapt to variability, and recover from heat, flood, drought, or pest pressure.</p></div>
-      <div class="khr-infographic-cell"><strong>Mitigation</strong><p>Reduce emissions or improve carbon-related performance where feasible and contextually fair.</p></div>
-      <div class="khr-infographic-cell"><strong>Trade-offs</strong><p>Name where one pillar may improve while another becomes harder, slower, or more costly.</p></div>
-      <div class="khr-infographic-cell"><strong>Indicators</strong><p>Choose small, credible metrics that can guide decisions without overwhelming field teams.</p></div>
-      <div class="khr-infographic-cell"><strong>Governance</strong><p>Decide who owns data, who reviews it, and how results influence action.</p></div>
-    </div>
-  </section>
+            <!-- Junction nodes -->
+            <circle class="orbit-dot" cx="200" cy="30"  r="5" fill="#4a7a28"/>
+            <circle class="orbit-dot" cx="347" cy="115" r="5" fill="#6b5a2a" style="animation-delay:1s"/>
+            <circle class="orbit-dot" cx="53"  cy="285" r="5" fill="#687558" style="animation-delay:2s"/>
 
+            <!-- Arrow indicators -->
+            <polygon points="200,22 193,38 207,38" fill="#4a7a28"/>
+            <polygon points="347,107 337,117 352,122" fill="#6b5a2a"/>
+            <polygon points="53,293 44,280 59,278" fill="#687558"/>
 
-  <section class="khr-editorial-section" id="pillar-one-productivity-and-income">
-    <div class="khr-section-kicker">Pillar Detail</div>
-    <h2>Pillar one: productivity and income</h2>
-    <p>The first pillar is about sustaining or improving production and livelihoods. In practice, this includes yield stability, crop health, input efficiency, labour productivity, and income resilience. It does not mean maximising output at any cost.</p>
-    <p>For many teams, productivity metrics are the easiest to understand and communicate. The challenge is keeping them climate-aware so short-term gains do not create future exposure.</p>
-  </section>
+            <!-- Inner field indicators -->
+            <path d="M 200 80 L 290 225 L 110 225 Z" stroke="rgba(104,117,88,0.1)" stroke-width="1" fill="rgba(104,117,88,0.04)"/>
 
+            <!-- Inner rotating ring -->
+            <circle cx="200" cy="200" r="58" fill="none" stroke="rgba(45,80,22,0.12)" stroke-width="1" stroke-dasharray="4 6"/>
+            <circle cx="200" cy="200" r="42" fill="none" stroke="rgba(104,117,88,0.1)" stroke-width="1"/>
 
-  <section class="khr-editorial-section" id="pillar-two-adaptation-and-resilience">
-    <div class="khr-section-kicker">Pillar Detail</div>
-    <h2>Pillar two: adaptation and resilience</h2>
-    <p>Agriculture now operates under recurring climatic stress: heat, irregular rainfall, flooding, pest shifts, soil degradation, and changing water availability. Resilience asks whether a system can absorb shocks, adapt to variability, and recover.</p>
-    <p>A useful implementation question is not only whether an intervention performs under normal conditions, but whether it improves performance under stress.</p>
-  </section>
+            <!-- Centre -->
+            <circle cx="200" cy="200" r="34" fill="rgba(14,26,8,0.92)" stroke="rgba(45,80,22,0.3)" stroke-width="1.5"/>
+            <text x="200" y="196" font-family="Cinzel,serif" font-size="7" letter-spacing="1.2" fill="rgba(74,122,40,0.65)" text-anchor="middle">CLIMATE</text>
+            <text x="200" y="207" font-family="Cinzel,serif" font-size="7" letter-spacing="1.2" fill="rgba(74,122,40,0.65)" text-anchor="middle">SMART</text>
+            <text x="200" y="218" font-family="Cinzel,serif" font-size="7" letter-spacing="1.2" fill="rgba(74,122,40,0.65)" text-anchor="middle">AGRICULTURE</text>
 
-
-  <section class="khr-editorial-section" id="pillar-three-mitigation">
-    <div class="khr-section-kicker">Pillar Detail</div>
-    <h2>Pillar three: mitigation</h2>
-    <p>Mitigation in CSA concerns reducing emissions where feasible and improving carbon-related performance across the system. This can include soil carbon practices, input efficiency, reduced waste, better water-energy management, and smarter land-use decisions.</p>
-    <p>Mitigation should not be isolated from productivity and resilience. A carbon-attractive intervention that weakens viability or resilience may not be a strong climate-smart decision in context.</p>
-  </section>
-
-
-  <section class="khr-matrix" aria-label="Trade-Off Reading Matrix">
-    <h3>Trade-Off Reading Matrix</h3>
-    <p>CSA should be monitored as a decision space, not a badge.</p>
-    <div class="khr-matrix-rows">
-      <div class="khr-matrix-row"><strong>Water-saving technology</strong><span>May strengthen resilience while increasing cost, maintenance needs, or skill requirements.</span></div>
-      <div class="khr-matrix-row"><strong>Productivity-enhancing input</strong><span>May raise yield while increasing emissions, dependency, or ecological pressure.</span></div>
-      <div class="khr-matrix-row"><strong>Soil-carbon practice</strong><span>May improve mitigation outcomes but require time before income or yield benefits are visible.</span></div>
-      <div class="khr-matrix-row"><strong>Diversification strategy</strong><span>May reduce climate exposure while complicating market access or labour planning.</span></div>
-    </div>
-  </section>
-
-
-  <section class="khr-module khr-module--grid">
-    <h3>Indicator Starter Set</h3>
-    <p>The strongest early dashboard is usually small, disciplined, and linked to decisions.</p>
-    <div class="khr-card"><strong>Productivity indicators</strong><p>Yield consistency, input-use efficiency, net income, labour productivity, and crop health signals.</p></div>
-    <div class="khr-card"><strong>Resilience indicators</strong><p>Drought recovery time, soil moisture stability, irrigation reliability, crop survival under stress.</p></div>
-    <div class="khr-card"><strong>Mitigation indicators</strong><p>Energy intensity, fertiliser efficiency, waste reduction, soil carbon proxies, water-energy performance.</p></div>
-    <div class="khr-card"><strong>Governance indicators</strong><p>Data ownership, review cadence, consent, reporting burden, and whether field teams can use the results.</p></div>
-
-  </section>
-
-
-  <section class="khr-editorial-section" id="equity-and-ethics">
-    <div class="khr-section-kicker">Implementation Caution</div>
-    <h2>Equity and ethics</h2>
-    <p>Climate-smart agriculture should not be framed as a purely technical optimisation exercise. Data collection, intervention design, and outcome measurement all have power implications.</p>
-    <p>Good implementation asks who benefits first, who bears reporting burdens, who controls the data, and whose resilience is being strengthened. Those questions should appear early, not after the pilot is already designed.</p>
-  </section>
-
-
-  <section class="khr-checklist-panel">
-    <div class="khr-checklist-symbol">◎</div>
-    <div>
-      <h3>CSA Operational Checklist</h3>
-    <p>A CSA plan that cannot answer these questions is not yet operational.</p>
-      <ul>
-      <li>Which pillar matters most in this context right now?</li>
-      <li>Which trade-offs are expected and acceptable?</li>
-      <li>What indicators will show progress without overburdening field teams?</li>
-      <li>What data sources support those indicators?</li>
-      <li>Who owns, reviews, and acts on the data over time?</li>
-      </ul>
-    </div>
-  </section>
-
-
-  <section class="khr-editorial-section" id="references-and-further-reading">
-    <div class="khr-section-kicker">Reading Trail</div>
-    <h2>References and further reading</h2>
-    <p>A useful reading path begins with established climate-smart agriculture framing, then moves into indicator design, dashboard governance, water intelligence, food-system mapping, and farmer-centred data ownership.</p>
-    <p>The practical takeaway: CSA is not one intervention. It is a way of making agricultural decisions more transparent under climate pressure.</p>
-  </section>
-
-      </article>
-
-  <aside class="khr-sidebar" aria-label="Resource sidebar">
-    <div class="khr-sidecard khr-progress-card">
-      <h3>Reading Progress</h3>
-      <div class="khr-progress-track"><span></span></div>
-      <p>Start with the framing, use the visual modules to compare options, then close with the checklist.</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Resource Details</h3>
-      <p><strong>Smart Agriculture &amp; Food Security</strong><br>Explainer · Knowledge Hub resource</p>
-      <p><strong>Practitioner</strong><br>Agriculture teams · programme designers · field partners</p>
-      <p>6 min read · 5 visual modules</p>
-      <p>Updated April 2026</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Continue Reading</h3>
-      <div class="khr-related">
-      <a href="../explainers/why-water-intelligence-is-becoming-a-strategic-capability.html">Why Water Intelligence Is Becoming a Strategic Capability</a>
-      <a href="../playbooks/how-to-design-a-low-cost-environmental-monitoring-pilot.html">How to Design a Low-Cost Environmental Monitoring Pilot</a>
-      <a href="../lab-notes/where-smart-system-ambition-collides-with-data-reality.html">Where Smart-System Ambition Collides with Data Reality</a>
-        <a href="../../knowledge-hub.html">← Back to Knowledge Hub</a>
+            <!-- Floating context labels -->
+            <text x="200" y="152" font-family="Cinzel,serif" font-size="7" fill="rgba(201,171,132,0.3)" text-anchor="middle">yields · income · inputs</text>
+            <text x="303" y="270" font-family="Cinzel,serif" font-size="7" fill="rgba(201,171,132,0.28)" text-anchor="middle" transform="rotate(60,303,270)">shocks · soil · water</text>
+            <text x="97" y="270" font-family="Cinzel,serif" font-size="7" fill="rgba(201,171,132,0.26)" text-anchor="middle" transform="rotate(-60,97,270)">carbon · waste · energy</text>
+          </svg>
+        </div>
       </div>
     </div>
-    <div class="khr-sidecard khr-engage-card">
-      <h3>Engage with Rankine</h3>
-      <p>Use this explainer to shape climate-smart agriculture pilots, monitoring dashboards, or indicator workshops.</p>
-      <a class="btn" href="../../contact.html">Discuss a Partnership →</a>
-    </div>
-  </aside>
+  </div>
+</section>
 
-    </div>
-  </main>
+<!-- CONTENT -->
+<div class="container">
+  <div class="khr-layout">
+    <article class="khr-article" id="articleBody">
 
+      <!-- SECTION 1 -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">The Core Problem</p>
+        <h2 class="khr-h2">Why CSA needs <em>measurement, not just language</em></h2>
+
+        <div class="pull-quote">
+          <p>Without a measurement mindset, climate-smart agriculture becomes a label rather than a planning tool — and a planning tool is what farmers, programme teams, and funders actually need.</p>
+          <cite>— Rankine Innovation Lab · Knowledge Hub</cite>
+        </div>
+
+        <p class="khr-body">
+          Climate-smart agriculture, or CSA, is widely referenced in agriculture and sustainability conversations. It appears in programme proposals, donor frameworks, national strategies, and field implementation plans. The problem is that it is often used without operational clarity — without specifying which pillar is most relevant in this context, which indicators will show progress, or what trade-offs are being made.
+        </p>
+        <p class="khr-body">
+          This explainer addresses that directly. It treats the three-pillar framing not as a slogan but as a decision structure — one that requires explicit indicator selection, trade-off acknowledgment, and governance to function in practice.
+        </p>
+      </div>
+
+      <!-- SECTION 2: Three Pillars -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Conceptual Foundations</p>
+        <h2 class="khr-h2">The three pillars — and what <em>each one actually requires</em></h2>
+
+        <p class="khr-body">
+          The three-pillar framing is useful because it keeps agricultural planning from becoming one-dimensional. A programme that increases yield but worsens climate vulnerability is incomplete. A programme that reduces emissions but undermines farmer viability is also incomplete. CSA asks decision-makers to hold all three pillars together — not as a branding exercise but as an accountability structure.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Framework Structure</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Three Pillars — With Indicators and Field Implications</span>
+          </div>
+          <div class="infographic-body">
+            <div class="pillars-grid">
+              <div class="pillar-card">
+                <div class="pillar-card-top">
+                  <span class="pillar-num">1</span>
+                  <span class="pillar-icon">🌾</span>
+                  <div class="pillar-name">First Pillar</div>
+                  <div class="pillar-title">Productivity &amp; Income</div>
+                </div>
+                <div class="pillar-card-body">
+                  <div class="pillar-desc">Sustain or improve production and livelihoods. This does not mean maximising output at any cost — it means strengthening the economic base of farming systems in ways that remain viable under climate pressure.</div>
+                  <div class="pillar-indicators">
+                    <span class="pillar-indicator-label">Example indicators</span>
+                    <div class="pillar-indicator-list">
+                      <div class="pillar-indicator"><span class="p-dot"></span>Yield stability across seasons</div>
+                      <div class="pillar-indicator"><span class="p-dot"></span>Input-use efficiency ratios</div>
+                      <div class="pillar-indicator"><span class="p-dot"></span>Net income under stress events</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="pillar-card">
+                <div class="pillar-card-top">
+                  <span class="pillar-num">2</span>
+                  <span class="pillar-icon">🌊</span>
+                  <div class="pillar-name">Second Pillar</div>
+                  <div class="pillar-title">Adaptation &amp; Resilience</div>
+                </div>
+                <div class="pillar-card-body">
+                  <div class="pillar-desc">Agriculture now operates under recurring climatic stress: heat, irregular rainfall, flooding, pest shifts, soil degradation, and changing water availability. Resilience is whether a system can absorb shocks, adapt to variability, and recover.</div>
+                  <div class="pillar-indicators">
+                    <span class="pillar-indicator-label">Example indicators</span>
+                    <div class="pillar-indicator-list">
+                      <div class="pillar-indicator"><span class="p-dot"></span>Drought recovery time</div>
+                      <div class="pillar-indicator"><span class="p-dot"></span>Soil moisture stability</div>
+                      <div class="pillar-indicator"><span class="p-dot"></span>Crop survival under heat stress</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="pillar-card">
+                <div class="pillar-card-top">
+                  <span class="pillar-num">3</span>
+                  <span class="pillar-icon">💨</span>
+                  <div class="pillar-name">Third Pillar</div>
+                  <div class="pillar-title">Mitigation</div>
+                </div>
+                <div class="pillar-card-body">
+                  <div class="pillar-desc">Reduce emissions where feasible and improve carbon-related performance. Mitigation should not be isolated from productivity and resilience — a measure that looks good on a carbon metric but weakens viability may not be a strong CSA decision in context.</div>
+                  <div class="pillar-indicators">
+                    <span class="pillar-indicator-label">Example indicators</span>
+                    <div class="pillar-indicator-list">
+                      <div class="pillar-indicator"><span class="p-dot"></span>Energy intensity per unit output</div>
+                      <div class="pillar-indicator"><span class="p-dot"></span>Fertiliser efficiency</div>
+                      <div class="pillar-indicator"><span class="p-dot"></span>Soil carbon proxy measures</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: Trade-offs -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Evidence Base</p>
+        <h2 class="khr-h2">Why <em>trade-offs</em> are not optional to acknowledge</h2>
+
+        <p class="khr-body">
+          Not every intervention advances all three pillars equally. CSA should be monitored as a decision space, not a slogan. The trade-offs below are not failure cases — they are normal outcomes of context-specific priority-setting. The error is not in making trade-offs but in pretending they do not exist.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Trade-Off Mapping</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Four Common Pillar Conflicts in Practice</span>
+          </div>
+          <div class="infographic-body">
+            <div class="tradeoff-grid">
+              <div class="tradeoff-card">
+                <div class="tradeoff-header">
+                  <span class="tradeoff-icon">💧</span>
+                  <span class="tradeoff-badge">Resilience vs Cost</span>
+                </div>
+                <div class="tradeoff-title">Water-saving technology</div>
+                <div class="tradeoff-desc">Improves resilience and often reduces mitigation burden. But may increase initial cost and training requirements, creating a short-term productivity constraint for smaller operations.</div>
+              </div>
+              <div class="tradeoff-card">
+                <div class="tradeoff-header">
+                  <span class="tradeoff-icon">🌱</span>
+                  <span class="tradeoff-badge">Mitigation vs Short-term income</span>
+                </div>
+                <div class="tradeoff-title">Soil carbon practices</div>
+                <div class="tradeoff-desc">Strong mitigation potential and longer-term resilience benefits. But many soil carbon approaches require seasons before farmer income effects are visible — creating adoption friction.</div>
+              </div>
+              <div class="tradeoff-card">
+                <div class="tradeoff-header">
+                  <span class="tradeoff-icon">📈</span>
+                  <span class="tradeoff-badge">Productivity vs Emissions</span>
+                </div>
+                <div class="tradeoff-title">High-yield input intensification</div>
+                <div class="tradeoff-desc">A productivity-enhancing approach may raise yields substantially while worsening emissions or ecological pressure. This is the most common unacknowledged trade-off in agricultural development programmes.</div>
+              </div>
+              <div class="tradeoff-card">
+                <div class="tradeoff-header">
+                  <span class="tradeoff-icon">🌍</span>
+                  <span class="tradeoff-badge">Adaptation vs Scale</span>
+                </div>
+                <div class="tradeoff-title">Crop diversification</div>
+                <div class="tradeoff-desc">Reduces household vulnerability and improves adaptive capacity. But may reduce marketable surplus and create logistics complexity for aggregators — constraining scale-up beyond subsistence.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: Measurement -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Practical Application</p>
+        <h2 class="khr-h2">How to build a <em>CSA measurement approach</em> that works</h2>
+
+        <p class="khr-body">
+          A good CSA measurement approach begins by choosing a context and scale. Farm-level, community-level, programme-level, and regional-level indicators should not be treated as interchangeable. Once the scale is clear, each pillar needs a small set of indicators that are specific enough to guide action but realistic enough to collect.
+        </p>
+        <p class="khr-body">
+          The best early dashboard is usually small and disciplined rather than comprehensive. Governance matters because weak data stewardship can undermine trust, comparability, and long-term use.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Implementation Sequence</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Five Steps to an Operational CSA Measurement System</span>
+          </div>
+          <div class="infographic-body">
+            <div class="measurement-steps">
+              <div class="measure-step">
+                <div class="measure-num">01</div>
+                <div class="measure-body">
+                  <div class="measure-title">Define context and scale explicitly</div>
+                  <div class="measure-desc">Farm-level, programme-level, and regional indicators are not interchangeable. The choice of scale must precede the choice of indicators — not follow it. State it upfront and let it constrain selection.</div>
+                </div>
+              </div>
+              <div class="measure-step">
+                <div class="measure-num">02</div>
+                <div class="measure-body">
+                  <div class="measure-title">Select a minimal but sufficient indicator set per pillar</div>
+                  <div class="measure-desc">Two or three indicators per pillar is usually better than ten. Comprehensiveness is not the goal — actionability is. If an indicator cannot guide a decision, it should not be in the set.</div>
+                </div>
+              </div>
+              <div class="measure-step">
+                <div class="measure-num">03</div>
+                <div class="measure-body">
+                  <div class="measure-title">Identify realistic data sources for each indicator</div>
+                  <div class="measure-desc">Some indicators come from field measurements, some from farmer records, some from extension services, some from remote or environmental data. State the source for each indicator before data collection begins.</div>
+                </div>
+              </div>
+              <div class="measure-step">
+                <div class="measure-num">04</div>
+                <div class="measure-body">
+                  <div class="measure-title">Assign data governance — who owns it, who reviews it</div>
+                  <div class="measure-desc">Indicator selection is only half the job. Without ownership, review cadence, and a defined user for each metric, even well-chosen indicators become an unread spreadsheet within one field season.</div>
+                </div>
+              </div>
+              <div class="measure-step">
+                <div class="measure-num">05</div>
+                <div class="measure-body">
+                  <div class="measure-title">Build equity and data ownership questions in from the start</div>
+                  <div class="measure-desc">Who benefits first? Who bears reporting burdens? Who controls data? Whose resilience is being strengthened and whose is being overlooked? These questions should appear in programme design, not as ethics afterthoughts in the final evaluation.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 5: Five Questions Checklist -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Decision Gate</p>
+        <h2 class="khr-h2">Before calling it climate-smart — <em>answer these five questions</em></h2>
+
+        <p class="khr-body">
+          If a team says it is pursuing climate-smart agriculture, it should be able to answer all five questions clearly and specifically. Vague or aspirational answers indicate that the CSA plan is not yet operational.
+        </p>
+
+        <div class="questions-block">
+          <div class="q-header">
+            <span class="q-icon" aria-hidden="true">◎</span>
+            <div>
+              <div class="q-label">CSA Operational Checklist</div>
+              <div class="q-title">Five questions that separate labels from plans</div>
+            </div>
+          </div>
+          <div class="q-items">
+            <div class="q-item">
+              <span class="q-check" aria-hidden="true">?</span>
+              <span class="q-text">Which pillar matters most in this context right now — and why does it take priority over the other two?</span>
+            </div>
+            <div class="q-item">
+              <span class="q-check" aria-hidden="true">?</span>
+              <span class="q-text">Which trade-offs are we expecting — and which stakeholder groups will experience the downside of those trade-offs?</span>
+            </div>
+            <div class="q-item">
+              <span class="q-check" aria-hidden="true">?</span>
+              <span class="q-text">What two or three indicators will show progress across each pillar — specific enough to guide action?</span>
+            </div>
+            <div class="q-item">
+              <span class="q-check" aria-hidden="true">?</span>
+              <span class="q-text">What data sources will support those indicators — and are those sources reliable, accessible, and maintained?</span>
+            </div>
+            <div class="q-item">
+              <span class="q-check" aria-hidden="true">?</span>
+              <span class="q-text">Who owns and reviews the data over time — and what happens when the data suggest the approach is not working?</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REFERENCES -->
+      <div class="khr-section reveal">
+        <div class="references">
+          <span class="references-label">References &amp; Source Base</span>
+          <ol>
+            <li>FAO climate-smart agriculture concept framing and three-pillar structure — primary reference spine.</li>
+            <li>Rankine Innovation Lab Knowledge Hub research brief: Explainer treatment translating the three-pillar framing into measurable indicators and real-world trade-offs.</li>
+            <li>Related forward resource: Playbook for a Climate-Smart Agriculture Monitoring Dashboard — Rankine Knowledge Hub.</li>
+            <li>Cross-link: food systems mapping and indicator/governance resources in the Rankine first-wave library.</li>
+          </ol>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- SIDEBAR -->
+    <aside class="khr-sidebar">
+      <div class="side-card">
+        <div class="side-card-header">Reading Progress</div>
+        <div class="side-card-body">
+          <div class="reading-meter"><div class="reading-meter-fill" id="sidebarMeter"></div></div>
+          <div class="reading-meter-label"><span>Start</span><span id="progressPct">0%</span></div>
+        </div>
+      </div>
+      <div class="side-card">
+        <div class="side-card-header">Resource Details</div>
+        <div class="side-card-body">
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--forest-lt);box-shadow:0 0 8px rgba(45,80,22,0.5)"></span>
+            <div><div class="domain-label">Smart Agriculture &amp; Food Security</div><div class="domain-sub">Core domain · First-wave resource</div></div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--copper)"></span>
+            <div><div class="domain-label">Field Teams · Programme Leads</div><div class="domain-sub">Practitioners · Funders · Policy teams</div></div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--sand)"></span>
+            <div><div class="domain-label">7 min read · 4 modules</div><div class="domain-sub">Updated 2025</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="side-card">
+        <div class="side-card-header">Continue Reading</div>
+        <div class="side-card-body">
+          <a href="../explainers/why-water-intelligence-is-becoming-a-strategic-capability.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text"><span class="related-link-tag">Explainer</span>Why Water Intelligence Is Becoming a Strategic Capability</span>
+          </a>
+          <a href="../playbooks/how-to-design-a-low-cost-environmental-monitoring-pilot.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text"><span class="related-link-tag">Playbook</span>How to Design a Low-Cost Environmental Monitoring Pilot</span>
+          </a>
+          <a href="../lab-notes/where-smart-system-ambition-collides-with-data-reality.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text"><span class="related-link-tag">Lab Note</span>Where Smart-System Ambition Collides with Data Reality</span>
+          </a>
+          <button class="btn-side" onclick="window.location.href='../../knowledge-hub.html'">← Back to Knowledge Hub</button>
+        </div>
+      </div>
+      <div class="side-card">
+        <div class="side-card-header">Engage with Rankine</div>
+        <div class="side-card-body">
+          <p>This explainer connects to our Smart Agriculture programmes and field partnerships. If you are designing or evaluating a CSA initiative, we would like to hear from you.</p>
+          <button class="btn-side" onclick="window.location.href='../../contact.html'">Discuss a Partnership →</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
 
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="footer-logo-icon">
+      <div>
+        <img src="../../Images/rakine_logo.svg" class="footer-logo-icon" alt="Rankine Innovation Lab logo"/>
         <div class="footer-logo-name">Rankine Innovation Lab</div>
         <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
         <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
       </div>
       <div>
-        <h3 class="footer-col-title">Navigation</h3>
+        <div class="footer-col-title">Navigation</div>
         <ul class="footer-links">
           <li><a href="../../about.html">About the Lab</a></li>
-          <li><a href="../../index.html#method">The Rankine Method</a></li>
-          <li><a href="../../index.html#focus">Focus Areas</a></li>
+          <li><a href="../../research.html">Research &amp; Project</a></li>
           <li><a href="../../programmes.html">Programmes</a></li>
-<li><a href="../../team.html">Team</a></li>
+          <li><a href="../../partnership.html">Partnerships</a></li>
+          <li><a href="../../team.html">Team</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Domains</h3>
+        <div class="footer-col-title">Domains</div>
         <ul class="footer-links">
-          <li><a href="../../research.html#ai">AI for STEM</a></li>
-          <li><a href="../../research.html#sustainability">Sustainability</a></li>
-          <li><a href="../../research.html#smart-agriculture">Smart Agriculture</a></li>
-          <li><a href="../../research.html#cross-disciplinary">Cross-Disciplinary</a></li>
+          <li><a href="../../research.html">AI for STEM</a></li>
+          <li><a href="../../research.html">Sustainability</a></li>
+          <li><a href="../../research.html">Smart Agriculture</a></li>
+          <li><a href="../../research.html">Cross-Disciplinary</a></li>
           <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Engage</h3>
+        <div class="footer-col-title">Engage</div>
         <ul class="footer-links">
-<li><a href="../../contact.html">Research Collaboration</a></li>
+          <li><a href="../../contact.html">Partnerships</a></li>
+          <li><a href="../../contact.html">Research Collaboration</a></li>
           <li><a href="../../contact.html">Training Enquiries</a></li>
           <li><a href="../../contact.html">Speaking</a></li>
           <li><a href="mailto:hello@rankineinnovationlab.com">hello@rankineinnovationlab.com</a></li>
@@ -261,7 +763,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Rankine Innovation Lab. All rights reserved.</p>
+      <p class="footer-copy">&copy; 2025 <em>Rankine Innovation Lab</em>. All rights reserved.</p>
       <div class="footer-legal">
         <a href="../../privacy.html">Privacy</a>
         <a href="../../terms.html">Terms</a>
@@ -271,28 +773,47 @@
   </div>
 </footer>
 
-
 <script>
-  const nav = document.getElementById('siteNav');
-  const toggle = document.getElementById('mobileToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  function setNavState(){
-    if(window.scrollY > 24){ nav.classList.remove('transparent'); nav.classList.add('solid'); }
-    else { nav.classList.add('transparent'); nav.classList.remove('solid'); }
-  }
-  setNavState();
-  window.addEventListener('scroll', setNavState, { passive: true });
-  if(toggle && mobileMenu){
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.classList.toggle('open');
-      mobileMenu.classList.toggle('open', isOpen);
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-      document.body.classList.toggle('menu-open', isOpen);
-    });
-  }
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+function closeMobile() {
+  hamburgerBtn.classList.remove('open'); mobileMenu.classList.remove('open');
+  document.body.style.overflow = ''; hamburgerBtn.setAttribute('aria-expanded','false');
+}
+hamburgerBtn.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburgerBtn.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+  hamburgerBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+const progressBar = document.getElementById('progressBar');
+const sidebarMeter = document.getElementById('sidebarMeter');
+const progressPct = document.getElementById('progressPct');
+const articleBody = document.getElementById('articleBody');
+function updateProgress() {
+  const rect = articleBody.getBoundingClientRect();
+  const pct = Math.min(100, Math.round((Math.max(0,-rect.top)/(rect.height-window.innerHeight))*100));
+  progressBar.style.width = sidebarMeter.style.width = pct+'%';
+  progressPct.textContent = pct+'%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+document.querySelectorAll('.q-item').forEach(item => {
+  let checked = false;
+  item.addEventListener('click', () => {
+    checked = !checked;
+    const check = item.querySelector('.q-check');
+    check.textContent = checked ? '✓' : '?';
+    check.style.background = checked ? 'rgba(45,80,22,0.3)' : '';
+    check.style.borderColor = checked ? 'var(--forest-lt)' : '';
+    check.style.color = checked ? 'var(--forest-lt)' : '';
+    item.style.borderColor = checked ? 'rgba(45,80,22,0.25)' : '';
+  });
+  item.style.cursor = 'pointer';
+});
 </script>
-
-<script src="../resource-template.js"></script>
 </body>
 </html>

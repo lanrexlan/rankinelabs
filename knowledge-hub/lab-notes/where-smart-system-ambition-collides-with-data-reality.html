@@ -1,249 +1,676 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Where Smart-System Ambition Collides with Data Reality — Knowledge Hub | Rankine Innovation Lab</title>
-  <meta name="description" content="Smart-system projects often fail before modelling begins: in missing baselines, inconsistent records, unclear ownership, and data that cannot support the claims being made.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../resource-template.css">
-</head>
-<body class="resource-page resource-lab-note">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Where Smart-System Ambition Collides with Data Reality — Knowledge Hub | Rankine Innovation Lab</title>
+<meta name="description" content="Many smart-system projects fail before modelling starts — in the quieter layers of inconsistent records, missing baselines, and unclear ownership. This note names those failure modes and offers a disciplined response."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
 
-<nav class="nav transparent" id="siteNav" aria-label="Primary navigation">
-  <div class="container nav-inner">
-    <a class="nav-logo" href="../../index.html" aria-label="Rankine Innovation Lab home">
-      <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="nav-logo-icon">
-      <span class="nav-logo-text">
-        <span class="nav-logo-mark">Rankine</span>
-        <span class="nav-logo-name">Innovation Lab</span>
-      </span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="../../index.html">Home</a></li>
-      <li><a href="../../about.html">About</a></li>
-      <li><a href="../../research.html">Research &amp; Project</a></li>
-      <li><a href="../../programmes.html">Programmes</a></li>
-      <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
-      <li><a href="../../team.html">Team</a></li>
-      <li><a href="../../contact.html">Contact</a></li>
-    </ul>
-    <button class="hamburger" id="mobileToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span><span></span><span></span>
-    </button>
+:root {
+  --chocolate:  #180c06;
+  --espresso:   #241208;
+  --brown:      #3a1c0e;
+  --mahogany:   #5c2d18;
+  --copper:     #a05c38;
+  --copper-lt:  #c47a52;
+  --sand:       #c9ab84;
+  --sand-lt:    #ddc9a8;
+  --cream:      #f4ede0;
+  --cream-lt:   #faf6ef;
+  --sage:       #687558;
+  --sage-lt:    #8e9e78;
+  --rust:       #7a3820;
+  --rust-lt:    #a05035;
+  --white:      #fffcf8;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-label:   'Cinzel', serif;
+  --font-body:    'DM Sans', sans-serif;
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--cream-lt); color: var(--espresso); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+img { display: block; max-width: 100%; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--rust); border-radius: 2px; }
+.container { width: min(1220px, 100%); margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3rem); }
+
+.progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--rust), var(--copper), var(--sand)); z-index: 2000; transition: width 0.1s linear; }
+
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(24,12,6,0.97); backdrop-filter: blur(18px); box-shadow: 0 1px 0 rgba(201,171,132,0.12); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+.nav-logo { display: inline-flex; align-items: center; gap: 0.75rem; }
+.nav-logo-icon { width: 40px; height: 40px; border-radius: 8px; }
+.nav-logo-mark { display: block; font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.25em; color: var(--copper); text-transform: uppercase; }
+.nav-logo-name { font-family: var(--font-display); font-size: 1.25rem; color: var(--cream); letter-spacing: 0.02em; }
+.nav-links { display: flex; align-items: center; gap: clamp(0.8rem,1.8vw,1.5rem); list-style: none; }
+.nav-links a { font-size: 0.76rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(244,237,224,0.7); transition: color 0.3s; }
+.nav-links a:hover { color: var(--cream); }
+.nav-links a.active-page { color: var(--sand); }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--cream); transition: all 0.3s; }
+.hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; }
+.hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 0; background: rgba(24,12,6,0.98); backdrop-filter: blur(20px); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; transform: translateY(-100%); transition: transform 0.5s var(--ease-out); }
+.mobile-menu.open { display: flex; transform: translateY(0); }
+.mobile-menu a { font-family: var(--font-display); font-size: 2rem; font-weight: 300; color: var(--cream); }
+
+/* HERO */
+.khr-hero {
+  min-height: 85vh;
+  background:
+    radial-gradient(ellipse 55% 50% at 86% 20%, rgba(122,56,32,0.28), transparent 55%),
+    radial-gradient(ellipse 40% 40% at 12% 78%, rgba(58,28,14,0.3), transparent 55%),
+    linear-gradient(158deg, #120804 0%, #1e0e08 40%, #120804 100%);
+  display: flex; align-items: center;
+  padding-top: 72px; position: relative; overflow: hidden;
+}
+.khr-hero::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 71px, rgba(201,171,132,0.02) 71px, rgba(201,171,132,0.02) 72px); pointer-events: none; }
+.khr-hero::after { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); background-size: 256px; opacity: 0.45; pointer-events: none; }
+.khr-hero-inner { position: relative; z-index: 2; width: 100%; padding-block: clamp(3rem,6vw,6rem); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,5vw,6rem); align-items: center; }
+
+.breadcrumb { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,237,224,0.3); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.75rem; }
+.breadcrumb strong { color: var(--copper); font-weight: 400; }
+.khr-type-badge { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rust-lt); border: 1px solid rgba(122,56,32,0.4); background: rgba(122,56,32,0.1); padding: 0.4rem 0.9rem; border-radius: 2px; margin-bottom: 1.5rem; }
+.khr-type-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rust-lt); box-shadow: 0 0 8px rgba(122,56,32,0.5); }
+.khr-title { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3.8rem); font-weight: 300; line-height: 1.1; letter-spacing: -0.012em; color: var(--cream-lt); margin-bottom: 1.4rem; }
+.khr-title em { font-style: italic; color: var(--sand); }
+.khr-dek { font-size: clamp(0.92rem,1.35vw,1.05rem); line-height: 1.82; color: rgba(244,237,224,0.55); font-weight: 300; max-width: 560px; margin-bottom: 2.2rem; }
+.khr-meta-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding-top: 1.5rem; border-top: 1px solid rgba(201,171,132,0.1); }
+.khr-meta-item { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(201,171,132,0.4); }
+.khr-meta-item strong { color: var(--rust-lt); font-weight: 400; }
+
+/* Hero SVG: Ambition vs Reality tension diagram */
+.hero-diagram-wrap { display: flex; align-items: center; justify-content: center; }
+.hero-diagram { width: 100%; max-width: 480px; aspect-ratio: 1; }
+.tension-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 35px rgba(122,56,32,0.1)); }
+
+.ambition-bar { animation: barGrow 1.2s var(--ease-out) forwards; transform-origin: bottom; }
+.ambition-bar:nth-child(1){ animation-delay:0.1s }
+.ambition-bar:nth-child(2){ animation-delay:0.2s }
+.ambition-bar:nth-child(3){ animation-delay:0.3s }
+@keyframes barGrow { from{transform:scaleY(0)} to{transform:scaleY(1)} }
+
+.reality-bar { animation: realityGrow 1.2s var(--ease-out) 0.8s forwards; transform-origin: bottom; opacity:0; }
+.reality-bar:nth-child(1){ animation-delay:0.9s }
+.reality-bar:nth-child(2){ animation-delay:1.0s }
+.reality-bar:nth-child(3){ animation-delay:1.1s }
+@keyframes realityGrow { from{opacity:0;transform:scaleY(0)} to{opacity:1;transform:scaleY(1)} }
+
+.gap-brace { animation: braceIn 0.8s var(--ease-out) 1.4s forwards; opacity:0; }
+@keyframes braceIn { to{opacity:1} }
+
+/* LAYOUT */
+.khr-layout { display: grid; grid-template-columns: 1fr 340px; gap: 3rem; padding-block: clamp(3rem,6vw,5.5rem); align-items: start; }
+.khr-article { min-width: 0; }
+.khr-section { margin-bottom: clamp(2.5rem,4.5vw,4rem); padding-bottom: clamp(2.5rem,4.5vw,4rem); border-bottom: 1px solid rgba(58,28,14,0.08); }
+.khr-section:last-child { border-bottom: none; margin-bottom: 0; }
+.section-eyebrow { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--rust); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.75rem; }
+.section-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--rust); }
+.khr-h2 { font-family: var(--font-display); font-size: clamp(1.5rem,2.5vw,2rem); font-weight: 400; line-height: 1.18; color: var(--espresso); letter-spacing: -0.01em; margin-bottom: 1.1rem; }
+.khr-h2 em { font-style: italic; color: var(--rust); }
+.khr-body { font-size: clamp(0.95rem,1.35vw,1.03rem); line-height: 1.88; color: var(--brown); font-weight: 300; }
+.khr-body + .khr-body { margin-top: 1rem; }
+
+/* PULL QUOTE */
+.pull-quote { margin: 2.25rem 0; padding: 1.75rem 1.75rem 1.75rem 2.25rem; border-left: 3px solid var(--rust); background: linear-gradient(135deg, rgba(122,56,32,0.05), rgba(201,171,132,0.02)); border-radius: 0 var(--radius-md) var(--radius-md) 0; position: relative; overflow: hidden; }
+.pull-quote::before { content: '"'; position: absolute; top: -1.2rem; left: 0.8rem; font-family: var(--font-display); font-size: 7rem; font-weight: 700; color: rgba(122,56,32,0.07); line-height: 1; pointer-events: none; }
+.pull-quote p { font-family: var(--font-display); font-style: italic; font-size: clamp(1.1rem,1.8vw,1.35rem); font-weight: 300; line-height: 1.58; color: var(--mahogany); position: relative; z-index: 1; }
+.pull-quote cite { display: block; margin-top: 0.65rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust); font-style: normal; }
+
+/* INFOGRAPHIC WRAPPER */
+.infographic { margin: 2rem 0; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid rgba(58,28,14,0.1); }
+.infographic-header { background: var(--espresso); padding: 1.1rem 1.6rem; display: flex; align-items: center; gap: 1rem; }
+.infographic-header-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rust-lt); }
+.infographic-header-title { font-family: var(--font-display); font-size: 1rem; font-weight: 400; color: var(--cream); }
+.infographic-header-line { flex: 1; height: 1px; background: rgba(201,171,132,0.12); }
+.infographic-body { background: var(--white); padding: 1.75rem; }
+
+/* ── THREE DATA REALITIES ── */
+.realities-list { display: flex; flex-direction: column; gap: 1rem; }
+.reality-card { display: grid; grid-template-columns: 56px 1fr; gap: 1rem; align-items: start; padding: 1.1rem 1.25rem; border-radius: var(--radius-md); border: 1px solid transparent; transition: transform 0.35s var(--ease-out), border-color 0.35s; }
+.reality-card:hover { transform: translateX(5px); border-color: rgba(122,56,32,0.25); }
+.reality-card:nth-child(1){ background: rgba(122,56,32,0.08); border-color: rgba(122,56,32,0.2); }
+.reality-card:nth-child(2){ background: rgba(160,92,56,0.07); border-color: rgba(160,92,56,0.15); }
+.reality-card:nth-child(3){ background: rgba(201,171,132,0.07); border-color: rgba(201,171,132,0.15); }
+.reality-icon { font-size: 1.5rem; text-align: center; padding-top: 0.1rem; }
+.reality-body {}
+.reality-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.35rem; }
+.reality-desc { font-size: 0.82rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+.reality-tag { display: inline-block; margin-top: 0.5rem; font-family: var(--font-label); font-size: 0.52rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 0.25rem 0.55rem; border-radius: 2px; }
+.reality-card:nth-child(1) .reality-tag { background: rgba(122,56,32,0.12); color: var(--rust-lt); border: 1px solid rgba(122,56,32,0.2); }
+.reality-card:nth-child(2) .reality-tag { background: rgba(160,92,56,0.1); color: var(--copper-lt); border: 1px solid rgba(160,92,56,0.18); }
+.reality-card:nth-child(3) .reality-tag { background: rgba(201,171,132,0.1); color: var(--earth, #6b5a2a); border: 1px solid rgba(201,171,132,0.2); }
+
+/* ── AMBITION vs REALITY STACKED CARDS ── */
+.ambition-reality-stack { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1.25rem; align-items: stretch; }
+.ar-col { display: flex; flex-direction: column; gap: 0.75rem; }
+.ar-header { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.75rem 1rem; border-radius: var(--radius-sm); }
+.ar-col--ambition .ar-header { background: rgba(122,56,32,0.1); color: var(--rust-lt); border: 1px solid rgba(122,56,32,0.2); }
+.ar-col--reality .ar-header  { background: rgba(104,117,88,0.08); color: var(--sage-lt); border: 1px solid rgba(104,117,88,0.2); }
+.ar-item { padding: 0.9rem 1rem; border-radius: var(--radius-sm); font-size: 0.82rem; line-height: 1.55; }
+.ar-col--ambition .ar-item { background: rgba(122,56,32,0.06); color: var(--espresso); border: 1px solid rgba(122,56,32,0.12); }
+.ar-col--reality .ar-item  { background: rgba(104,117,88,0.06); color: var(--espresso); border: 1px solid rgba(104,117,88,0.12); }
+.ar-divider { display: flex; align-items: center; justify-content: center; }
+.ar-divider-icon { font-family: var(--font-display); font-size: 2rem; font-weight: 300; color: rgba(58,28,14,0.15); writing-mode: vertical-rl; }
+
+/* ── WHAT THIS MEANS TRIPTYCH ── */
+.triptych { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+.triptych-card { padding: 1.35rem 1.15rem; background: var(--espresso); border-radius: var(--radius-md); position: relative; overflow: hidden; transition: transform 0.35s var(--ease-out); }
+.triptych-card:hover { transform: translateY(-4px); }
+.triptych-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.triptych-card:nth-child(1)::before { background: linear-gradient(90deg, var(--rust), var(--rust-lt)); }
+.triptych-card:nth-child(2)::before { background: linear-gradient(90deg, var(--copper), var(--sand)); }
+.triptych-card:nth-child(3)::before { background: linear-gradient(90deg, var(--sage), var(--sage-lt)); }
+.triptych-num { font-family: var(--font-display); font-size: 3.5rem; font-weight: 300; color: rgba(201,171,132,0.05); line-height: 1; position: absolute; bottom: 0.4rem; right: 0.6rem; }
+.triptych-icon { font-size: 1.3rem; margin-bottom: 0.75rem; display: block; }
+.triptych-title { font-family: var(--font-display); font-size: 0.95rem; font-weight: 500; color: var(--cream); margin-bottom: 0.45rem; line-height: 1.3; }
+.triptych-desc { font-size: 0.78rem; line-height: 1.65; color: rgba(244,237,224,0.42); font-weight: 300; position: relative; }
+
+/* ── REPORTING LANGUAGE BLOCK ── */
+.language-block { background: var(--espresso); border-radius: var(--radius-lg); padding: 2rem; position: relative; overflow: hidden; }
+.language-block::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(201,171,132,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,171,132,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+.lang-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+.lang-icon { font-size: 1.4rem; color: var(--rust-lt); }
+.lang-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--rust-lt); }
+.lang-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 300; color: var(--cream); }
+.lang-items { display: flex; flex-direction: column; gap: 1rem; position: relative; z-index: 1; }
+.lang-item { padding: 1rem 1.25rem; background: rgba(255,252,248,0.04); border: 1px solid rgba(201,171,132,0.1); border-radius: var(--radius-sm); }
+.lang-item-label { font-family: var(--font-label); font-size: 0.54rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust-lt); margin-bottom: 0.5rem; display: block; }
+.lang-item-text { font-family: var(--font-display); font-size: 0.95rem; font-style: italic; color: rgba(244,237,224,0.7); line-height: 1.5; }
+
+/* REFERENCES */
+.references { background: var(--cream); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); padding: 1.5rem 1.75rem; }
+.references-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1rem; display: block; }
+.references ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.references li { font-size: 0.82rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+
+/* SIDEBAR */
+.khr-sidebar { position: sticky; top: calc(72px + 2rem); display: flex; flex-direction: column; gap: 1.25rem; }
+.side-card { background: var(--white); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); overflow: hidden; }
+.side-card-header { background: var(--espresso); padding: 0.9rem 1.25rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust-lt); }
+.side-card-body { padding: 1.25rem; }
+.side-card-body p { font-size: 0.84rem; line-height: 1.72; color: var(--brown); font-weight: 300; }
+.domain-badge { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1rem; background: var(--cream-lt); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-sm); margin-bottom: 0.75rem; }
+.domain-badge:last-child { margin-bottom: 0; }
+.domain-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.domain-label { font-size: 0.8rem; color: var(--espresso); font-weight: 400; }
+.domain-sub { font-size: 0.72rem; color: var(--mahogany); font-weight: 300; }
+.related-link { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.85rem 0; border-bottom: 1px solid rgba(58,28,14,0.07); transition: transform 0.3s; }
+.related-link:last-child { border-bottom: none; padding-bottom: 0; }
+.related-link:hover { transform: translateX(4px); }
+.related-link-arrow { color: var(--copper); flex-shrink: 0; font-size: 0.7rem; margin-top: 0.15em; }
+.related-link-text { font-size: 0.83rem; line-height: 1.5; color: var(--espresso); font-weight: 400; }
+.related-link-tag { display: block; font-family: var(--font-label); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--copper); margin-bottom: 0.2rem; }
+.reading-meter { height: 4px; background: rgba(58,28,14,0.08); border-radius: 2px; overflow: hidden; margin: 0.75rem 0 0.4rem; }
+.reading-meter-fill { height: 100%; background: linear-gradient(90deg, var(--rust), var(--copper), var(--sand)); width: 0%; transition: width 0.2s linear; border-radius: 2px; }
+.reading-meter-label { font-family: var(--font-label); font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(58,28,14,0.35); display: flex; justify-content: space-between; }
+.btn-side { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.85rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; background: var(--espresso); color: var(--cream); border-radius: var(--radius-sm); cursor: pointer; margin-top: 0.75rem; transition: background 0.3s; }
+.btn-side:hover { background: var(--brown); }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: none; }
+.d1{ transition-delay: 0.1s; } .d2{ transition-delay: 0.2s; }
+
+.footer { background: var(--chocolate); padding: 4rem 0 2.5rem; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-logo-icon { width: 38px; margin-bottom: 0.75rem; }
+.footer-logo-name { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; color: var(--cream); }
+.footer-logo-sub  { font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.22em; color: var(--copper); text-transform: uppercase; margin: 0.3rem 0 1rem; }
+.footer-tagline   { font-size: 0.83rem; line-height: 1.7; color: rgba(244,237,224,0.35); font-weight: 300; max-width: 240px; }
+.footer-col-title { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1.1rem; }
+.footer-links     { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.footer-links a   { font-size: 0.82rem; color: rgba(244,237,224,0.35); transition: color 0.3s; }
+.footer-links a:hover { color: var(--sand); }
+.footer-bottom    { border-top: 1px solid rgba(201,171,132,0.1); padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-copy      { font-size: 0.76rem; color: rgba(244,237,224,0.2); }
+.footer-copy em   { color: var(--copper); font-style: normal; }
+.footer-legal     { display: flex; gap: 1.5rem; }
+.footer-legal a   { font-size: 0.73rem; color: rgba(244,237,224,0.2); transition: color 0.3s; }
+.footer-legal a:hover { color: var(--sand); }
+
+@media (max-width: 1024px) {
+  .khr-hero-inner { grid-template-columns: 1fr; }
+  .hero-diagram-wrap { display: none; }
+  .khr-layout { grid-template-columns: 1fr; }
+  .khr-sidebar { position: static; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .ambition-reality-stack { grid-template-columns: 1fr; }
+  .ar-divider { display: none; }
+  .triptych { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) { .footer-grid { grid-template-columns: 1fr; gap: 2rem; } }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="nav" id="mainNav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">
+        <img src="../../Images/rakine_logo.svg" class="nav-logo-icon" alt="Rankine Innovation Lab logo"/>
+        <div><span class="nav-logo-mark">Rankine</span><span class="nav-logo-name">Innovation Lab</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../../research.html">Research &amp; Project</a></li>
+        <li><a href="../../programmes.html">Programmes</a></li>
+        <li><a href="../../knowledge-hub.html" class="active-page">Knowledge Hub</a></li>
+        <li><a href="../../team.html">Team</a></li>
+        <li><a href="../../contact.html">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </nav>
-<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-  <a href="../../index.html">Home</a>
-  <a href="../../about.html">About</a>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../../index.html" onclick="closeMobile()">Home</a>
+  <a href="../../about.html" onclick="closeMobile()">About</a>
   <a href="../../research.html" onclick="closeMobile()">Research &amp; Project</a>
-  <a href="../../programmes.html">Programmes</a>
+  <a href="../../programmes.html" onclick="closeMobile()">Programmes</a>
   <a href="../../knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
-  <a href="../../team.html">Team</a>
-  <a href="../../contact.html">Contact</a>
+  <a href="../../team.html" onclick="closeMobile()">Team</a>
+  <a href="../../contact.html" onclick="closeMobile()">Contact</a>
 </div>
 
-<header class="khr-hero">
-    <div class="container">
-      <div class="breadcrumb"><a href="../../index.html">Home</a><span>—</span><a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span><strong>Lab Note</strong></div>
-      <div class="khr-type">Lab Note · Smart Agriculture &amp; Food Security</div>
-      <h1 class="khr-title">Where Smart-System Ambition Collides with Data Reality</h1>
-      <p class="khr-dek">Smart-system projects often fail before modelling begins: in missing baselines, inconsistent records, unclear ownership, and data that cannot support the claims being made.</p>
-      <div class="khr-meta">
-        <span><strong>Domain</strong> Smart Agriculture &amp; Food Security</span>
-        <span><strong>Reading time</strong> 5 min read</span>
-        <span><strong>Level</strong> Reflective</span>
-      </div>
-
-    <div class="khr-feature">
-      <div class="khr-feature-head">
-        <div>
-          <div class="khr-feature-kicker">Tension Map</div>
-          <div class="khr-feature-title">Ambition vs Data Tension</div>
+<!-- HERO -->
+<section class="khr-hero">
+  <div class="container">
+    <div class="khr-hero-inner">
+      <div>
+        <nav class="breadcrumb">
+          <a href="../../index.html">Home</a><span>—</span>
+          <a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span>
+          <strong>Lab Note</strong>
+        </nav>
+        <div class="khr-type-badge">
+          <span class="khr-type-badge-dot" aria-hidden="true"></span>
+          Lab Note · Smart Agriculture &amp; Food Security
         </div>
-        <p class="khr-feature-sub">System intent compared with operational data quality.</p>
+        <h1 class="khr-title">Where Smart-System Ambition<br><em>Collides with Data Reality</em></h1>
+        <p class="khr-dek">A recurring pattern appears in smart-system projects across infrastructure, agriculture, and environmental monitoring. The ambition is usually clear. The data reality underneath is not. This note names the failure modes that appear before modelling even starts — and offers a disciplined response.</p>
+        <div class="khr-meta-row">
+          <div class="khr-meta-item"><strong>Domain</strong> Smart Agriculture &amp; Food Security</div>
+          <div class="khr-meta-item"><strong>Reading time</strong> 4 min read</div>
+          <div class="khr-meta-item"><strong>Format</strong> Field Observation · Lab Note</div>
+        </div>
       </div>
-      <figure class="khr-diagram khr-hero-visual" role="group" aria-label="Ambition vs Data Tension">
-        <img class="khr-feature-image" src="../../Images/knowledge/data-reality-tension.svg" alt="Ambition vs Data Tension visual showing ambition, data state, instrumentation stages" width="1600" height="600">
-      </figure>
-      <div class="khr-feature-tags">
-      <span>Smart Systems</span>
-      <span>Data Quality</span>
-      <span>Monitoring</span>
-      <span>Maintenance</span>
-      <span>Decision Support</span>
-      </div>
-    </div>
 
-    </div>
-  </header>
+      <!-- Hero SVG: Ambition vs Reality tension bars -->
+      <div class="hero-diagram-wrap" aria-hidden="true">
+        <div class="hero-diagram">
+          <svg class="tension-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-  <main class="khr-main">
-    <div class="container khr-grid">
-      <article class="khr-article">
+            <!-- Background panel -->
+            <rect x="30" y="30" width="340" height="340" rx="12" fill="rgba(122,56,32,0.04)" stroke="rgba(122,56,32,0.12)" stroke-width="1"/>
 
-  <section class="khr-editorial-section" id="why-this-note-exists">
-    <div class="khr-section-kicker">Lab Note</div>
-    <h2>Why this note exists</h2>
-    <p>A recurring pattern appears in smart-system projects across infrastructure, agriculture, and environmental monitoring. The ambition is usually clear: prediction, optimisation, alerts, transparency, or efficiency.</p>
-    <p>What is less convincing is the data reality underneath. Many ideas fail earlier than modelling, in quiet layers such as inconsistent records, missing baselines, unclear ownership, weak maintenance, and data that cannot support the claims being made.</p>
-  </section>
+            <!-- Header labels -->
+            <text x="130" y="60" font-family="Cinzel,serif" font-size="9" letter-spacing="1" fill="rgba(160,80,53,0.6)" text-anchor="middle">AMBITION</text>
+            <text x="270" y="60" font-family="Cinzel,serif" font-size="9" letter-spacing="1" fill="rgba(104,117,88,0.55)" text-anchor="middle">REALITY</text>
 
-  <blockquote class="khr-pullquote">Most smart-system setbacks begin with a mismatch between ambition level and data readiness.</blockquote>
+            <!-- Axis baseline -->
+            <line x1="60" y1="340" x2="340" y2="340" stroke="rgba(58,28,14,0.15)" stroke-width="1"/>
 
-  <section class="khr-infographic" aria-label="Ambition vs Reality">
-    <div class="khr-infographic-head">
-      <h3>Ambition vs Reality</h3>
-      <span>Three hidden problems and disciplined responses</span>
-    </div>
-    <div class="khr-infographic-grid">
-      <div class="khr-infographic-cell"><strong>Desired capability</strong><p>Prediction, optimisation, alerts, transparency, or decision automation.</p></div>
-      <div class="khr-infographic-cell"><strong>Hidden problem</strong><p>Sparse observations, shifting records, unclear ownership, or weak baselines.</p></div>
-      <div class="khr-infographic-cell"><strong>Disciplined response</strong><p>Audit data trust before making automation claims.</p></div>
-      <div class="khr-infographic-cell"><strong>Fallback path</strong><p>Design for manual review and weak-signal handling.</p></div>
-      <div class="khr-infographic-cell"><strong>Capability growth</strong><p>Sequence ambition with realistic data maturity.</p></div>
-      <div class="khr-infographic-cell"><strong>Reporting posture</strong><p>Call the system decision support, not autonomous judgement.</p></div>
-    </div>
-  </section>
+            <!-- AMBITION BARS (tall) -->
+            <g class="ambition-bar">
+              <rect x="72" y="110" width="44" height="230" rx="4" fill="rgba(122,56,32,0.18)" stroke="rgba(122,56,32,0.35)" stroke-width="1"/>
+              <text x="94" y="105" font-family="Cinzel,serif" font-size="7" fill="rgba(160,80,53,0.5)" text-anchor="middle">PREDICT</text>
+            </g>
+            <g class="ambition-bar">
+              <rect x="122" y="140" width="44" height="200" rx="4" fill="rgba(122,56,32,0.14)" stroke="rgba(122,56,32,0.28)" stroke-width="1"/>
+              <text x="144" y="135" font-family="Cinzel,serif" font-size="7" fill="rgba(160,80,53,0.45)" text-anchor="middle">OPTIMISE</text>
+            </g>
+            <g class="ambition-bar">
+              <rect x="172" y="90" width="44" height="250" rx="4" fill="rgba(122,56,32,0.2)" stroke="rgba(122,56,32,0.4)" stroke-width="1"/>
+              <text x="194" y="85" font-family="Cinzel,serif" font-size="7" fill="rgba(160,80,53,0.55)" text-anchor="middle">ALERT</text>
+            </g>
 
+            <!-- REALITY BARS (shorter) -->
+            <g class="reality-bar">
+              <rect x="228" y="255" width="44" height="85" rx="4" fill="rgba(104,117,88,0.15)" stroke="rgba(104,117,88,0.35)" stroke-width="1"/>
+              <text x="250" y="250" font-family="Cinzel,serif" font-size="7" fill="rgba(142,158,120,0.55)" text-anchor="middle">SPARSE</text>
+            </g>
+            <g class="reality-bar">
+              <rect x="278" y="280" width="44" height="60" rx="4" fill="rgba(104,117,88,0.12)" stroke="rgba(104,117,88,0.28)" stroke-width="1"/>
+              <text x="300" y="275" font-family="Cinzel,serif" font-size="7" fill="rgba(142,158,120,0.5)" text-anchor="middle">INCONSIST.</text>
+            </g>
+            <g class="reality-bar">
+              <rect x="328" y="295" width="34" height="45" rx="4" fill="rgba(104,117,88,0.1)" stroke="rgba(104,117,88,0.22)" stroke-width="1"/>
+              <text x="345" y="290" font-family="Cinzel,serif" font-size="7" fill="rgba(142,158,120,0.45)" text-anchor="middle">UNGOV.</text>
+            </g>
 
-  <section class="khr-editorial-section" id="the-ambition-is-rarely-the-real-problem">
-    <div class="khr-section-kicker">Observation</div>
-    <h2>The ambition is rarely the real problem</h2>
-    <p>Ambition is often necessary to mobilise support and resources. The problem is when ambition outruns the evidence conditions that make a system trustworthy. A predictive dashboard may look plausible on paper, but if observations are sparse, stale, or poorly structured, the dashboard becomes a confidence amplifier rather than a decision aid.</p>
-    <p>Many organisations mistake visible complexity for readiness. The smarter move is to ask whether the evidence can carry the ambition.</p>
-  </section>
+            <!-- GAP ANNOTATION -->
+            <g class="gap-brace">
+              <line x1="216" y1="120" x2="216" y2="340" stroke="rgba(201,171,132,0.25)" stroke-width="1" stroke-dasharray="4 4"/>
+              <text x="218" y="200" font-family="Cinzel,serif" font-size="8" letter-spacing="1" fill="rgba(201,171,132,0.3)" transform="rotate(90,218,200)">THE GAP</text>
 
+              <!-- Brace arrows -->
+              <polygon points="216,140 211,158 221,158" fill="rgba(122,56,32,0.3)"/>
+              <polygon points="216,260 211,242 221,242" fill="rgba(104,117,88,0.3)"/>
+            </g>
 
-  <section class="khr-matrix" aria-label="Three Data Realities">
-    <h3>Three Data Realities</h3>
-    <p>These realities often matter more than model sophistication.</p>
-    <div class="khr-matrix-rows">
-      <div class="khr-matrix-row"><strong>Data scarcity</strong><span>There may not be enough observations, or they may be too irregular to support meaningful pattern detection.</span></div>
-      <div class="khr-matrix-row"><strong>Data inconsistency</strong><span>Variable names, timestamps, locations, and measurement habits shift over time, weakening comparison.</span></div>
-      <div class="khr-matrix-row"><strong>Data detached from action</strong><span>Information exists but does not connect to a clear review or response pathway.</span></div>
-    </div>
-  </section>
-
-
-  <section class="khr-editorial-section" id="maintenance-is-part-of-the-system">
-    <div class="khr-section-kicker">System Discipline</div>
-    <h2>Maintenance is part of the system</h2>
-    <p>A smart system is not only sensors, code, or a model. It includes the maintenance routine that keeps evidence trustworthy. When maintenance is underdesigned, the system begins to decay almost immediately: gaps appear, calibration drifts, ownership becomes ambiguous, and users stop trusting outputs.</p>
-    <p>Small, disciplined systems often outperform impressive ones because they are easier to maintain, explain, and connect to decisions.</p>
-  </section>
-
-
-  <section class="khr-editorial-section" id="context-is-not-noise">
-    <div class="khr-section-kicker">Context Lens</div>
-    <h2>Context is not noise</h2>
-    <p>Smart-system narratives often flatten context. But context changes what a signal means. A missing reading in one location may be trivial; in another, it may indicate a critical failure. A rainfall threshold may matter in one agricultural zone and not translate to another.</p>
-    <p>Good system design treats context as part of the signal environment, not as an inconvenience.</p>
-  </section>
-
-
-  <aside class="khr-module khr-module--note">
-    <h3>Reporting language you can reuse</h3>
-    <p>This system should be treated as decision support, not autonomous judgement. Current outputs are constrained by data quality and maintenance discipline. The pilot reduced uncertainty in some areas but does not yet justify scale.</p>
-
-
-  </aside>
-
-
-  <section class="khr-checklist-panel">
-    <div class="khr-checklist-symbol">◎</div>
-    <div>
-      <h3>Before Expanding a Smart-System Concept</h3>
-    <p>These questions are less glamorous than product language, but often decide the fate of the project.</p>
-      <ul>
-      <li>What data are genuinely available?</li>
-      <li>How are they produced and maintained?</li>
-      <li>What are the failure modes of the data?</li>
-      <li>What review discipline exists?</li>
-      <li>What assumptions are being made about context?</li>
-      <li>What fallback path exists if signals are weak?</li>
-      </ul>
-    </div>
-  </section>
-
-
-  <section class="khr-editorial-section" id="references-and-further-reading">
-    <div class="khr-section-kicker">Reading Trail</div>
-    <h2>References and further reading</h2>
-    <p>Read this note alongside water intelligence, low-cost monitoring pilot design, and AI readiness resources.</p>
-    <p>The practical takeaway: the lesson is not to abandon ambition. It is to anchor ambition in observational honesty.</p>
-  </section>
-
-      </article>
-
-  <aside class="khr-sidebar" aria-label="Resource sidebar">
-    <div class="khr-sidecard khr-progress-card">
-      <h3>Reading Progress</h3>
-      <div class="khr-progress-track"><span></span></div>
-      <p>Start with the framing, use the visual modules to compare options, then close with the checklist.</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Resource Details</h3>
-      <p><strong>Smart Agriculture &amp; Food Security</strong><br>Lab Note · Knowledge Hub resource</p>
-      <p><strong>Reflective</strong><br>System designers · monitoring teams · programme leads</p>
-      <p>5 min read · 4 visual modules</p>
-      <p>Updated April 2026</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Continue Reading</h3>
-      <div class="khr-related">
-      <a href="../explainers/why-water-intelligence-is-becoming-a-strategic-capability.html">Why Water Intelligence Is Becoming a Strategic Capability</a>
-      <a href="../playbooks/how-to-design-a-low-cost-environmental-monitoring-pilot.html">How to Design a Low-Cost Environmental Monitoring Pilot</a>
-      <a href="../frameworks/circularity-readiness-model-for-infrastructure-decisions.html">A Circularity Readiness Model for Infrastructure Decisions</a>
-        <a href="../../knowledge-hub.html">← Back to Knowledge Hub</a>
+            <!-- Legend -->
+            <rect x="50" y="358" width="12" height="8" rx="2" fill="rgba(122,56,32,0.4)"/>
+            <text x="68" y="366" font-family="Cinzel,serif" font-size="7" fill="rgba(201,171,132,0.4)">System ambition</text>
+            <rect x="180" y="358" width="12" height="8" rx="2" fill="rgba(104,117,88,0.4)"/>
+            <text x="198" y="366" font-family="Cinzel,serif" font-size="7" fill="rgba(201,171,132,0.4)">Data reality</text>
+          </svg>
+        </div>
       </div>
     </div>
-    <div class="khr-sidecard khr-engage-card">
-      <h3>Engage with Rankine</h3>
-      <p>Use this note during smart-system scoping, pilot reviews, and data-readiness conversations.</p>
-      <a class="btn" href="../../contact.html">Discuss a Partnership →</a>
-    </div>
-  </aside>
+  </div>
+</section>
 
-    </div>
-  </main>
+<!-- CONTENT -->
+<div class="container">
+  <div class="khr-layout">
+    <article class="khr-article" id="articleBody">
 
+      <!-- SECTION 1 -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Why This Note Exists</p>
+        <h2 class="khr-h2">The failure begins <em>before the model</em></h2>
+
+        <div class="pull-quote">
+          <p>Many smart-system projects fail before modelling starts — in the quieter layers: inconsistent records, missing baselines, unclear ownership, weak maintenance, and data that cannot actually support the claims being made.</p>
+          <cite>— Rankine Innovation Lab · Knowledge Hub</cite>
+        </div>
+
+        <p class="khr-body">
+          Ambition is not the enemy. In fact, good ambition is often necessary to mobilise support and resources for system investment. The problem is when system ambition outruns the evidence conditions that make a system trustworthy. A predictive dashboard may look plausible on paper — but if the underlying observations are sparse, stale, or poorly structured, the dashboard becomes a confidence amplifier rather than a decision aid.
+        </p>
+        <p class="khr-body">
+          That tension matters because many organisations mistake visible complexity for readiness. A sophisticated interface does not mean a trustworthy system. The evidence quality, review discipline, and maintenance ownership underneath the interface determine whether outputs can be acted on with appropriate confidence.
+        </p>
+      </div>
+
+      <!-- SECTION 2: Three Data Realities -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Field Observation</p>
+        <h2 class="khr-h2">Three data realities that <em>keep appearing</em></h2>
+
+        <p class="khr-body">
+          Across infrastructure, agriculture, and environmental monitoring projects, three categories of data weakness consistently undercut ambitions that were otherwise well-designed. Naming them precisely helps teams identify which applies to their situation before rather than after failure.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Recurring Patterns</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Three Data Conditions That Quietly Undermine Smart Systems</span>
+          </div>
+          <div class="infographic-body">
+            <div class="realities-list">
+              <div class="reality-card">
+                <div class="reality-icon">📉</div>
+                <div class="reality-body">
+                  <div class="reality-title">Data Scarcity</div>
+                  <div class="reality-desc">Teams may not have enough observations, or the observations may be too irregular to support meaningful pattern detection. Systems that were designed around assumed data density often discover at deployment that the actual record is a fragment of what was expected. No model compensates for insufficient raw observations in the domain that matters.</div>
+                  <span class="reality-tag">Most common failure mode</span>
+                </div>
+              </div>
+              <div class="reality-card">
+                <div class="reality-icon">🔀</div>
+                <div class="reality-body">
+                  <div class="reality-title">Data Inconsistency</div>
+                  <div class="reality-desc">Variable names, timestamps, location references, and measurement conventions often shift over time — across staff, seasons, or programme cycles. The result is data that exists but cannot be compared reliably. Inconsistency is particularly damaging for systems that depend on longitudinal trends rather than snapshot values.</div>
+                  <span class="reality-tag">Most insidious failure mode</span>
+                </div>
+              </div>
+              <div class="reality-card">
+                <div class="reality-icon">🔗</div>
+                <div class="reality-body">
+                  <div class="reality-title">Data Detachment from Action</div>
+                  <div class="reality-desc">Even when information exists, it may not connect to a clear decision pathway. Teams collect data because it seems responsible — but they have not defined who reads it, when it is reviewed, or what threshold triggers action. Information without a decision pathway is not intelligence; it is archive management.</div>
+                  <span class="reality-tag">Most correctable failure mode</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: Ambition vs Reality -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Structural Analysis</p>
+        <h2 class="khr-h2">What <em>ambition vs reality</em> looks like in practice</h2>
+
+        <p class="khr-body">
+          The following comparison maps common system design ambitions against the data conditions that would need to exist to support them. The mismatches are where projects typically stall — often 6 to 18 months after launch, once the early enthusiasm has worn off.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Gap Analysis</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">System Intent vs Typical Data Conditions</span>
+          </div>
+          <div class="infographic-body">
+            <div class="ambition-reality-stack">
+              <div class="ar-col ar-col--ambition">
+                <div class="ar-header">⛶ System Ambition</div>
+                <div class="ar-item">Predictive alerts for equipment failure or water loss events</div>
+                <div class="ar-item">Yield and stress optimisation across a growing season</div>
+                <div class="ar-item">Real-time operational dashboards for field managers</div>
+                <div class="ar-item">Trend analysis and anomaly detection at programme scale</div>
+              </div>
+              <div class="ar-divider">
+                <div class="ar-divider-icon">⇌</div>
+              </div>
+              <div class="ar-col ar-col--reality">
+                <div class="ar-header">◎ Typical Data Reality</div>
+                <div class="ar-item">Sparse and irregular observations; no baseline failure record to train from</div>
+                <div class="ar-item">Manual records with gaps; timestamps missing or inconsistent across seasons</div>
+                <div class="ar-item">Connectivity issues, battery failures, and no maintenance workflow for sensors</div>
+                <div class="ar-item">Data owned by different teams in different formats with no agreed schema</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: What This Means -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Practical Response</p>
+        <h2 class="khr-h2">Maintenance is part of the system — <em>not an afterthought</em></h2>
+
+        <p class="khr-body">
+          A system is not only sensors, code, or a model. It also includes the maintenance routine that keeps the evidence trustworthy. When maintenance is underdesigned, the system begins to decay almost immediately. Gaps appear. Calibration drifts. Ownership becomes ambiguous. Users stop trusting the outputs. This is one reason small, disciplined systems often outperform impressive ones over time.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Three Moves</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">What the Disciplined Response Looks Like</span>
+          </div>
+          <div class="infographic-body">
+            <div class="triptych">
+              <div class="triptych-card">
+                <span class="triptych-num" aria-hidden="true">1</span>
+                <span class="triptych-icon" aria-hidden="true">🔍</span>
+                <div class="triptych-title">Audit data trust before automating</div>
+                <div class="triptych-desc">Before building any model or dashboard, map the actual data availability, consistency, and ownership — not the assumed state. Start from what exists, not what was planned.</div>
+              </div>
+              <div class="triptych-card">
+                <span class="triptych-num" aria-hidden="true">2</span>
+                <span class="triptych-icon" aria-hidden="true">📐</span>
+                <div class="triptych-title">Design fallback paths for weak signals</div>
+                <div class="triptych-desc">Define what happens when data quality drops below a minimum threshold — who is notified, what review is triggered, and what decisions should be paused. A system without a fallback silently degrades.</div>
+              </div>
+              <div class="triptych-card">
+                <span class="triptych-num" aria-hidden="true">3</span>
+                <span class="triptych-icon" aria-hidden="true">📈</span>
+                <div class="triptych-title">Sequence ambition with capability growth</div>
+                <div class="triptych-desc">Start with the simplest version that can produce one useful decision. Build maintenance discipline and data quality before expanding scope. Ambition earned through demonstrated capability is more durable than ambition stated upfront.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 5: Reporting Language -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Communication Guidance</p>
+        <h2 class="khr-h2">Language for staying <em>credible while making progress</em></h2>
+
+        <p class="khr-body">
+          Teams working on smart systems often face pressure to sound ambitious and confident in reporting — to funders, partners, and senior stakeholders. The following reporting language is designed to be careful without being paralysed. It keeps teams credible while progress is genuinely incremental.
+        </p>
+
+        <div class="language-block">
+          <div class="lang-header">
+            <span class="lang-icon" aria-hidden="true">◉</span>
+            <div>
+              <div class="lang-label">Reporting Language Toolkit</div>
+              <div class="lang-title">Phrases for honest, grounded smart-system communication</div>
+            </div>
+          </div>
+          <div class="lang-items">
+            <div class="lang-item">
+              <span class="lang-item-label">On decision support role</span>
+              <span class="lang-item-text">"This system should be treated as decision support, not autonomous judgment. Outputs inform but do not replace field review."</span>
+            </div>
+            <div class="lang-item">
+              <span class="lang-item-label">On output constraints</span>
+              <span class="lang-item-text">"Current outputs are constrained by data quality and maintenance discipline in certain locations. The pilot reduced uncertainty in specific areas but did not yet justify full scale-up."</span>
+            </div>
+            <div class="lang-item">
+              <span class="lang-item-label">On the next step</span>
+              <span class="lang-item-text">"The priority for the next phase is improving data coverage and review cadence before expanding the scope of the dashboard — not adding new capability before the foundation is stable."</span>
+            </div>
+            <div class="lang-item">
+              <span class="lang-item-label">On context sensitivity</span>
+              <span class="lang-item-text">"What a signal means depends on local context — infrastructure quality, seasonal variation, and reporting culture all affect interpretation. We are building that context into the review protocol."</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REFERENCES -->
+      <div class="khr-section reveal">
+        <div class="references">
+          <span class="references-label">Sources &amp; Source Base</span>
+          <ol>
+            <li>Rankine Innovation Lab Knowledge Hub research synthesis: Smart-system design, data governance, and implementation reality across agriculture and infrastructure contexts.</li>
+            <li>Rankine's live Knowledge Hub and research positioning — emphasising research translation, practical systems, and implementation-aware innovation.</li>
+            <li>Cross-linked resource: How to Design a Low-Cost Environmental Monitoring Pilot — Rankine Knowledge Hub.</li>
+          </ol>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- SIDEBAR -->
+    <aside class="khr-sidebar">
+      <div class="side-card">
+        <div class="side-card-header">Reading Progress</div>
+        <div class="side-card-body">
+          <div class="reading-meter"><div class="reading-meter-fill" id="sidebarMeter"></div></div>
+          <div class="reading-meter-label"><span>Start</span><span id="progressPct">0%</span></div>
+        </div>
+      </div>
+      <div class="side-card">
+        <div class="side-card-header">Resource Details</div>
+        <div class="side-card-body">
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--rust);box-shadow:0 0 8px rgba(122,56,32,0.5)"></span>
+            <div><div class="domain-label">Smart Agriculture &amp; Food Security</div><div class="domain-sub">Core domain · First-wave resource</div></div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--copper)"></span>
+            <div><div class="domain-label">Programme Teams · System Designers</div><div class="domain-sub">Infrastructure · Agri · Env monitoring</div></div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--sand)"></span>
+            <div><div class="domain-label">4 min read · Lab Note</div><div class="domain-sub">Updated April 2026</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="side-card">
+        <div class="side-card-header">Continue Reading</div>
+        <div class="side-card-body">
+          <a href="../explainers/why-water-intelligence-is-becoming-a-strategic-capability.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text"><span class="related-link-tag">Explainer</span>Why Water Intelligence Is Becoming a Strategic Capability</span>
+          </a>
+          <a href="../playbooks/how-to-design-a-low-cost-environmental-monitoring-pilot.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text"><span class="related-link-tag">Playbook</span>How to Design a Low-Cost Environmental Monitoring Pilot</span>
+          </a>
+          <a href="../frameworks/circularity-readiness-model-for-infrastructure-decisions.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text"><span class="related-link-tag">Framework</span>A Circularity Readiness Model for Infrastructure Decisions</span>
+          </a>
+          <button class="btn-side" onclick="window.location.href='../../knowledge-hub.html'">← Back to Knowledge Hub</button>
+        </div>
+      </div>
+      <div class="side-card">
+        <div class="side-card-header">Engage with Rankine</div>
+        <div class="side-card-body">
+          <p>This lab note connects to our Smart Agriculture and environmental monitoring work. If your organisation is designing or reviewing a smart-system initiative, we would like to hear from you.</p>
+          <button class="btn-side" onclick="window.location.href='../../contact.html'">Discuss a Partnership →</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
 
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="footer-logo-icon">
+      <div>
+        <img src="../../Images/rakine_logo.svg" class="footer-logo-icon" alt="Rankine Innovation Lab logo"/>
         <div class="footer-logo-name">Rankine Innovation Lab</div>
         <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
         <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
       </div>
       <div>
-        <h3 class="footer-col-title">Navigation</h3>
+        <div class="footer-col-title">Navigation</div>
         <ul class="footer-links">
           <li><a href="../../about.html">About the Lab</a></li>
-          <li><a href="../../index.html#method">The Rankine Method</a></li>
-          <li><a href="../../index.html#focus">Focus Areas</a></li>
+          <li><a href="../../research.html">Research &amp; Project</a></li>
           <li><a href="../../programmes.html">Programmes</a></li>
-<li><a href="../../team.html">Team</a></li>
+          <li><a href="../../partnership.html">Partnerships</a></li>
+          <li><a href="../../team.html">Team</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Domains</h3>
+        <div class="footer-col-title">Domains</div>
         <ul class="footer-links">
-          <li><a href="../../research.html#ai">AI for STEM</a></li>
-          <li><a href="../../research.html#sustainability">Sustainability</a></li>
-          <li><a href="../../research.html#smart-agriculture">Smart Agriculture</a></li>
-          <li><a href="../../research.html#cross-disciplinary">Cross-Disciplinary</a></li>
+          <li><a href="../../research.html">AI for STEM</a></li>
+          <li><a href="../../research.html">Sustainability</a></li>
+          <li><a href="../../research.html">Smart Agriculture</a></li>
+          <li><a href="../../research.html">Cross-Disciplinary</a></li>
           <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Engage</h3>
+        <div class="footer-col-title">Engage</div>
         <ul class="footer-links">
-<li><a href="../../contact.html">Research Collaboration</a></li>
+          <li><a href="../../contact.html">Partnerships</a></li>
+          <li><a href="../../contact.html">Research Collaboration</a></li>
           <li><a href="../../contact.html">Training Enquiries</a></li>
           <li><a href="../../contact.html">Speaking</a></li>
           <li><a href="mailto:hello@rankineinnovationlab.com">hello@rankineinnovationlab.com</a></li>
@@ -251,7 +678,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Rankine Innovation Lab. All rights reserved.</p>
+      <p class="footer-copy">&copy; 2025 <em>Rankine Innovation Lab</em>. All rights reserved.</p>
       <div class="footer-legal">
         <a href="../../privacy.html">Privacy</a>
         <a href="../../terms.html">Terms</a>
@@ -261,28 +688,34 @@
   </div>
 </footer>
 
-
 <script>
-  const nav = document.getElementById('siteNav');
-  const toggle = document.getElementById('mobileToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  function setNavState(){
-    if(window.scrollY > 24){ nav.classList.remove('transparent'); nav.classList.add('solid'); }
-    else { nav.classList.add('transparent'); nav.classList.remove('solid'); }
-  }
-  setNavState();
-  window.addEventListener('scroll', setNavState, { passive: true });
-  if(toggle && mobileMenu){
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.classList.toggle('open');
-      mobileMenu.classList.toggle('open', isOpen);
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-      document.body.classList.toggle('menu-open', isOpen);
-    });
-  }
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+function closeMobile() {
+  hamburgerBtn.classList.remove('open'); mobileMenu.classList.remove('open');
+  document.body.style.overflow = ''; hamburgerBtn.setAttribute('aria-expanded','false');
+}
+hamburgerBtn.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburgerBtn.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+  hamburgerBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+const progressBar = document.getElementById('progressBar');
+const sidebarMeter = document.getElementById('sidebarMeter');
+const progressPct = document.getElementById('progressPct');
+const articleBody = document.getElementById('articleBody');
+function updateProgress() {
+  const rect = articleBody.getBoundingClientRect();
+  const pct = Math.min(100, Math.round((Math.max(0,-rect.top)/(rect.height-window.innerHeight))*100));
+  progressBar.style.width = sidebarMeter.style.width = pct+'%';
+  progressPct.textContent = pct+'%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 </script>
-
-<script src="../resource-template.js"></script>
 </body>
 </html>
