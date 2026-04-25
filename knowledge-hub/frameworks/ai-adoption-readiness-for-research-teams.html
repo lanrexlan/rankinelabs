@@ -383,7 +383,6 @@ img { display: block; max-width: 100%; }
         </div>
       </div>
 
-<<<<<<< HEAD
       <!-- Hero SVG: Readiness Matrix Diagram -->
       <div class="hero-diagram-wrap" aria-hidden="true">
         <div class="hero-diagram">
@@ -472,29 +471,8 @@ img { display: block; max-width: 100%; }
             <!-- Outer border -->
             <rect x="40" y="40" width="320" height="320" fill="none" stroke="rgba(42,92,92,0.2)" stroke-width="1.5"/>
           </svg>
-=======
-    <div class="khr-feature">
-      <div class="khr-feature-head">
-        <div>
-          <div class="khr-feature-kicker">Readiness Matrix</div>
-          <div class="khr-feature-title">Readiness Matrix</div>
->>>>>>> 3e866ce5ebd7d682b2c492d8ce2c5e40418cf6e4
         </div>
       </div>
-<<<<<<< HEAD
-=======
-      <figure class="khr-diagram khr-hero-visual" role="group" aria-label="Readiness Matrix">
-        <img class="khr-feature-image" src="../../Images/knowledge/ai-readiness-matrix.svg" alt="Readiness Matrix visual showing problem fit, knowledge quality, people & skill stages" width="1600" height="600">
-      </figure>
-      <div class="khr-feature-tags">
-      <span>Readiness</span>
-      <span>Governance</span>
-      <span>Workflow</span>
-      <span>Evaluation</span>
-      <span>Learning</span>
-      </div>
-    </div>
->>>>>>> 3e866ce5ebd7d682b2c492d8ce2c5e40418cf6e4
 
     </div>
   </div>
@@ -839,7 +817,6 @@ img { display: block; max-width: 100%; }
         </div>
       </div>
 
-<<<<<<< HEAD
       <div class="side-card">
         <div class="side-card-header">Continue Reading</div>
         <div class="side-card-body">
@@ -866,28 +843,6 @@ img { display: block; max-width: 100%; }
           </a>
           <button class="btn-side" onclick="window.location.href='../../knowledge-hub.html'">← Back to Knowledge Hub</button>
         </div>
-=======
-  <aside class="khr-sidebar" aria-label="Resource sidebar">
-    <div class="khr-sidecard khr-progress-card">
-      <h3>Reading Progress</h3>
-      <div class="khr-progress-track"><span></span></div>
-      <p>Start with the framing, use the visual modules to compare options, then close with the checklist.</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Resource Details</h3>
-      <p><strong>AI for STEM Innovation</strong><br>Framework · Knowledge Hub resource</p>
-      <p><strong>Practitioner</strong><br>Research teams · departments · labs · programme units</p>
-      <p>7 min read · 6 visual modules</p>
-      <p>Updated April 2026</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Continue Reading</h3>
-      <div class="khr-related">
-      <a href="../explainers/rag-for-stem-decision-support.html">RAG for STEM Decision Support</a>
-      <a href="../playbooks/how-to-run-a-small-ai-for-stem-capability-session.html">How to Run a Small AI-for-STEM Capability Session</a>
-      <a href="../lab-notes/what-repeated-reading-of-genai-papers-is-revealing.html">What Repeated Reading of GenAI Papers Is Revealing</a>
-        <a href="../../knowledge-hub.html">← Back to Knowledge Hub</a>
->>>>>>> 3e866ce5ebd7d682b2c492d8ce2c5e40418cf6e4
       </div>
 
       <div class="side-card">
@@ -970,6 +925,55 @@ hamburgerBtn.addEventListener('click', () => {
   hamburgerBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
 });
 
-<script src="../resource-template.js"></script>
+// Reading progress
+const progressBar  = document.getElementById('progressBar');
+const sidebarMeter = document.getElementById('sidebarMeter');
+const progressPct  = document.getElementById('progressPct');
+const articleBody  = document.getElementById('articleBody');
+function updateProgress() {
+  const rect     = articleBody.getBoundingClientRect();
+  const total    = rect.height - window.innerHeight;
+  const scrolled = Math.max(0, -rect.top);
+  const pct      = Math.min(100, Math.round((scrolled / total) * 100));
+  progressBar.style.width  = pct + '%';
+  sidebarMeter.style.width = pct + '%';
+  progressPct.textContent  = pct + '%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+
+// Scroll reveals
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      requestAnimationFrame(() => entry.target.classList.add('visible'));
+      revealObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// Checklist interaction
+document.querySelectorAll('.q-item').forEach(item => {
+  let checked = false;
+  item.addEventListener('click', () => {
+    checked = !checked;
+    const check = item.querySelector('.q-check');
+    if (checked) {
+      check.textContent = '✓';
+      check.style.background = 'rgba(42,92,92,0.3)';
+      check.style.borderColor = 'var(--teal-lt)';
+      check.style.color = 'var(--teal-lt)';
+      item.style.borderColor = 'rgba(42,92,92,0.25)';
+    } else {
+      check.textContent = '?';
+      check.style.background = '';
+      check.style.borderColor = '';
+      check.style.color = '';
+      item.style.borderColor = '';
+    }
+  });
+  item.style.cursor = 'pointer';
+});
+</script>
 </body>
 </html>
