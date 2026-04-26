@@ -1,267 +1,915 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Why Water Intelligence Is Becoming a Strategic Capability — Knowledge Hub | Rankine Innovation Lab</title>
-  <meta name="description" content="Water intelligence is the organised ability to sense, interpret, and act on water-related information before scarcity, failure, contamination, or waste become visible.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../resource-template.css">
-</head>
-<body class="resource-page resource-explainer">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Why Water Intelligence Is Becoming a Strategic Capability — Knowledge Hub | Rankine Innovation Lab</title>
+<meta name="description" content="Water intelligence is the organised ability to sense, interpret, and act on water-related information before scarcity, failure, contamination, or waste become visible."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
 
-<nav class="nav transparent" id="siteNav" aria-label="Primary navigation">
-  <div class="container nav-inner">
-    <a class="nav-logo" href="../../index.html" aria-label="Rankine Innovation Lab home">
-      <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="nav-logo-icon">
-      <span class="nav-logo-text">
-        <span class="nav-logo-mark">Rankine</span>
-        <span class="nav-logo-name">Innovation Lab</span>
-      </span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="../../index.html">Home</a></li>
-      <li><a href="../../about.html">About</a></li>
-      <li><a href="../../research.html">Research &amp; Project</a></li>
-      <li><a href="../../programmes.html">Programmes</a></li>
-      <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
-      <li><a href="../../team.html">Team</a></li>
-      <li><a href="../../contact.html">Contact</a></li>
-    </ul>
-    <button class="hamburger" id="mobileToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span><span></span><span></span>
-    </button>
+/* ════════════════════════════════════════════════════════════════════
+   TOKENS — exact Rankine site-wide system
+════════════════════════════════════════════════════════════════════ */
+:root {
+  --chocolate:  #180c06;
+  --espresso:   #241208;
+  --brown:      #3a1c0e;
+  --mahogany:   #5c2d18;
+  --copper:     #a05c38;
+  --copper-lt:  #c47a52;
+  --sand:       #c9ab84;
+  --sand-lt:    #ddc9a8;
+  --cream:      #f4ede0;
+  --cream-lt:   #faf6ef;
+  --sage:       #687558;
+  --sage-lt:    #8e9e78;
+  --water:      #1e4d6b;
+  --water-lt:   #2e7aab;
+  --water-pale: #4a9cc8;
+  --white:      #fffcf8;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-label:   'Cinzel', serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-circ: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+}
+
+/* ── RESET ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--cream-lt);
+  color: var(--espresso);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+img { display: block; max-width: 100%; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--water-lt); border-radius: 2px; }
+.container { width: min(1220px, 100%); margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3rem); }
+
+/* ── READING PROGRESS BAR ───────────────────────────────────────────── */
+.progress-bar {
+  position: fixed; top: 0; left: 0;
+  width: 0%; height: 3px;
+  background: linear-gradient(90deg, var(--water), var(--water-pale), var(--sand));
+  z-index: 2000; transition: width 0.1s linear;
+}
+
+/* ── NAV ────────────────────────────────────────────────────────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(24,12,6,0.97);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 1px 0 rgba(201,171,132,0.12);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+.nav-logo { display: inline-flex; align-items: center; gap: 0.75rem; }
+.nav-logo-icon { width: 40px; height: 40px; border-radius: 8px; }
+.nav-logo-mark { display: block; font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.25em; color: var(--copper); text-transform: uppercase; }
+.nav-logo-name { font-family: var(--font-display); font-size: 1.25rem; color: var(--cream); letter-spacing: 0.02em; }
+.nav-links { display: flex; align-items: center; gap: clamp(0.8rem,1.8vw,1.5rem); list-style: none; }
+.nav-links a { font-size: 0.76rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(244,237,224,0.7); transition: color 0.3s; }
+.nav-links a:hover { color: var(--cream); }
+.nav-links a.active-page { color: var(--sand); }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--cream); transition: all 0.3s; }
+.hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; }
+.hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 0; background: rgba(24,12,6,0.98); backdrop-filter: blur(20px); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; transform: translateY(-100%); transition: transform 0.5s var(--ease-out); }
+.mobile-menu.open { display: flex; transform: translateY(0); }
+.mobile-menu a { font-family: var(--font-display); font-size: 2rem; font-weight: 300; color: var(--cream); }
+
+/* ── HERO ───────────────────────────────────────────────────────────── */
+.khr-hero {
+  min-height: 92vh;
+  background:
+    radial-gradient(ellipse 60% 55% at 88% 18%, rgba(30,77,107,0.38), transparent 55%),
+    radial-gradient(ellipse 45% 45% at 12% 78%, rgba(90,40,12,0.22), transparent 55%),
+    linear-gradient(158deg, #060c12 0%, #0c1820 38%, #100d08 72%, #0a0604 100%);
+  display: flex; align-items: center;
+  padding-top: 72px; position: relative; overflow: hidden;
+}
+.khr-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 71px, rgba(201,171,132,0.022) 71px, rgba(201,171,132,0.022) 72px);
+  pointer-events: none;
+}
+.khr-hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 256px; opacity: 0.5; pointer-events: none;
+}
+.khr-hero-inner {
+  position: relative; z-index: 2; width: 100%;
+  padding-block: clamp(3rem,6vw,6rem);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem,5vw,6rem); align-items: center;
+}
+
+.breadcrumb { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,237,224,0.3); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.75rem; }
+.breadcrumb a:hover { color: var(--sand); }
+.breadcrumb strong { color: var(--copper); font-weight: 400; }
+.khr-type-badge { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--water-pale); border: 1px solid rgba(30,77,107,0.45); background: rgba(30,77,107,0.12); padding: 0.4rem 0.9rem; border-radius: 2px; margin-bottom: 1.5rem; }
+.khr-type-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--water-pale); box-shadow: 0 0 8px rgba(30,77,107,0.6); }
+.khr-title { font-family: var(--font-display); font-size: clamp(2.4rem, 4.5vw, 4.2rem); font-weight: 300; line-height: 1.08; letter-spacing: -0.012em; color: var(--cream-lt); margin-bottom: 1.4rem; }
+.khr-title em { font-style: italic; color: var(--sand); }
+.khr-dek { font-size: clamp(0.92rem,1.35vw,1.05rem); line-height: 1.82; color: rgba(244,237,224,0.55); font-weight: 300; max-width: 560px; margin-bottom: 2.2rem; }
+.khr-meta-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding-top: 1.5rem; border-top: 1px solid rgba(201,171,132,0.1); }
+.khr-meta-item { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(201,171,132,0.4); }
+.khr-meta-item strong { color: var(--water-pale); font-weight: 400; }
+
+/* Hero SVG animations */
+.hero-diagram-wrap { display: flex; align-items: center; justify-content: center; }
+.hero-diagram { width: 100%; max-width: 480px; aspect-ratio: 1; }
+.wi-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 40px rgba(30,77,107,0.18)); }
+
+.wi-layer { animation: layerRise 1s var(--ease-out) both; }
+.wi-layer:nth-child(1){ animation-delay: 0.1s; }
+.wi-layer:nth-child(2){ animation-delay: 0.25s; }
+.wi-layer:nth-child(3){ animation-delay: 0.4s; }
+.wi-layer:nth-child(4){ animation-delay: 0.55s; }
+.wi-layer:nth-child(5){ animation-delay: 0.7s; }
+@keyframes layerRise { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+
+.wi-pulse { animation: wPulse 3s ease-in-out infinite; }
+.wi-pulse:nth-child(2n){ animation-delay:1s }
+.wi-pulse:nth-child(3n){ animation-delay:2s }
+@keyframes wPulse { 0%,100%{opacity:0.4} 50%{opacity:0.9} }
+
+.wi-flow { stroke-dasharray: 6 4; animation: wiFlow 2s linear infinite; }
+@keyframes wiFlow { to{ stroke-dashoffset: -20; } }
+
+/* ── LAYOUT ─────────────────────────────────────────────────────────── */
+.khr-layout { display: grid; grid-template-columns: 1fr 340px; gap: 3rem; padding-block: clamp(3rem,6vw,5.5rem); align-items: start; }
+.khr-article { min-width: 0; }
+.khr-section { margin-bottom: clamp(3rem,5vw,4.5rem); padding-bottom: clamp(3rem,5vw,4.5rem); border-bottom: 1px solid rgba(58,28,14,0.08); }
+.khr-section:last-child { border-bottom: none; margin-bottom: 0; }
+.section-eyebrow { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--water); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.75rem; }
+.section-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--water); }
+.khr-h2 { font-family: var(--font-display); font-size: clamp(1.6rem,2.8vw,2.2rem); font-weight: 400; line-height: 1.15; color: var(--espresso); letter-spacing: -0.01em; margin-bottom: 1.25rem; }
+.khr-h2 em { font-style: italic; color: var(--water); }
+.khr-body { font-size: clamp(0.95rem,1.35vw,1.03rem); line-height: 1.88; color: var(--brown); font-weight: 300; }
+.khr-body + .khr-body { margin-top: 1.1rem; }
+
+/* ── PULL QUOTE ─────────────────────────────────────────────────────── */
+.pull-quote { margin: 2.5rem 0; padding: 2rem 2rem 2rem 2.5rem; border-left: 4px solid var(--water-lt); background: linear-gradient(135deg, rgba(30,77,107,0.06), rgba(201,171,132,0.02)); border-radius: 0 var(--radius-md) var(--radius-md) 0; position: relative; overflow: hidden; }
+.pull-quote::before { content: '"'; position: absolute; top: -1rem; left: 1rem; font-family: var(--font-display); font-size: 8rem; font-weight: 700; color: rgba(30,77,107,0.08); line-height: 1; pointer-events: none; }
+.pull-quote p { font-family: var(--font-display); font-style: italic; font-size: clamp(1.15rem,2vw,1.45rem); font-weight: 300; line-height: 1.55; color: var(--mahogany); position: relative; z-index: 1; }
+.pull-quote cite { display: block; margin-top: 0.75rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--water-lt); font-style: normal; }
+
+/* ── INFOGRAPHIC WRAPPER ────────────────────────────────────────────── */
+.infographic { margin: 2.5rem 0; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid rgba(58,28,14,0.1); }
+.infographic-header { background: var(--espresso); padding: 1.25rem 1.75rem; display: flex; align-items: center; gap: 1rem; }
+.infographic-header-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--water-pale); }
+.infographic-header-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 400; color: var(--cream); }
+.infographic-header-line { flex: 1; height: 1px; background: rgba(201,171,132,0.12); }
+.infographic-body { background: var(--white); padding: 2rem 1.75rem; }
+
+/* ── FOUR CAPABILITY LAYERS ─────────────────────────────────────────── */
+.capability-stack { display: flex; flex-direction: column; gap: 0; }
+.cap-layer {
+  display: grid; grid-template-columns: 6px 60px 1fr auto;
+  gap: 1.25rem; align-items: center;
+  padding: 1.1rem 1.25rem;
+  border-bottom: 1px solid rgba(58,28,14,0.06);
+  cursor: default; transition: transform 0.35s var(--ease-out);
+}
+.cap-layer:last-child { border-bottom: none; }
+.cap-layer:hover { transform: translateX(5px); }
+.cap-bar { align-self: stretch; border-radius: 3px; min-height: 48px; }
+.cap-layer:nth-child(1) .cap-bar { background: var(--water); }
+.cap-layer:nth-child(2) .cap-bar { background: var(--water-lt); }
+.cap-layer:nth-child(3) .cap-bar { background: var(--water-pale); }
+.cap-layer:nth-child(4) .cap-bar { background: var(--sage); }
+.cap-layer:nth-child(5) .cap-bar { background: var(--sage-lt); }
+.cap-layer:nth-child(6) .cap-bar { background: rgba(142,158,120,0.5); }
+
+.cap-num { font-family: var(--font-display); font-size: 1.8rem; font-weight: 300; text-align: center; line-height: 1; color: rgba(58,28,14,0.12); }
+.cap-content {}
+.cap-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.25rem; }
+.cap-desc { font-size: 0.82rem; line-height: 1.62; color: var(--brown); font-weight: 300; }
+.cap-badge { font-family: var(--font-label); font-size: 0.52rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 0.3rem 0.65rem; border-radius: 2px; flex-shrink: 0; }
+.cap-layer:nth-child(1) .cap-badge { background: rgba(30,77,107,0.12); color: var(--water-pale); border: 1px solid rgba(30,77,107,0.25); }
+.cap-layer:nth-child(2) .cap-badge { background: rgba(46,122,171,0.1); color: var(--water-pale); border: 1px solid rgba(46,122,171,0.22); }
+.cap-layer:nth-child(3) .cap-badge { background: rgba(74,156,200,0.1); color: var(--water-pale); border: 1px solid rgba(74,156,200,0.2); }
+.cap-layer:nth-child(4) .cap-badge { background: rgba(104,117,88,0.1); color: var(--sage-lt); border: 1px solid rgba(104,117,88,0.22); }
+.cap-layer:nth-child(5) .cap-badge { background: rgba(142,158,120,0.1); color: var(--sage-lt); border: 1px solid rgba(142,158,120,0.2); }
+.cap-layer:nth-child(6) .cap-badge { background: rgba(142,158,120,0.08); color: var(--sage); border: 1px solid rgba(142,158,120,0.15); }
+
+/* ── FAILURE MODES vs DISCIPLINE GRID ──────────────────────────────── */
+.contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.contrast-col { padding: 1.5rem; }
+.contrast-col--bad { background: rgba(92,45,24,0.06); border: 1px solid rgba(92,45,24,0.15); border-right: none; border-radius: var(--radius-md) 0 0 var(--radius-md); }
+.contrast-col--good { background: rgba(30,77,107,0.06); border: 1px solid rgba(30,77,107,0.15); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+.contrast-header { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1rem; }
+.contrast-icon { font-size: 1.2rem; }
+.contrast-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; }
+.contrast-col--bad .contrast-label { color: var(--mahogany); }
+.contrast-col--good .contrast-label { color: var(--water-lt); }
+.contrast-items { display: flex; flex-direction: column; gap: 0.6rem; }
+.contrast-item { display: flex; align-items: flex-start; gap: 0.55rem; font-size: 0.82rem; line-height: 1.55; color: var(--espresso); }
+.c-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 0.42em; }
+.contrast-col--bad .c-dot { background: var(--mahogany); }
+.contrast-col--good .c-dot { background: var(--water-lt); }
+
+/* ── MINIMUM VIABLE STACK STEPS ─────────────────────────────────────── */
+.mvstack { display: flex; flex-direction: column; gap: 0.75rem; }
+.mv-step { display: grid; grid-template-columns: 56px 1fr; gap: 1.1rem; align-items: start; padding: 1rem 1.1rem; border-radius: var(--radius-md); border: 1px solid rgba(58,28,14,0.1); background: var(--cream-lt); transition: transform 0.3s var(--ease-out), border-color 0.3s; }
+.mv-step:hover { transform: translateX(4px); border-color: rgba(30,77,107,0.3); }
+.mv-num { font-family: var(--font-display); font-size: 1.8rem; font-weight: 300; line-height: 1; text-align: center; color: rgba(30,77,107,0.2); }
+.mv-body {}
+.mv-title { font-family: var(--font-display); font-size: 1rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.3rem; }
+.mv-desc { font-size: 0.82rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+
+/* ── WHERE VALUE CARDS ───────────────────────────────────────────────── */
+.value-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.value-card { padding: 1.35rem 1.25rem; background: var(--cream-lt); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); cursor: default; position: relative; overflow: hidden; transition: transform 0.4s var(--ease-out), border-color 0.4s, box-shadow 0.4s; }
+.value-card:hover { transform: translateY(-5px); border-color: rgba(30,77,107,0.3); box-shadow: 0 14px 44px rgba(24,12,6,0.1); }
+.value-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--water), var(--water-pale)); transform: scaleX(0); transform-origin: left; transition: transform 0.5s var(--ease-out); }
+.value-card:hover::before { transform: scaleX(1); }
+.value-icon { font-size: 1.5rem; margin-bottom: 0.75rem; display: block; }
+.value-title { font-family: var(--font-display); font-size: 1.02rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.35rem; }
+.value-desc { font-size: 0.8rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+
+/* ── DIAGNOSTIC CHECKLIST ───────────────────────────────────────────── */
+.diag-checklist { background: var(--espresso); border-radius: var(--radius-lg); padding: 2rem; position: relative; overflow: hidden; }
+.diag-checklist::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(201,171,132,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,171,132,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+.diag-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; position: relative; z-index: 1; }
+.diag-icon { font-size: 1.4rem; color: var(--water-pale); }
+.diag-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--water-pale); }
+.diag-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 300; color: var(--cream); }
+.diag-items { display: flex; flex-direction: column; gap: 0.75rem; position: relative; z-index: 1; }
+.diag-item { display: flex; align-items: flex-start; gap: 1rem; padding: 0.9rem 1rem; background: rgba(255,252,248,0.035); border: 1px solid rgba(201,171,132,0.08); border-radius: var(--radius-sm); cursor: pointer; transition: background 0.35s, border-color 0.35s; }
+.diag-item:hover { background: rgba(255,252,248,0.07); border-color: rgba(30,77,107,0.25); }
+.diag-check { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(30,77,107,0.4); background: rgba(30,77,107,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.65rem; color: var(--water-pale); transition: background 0.35s, border-color 0.35s; }
+.diag-item:hover .diag-check { background: rgba(30,77,107,0.2); border-color: var(--water-pale); }
+.diag-question { font-family: var(--font-display); font-size: 0.95rem; font-weight: 400; color: rgba(244,237,224,0.72); line-height: 1.45; flex: 1; font-style: italic; }
+
+/* ── REFERENCES ─────────────────────────────────────────────────────── */
+.references { background: var(--cream); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); padding: 1.5rem 1.75rem; }
+.references-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1rem; display: block; }
+.references ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.references li { font-size: 0.82rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+
+/* ── SIDEBAR ────────────────────────────────────────────────────────── */
+.khr-sidebar { position: sticky; top: calc(72px + 2rem); display: flex; flex-direction: column; gap: 1.25rem; }
+.side-card { background: var(--white); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); overflow: hidden; }
+.side-card-header { background: var(--espresso); padding: 0.9rem 1.25rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--water-pale); }
+.side-card-body { padding: 1.25rem; }
+.side-card-body p { font-size: 0.84rem; line-height: 1.72; color: var(--brown); font-weight: 300; }
+.domain-badge { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1rem; background: var(--cream-lt); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-sm); margin-bottom: 0.75rem; }
+.domain-badge:last-child { margin-bottom: 0; }
+.domain-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.domain-label { font-size: 0.8rem; color: var(--espresso); font-weight: 400; }
+.domain-sub { font-size: 0.72rem; color: var(--mahogany); font-weight: 300; }
+.related-link { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.85rem 0; border-bottom: 1px solid rgba(58,28,14,0.07); transition: transform 0.3s; text-decoration: none; }
+.related-link:last-child { border-bottom: none; padding-bottom: 0; }
+.related-link:hover { transform: translateX(4px); }
+.related-link-arrow { color: var(--copper); flex-shrink: 0; font-size: 0.7rem; margin-top: 0.15em; }
+.related-link-text { font-size: 0.83rem; line-height: 1.5; color: var(--espresso); font-weight: 400; }
+.related-link-tag { display: block; font-family: var(--font-label); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--copper); margin-bottom: 0.2rem; }
+.reading-meter { height: 4px; background: rgba(58,28,14,0.08); border-radius: 2px; overflow: hidden; margin: 0.75rem 0 0.4rem; }
+.reading-meter-fill { height: 100%; background: linear-gradient(90deg, var(--water), var(--water-pale), var(--sand)); width: 0%; transition: width 0.2s linear; border-radius: 2px; }
+.reading-meter-label { font-family: var(--font-label); font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(58,28,14,0.35); display: flex; justify-content: space-between; }
+.btn-side { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.85rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; background: var(--espresso); color: var(--cream); border: none; border-radius: var(--radius-sm); cursor: pointer; margin-top: 0.75rem; transition: background 0.3s; }
+.btn-side:hover { background: var(--brown); }
+
+/* ── REVEAL ─────────────────────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: none; }
+.d1{ transition-delay: 0.1s; } .d2{ transition-delay: 0.2s; }
+
+/* ── FOOTER ─────────────────────────────────────────────────────────── */
+.footer { background: var(--chocolate); padding: 4rem 0 2.5rem; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-logo-icon { width: 38px; margin-bottom: 0.75rem; }
+.footer-logo-name { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; color: var(--cream); }
+.footer-logo-sub  { font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.22em; color: var(--copper); text-transform: uppercase; margin: 0.3rem 0 1rem; }
+.footer-tagline   { font-size: 0.83rem; line-height: 1.7; color: rgba(244,237,224,0.35); font-weight: 300; max-width: 240px; }
+.footer-col-title { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1.1rem; }
+.footer-links     { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.footer-links a   { font-size: 0.82rem; color: rgba(244,237,224,0.35); transition: color 0.3s; }
+.footer-links a:hover { color: var(--sand); }
+.footer-bottom    { border-top: 1px solid rgba(201,171,132,0.1); padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-copy      { font-size: 0.76rem; color: rgba(244,237,224,0.2); }
+.footer-copy em   { color: var(--copper); font-style: normal; }
+.footer-legal     { display: flex; gap: 1.5rem; }
+.footer-legal a   { font-size: 0.73rem; color: rgba(244,237,224,0.2); transition: color 0.3s; }
+.footer-legal a:hover { color: var(--sand); }
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .khr-hero-inner { grid-template-columns: 1fr; }
+  .hero-diagram-wrap { display: none; }
+  .khr-layout { grid-template-columns: 1fr; }
+  .khr-sidebar { position: static; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .value-grid { grid-template-columns: 1fr; }
+  .contrast-grid { grid-template-columns: 1fr; }
+  .contrast-col--bad { border-right: 1px solid rgba(92,45,24,0.15); border-bottom: none; border-radius: var(--radius-md) var(--radius-md) 0 0; }
+  .contrast-col--good { border-radius: 0 0 var(--radius-md) var(--radius-md); }
+}
+@media (max-width: 640px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ════════════ NAV ════════════ -->
+<nav class="nav" id="mainNav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">
+        <img src="../../Images/rakine_logo.svg" class="nav-logo-icon" alt="Rankine Innovation Lab logo"/>
+        <div>
+          <span class="nav-logo-mark">Rankine</span>
+          <span class="nav-logo-name">Innovation Lab</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../../research.html">Research &amp; Project</a></li>
+        <li><a href="../../programmes.html">Programmes</a></li>
+        <li><a href="../../knowledge-hub.html" class="active-page">Knowledge Hub</a></li>
+        <li><a href="../../team.html">Team</a></li>
+        <li><a href="../../contact.html">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
-<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-  <a href="../../index.html">Home</a>
-  <a href="../../about.html">About</a>
-  <a href="../../research.html" onclick="closeMobile()">Research &amp; Project</a>
-  <a href="../../programmes.html">Programmes</a>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../../index.html"         onclick="closeMobile()">Home</a>
+  <a href="../../about.html"         onclick="closeMobile()">About</a>
+  <a href="../../research.html"      onclick="closeMobile()">Research &amp; Project</a>
+  <a href="../../programmes.html"    onclick="closeMobile()">Programmes</a>
   <a href="../../knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
-  <a href="../../team.html">Team</a>
-  <a href="../../contact.html">Contact</a>
+  <a href="../../team.html"          onclick="closeMobile()">Team</a>
+  <a href="../../contact.html"       onclick="closeMobile()">Contact</a>
 </div>
 
-<header class="khr-hero">
-    <div class="container">
-      <div class="breadcrumb"><a href="../../index.html">Home</a><span>—</span><a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span><strong>Explainer</strong></div>
-      <div class="khr-type">Explainer · Smart Agriculture &amp; Food Security</div>
-      <h1 class="khr-title">Why Water Intelligence Is Becoming a Strategic Capability</h1>
-      <p class="khr-dek">Water intelligence is the organised ability to sense, interpret, and act on water-related information before scarcity, failure, contamination, or waste become visible.</p>
-      <div class="khr-meta">
-        <span><strong>Domain</strong> Smart Agriculture &amp; Food Security</span>
-        <span><strong>Reading time</strong> 6 min read</span>
-        <span><strong>Level</strong> Practitioner</span>
-      </div>
+<!-- ════════════ HERO ════════════ -->
+<section class="khr-hero">
+  <div class="container">
+    <div class="khr-hero-inner">
 
-    <div class="khr-feature">
-      <div class="khr-feature-head">
-        <div>
-          <div class="khr-feature-kicker">Capability Stack</div>
-          <div class="khr-feature-title">Water Intelligence Stack</div>
+      <!-- Left text -->
+      <div>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="../../index.html">Home</a><span>—</span>
+          <a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span>
+          <strong>Explainer</strong>
+        </nav>
+        <div class="khr-type-badge">
+          <span class="khr-type-badge-dot" aria-hidden="true"></span>
+          Explainer · Smart Agriculture &amp; Food Security
         </div>
-        <p class="khr-feature-sub">From sensing and records to infrastructure, agriculture, and programme decisions.</p>
+        <h1 class="khr-title">
+          Why Water Intelligence<br>
+          Is Becoming a<br>
+          <em>Strategic Capability</em>
+        </h1>
+        <p class="khr-dek">
+          Water is often treated as an infrastructure service issue when it is really a strategic capability issue. Institutions, farms, and field programmes all make critical decisions about availability, quality, timing, and risk — yet those decisions are often made with fragmented data and weak monitoring. Water intelligence reframes the question from "do we have sensors?" to "can we observe, interpret, and act before failure becomes visible?"
+        </p>
+        <div class="khr-meta-row">
+          <div class="khr-meta-item"><strong>Domain</strong> Smart Agriculture &amp; Food Security</div>
+          <div class="khr-meta-item"><strong>Reading time</strong> 6 min read</div>
+          <div class="khr-meta-item"><strong>Level</strong> Practitioner</div>
+        </div>
       </div>
-      <figure class="khr-diagram khr-hero-visual" role="group" aria-label="Water Intelligence Stack">
-        <img class="khr-feature-image" src="../../Images/knowledge/water-intelligence-stack.svg" alt="Water Intelligence Stack visual showing sensing, data quality, analytics stages" width="1600" height="600">
-      </figure>
-      <div class="khr-feature-tags">
-      <span>Water</span>
-      <span>Monitoring</span>
-      <span>Decision Support</span>
-      <span>Governance</span>
-      <span>Resilience</span>
+
+      <!-- Right: Animated Water Intelligence Stack SVG -->
+      <div class="hero-diagram-wrap" aria-hidden="true">
+        <div class="hero-diagram">
+          <svg class="wi-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Background -->
+            <rect x="30" y="30" width="340" height="340" rx="14" fill="rgba(30,77,107,0.05)" stroke="rgba(30,77,107,0.14)" stroke-width="1"/>
+
+            <!-- Stack label -->
+            <text x="200" y="56" font-family="Cinzel,serif" font-size="8.5" letter-spacing="2.5" fill="rgba(74,156,200,0.45)" text-anchor="middle">WATER INTELLIGENCE STACK</text>
+
+            <!-- Layer 5 — SENSING (bottom) -->
+            <g class="wi-layer">
+              <rect x="50" y="305" width="300" height="48" rx="10" fill="rgba(30,77,107,0.14)" stroke="rgba(30,77,107,0.35)" stroke-width="1.2"/>
+              <text x="80" y="323" font-family="Cinzel,serif" font-size="7.5" letter-spacing="1" fill="rgba(74,156,200,0.75)">01 · SENSING</text>
+              <text x="80" y="337" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(244,237,224,0.42)" font-weight="300">level · flow · quality · rainfall · soil moisture</text>
+              <!-- Sensor pulse dots -->
+              <circle class="wi-pulse" cx="325" cy="329" r="5" fill="rgba(30,77,107,0.6)" stroke="rgba(74,156,200,0.4)" stroke-width="1"/>
+              <circle class="wi-pulse" cx="340" cy="329" r="3.5" fill="rgba(74,156,200,0.35)" style="animation-delay:0.4s"/>
+            </g>
+
+            <!-- Layer 4 — DATA INTEGRATION -->
+            <g class="wi-layer">
+              <rect x="50" y="248" width="300" height="48" rx="10" fill="rgba(46,122,171,0.12)" stroke="rgba(46,122,171,0.3)" stroke-width="1.2"/>
+              <text x="80" y="266" font-family="Cinzel,serif" font-size="7.5" letter-spacing="1" fill="rgba(74,156,200,0.7)">02 · DATA INTEGRATION</text>
+              <text x="80" y="280" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(244,237,224,0.42)" font-weight="300">field observations · maintenance logs · geospatial · programme data</text>
+            </g>
+
+            <!-- Flow arrow 4→3 -->
+            <line class="wi-flow" x1="200" y1="247" x2="200" y2="225" stroke="rgba(74,156,200,0.3)" stroke-width="1.5"/>
+            <polygon points="195,227 200,216 205,227" fill="rgba(74,156,200,0.35)"/>
+
+            <!-- Layer 3 — INTERPRETATION -->
+            <g class="wi-layer">
+              <rect x="50" y="190" width="300" height="48" rx="10" fill="rgba(74,156,200,0.12)" stroke="rgba(74,156,200,0.28)" stroke-width="1.2"/>
+              <text x="80" y="208" font-family="Cinzel,serif" font-size="7.5" letter-spacing="1" fill="rgba(74,156,200,0.7)">03 · INTERPRETATION</text>
+              <text x="80" y="222" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(244,237,224,0.42)" font-weight="300">trends · thresholds · anomaly recognition · prediction</text>
+            </g>
+
+            <!-- Flow arrow 3→2 -->
+            <line class="wi-flow" x1="200" y1="189" x2="200" y2="167" stroke="rgba(104,117,88,0.35)" stroke-width="1.5"/>
+            <polygon points="195,169 200,158 205,169" fill="rgba(104,117,88,0.4)"/>
+
+            <!-- Layer 2 — RESPONSE -->
+            <g class="wi-layer">
+              <rect x="50" y="132" width="300" height="48" rx="10" fill="rgba(104,117,88,0.1)" stroke="rgba(104,117,88,0.28)" stroke-width="1.2"/>
+              <text x="80" y="150" font-family="Cinzel,serif" font-size="7.5" letter-spacing="1" fill="rgba(142,158,120,0.75)">04 · RESPONSE</text>
+              <text x="80" y="164" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(244,237,224,0.42)" font-weight="300">maintenance · allocation · early warning · pilot design</text>
+            </g>
+
+            <!-- Flow arrow 2→1 -->
+            <line class="wi-flow" x1="200" y1="131" x2="200" y2="109" stroke="rgba(142,158,120,0.3)" stroke-width="1.5"/>
+            <polygon points="195,111 200,100 205,111" fill="rgba(142,158,120,0.35)"/>
+
+            <!-- Layer 1 — LEARNING (top) -->
+            <g class="wi-layer">
+              <rect x="50" y="74" width="300" height="48" rx="10" fill="rgba(142,158,120,0.1)" stroke="rgba(142,158,120,0.25)" stroke-width="1.2"/>
+              <text x="80" y="92" font-family="Cinzel,serif" font-size="7.5" letter-spacing="1" fill="rgba(142,158,120,0.7)">05 · LEARNING</text>
+              <text x="80" y="106" font-family="DM Sans,sans-serif" font-size="7" fill="rgba(244,237,224,0.42)" font-weight="300">review · adjust · improve decision quality</text>
+            </g>
+
+            <!-- Left edge scale bar -->
+            <line x1="38" y1="74" x2="38" y2="353" stroke="rgba(30,77,107,0.2)" stroke-width="2" stroke-dasharray="4 3"/>
+            <text x="31" y="215" font-family="Cinzel,serif" font-size="7" fill="rgba(74,156,200,0.35)" text-anchor="middle" transform="rotate(-90,31,215)">CAPABILITY MATURITY</text>
+
+            <!-- Flow arrows between sensing layers -->
+            <line class="wi-flow" x1="200" y1="304" x2="200" y2="282" stroke="rgba(30,77,107,0.35)" stroke-width="1.5"/>
+            <polygon points="195,284 200,273 205,284" fill="rgba(30,77,107,0.4)"/>
+          </svg>
+        </div>
       </div>
-    </div>
 
     </div>
-  </header>
+  </div>
+</section>
 
-  <main class="khr-main">
-    <div class="container khr-grid">
-      <article class="khr-article">
+<!-- ════════════ CONTENT ════════════ -->
+<div class="container">
+  <div class="khr-layout">
+    <article class="khr-article" id="articleBody">
 
-  <section class="khr-editorial-section" id="what-problem-this-actually-solves">
-    <div class="khr-section-kicker">Core Problem</div>
-    <h2>What problem this actually solves</h2>
-    <p>Water is often discussed as a technical service issue when it is really a strategic capability issue. Institutions, communities, utilities, farms, and field programmes all depend on decisions about availability, quality, timing, risk, and response.</p>
-    <p>Yet those decisions are often made with fragmented records, weak monitoring habits, and little ability to connect signals across systems. Water intelligence reframes the question from “do we have sensors?” to “can we observe, interpret, and act before failure becomes visible?”</p>
-  </section>
+      <!-- SECTION 1 -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">The Core Problem</p>
+        <h2 class="khr-h2">Why water management <em>stalls at reactive</em></h2>
 
+        <div class="pull-quote">
+          <p>Water intelligence becomes strategic when it consistently improves judgement — not when it adds sensors or dashboards. The distinction is between data collected and data that changes decisions.</p>
+          <cite>— Rankine Innovation Lab · Knowledge Hub</cite>
+        </div>
 
-  <section class="khr-infographic" aria-label="Four Layers of Capability">
-    <div class="khr-infographic-head">
-      <h3>Four Layers of Capability</h3>
-      <span>A mature water-intelligence approach is layered</span>
-    </div>
-    <div class="khr-infographic-grid">
-      <div class="khr-infographic-cell"><strong>Observation</strong><p>Measure the right variables at a useful cadence: level, flow, pressure, quality, rainfall, leakage, or soil moisture.</p></div>
-      <div class="khr-infographic-cell"><strong>Integration</strong><p>Bring field observations, maintenance logs, local context, geospatial information, and programme data together.</p></div>
-      <div class="khr-infographic-cell"><strong>Interpretation</strong><p>Turn raw observations into judgement through trends, thresholds, anomaly recognition, or explainable prediction.</p></div>
-      <div class="khr-infographic-cell"><strong>Response</strong><p>Use insight to change maintenance, allocation, early warning, pilot design, or governance conversations.</p></div>
-      <div class="khr-infographic-cell"><strong>Communication</strong><p>Give technical teams, funders, operators, and field partners a shared evidence model.</p></div>
-      <div class="khr-infographic-cell"><strong>Learning</strong><p>Review whether signals led to better decisions, not only whether data were collected.</p></div>
-    </div>
-  </section>
-
-
-  <section class="khr-editorial-section" id="why-it-is-becoming-strategic-now">
-    <div class="khr-section-kicker">Strategic Shift</div>
-    <h2>Why it is becoming strategic now</h2>
-    <p>Climate pressure, urban growth, infrastructure strain, and environmental degradation make water systems less stable and less forgiving of reactive decision-making. Organisations are increasingly expected to justify decisions with evidence, not instinct alone.</p>
-    <p>At the same time, lightweight sensors, remote sensing, data tools, and explainable modelling have made it more realistic to build decision-support layers around water systems. Not every organisation needs a sophisticated predictive platform, but even modest actors need evidence treated as infrastructure.</p>
-  </section>
-
-
-  <section class="khr-module khr-module--grid">
-    <h3>Where Water Intelligence Creates Value</h3>
-    <div class="khr-card"><strong>Infrastructure</strong><p>Move from reactive repairs toward risk-informed prioritisation and maintenance planning.</p></div>
-    <div class="khr-card"><strong>Environmental systems</strong><p>Observe stress, restoration potential, and local change more consistently.</p></div>
-    <div class="khr-card"><strong>Food systems</strong><p>Strengthen irrigation, seasonal response, and resilience planning.</p></div>
-    <div class="khr-card"><strong>Institutions</strong><p>Make schools, hospitals, estates, and private systems less vulnerable to silent decline.</p></div>
-
-  </section>
-
-
-  <section class="khr-editorial-section" id="what-good-water-intelligence-is-not">
-    <div class="khr-section-kicker">Boundary Setting</div>
-    <h2>What good water intelligence is not</h2>
-    <p>It is not dashboard-first work. A dashboard can display information, but it cannot decide what should be measured, whether data are trustworthy, or what action threshold matters.</p>
-    <p>It is not simply an AI problem. Many gains come from clearer baselines, cleaner records, and better problem framing. And it is not technology without governance; the system becomes fragile if ownership and action rules are unclear.</p>
-  </section>
-
-
-  <section class="khr-flow" aria-label="Minimum Viable Water-Intelligence Stack">
-    <div class="khr-flow-head"><h3>Minimum Viable Water-Intelligence Stack</h3><p>The objective is not to look advanced. The objective is to make better decisions with fewer blind spots.</p></div>
-    <div class="khr-flow-grid">
-    <div class="khr-flow-step"><span>01</span><strong>Name one decision</strong><p>Start with a water decision currently being made with too many blind spots.</p></div>
-    <div class="khr-flow-step"><span>02</span><strong>Choose indicators</strong><p>Select only variables that are truly tied to that decision.</p></div>
-    <div class="khr-flow-step"><span>03</span><strong>Pick the lightest method</strong><p>Use sensors, logs, field forms, remote data, or spreadsheets as context allows.</p></div>
-    <div class="khr-flow-step"><span>04</span><strong>Define review rules</strong><p>Decide who reads the data, when, and what signal triggers action.</p></div>
-    <div class="khr-flow-step"><span>05</span><strong>Close the loop</strong><p>Review whether decisions improved and what should change next.</p></div>
-    </div>
-  </section>
-
-
-  <section class="khr-split-panel">
-    <div class="khr-split-panel-head">Common Failure Points</div>
-    <div class="khr-split-grid">
-      <div>
-        <h3>What goes wrong</h3>
-        <ul>
-        <li>Measuring what is easy rather than what is useful.</li>
-        <li>Underestimating calibration, maintenance, and ownership.</li>
-        <li>Collecting data that never connects to action.</li>
-        <li>Overclaiming certainty in complex water systems.</li>
-        </ul>
+        <p class="khr-body">
+          Water is often discussed as a technical service issue when it is really a strategic capability issue. Institutions, communities, utilities, farms, and field programmes all depend on decisions about availability, quality, timing, risk, and response. Yet those decisions are often made with fragmented records, weak monitoring habits, and little ability to connect signals across systems.
+        </p>
+        <p class="khr-body">
+          Water intelligence reframes the question from "do we have sensors?" to "can we observe, interpret, and act before failure becomes visible?" That second question is fundamentally harder — and more useful. It requires a layered capability, not a device procurement exercise.
+        </p>
       </div>
-      <div>
-        <h3>What disciplined teams do</h3>
-        <ul>
-        <li>Start from a decision, not a device.</li>
-        <li>Use thresholds and review routines early.</li>
-        <li>Keep data quality visible in reports.</li>
-        <li>Treat uncertainty reduction as progress.</li>
-        </ul>
+
+      <!-- SECTION 2: Four Capability Layers -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Conceptual Foundation</p>
+        <h2 class="khr-h2">The six layers of a <em>mature water-intelligence approach</em></h2>
+
+        <p class="khr-body">
+          A mature water-intelligence approach is not a single technology. It is a stack of capabilities that build on each other. Each layer enables the next. Weakness at the sensing layer compromises everything above it. Strong learning processes make every other layer more effective over time.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Capability Architecture</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Six Layers — From Sensing to Learning</span>
+          </div>
+          <div class="infographic-body">
+            <p style="font-size:0.82rem;color:var(--brown);font-weight:300;margin-bottom:1.25rem;line-height:1.65;">Higher layers depend on lower layers being trustworthy. A sophisticated dashboard built on weak sensing data is not a high layer — it is a high-risk interface.</p>
+            <div class="capability-stack">
+              <div class="cap-layer">
+                <div class="cap-bar"></div>
+                <span class="cap-num">1</span>
+                <div class="cap-content">
+                  <div class="cap-title">Observation</div>
+                  <div class="cap-desc">Measure the right variables at a useful cadence — level, flow, pressure, quality, rainfall, leakage, or soil moisture. The discipline here is choosing what to measure rather than measuring everything available.</div>
+                </div>
+                <span class="cap-badge">Foundation</span>
+              </div>
+              <div class="cap-layer">
+                <div class="cap-bar"></div>
+                <span class="cap-num">2</span>
+                <div class="cap-content">
+                  <div class="cap-title">Integration</div>
+                  <div class="cap-desc">Bring field observations, maintenance logs, local context, geospatial information, and programme data together in one place. Integration is where isolated measurements become a coherent picture of system behaviour.</div>
+                </div>
+                <span class="cap-badge">Enabler</span>
+              </div>
+              <div class="cap-layer">
+                <div class="cap-bar"></div>
+                <span class="cap-num">3</span>
+                <div class="cap-content">
+                  <div class="cap-title">Interpretation</div>
+                  <div class="cap-desc">Turn raw observations into judgement through trends, thresholds, anomaly recognition, or explainable prediction. Interpretation is where data becomes intelligence — and where human expertise matters most.</div>
+                </div>
+                <span class="cap-badge">Critical layer</span>
+              </div>
+              <div class="cap-layer">
+                <div class="cap-bar"></div>
+                <span class="cap-num">4</span>
+                <div class="cap-content">
+                  <div class="cap-title">Response</div>
+                  <div class="cap-desc">Use insight to change maintenance, allocation, early warning, pilot design, or governance conversations. A signal that triggers no response is not intelligence — it is noise with better formatting.</div>
+                </div>
+                <span class="cap-badge">Decision layer</span>
+              </div>
+              <div class="cap-layer">
+                <div class="cap-bar"></div>
+                <span class="cap-num">5</span>
+                <div class="cap-content">
+                  <div class="cap-title">Communication</div>
+                  <div class="cap-desc">Give technical teams, funders, operators, and field partners a shared evidence model. Communication turns individual insight into institutional knowledge — and enables shared accountability.</div>
+                </div>
+                <span class="cap-badge">Institutional</span>
+              </div>
+              <div class="cap-layer">
+                <div class="cap-bar"></div>
+                <span class="cap-num">6</span>
+                <div class="cap-content">
+                  <div class="cap-title">Learning</div>
+                  <div class="cap-desc">Review whether signals led to better decisions — not only whether data were collected. Learning is the capability that makes every other layer improve over time.</div>
+                </div>
+                <span class="cap-badge">Growth layer</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
 
+      <!-- SECTION 3: Where it creates value -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Strategic Contexts</p>
+        <h2 class="khr-h2">Where water intelligence <em>creates the most value</em></h2>
 
-  <section class="khr-checklist-panel">
-    <div class="khr-checklist-symbol">◎</div>
-    <div>
-      <h3>Practical Starting Question</h3>
-    <p>Water intelligence becomes strategic when it consistently improves judgement.</p>
-      <ul>
-      <li>What water decision are we currently making badly because we cannot see enough?</li>
-      <li>Which data would reduce that blind spot most directly?</li>
-      <li>Who will read and act on the signal?</li>
-      <li>What would count as a meaningful improvement?</li>
-      <li>What is the smallest pilot that could test this responsibly?</li>
-      </ul>
-    </div>
-  </section>
+        <p class="khr-body">
+          Climate pressure, urban growth, infrastructure strain, and environmental degradation make water systems less stable and less forgiving of reactive decision-making. Organisations are increasingly expected to justify decisions with evidence, not instinct alone.
+        </p>
+        <p class="khr-body">
+          The applications below represent the areas where a water-intelligence capability matters most to practitioners — not because the problems are dramatic, but because the decisions are consequential and the evidence requirements are specific.
+        </p>
 
-
-  <section class="khr-editorial-section" id="references-and-further-reading">
-    <div class="khr-section-kicker">Reading Trail</div>
-    <h2>References and further reading</h2>
-    <p>A useful reading trail includes water-systems monitoring, explainable decision support, environmental sensing, data governance, and low-cost pilot design.</p>
-    <p>The practical takeaway: water intelligence is not a gadget category. It is a capability for making water-dependent decisions visible, reviewable, and timely.</p>
-  </section>
-
-      </article>
-
-  <aside class="khr-sidebar" aria-label="Resource sidebar">
-    <div class="khr-sidecard khr-progress-card">
-      <h3>Reading Progress</h3>
-      <div class="khr-progress-track"><span></span></div>
-      <p>Start with the framing, use the visual modules to compare options, then close with the checklist.</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Resource Details</h3>
-      <p><strong>Smart Agriculture &amp; Food Security</strong><br>Explainer · Knowledge Hub resource</p>
-      <p><strong>Practitioner</strong><br>Utilities · farms · institutions · field programmes</p>
-      <p>6 min read · 5 visual modules</p>
-      <p>Updated April 2026</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Continue Reading</h3>
-      <div class="khr-related">
-      <a href="../explainers/climate-smart-agriculture-three-pillars.html">Climate-Smart Agriculture: The Three Pillars and How to Measure Them</a>
-      <a href="../playbooks/how-to-design-a-low-cost-environmental-monitoring-pilot.html">How to Design a Low-Cost Environmental Monitoring Pilot</a>
-      <a href="../lab-notes/where-smart-system-ambition-collides-with-data-reality.html">Where Smart-System Ambition Collides with Data Reality</a>
-        <a href="../../knowledge-hub.html">← Back to Knowledge Hub</a>
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Application Domains</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Where Capability Creates Decision Value</span>
+          </div>
+          <div class="infographic-body">
+            <div class="value-grid">
+              <div class="value-card">
+                <span class="value-icon">🏗</span>
+                <div class="value-title">Infrastructure</div>
+                <div class="value-desc">Move from reactive repairs toward risk-informed prioritisation and maintenance planning. Knowing where leakage is likely before it becomes visible saves significant cost and disruption at scale.</div>
+              </div>
+              <div class="value-card">
+                <span class="value-icon">🌿</span>
+                <div class="value-title">Environmental Systems</div>
+                <div class="value-desc">Observe stress, restoration potential, and local change more consistently. Environmental monitoring at the right cadence reveals slow-moving problems that point inspections routinely miss.</div>
+              </div>
+              <div class="value-card">
+                <span class="value-icon">🌾</span>
+                <div class="value-title">Food Systems</div>
+                <div class="value-desc">Strengthen irrigation, seasonal response, and resilience planning. Farmers making water allocation decisions with better evidence consistently outperform those reacting to visible stress.</div>
+              </div>
+              <div class="value-card">
+                <span class="value-icon">🏢</span>
+                <div class="value-title">Institutions</div>
+                <div class="value-desc">Make schools, hospitals, estates, and private systems less vulnerable to silent decline. Institutional water intelligence is often the difference between anticipated maintenance and emergency replacement.</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="khr-sidecard khr-engage-card">
-      <h3>Engage with Rankine</h3>
-      <p>Use this explainer when framing monitoring, water-data pilots, or decision-support work for water-dependent systems.</p>
-      <a class="btn" href="../../contact.html">Discuss a Partnership →</a>
-    </div>
-  </aside>
 
-    </div>
-  </main>
+      <!-- SECTION 4: Failure Points -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Practical Analysis</p>
+        <h2 class="khr-h2">What good water intelligence is <em>not</em></h2>
 
+        <p class="khr-body">
+          The most common barrier to building genuine water-intelligence capability is confusing its components with its purpose. Many organisations acquire sensing tools, build dashboards, and conduct audits — without ever creating a system that reliably improves the quality of decisions.
+        </p>
 
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Critical Distinction</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">What Goes Wrong — What Disciplined Teams Do</span>
+          </div>
+          <div class="infographic-body" style="padding:0">
+            <div class="contrast-grid">
+              <div class="contrast-col contrast-col--bad">
+                <div class="contrast-header">
+                  <span class="contrast-icon">⛔</span>
+                  <span class="contrast-label">Common Failure Patterns</span>
+                </div>
+                <div class="contrast-items">
+                  <div class="contrast-item"><span class="c-dot"></span>Measuring what is easy rather than what is decision-relevant</div>
+                  <div class="contrast-item"><span class="c-dot"></span>Underestimating calibration, maintenance, and ownership requirements</div>
+                  <div class="contrast-item"><span class="c-dot"></span>Collecting data that never connects to action or review</div>
+                  <div class="contrast-item"><span class="c-dot"></span>Overclaiming certainty in complex water systems</div>
+                  <div class="contrast-item"><span class="c-dot"></span>Dashboard-first thinking — building display before defining signal</div>
+                </div>
+              </div>
+              <div class="contrast-col contrast-col--good">
+                <div class="contrast-header">
+                  <span class="contrast-icon">✓</span>
+                  <span class="contrast-label">What Disciplined Teams Do</span>
+                </div>
+                <div class="contrast-items">
+                  <div class="contrast-item"><span class="c-dot"></span>Start from a decision, not a device or a dashboard</div>
+                  <div class="contrast-item"><span class="c-dot"></span>Define review thresholds and response rules before deployment</div>
+                  <div class="contrast-item"><span class="c-dot"></span>Keep data quality visible in reports and governance reviews</div>
+                  <div class="contrast-item"><span class="c-dot"></span>Treat uncertainty reduction as meaningful, measurable progress</div>
+                  <div class="contrast-item"><span class="c-dot"></span>Assign ownership of each monitoring layer explicitly</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 5: Minimum Viable Stack -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Practical Application</p>
+        <h2 class="khr-h2">Building a minimum viable <em>water-intelligence stack</em></h2>
+
+        <p class="khr-body">
+          The objective is not to look advanced. It is to make better decisions with fewer blind spots. A minimum viable water-intelligence stack can be built incrementally — but each step must be completed before the next delivers reliable value.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Implementation Sequence</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Five Steps to an Operational Stack</span>
+          </div>
+          <div class="infographic-body">
+            <div class="mvstack">
+              <div class="mv-step">
+                <div class="mv-num">01</div>
+                <div class="mv-body">
+                  <div class="mv-title">Name one decision first</div>
+                  <div class="mv-desc">Start with a water decision currently being made with too many blind spots. This scopes the entire stack. "When to inspect a pump" is a better starting point than "smart water management."</div>
+                </div>
+              </div>
+              <div class="mv-step">
+                <div class="mv-num">02</div>
+                <div class="mv-body">
+                  <div class="mv-title">Choose indicators tied to that decision</div>
+                  <div class="mv-desc">Select only variables that directly inform the named decision. Resist expanding the variable set until the first indicators are generating trustworthy, actionable signals.</div>
+                </div>
+              </div>
+              <div class="mv-step">
+                <div class="mv-num">03</div>
+                <div class="mv-body">
+                  <div class="mv-title">Pick the lightest method that works in context</div>
+                  <div class="mv-desc">Sensors, logs, field forms, remote data, or spreadsheets — the right method depends on cost, maintenance capacity, connectivity, and staff reliability. A simple method that is maintained consistently outperforms a sophisticated system that degrades silently.</div>
+                </div>
+              </div>
+              <div class="mv-step">
+                <div class="mv-num">04</div>
+                <div class="mv-body">
+                  <div class="mv-title">Define review rules before you collect data</div>
+                  <div class="mv-desc">Decide who reads the data, when, and what signal triggers action. A threshold crossed without a defined response is just an alert that nobody acts on — and those stack up quickly into mistrust.</div>
+                </div>
+              </div>
+              <div class="mv-step">
+                <div class="mv-num">05</div>
+                <div class="mv-body">
+                  <div class="mv-title">Close the loop — review whether decisions improved</div>
+                  <div class="mv-desc">Review not only whether data were collected, but whether the decision they were designed to support actually improved. This is the loop that makes every other step worth running again.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 6: Diagnostic Questions -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Diagnostic Tool</p>
+        <h2 class="khr-h2">Before investing in water intelligence — <em>answer these five questions</em></h2>
+
+        <p class="khr-body">
+          These questions are not a bureaucratic checklist. They are a diagnostic for whether the conditions needed to generate water intelligence actually exist in your context. If any cannot be answered concretely, address the gap before acquiring any technology.
+        </p>
+
+        <div class="diag-checklist">
+          <div class="diag-header">
+            <span class="diag-icon" aria-hidden="true">◎</span>
+            <div>
+              <div class="diag-label">Water Intelligence Readiness — Diagnostic</div>
+              <div class="diag-title">Five questions that reveal genuine readiness</div>
+            </div>
+          </div>
+          <div class="diag-items">
+            <div class="diag-item">
+              <span class="diag-check" aria-hidden="true">?</span>
+              <span class="diag-question">What water decision are we currently making badly because we cannot see enough of the right information?</span>
+            </div>
+            <div class="diag-item">
+              <span class="diag-check" aria-hidden="true">?</span>
+              <span class="diag-question">Which specific data would reduce that blind spot most directly — and can we actually collect it reliably in our context?</span>
+            </div>
+            <div class="diag-item">
+              <span class="diag-check" aria-hidden="true">?</span>
+              <span class="diag-question">Who will read the data, when, and against what threshold? Is that review role genuinely assigned?</span>
+            </div>
+            <div class="diag-item">
+              <span class="diag-check" aria-hidden="true">?</span>
+              <span class="diag-question">Who owns maintenance of the monitoring system — and what happens when that person leaves or the technology fails?</span>
+            </div>
+            <div class="diag-item">
+              <span class="diag-check" aria-hidden="true">?</span>
+              <span class="diag-question">What would count as a meaningful improvement in decision quality — and how will we know whether we have achieved it?</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REFERENCES -->
+      <div class="khr-section reveal">
+        <div class="references">
+          <span class="references-label">References &amp; Source Base</span>
+          <ol>
+            <li>Rankine Innovation Lab Knowledge Hub research brief: Explainer treatment for water intelligence as a strategic capability, with practical framing for field and institutional contexts.</li>
+            <li>Cross-link: Where Smart-System Ambition Collides with Data Reality — Rankine Knowledge Hub. Provides the implementation-failure context that motivates this capability framing.</li>
+            <li>Cross-link: How to Design a Low-Cost Environmental Monitoring Pilot — Rankine Knowledge Hub. Translates this framework into a step-by-step pilot design process.</li>
+            <li>Supporting context: smart agriculture and water-systems monitoring disciplines from the Rankine founder-connected research inventory.</li>
+          </ol>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="khr-sidebar">
+
+      <div class="side-card">
+        <div class="side-card-header">Reading Progress</div>
+        <div class="side-card-body">
+          <div class="reading-meter">
+            <div class="reading-meter-fill" id="sidebarMeter"></div>
+          </div>
+          <div class="reading-meter-label">
+            <span>Start</span>
+            <span id="progressPct">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-card-header">Resource Details</div>
+        <div class="side-card-body">
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--water);box-shadow:0 0 8px rgba(30,77,107,0.5)"></span>
+            <div>
+              <div class="domain-label">Smart Agriculture &amp; Food Security</div>
+              <div class="domain-sub">Core domain · First-wave resource</div>
+            </div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--copper);box-shadow:0 0 8px rgba(160,92,56,0.4)"></span>
+            <div>
+              <div class="domain-label">Practitioners · Institutions</div>
+              <div class="domain-sub">Utilities · farms · programme teams</div>
+            </div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--sand);box-shadow:0 0 8px rgba(201,171,132,0.4)"></span>
+            <div>
+              <div class="domain-label">6 min read · 5 modules</div>
+              <div class="domain-sub">Updated 2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-card-header">Continue Reading</div>
+        <div class="side-card-body">
+          <a href="../explainers/climate-smart-agriculture-three-pillars.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text">
+              <span class="related-link-tag">Explainer</span>
+              Climate-Smart Agriculture: The Three Pillars
+            </span>
+          </a>
+          <a href="../playbooks/how-to-design-a-low-cost-environmental-monitoring-pilot.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text">
+              <span class="related-link-tag">Playbook</span>
+              How to Design a Low-Cost Environmental Monitoring Pilot
+            </span>
+          </a>
+          <a href="../lab-notes/where-smart-system-ambition-collides-with-data-reality.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text">
+              <span class="related-link-tag">Lab Note</span>
+              Where Smart-System Ambition Collides with Data Reality
+            </span>
+          </a>
+          <button class="btn-side" onclick="window.location.href='../../knowledge-hub.html'">
+            ← Back to Knowledge Hub
+          </button>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-card-header">Engage with Rankine</div>
+        <div class="side-card-body">
+          <p>This explainer connects to our Smart Agriculture and water-systems programmes. If you are designing or reviewing a water monitoring initiative, we would like to hear from you.</p>
+          <button class="btn-side" onclick="window.location.href='../../contact.html'">
+            Discuss a Partnership →
+          </button>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+</div>
+
+<!-- ════════════ FOOTER ════════════ -->
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="footer-logo-icon">
+      <div>
+        <img src="../../Images/rakine_logo.svg" class="footer-logo-icon" alt="Rankine Innovation Lab logo"/>
         <div class="footer-logo-name">Rankine Innovation Lab</div>
         <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
         <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
       </div>
       <div>
-        <h3 class="footer-col-title">Navigation</h3>
+        <div class="footer-col-title">Navigation</div>
         <ul class="footer-links">
           <li><a href="../../about.html">About the Lab</a></li>
-          <li><a href="../../index.html#method">The Rankine Method</a></li>
-          <li><a href="../../index.html#focus">Focus Areas</a></li>
+          <li><a href="../../research.html">Research &amp; Project</a></li>
           <li><a href="../../programmes.html">Programmes</a></li>
-<li><a href="../../team.html">Team</a></li>
+          <li><a href="../../team.html">Team</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Domains</h3>
+        <div class="footer-col-title">Domains</div>
         <ul class="footer-links">
-          <li><a href="../../research.html#ai">AI for STEM</a></li>
-          <li><a href="../../research.html#sustainability">Sustainability</a></li>
-          <li><a href="../../research.html#smart-agriculture">Smart Agriculture</a></li>
-          <li><a href="../../research.html#cross-disciplinary">Cross-Disciplinary</a></li>
+          <li><a href="../../research.html">AI for STEM</a></li>
+          <li><a href="../../research.html">Sustainability</a></li>
+          <li><a href="../../research.html">Smart Agriculture</a></li>
+          <li><a href="../../research.html">Cross-Disciplinary</a></li>
           <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Engage</h3>
+        <div class="footer-col-title">Engage</div>
         <ul class="footer-links">
-<li><a href="../../contact.html">Research Collaboration</a></li>
+          <li><a href="../../contact.html">Research Collaboration</a></li>
           <li><a href="../../contact.html">Training Enquiries</a></li>
           <li><a href="../../contact.html">Speaking</a></li>
           <li><a href="mailto:hello@rankineinnovationlab.com">hello@rankineinnovationlab.com</a></li>
@@ -269,7 +917,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Rankine Innovation Lab. All rights reserved.</p>
+      <p class="footer-copy">&copy; 2025 <em>Rankine Innovation Lab</em>. All rights reserved.</p>
       <div class="footer-legal">
         <a href="../../privacy.html">Privacy</a>
         <a href="../../terms.html">Terms</a>
@@ -279,28 +927,73 @@
   </div>
 </footer>
 
-
 <script>
-  const nav = document.getElementById('siteNav');
-  const toggle = document.getElementById('mobileToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  function setNavState(){
-    if(window.scrollY > 24){ nav.classList.remove('transparent'); nav.classList.add('solid'); }
-    else { nav.classList.add('transparent'); nav.classList.remove('solid'); }
-  }
-  setNavState();
-  window.addEventListener('scroll', setNavState, { passive: true });
-  if(toggle && mobileMenu){
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.classList.toggle('open');
-      mobileMenu.classList.toggle('open', isOpen);
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-      document.body.classList.toggle('menu-open', isOpen);
-    });
-  }
-</script>
+/* ── MOBILE MENU ─────────────────────────────────────────────────────── */
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu   = document.getElementById('mobileMenu');
+function closeMobile() {
+  hamburgerBtn.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+  hamburgerBtn.setAttribute('aria-expanded','false');
+}
+hamburgerBtn.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburgerBtn.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+  hamburgerBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
 
-<script src="../resource-template.js"></script>
+/* ── READING PROGRESS ────────────────────────────────────────────────── */
+const progressBar  = document.getElementById('progressBar');
+const sidebarMeter = document.getElementById('sidebarMeter');
+const progressPct  = document.getElementById('progressPct');
+const articleBody  = document.getElementById('articleBody');
+
+function updateProgress() {
+  const rect    = articleBody.getBoundingClientRect();
+  const total   = rect.height - window.innerHeight;
+  const scrolled = Math.max(0, -rect.top);
+  const pct     = Math.min(100, Math.round((scrolled / total) * 100));
+  progressBar.style.width  = pct + '%';
+  sidebarMeter.style.width = pct + '%';
+  progressPct.textContent  = pct + '%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+
+/* ── SCROLL REVEALS ──────────────────────────────────────────────────── */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      requestAnimationFrame(() => entry.target.classList.add('visible'));
+      revealObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ── DIAGNOSTIC CHECKLIST INTERACTION ───────────────────────────────── */
+document.querySelectorAll('.diag-item').forEach(item => {
+  let checked = false;
+  item.addEventListener('click', () => {
+    checked = !checked;
+    const check = item.querySelector('.diag-check');
+    if (checked) {
+      check.textContent = '✓';
+      check.style.background = 'rgba(30,77,107,0.3)';
+      check.style.borderColor = 'var(--water-pale)';
+      check.style.color = 'var(--water-pale)';
+      item.style.borderColor = 'rgba(30,77,107,0.25)';
+    } else {
+      check.textContent = '?';
+      check.style.background = '';
+      check.style.borderColor = '';
+      check.style.color = '';
+      item.style.borderColor = '';
+    }
+  });
+  item.style.cursor = 'pointer';
+});
+</script>
 </body>
 </html>
