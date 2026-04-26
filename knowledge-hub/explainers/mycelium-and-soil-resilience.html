@@ -1,257 +1,733 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mycelium and Soil Resilience: What the Evidence Shows — Knowledge Hub | Rankine Innovation Lab</title>
-  <meta name="description" content="Mycelium is promising in soil-resilience research because it can influence material behaviour, but responsible translation requires careful boundaries between laboratory signals and field-ready claims.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../resource-template.css">
-</head>
-<body class="resource-page resource-explainer">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mycelium and Soil Resilience — Knowledge Hub | Rankine Innovation Lab</title>
+<meta name="description" content="Mycelium sits at the intersection of biology, materials, and sustainability. This explainer anchors it in evidence — what the research actually shows about infiltration, erosion resistance, and post-fire soil recovery."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --chocolate:  #180c06;
+  --espresso:   #241208;
+  --brown:      #3a1c0e;
+  --mahogany:   #5c2d18;
+  --copper:     #a05c38;
+  --copper-lt:  #c47a52;
+  --sand:       #c9ab84;
+  --sand-lt:    #ddc9a8;
+  --cream:      #f4ede0;
+  --cream-lt:   #faf6ef;
+  --sage:       #687558;
+  --sage-lt:    #8e9e78;
+  --moss:       #3d5c2a;
+  --moss-lt:    #5a7e40;
+  --umber:      #5c4418;
+  --umber-lt:   #7e6030;
+  --white:      #fffcf8;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-label:   'Cinzel', serif;
+  --font-body:    'DM Sans', sans-serif;
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--cream-lt); color: var(--espresso); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+img { display: block; max-width: 100%; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--moss); border-radius: 2px; }
+.container { width: min(1220px, 100%); margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3rem); }
 
-<nav class="nav transparent" id="siteNav" aria-label="Primary navigation">
-  <div class="container nav-inner">
-    <a class="nav-logo" href="../../index.html" aria-label="Rankine Innovation Lab home">
-      <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="nav-logo-icon">
-      <span class="nav-logo-text">
-        <span class="nav-logo-mark">Rankine</span>
-        <span class="nav-logo-name">Innovation Lab</span>
-      </span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="../../index.html">Home</a></li>
-      <li><a href="../../about.html">About</a></li>
-      <li><a href="../../research.html">Research &amp; Project</a></li>
-      <li><a href="../../programmes.html">Programmes</a></li>
-      <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
-      <li><a href="../../team.html">Team</a></li>
-      <li><a href="../../contact.html">Contact</a></li>
-    </ul>
-    <button class="hamburger" id="mobileToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span><span></span><span></span>
-    </button>
+.progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--moss), var(--umber-lt), var(--sand)); z-index: 2000; transition: width 0.1s linear; }
+
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(24,12,6,0.97); backdrop-filter: blur(18px); box-shadow: 0 1px 0 rgba(201,171,132,0.12); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+.nav-logo { display: inline-flex; align-items: center; gap: 0.75rem; }
+.nav-logo-icon { width: 40px; height: 40px; border-radius: 8px; }
+.nav-logo-mark { display: block; font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.25em; color: var(--copper); text-transform: uppercase; }
+.nav-logo-name { font-family: var(--font-display); font-size: 1.25rem; color: var(--cream); letter-spacing: 0.02em; }
+.nav-links { display: flex; align-items: center; gap: clamp(0.8rem,1.8vw,1.5rem); list-style: none; }
+.nav-links a { font-size: 0.76rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(244,237,224,0.7); transition: color 0.3s; }
+.nav-links a:hover { color: var(--cream); }
+.nav-links a.active-page { color: var(--sand); }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--cream); transition: all 0.3s; }
+.hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; }
+.hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 0; background: rgba(24,12,6,0.98); backdrop-filter: blur(20px); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; transform: translateY(-100%); transition: transform 0.5s var(--ease-out); }
+.mobile-menu.open { display: flex; transform: translateY(0); }
+.mobile-menu a { font-family: var(--font-display); font-size: 2rem; font-weight: 300; color: var(--cream); }
+
+/* HERO */
+.khr-hero {
+  min-height: 92vh;
+  background:
+    radial-gradient(ellipse 55% 50% at 84% 18%, rgba(61,92,42,0.32), transparent 55%),
+    radial-gradient(ellipse 45% 45% at 14% 76%, rgba(92,68,24,0.28), transparent 55%),
+    linear-gradient(158deg, #060e04 0%, #0e1a08 40%, #100c06 75%, #080604 100%);
+  display: flex; align-items: center;
+  padding-top: 72px; position: relative; overflow: hidden;
+}
+.khr-hero::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 71px, rgba(201,171,132,0.022) 71px, rgba(201,171,132,0.022) 72px); pointer-events: none; }
+.khr-hero::after { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); background-size: 256px; opacity: 0.5; pointer-events: none; }
+.khr-hero-inner { position: relative; z-index: 2; width: 100%; padding-block: clamp(3rem,6vw,6rem); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,5vw,6rem); align-items: center; }
+
+.breadcrumb { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,237,224,0.3); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.75rem; }
+.breadcrumb strong { color: var(--copper); font-weight: 400; }
+.khr-type-badge { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--moss-lt); border: 1px solid rgba(61,92,42,0.45); background: rgba(61,92,42,0.12); padding: 0.4rem 0.9rem; border-radius: 2px; margin-bottom: 1.5rem; }
+.khr-type-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--moss-lt); box-shadow: 0 0 8px rgba(61,92,42,0.6); }
+.khr-title { font-family: var(--font-display); font-size: clamp(2.4rem, 4.5vw, 4.2rem); font-weight: 300; line-height: 1.08; letter-spacing: -0.012em; color: var(--cream-lt); margin-bottom: 1.4rem; }
+.khr-title em { font-style: italic; color: var(--sand); }
+.khr-dek { font-size: clamp(0.92rem,1.35vw,1.05rem); line-height: 1.82; color: rgba(244,237,224,0.55); font-weight: 300; max-width: 560px; margin-bottom: 2.2rem; }
+.khr-meta-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding-top: 1.5rem; border-top: 1px solid rgba(201,171,132,0.1); }
+.khr-meta-item { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(201,171,132,0.4); }
+.khr-meta-item strong { color: var(--moss-lt); font-weight: 400; }
+
+/* Hero SVG: Mycelium network */
+.hero-diagram-wrap { display: flex; align-items: center; justify-content: center; }
+.hero-diagram { width: 100%; max-width: 480px; aspect-ratio: 1; }
+.myc-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 40px rgba(61,92,42,0.12)); }
+.myc-thread { stroke-dasharray: 400; stroke-dashoffset: 400; animation: threadGrow 2.5s var(--ease-out) forwards; }
+.myc-thread:nth-child(odd)  { animation-delay: calc(var(--i, 0) * 0.15s); }
+.myc-thread:nth-child(even) { animation-delay: calc(var(--i, 0) * 0.12s + 0.1s); }
+@keyframes threadGrow { to { stroke-dashoffset: 0; } }
+.myc-node { animation: mycNodePulse 4s ease-in-out infinite; }
+.myc-node:nth-child(2n) { animation-delay: 1.3s; }
+.myc-node:nth-child(3n) { animation-delay: 2.6s; }
+@keyframes mycNodePulse { 0%,100%{opacity:0.4;r:4} 50%{opacity:1;r:6.5} }
+.soil-layer { animation: soilSettle 1s var(--ease-out) both; }
+@keyframes soilSettle { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+
+/* LAYOUT */
+.khr-layout { display: grid; grid-template-columns: 1fr 340px; gap: 3rem; padding-block: clamp(3rem,6vw,5.5rem); align-items: start; }
+.khr-article { min-width: 0; }
+.khr-section { margin-bottom: clamp(3rem,5vw,4.5rem); padding-bottom: clamp(3rem,5vw,4.5rem); border-bottom: 1px solid rgba(58,28,14,0.08); }
+.khr-section:last-child { border-bottom: none; margin-bottom: 0; }
+.section-eyebrow { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--moss); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.75rem; }
+.section-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--moss); }
+.khr-h2 { font-family: var(--font-display); font-size: clamp(1.6rem,2.8vw,2.2rem); font-weight: 400; line-height: 1.15; color: var(--espresso); letter-spacing: -0.01em; margin-bottom: 1.25rem; }
+.khr-h2 em { font-style: italic; color: var(--moss); }
+.khr-body { font-size: clamp(0.95rem,1.35vw,1.03rem); line-height: 1.88; color: var(--brown); font-weight: 300; }
+.khr-body + .khr-body { margin-top: 1.1rem; }
+
+.pull-quote { margin: 2.5rem 0; padding: 2rem 2rem 2rem 2.5rem; border-left: 4px solid var(--moss); background: linear-gradient(135deg, rgba(61,92,42,0.06), rgba(201,171,132,0.02)); border-radius: 0 var(--radius-md) var(--radius-md) 0; position: relative; overflow: hidden; }
+.pull-quote::before { content: '"'; position: absolute; top: -1rem; left: 1rem; font-family: var(--font-display); font-size: 8rem; font-weight: 700; color: rgba(61,92,42,0.07); line-height: 1; pointer-events: none; }
+.pull-quote p { font-family: var(--font-display); font-style: italic; font-size: clamp(1.15rem,2vw,1.45rem); font-weight: 300; line-height: 1.55; color: var(--mahogany); position: relative; z-index: 1; }
+.pull-quote cite { display: block; margin-top: 0.75rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--moss); font-style: normal; }
+
+.infographic { margin: 2.5rem 0; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid rgba(58,28,14,0.1); }
+.infographic-header { background: var(--espresso); padding: 1.25rem 1.75rem; display: flex; align-items: center; gap: 1rem; }
+.infographic-header-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--moss-lt); }
+.infographic-header-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 400; color: var(--cream); }
+.infographic-header-line { flex: 1; height: 1px; background: rgba(201,171,132,0.12); }
+.infographic-body { background: var(--white); padding: 2rem 1.75rem; }
+
+/* EVIDENCE HIERARCHY */
+.evidence-stack { display: flex; flex-direction: column; gap: 0.75rem; }
+.evidence-item { display: grid; grid-template-columns: 60px 1fr auto; gap: 1.1rem; align-items: center; padding: 1.1rem 1.25rem; border-radius: var(--radius-md); border: 1px solid transparent; cursor: default; transition: transform 0.35s var(--ease-out); }
+.evidence-item:hover { transform: translateX(6px); }
+.evidence-item:nth-child(1) { background: rgba(61,92,42,0.12); border-color: rgba(61,92,42,0.3); }
+.evidence-item:nth-child(2) { background: rgba(90,126,64,0.09); border-color: rgba(90,126,64,0.22); }
+.evidence-item:nth-child(3) { background: rgba(142,158,120,0.07); border-color: rgba(142,158,120,0.18); }
+.evidence-item:nth-child(4) { background: rgba(201,171,132,0.06); border-color: rgba(201,171,132,0.15); }
+.evidence-strength { font-family: var(--font-display); font-size: 1.6rem; font-weight: 300; text-align: center; line-height: 1; }
+.evidence-item:nth-child(1) .evidence-strength { color: rgba(61,92,42,0.65); }
+.evidence-item:nth-child(2) .evidence-strength { color: rgba(90,126,64,0.55); }
+.evidence-item:nth-child(3) .evidence-strength { color: rgba(142,158,120,0.5); }
+.evidence-item:nth-child(4) .evidence-strength { color: rgba(201,171,132,0.45); }
+.evidence-body {}
+.evidence-title { font-family: var(--font-display); font-size: 1.02rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.3rem; }
+.evidence-desc { font-size: 0.8rem; line-height: 1.62; color: var(--brown); font-weight: 300; }
+.evidence-badge { font-family: var(--font-label); font-size: 0.52rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.3rem 0.65rem; border-radius: 2px; flex-shrink: 0; }
+.evidence-item:nth-child(1) .evidence-badge { background: rgba(61,92,42,0.18); color: var(--moss-lt); border: 1px solid rgba(61,92,42,0.3); }
+.evidence-item:nth-child(2) .evidence-badge { background: rgba(90,126,64,0.12); color: var(--moss-lt); border: 1px solid rgba(90,126,64,0.22); }
+.evidence-item:nth-child(3) .evidence-badge { background: rgba(142,158,120,0.1); color: var(--sage-lt); border: 1px solid rgba(142,158,120,0.2); }
+.evidence-item:nth-child(4) .evidence-badge { background: rgba(201,171,132,0.08); color: var(--umber-lt); border: 1px solid rgba(201,171,132,0.18); }
+
+/* SOIL APPLICATIONS GRID */
+.soil-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+.soil-card { padding: 1.4rem 1.15rem; background: var(--cream-lt); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); cursor: default; position: relative; overflow: hidden; transition: transform 0.4s var(--ease-out), border-color 0.4s, box-shadow 0.4s; }
+.soil-card:hover { transform: translateY(-5px); border-color: rgba(61,92,42,0.3); box-shadow: 0 14px 44px rgba(24,12,6,0.1); }
+.soil-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--moss), var(--sage-lt)); transform: scaleX(0); transform-origin: left; transition: transform 0.5s var(--ease-out); }
+.soil-card:hover::before { transform: scaleX(1); }
+.soil-icon { font-size: 1.5rem; margin-bottom: 0.85rem; display: block; }
+.soil-title { font-family: var(--font-display); font-size: 1rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.4rem; }
+.soil-desc { font-size: 0.78rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+.soil-status { display: inline-block; margin-top: 0.7rem; font-family: var(--font-label); font-size: 0.5rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--moss); border: 1px solid rgba(61,92,42,0.2); background: rgba(61,92,42,0.06); padding: 0.22rem 0.5rem; border-radius: 2px; }
+
+/* CAUTION vs PROMISE */
+.caution-promise { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: var(--radius-md); overflow: hidden; }
+.cp-col { padding: 1.5rem; }
+.cp-col--promise { background: rgba(61,92,42,0.07); border: 1px solid rgba(61,92,42,0.18); border-right: none; border-radius: var(--radius-md) 0 0 var(--radius-md); }
+.cp-col--caution { background: rgba(92,68,24,0.06); border: 1px solid rgba(92,68,24,0.15); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+.cp-header { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1rem; }
+.cp-icon { font-size: 1.2rem; }
+.cp-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; }
+.cp-col--promise .cp-label { color: var(--moss-lt); }
+.cp-col--caution .cp-label { color: var(--umber-lt); }
+.cp-items { display: flex; flex-direction: column; gap: 0.6rem; }
+.cp-item { display: flex; align-items: flex-start; gap: 0.55rem; font-size: 0.82rem; line-height: 1.55; color: var(--espresso); }
+.cp-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 0.42em; }
+.cp-col--promise .cp-dot { background: var(--moss-lt); }
+.cp-col--caution .cp-dot { background: var(--umber-lt); }
+
+/* CLAIMS DISCIPLINE CHECKLIST */
+.claims-checklist { background: var(--espresso); border-radius: var(--radius-lg); padding: 2rem; position: relative; overflow: hidden; }
+.claims-checklist::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(201,171,132,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,171,132,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+.cc-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; position: relative; z-index: 1; }
+.cc-icon { font-size: 1.4rem; color: var(--moss-lt); }
+.cc-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--moss-lt); }
+.cc-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 300; color: var(--cream); }
+.cc-items { display: flex; flex-direction: column; gap: 0.75rem; position: relative; z-index: 1; }
+.cc-item { display: flex; align-items: flex-start; gap: 1rem; padding: 0.9rem 1rem; background: rgba(255,252,248,0.035); border: 1px solid rgba(201,171,132,0.08); border-radius: var(--radius-sm); cursor: pointer; transition: background 0.35s, border-color 0.35s; }
+.cc-item:hover { background: rgba(255,252,248,0.07); border-color: rgba(61,92,42,0.25); }
+.cc-check { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(61,92,42,0.4); background: rgba(61,92,42,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.65rem; color: var(--moss-lt); transition: background 0.35s, border-color 0.35s; }
+.cc-item:hover .cc-check { background: rgba(61,92,42,0.2); border-color: var(--moss-lt); }
+.cc-text { font-family: var(--font-display); font-size: 0.95rem; font-weight: 400; color: rgba(244,237,224,0.72); line-height: 1.45; flex: 1; font-style: italic; }
+
+.references { background: var(--cream); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); padding: 1.5rem 1.75rem; }
+.references-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1rem; display: block; }
+.references ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.references li { font-size: 0.82rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+
+.khr-sidebar { position: sticky; top: calc(72px + 2rem); display: flex; flex-direction: column; gap: 1.25rem; }
+.side-card { background: var(--white); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); overflow: hidden; }
+.side-card-header { background: var(--espresso); padding: 0.9rem 1.25rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--moss-lt); }
+.side-card-body { padding: 1.25rem; }
+.side-card-body p { font-size: 0.84rem; line-height: 1.72; color: var(--brown); font-weight: 300; }
+.domain-badge { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1rem; background: var(--cream-lt); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-sm); margin-bottom: 0.75rem; }
+.domain-badge:last-child { margin-bottom: 0; }
+.domain-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.domain-label { font-size: 0.8rem; color: var(--espresso); font-weight: 400; }
+.domain-sub { font-size: 0.72rem; color: var(--mahogany); font-weight: 300; }
+.related-link { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.85rem 0; border-bottom: 1px solid rgba(58,28,14,0.07); transition: transform 0.3s; }
+.related-link:last-child { border-bottom: none; padding-bottom: 0; }
+.related-link:hover { transform: translateX(4px); }
+.related-link-arrow { color: var(--copper); flex-shrink: 0; font-size: 0.7rem; margin-top: 0.15em; }
+.related-link-text { font-size: 0.83rem; line-height: 1.5; color: var(--espresso); font-weight: 400; }
+.related-link-tag { display: block; font-family: var(--font-label); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--copper); margin-bottom: 0.2rem; }
+.reading-meter { height: 4px; background: rgba(58,28,14,0.08); border-radius: 2px; overflow: hidden; margin: 0.75rem 0 0.4rem; }
+.reading-meter-fill { height: 100%; background: linear-gradient(90deg, var(--moss), var(--sage-lt), var(--sand)); width: 0%; transition: width 0.2s linear; border-radius: 2px; }
+.reading-meter-label { font-family: var(--font-label); font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(58,28,14,0.35); display: flex; justify-content: space-between; }
+.btn-side { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.85rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; background: var(--espresso); color: var(--cream); border-radius: var(--radius-sm); cursor: pointer; margin-top: 0.75rem; transition: background 0.3s; }
+.btn-side:hover { background: var(--brown); }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: none; }
+.d1{ transition-delay: 0.1s; } .d2{ transition-delay: 0.2s; }
+
+.footer { background: var(--chocolate); padding: 4rem 0 2.5rem; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-logo-icon { width: 38px; margin-bottom: 0.75rem; }
+.footer-logo-name { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; color: var(--cream); }
+.footer-logo-sub  { font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.22em; color: var(--copper); text-transform: uppercase; margin: 0.3rem 0 1rem; }
+.footer-tagline   { font-size: 0.83rem; line-height: 1.7; color: rgba(244,237,224,0.35); font-weight: 300; max-width: 240px; }
+.footer-col-title { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1.1rem; }
+.footer-links     { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.footer-links a   { font-size: 0.82rem; color: rgba(244,237,224,0.35); transition: color 0.3s; }
+.footer-links a:hover { color: var(--sand); }
+.footer-bottom    { border-top: 1px solid rgba(201,171,132,0.1); padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-copy      { font-size: 0.76rem; color: rgba(244,237,224,0.2); }
+.footer-copy em   { color: var(--copper); font-style: normal; }
+.footer-legal     { display: flex; gap: 1.5rem; }
+.footer-legal a   { font-size: 0.73rem; color: rgba(244,237,224,0.2); transition: color 0.3s; }
+.footer-legal a:hover { color: var(--sand); }
+
+@media (max-width: 1024px) {
+  .khr-hero-inner { grid-template-columns: 1fr; }
+  .hero-diagram-wrap { display: none; }
+  .khr-layout { grid-template-columns: 1fr; }
+  .khr-sidebar { position: static; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .soil-grid { grid-template-columns: 1fr 1fr; }
+  .caution-promise { grid-template-columns: 1fr; }
+  .cp-col--promise { border-right: 1px solid rgba(58,28,14,0.1); border-bottom: none; border-radius: var(--radius-md) var(--radius-md) 0 0; }
+  .cp-col--caution { border-radius: 0 0 var(--radius-md) var(--radius-md); }
+}
+@media (max-width: 580px) { .soil-grid { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr; gap: 2rem; } }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="nav" id="mainNav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">
+        <img src="../../Images/rakine_logo.svg" class="nav-logo-icon" alt="Rankine Innovation Lab logo"/>
+        <div><span class="nav-logo-mark">Rankine</span><span class="nav-logo-name">Innovation Lab</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../../research.html">Research &amp; Project</a></li>
+        <li><a href="../../programmes.html">Programmes</a></li>
+        <li><a href="../../knowledge-hub.html" class="active-page">Knowledge Hub</a></li>
+        <li><a href="../../team.html">Team</a></li>
+        <li><a href="../../contact.html">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </nav>
-<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-  <a href="../../index.html">Home</a>
-  <a href="../../about.html">About</a>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../../index.html" onclick="closeMobile()">Home</a>
+  <a href="../../about.html" onclick="closeMobile()">About</a>
   <a href="../../research.html" onclick="closeMobile()">Research &amp; Project</a>
-  <a href="../../programmes.html">Programmes</a>
+  <a href="../../programmes.html" onclick="closeMobile()">Programmes</a>
   <a href="../../knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
-  <a href="../../team.html">Team</a>
-  <a href="../../contact.html">Contact</a>
+  <a href="../../team.html" onclick="closeMobile()">Team</a>
+  <a href="../../contact.html" onclick="closeMobile()">Contact</a>
 </div>
 
-<header class="khr-hero">
-    <div class="container">
-      <div class="breadcrumb"><a href="../../index.html">Home</a><span>—</span><a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span><strong>Explainer</strong></div>
-      <div class="khr-type">Explainer · Sustainability &amp; Circularity</div>
-      <h1 class="khr-title">Mycelium and Soil Resilience: What the Evidence Shows</h1>
-      <p class="khr-dek">Mycelium is promising in soil-resilience research because it can influence material behaviour, but responsible translation requires careful boundaries between laboratory signals and field-ready claims.</p>
-      <div class="khr-meta">
-        <span><strong>Domain</strong> Sustainability &amp; Circularity</span>
-        <span><strong>Reading time</strong> 6 min read</span>
-        <span><strong>Level</strong> Practitioner</span>
-      </div>
-
-    <div class="khr-feature">
-      <div class="khr-feature-head">
-        <div>
-          <div class="khr-feature-kicker">Evidence Diagram</div>
-          <div class="khr-feature-title">Soil Resilience Pathway</div>
+<!-- HERO -->
+<section class="khr-hero">
+  <div class="container">
+    <div class="khr-hero-inner">
+      <div>
+        <nav class="breadcrumb">
+          <a href="../../index.html">Home</a><span>—</span>
+          <a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span>
+          <strong>Explainer</strong>
+        </nav>
+        <div class="khr-type-badge">
+          <span class="khr-type-badge-dot" aria-hidden="true"></span>
+          Explainer · Sustainability &amp; Circularity
         </div>
-        <p class="khr-feature-sub">Biological material signals moving toward monitored field outcomes.</p>
+        <h1 class="khr-title">Mycelium and<br><em>Soil Resilience</em></h1>
+        <p class="khr-dek">Mycelium is sometimes discussed with excitement because it sits at the intersection of biology, materials, and sustainability — yet many audiences lack a clear picture of where the evidence is strongest and where it remains provisional. This explainer anchors the conversation in what the research actually shows, and where field validation is still needed.</p>
+        <div class="khr-meta-row">
+          <div class="khr-meta-item"><strong>Domain</strong> Sustainability &amp; Circularity</div>
+          <div class="khr-meta-item"><strong>Reading time</strong> 6 min read</div>
+          <div class="khr-meta-item"><strong>Level</strong> Practitioner · Research Teams</div>
+        </div>
       </div>
-      <figure class="khr-diagram khr-hero-visual" role="group" aria-label="Soil Resilience Pathway">
-        <img class="khr-feature-image" src="../../Images/knowledge/mycelium-soil-system.svg" alt="Soil Resilience Pathway visual showing soil condition, fungal network, moisture retention stages" width="1600" height="600">
-      </figure>
-      <div class="khr-feature-tags">
-      <span>Mycelium</span>
-      <span>Infiltration</span>
-      <span>Erosion</span>
-      <span>Field Validation</span>
-      <span>Pilot Design</span>
-      </div>
-    </div>
 
-    </div>
-  </header>
+      <!-- Hero SVG: Mycelium Network in Soil -->
+      <div class="hero-diagram-wrap" aria-hidden="true">
+        <div class="hero-diagram">
+          <svg class="myc-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-  <main class="khr-main">
-    <div class="container khr-grid">
-      <article class="khr-article">
+            <!-- Soil layers -->
+            <g class="soil-layer" style="animation-delay:0.1s">
+              <rect x="30" y="285" width="340" height="85" rx="0" fill="rgba(92,68,24,0.12)" stroke="rgba(92,68,24,0.15)" stroke-width="0.5"/>
+              <text x="48" y="302" font-family="Cinzel,serif" font-size="7" letter-spacing="1" fill="rgba(126,96,48,0.45)">SUBSOIL LAYER</text>
+            </g>
+            <g class="soil-layer" style="animation-delay:0.2s">
+              <rect x="30" y="215" width="340" height="72" rx="0" fill="rgba(61,92,42,0.08)" stroke="rgba(61,92,42,0.12)" stroke-width="0.5"/>
+              <text x="48" y="232" font-family="Cinzel,serif" font-size="7" letter-spacing="1" fill="rgba(90,126,64,0.45)">ROOT ZONE</text>
+            </g>
+            <g class="soil-layer" style="animation-delay:0.3s">
+              <rect x="30" y="165" width="340" height="52" rx="0" fill="rgba(45,80,22,0.1)" stroke="rgba(45,80,22,0.14)" stroke-width="0.5"/>
+              <text x="48" y="182" font-family="Cinzel,serif" font-size="7" letter-spacing="1" fill="rgba(90,126,64,0.5)">TOPSOIL</text>
+            </g>
 
-  <section class="khr-editorial-section" id="what-problem-this-actually-solves">
-    <div class="khr-section-kicker">Core Problem</div>
-    <h2>What problem this actually solves</h2>
-    <p>Nature-based solutions attract strong interest but uneven understanding. Mycelium is a good example: it sits at the intersection of biology, materials, and sustainability, yet readers often need a clearer picture of where evidence is strongest and where it remains provisional.</p>
-    <p>The most useful stance is specific and bounded. Mycelium should not be presented as a universal restoration answer. It should be treated as a promising biological material pathway whose value depends on site context, measurable outcomes, and pilot discipline.</p>
-  </section>
+            <!-- Surface line -->
+            <line x1="30" y1="165" x2="370" y2="165" stroke="rgba(58,28,14,0.2)" stroke-width="1.5"/>
+            <text x="48" y="155" font-family="Cinzel,serif" font-size="7" letter-spacing="1" fill="rgba(201,171,132,0.4)">SURFACE</text>
 
+            <!-- MYCELIUM THREADS — organic branching network -->
+            <!-- Main trunk threads -->
+            <path class="myc-thread" style="--i:1" d="M 140 215 Q 120 240 105 285" stroke="rgba(61,92,42,0.4)" stroke-width="1.8" fill="none"/>
+            <path class="myc-thread" style="--i:2" d="M 200 215 Q 200 250 190 285" stroke="rgba(61,92,42,0.38)" stroke-width="1.8" fill="none"/>
+            <path class="myc-thread" style="--i:3" d="M 260 215 Q 280 248 300 285" stroke="rgba(61,92,42,0.35)" stroke-width="1.6" fill="none"/>
+            <path class="myc-thread" style="--i:4" d="M 160 215 Q 145 255 150 285" stroke="rgba(61,92,42,0.3)" stroke-width="1.4" fill="none"/>
+            <path class="myc-thread" style="--i:5" d="M 240 215 Q 255 255 245 285" stroke="rgba(61,92,42,0.3)" stroke-width="1.4" fill="none"/>
 
-  <section class="khr-module khr-module--grid">
-    <h3>What This Explains</h3>
-    <p>Mycelium value depends on contextual soil performance, not novelty alone.</p>
-    <div class="khr-card"><strong>Material mechanism</strong><p>Mycelium can bind, interact with, and alter physical behaviour in soils and related materials.</p></div>
-    <div class="khr-card"><strong>Performance signal</strong><p>The relevant outcomes are infiltration, erosion resistance, aggregation, and behaviour under stress.</p></div>
-    <div class="khr-card"><strong>Evidence boundary</strong><p>Controlled results are promising, but field validation remains the critical translation step.</p></div>
-    <div class="khr-card"><strong>Implementation lens</strong><p>A nature-based solution becomes an engineered intervention once introduced into a live environment.</p></div>
+            <!-- Branch threads upper root zone -->
+            <path class="myc-thread" style="--i:2" d="M 140 215 Q 160 225 180 215" stroke="rgba(90,126,64,0.35)" stroke-width="1.2" fill="none"/>
+            <path class="myc-thread" style="--i:3" d="M 200 215 Q 220 222 240 215" stroke="rgba(90,126,64,0.32)" stroke-width="1.2" fill="none"/>
+            <path class="myc-thread" style="--i:4" d="M 120 230 Q 150 238 160 230" stroke="rgba(90,126,64,0.28)" stroke-width="1" fill="none"/>
+            <path class="myc-thread" style="--i:5" d="M 250 232 Q 270 240 280 235" stroke="rgba(90,126,64,0.28)" stroke-width="1" fill="none"/>
+            <path class="myc-thread" style="--i:6" d="M 105 285 Q 140 275 190 285" stroke="rgba(61,92,42,0.22)" stroke-width="1" fill="none" stroke-dasharray="3 3"/>
+            <path class="myc-thread" style="--i:7" d="M 190 285 Q 235 278 300 285" stroke="rgba(61,92,42,0.2)" stroke-width="1" fill="none" stroke-dasharray="3 3"/>
 
-  </section>
+            <!-- Topsoil surface threads -->
+            <path class="myc-thread" style="--i:1" d="M 80 165 Q 120 175 160 165" stroke="rgba(90,126,64,0.45)" stroke-width="1.5" fill="none"/>
+            <path class="myc-thread" style="--i:2" d="M 160 165 Q 200 178 240 165" stroke="rgba(90,126,64,0.4)" stroke-width="1.5" fill="none"/>
+            <path class="myc-thread" style="--i:3" d="M 240 165 Q 300 175 340 165" stroke="rgba(90,126,64,0.38)" stroke-width="1.3" fill="none"/>
+            <path class="myc-thread" style="--i:4" d="M 60 175 Q 100 185 130 175" stroke="rgba(142,158,120,0.3)" stroke-width="1" fill="none"/>
+            <path class="myc-thread" style="--i:5" d="M 280 178 Q 310 188 340 180" stroke="rgba(142,158,120,0.28)" stroke-width="1" fill="none"/>
 
+            <!-- Node dots -->
+            <circle class="myc-node" cx="140" cy="215" r="4" fill="rgba(61,92,42,0.65)" stroke="rgba(90,126,64,0.3)" stroke-width="1"/>
+            <circle class="myc-node" cx="200" cy="215" r="4" fill="rgba(61,92,42,0.6)"  stroke="rgba(90,126,64,0.28)" stroke-width="1" style="animation-delay:0.8s"/>
+            <circle class="myc-node" cx="260" cy="215" r="4" fill="rgba(61,92,42,0.55)" stroke="rgba(90,126,64,0.25)" stroke-width="1" style="animation-delay:1.6s"/>
+            <circle class="myc-node" cx="105" cy="285" r="3.5" fill="rgba(61,92,42,0.5)" stroke="rgba(90,126,64,0.22)" stroke-width="1" style="animation-delay:0.4s"/>
+            <circle class="myc-node" cx="190" cy="285" r="3.5" fill="rgba(61,92,42,0.45)" stroke="rgba(90,126,64,0.2)" stroke-width="1" style="animation-delay:1.2s"/>
+            <circle class="myc-node" cx="300" cy="285" r="3.5" fill="rgba(61,92,42,0.4)" stroke="rgba(90,126,64,0.18)" stroke-width="1" style="animation-delay:2s"/>
 
-  <section class="khr-editorial-section" id="what-mycelium-is-in-this-context">
-    <div class="khr-section-kicker">Conceptual Foundation</div>
-    <h2>What mycelium is in this context</h2>
-    <p>Mycelium is the network of fungal filaments that can bind and interact with surrounding material. In environmental and geotechnical contexts, the interest is not the organism as a curiosity, but what its growth and structure can do to soils and surfaces.</p>
-    <p>It can influence how water infiltrates, how aggregates behave, how erosion progresses, and how treated materials respond under stress. That makes it relevant to soil resilience, post-disturbance recovery, and bio-mediated material innovation.</p>
-  </section>
+            <!-- Water infiltration arrows (showing mycelium effect) -->
+            <g opacity="0.35">
+              <line x1="180" y1="80" x2="180" y2="155" stroke="rgba(80,140,200,0.5)" stroke-width="1.5" stroke-dasharray="4 3"/>
+              <polygon points="180,158 175,145 185,145" fill="rgba(80,140,200,0.5)"/>
+              <line x1="220" y1="80" x2="220" y2="155" stroke="rgba(80,140,200,0.4)" stroke-width="1.2" stroke-dasharray="4 3"/>
+              <polygon points="220,158 215,145 225,145" fill="rgba(80,140,200,0.4)"/>
+              <text x="200" y="70" font-family="Cinzel,serif" font-size="7" letter-spacing="1" fill="rgba(80,140,200,0.4)" text-anchor="middle">INFILTRATION</text>
+            </g>
 
+            <!-- Erosion resistance arrows -->
+            <g opacity="0.3">
+              <line x1="340" y1="165" x2="370" y2="165" stroke="rgba(160,92,56,0.5)" stroke-width="1.5"/>
+              <polygon points="368,160 380,165 368,170" fill="rgba(160,92,56,0.5)"/>
+              <text x="358" y="155" font-family="Cinzel,serif" font-size="6.5" letter-spacing="0.5" fill="rgba(160,92,56,0.4)" text-anchor="middle">EROSION</text>
+              <line x1="370" y1="165" x2="340" y2="165" stroke="rgba(61,92,42,0.5)" stroke-width="1.5" stroke-dasharray="3 3"/>
+              <text x="358" y="178" font-family="Cinzel,serif" font-size="6.5" letter-spacing="0.5" fill="rgba(61,92,42,0.4)" text-anchor="middle">RESISTANCE</text>
+            </g>
 
-  <section class="khr-editorial-section" id="why-post-fire-soils-matter">
-    <div class="khr-section-kicker">Application Context</div>
-    <h2>Why post-fire soils matter</h2>
-    <p>Fire-affected soils can become unstable, erosion-prone, and hydrologically altered. Land restoration and risk-management teams need ways to reduce runoff, suppress erosion, and support recovery after disturbance.</p>
-    <p>Mycelium research is important when it examines measurable effects on infiltration and erosion resistance rather than treating the material as an abstract sustainability idea.</p>
-  </section>
-
-
-  <section class="khr-split-panel">
-    <div class="khr-split-panel-head">Evidence Posture</div>
-    <div class="khr-split-grid">
-      <div>
-        <h3>Where the signal is strongest</h3>
-        <ul>
-        <li>Defined experimental conditions with measured soil or surface outcomes.</li>
-        <li>Observed influence on infiltration, erosion-related behaviour, or material interaction.</li>
-        <li>Clear comparison between treated and untreated conditions.</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Where caution is required</h3>
-        <ul>
-        <li>Transferability across soil types, climates, and field operating conditions.</li>
-        <li>Ecological monitoring, site compatibility, and time-based change.</li>
-        <li>Claims that imply field-wide effectiveness before pilots are validated.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-
-  <section class="khr-flow" aria-label="Pilot Translation Pathway">
-    <div class="khr-flow-head"><h3>Pilot Translation Pathway</h3><p>The right next step is cautious, measurable pilot design rather than broad claims.</p></div>
-    <div class="khr-flow-grid">
-    <div class="khr-flow-step"><span>01</span><strong>Define site type</strong><p>Name the disturbance, soil condition, and restoration objective before choosing treatment logic.</p></div>
-    <div class="khr-flow-step"><span>02</span><strong>Set comparison controls</strong><p>Use untreated or alternative-treatment areas so effects can be interpreted responsibly.</p></div>
-    <div class="khr-flow-step"><span>03</span><strong>Monitor performance</strong><p>Track infiltration, erosion, moisture, and ecological indicators over time.</p></div>
-    <div class="khr-flow-step"><span>04</span><strong>Name stop-go criteria</strong><p>Decide in advance what evidence would justify scaling, redesign, or stopping.</p></div>
-    </div>
-  </section>
-
-
-  <section class="khr-editorial-section" id="why-this-matters-beyond-one-study">
-    <div class="khr-section-kicker">Strategic Relevance</div>
-    <h2>Why this matters beyond one study</h2>
-    <p>Mycelium connects to a wider shift toward material systems that are lower-carbon, biologically informed, and potentially more regenerative in the right contexts. That makes it part of a broader biogeotechnics and bio-based material innovation conversation.</p>
-    <p>For public communication, the opportunity is to introduce a frontier area without forcing the science into hype-heavy language.</p>
-  </section>
-
-
-  <section class="khr-checklist-panel">
-    <div class="khr-checklist-symbol">◎</div>
-    <div>
-      <h3>Before Treating Mycelium as Deployable</h3>
-    <p>If these conditions are not clear, the intervention remains exploratory.</p>
-      <ul>
-      <li>What evidence supports the intended use?</li>
-      <li>Under which site and soil conditions was that evidence produced?</li>
-      <li>What monitoring plan would test performance over time?</li>
-      <li>What ecological or operational risks need review?</li>
-      <li>What stop-go criteria prevent overclaiming?</li>
-      </ul>
-    </div>
-  </section>
-
-
-  <section class="khr-editorial-section" id="references-and-further-reading">
-    <div class="khr-section-kicker">Reading Trail</div>
-    <h2>References and further reading</h2>
-    <p>A useful reading trail includes engineered fungal mycelium work on infiltration and erosion resistance, mycelium-linked material reviews, and broader bio-mediated geotechnics research.</p>
-    <p>The practical takeaway is that mycelium deserves serious attention where it is specific, measured, and translated through responsible pilot design.</p>
-  </section>
-
-      </article>
-
-  <aside class="khr-sidebar" aria-label="Resource sidebar">
-    <div class="khr-sidecard khr-progress-card">
-      <h3>Reading Progress</h3>
-      <div class="khr-progress-track"><span></span></div>
-      <p>Start with the framing, use the visual modules to compare options, then close with the checklist.</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Resource Details</h3>
-      <p><strong>Sustainability &amp; Circularity</strong><br>Explainer · Knowledge Hub resource</p>
-      <p><strong>Practitioner</strong><br>Restoration teams · sustainability leads · material innovators</p>
-      <p>6 min read · 5 visual modules</p>
-      <p>Updated April 2026</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Continue Reading</h3>
-      <div class="khr-related">
-      <a href="../frameworks/screening-framework-for-bio-based-material-innovation.html">A Screening Framework for Bio-Based Material Innovation</a>
-      <a href="../lab-notes/what-mycelium-based-engineering-changes-about-sustainability-conversations.html">What Mycelium-Based Engineering Changes About Sustainability Conversations</a>
-      <a href="../explainers/what-biogeotechnics-is-and-why-it-matters.html">What Biogeotechnics Is and Why It Matters</a>
-        <a href="../../knowledge-hub.html">← Back to Knowledge Hub</a>
+            <!-- Labels -->
+            <text x="200" y="35" font-family="Cinzel,serif" font-size="9" letter-spacing="2" fill="rgba(201,171,132,0.4)" text-anchor="middle">MYCELIUM NETWORK</text>
+            <text x="200" y="50" font-family="Cinzel,serif" font-size="7" letter-spacing="1" fill="rgba(201,171,132,0.28)" text-anchor="middle">in soil resilience</text>
+          </svg>
+        </div>
       </div>
     </div>
-    <div class="khr-sidecard khr-engage-card">
-      <h3>Engage with Rankine</h3>
-      <p>Use this explainer when discussing nature-based stabilisation, restoration pilots, or bio-mediated material pathways.</p>
-      <a class="btn" href="../../contact.html">Discuss a Partnership →</a>
-    </div>
-  </aside>
+  </div>
+</section>
 
-    </div>
-  </main>
+<!-- CONTENT -->
+<div class="container">
+  <div class="khr-layout">
+    <article class="khr-article" id="articleBody">
 
+      <!-- SECTION 1 -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">What This Explainer Does</p>
+        <h2 class="khr-h2">Grounding mycelium in <em>what the evidence actually shows</em></h2>
+
+        <div class="pull-quote">
+          <p>The research is altering the direction of the question — from "how do we improve inert materials" to "what happens when living or once-living biological systems are treated as active components in environmental and geotechnical design."</p>
+          <cite>— Rankine Innovation Lab · Knowledge Hub</cite>
+        </div>
+
+        <p class="khr-body">
+          Mycelium is the network of fungal filaments that can bind, interact with, and alter the physical behaviour of materials. In environmental and geotechnical contexts, the interest lies not in the organism as a curiosity, but in what its growth and structure can do to soils and surfaces — how it changes water infiltration, how it influences soil aggregate behaviour, how it affects erosion resistance after disturbance.
+        </p>
+        <p class="khr-body">
+          The founder-connected evidence that anchors this explainer is a study on engineered fungal mycelium growth in fire-affected soils — not a general sustainability narrative, but a specific experimental context with measurable outcomes. That specificity is the correct editorial stance for a Knowledge Hub that values evidence over aspiration.
+        </p>
+      </div>
+
+      <!-- SECTION 2: Evidence Hierarchy -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Evidence Quality</p>
+        <h2 class="khr-h2">Where the evidence is <em>strong — and where it is not yet</em></h2>
+
+        <p class="khr-body">
+          The mycelium evidence base covers a real range of maturity. Understanding that range is more useful than treating all findings as equally settled. The hierarchy below maps from the most grounded claims to the most provisional — distinguishing what can be said clearly from what still needs field validation.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Evidence Mapping</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Strength of Evidence by Claim Type</span>
+          </div>
+          <div class="infographic-body">
+            <p style="font-size:0.82rem;color:var(--brown);font-weight:300;margin-bottom:1.25rem;line-height:1.65;">Higher on the hierarchy = better grounded in current evidence. Lower = promising but in need of further controlled study or field validation.</p>
+            <div class="evidence-stack">
+              <div class="evidence-item">
+                <div class="evidence-strength">★★★</div>
+                <div class="evidence-body">
+                  <div class="evidence-title">Controlled experimental effects on infiltration and erosion</div>
+                  <div class="evidence-desc">Engineered fungal mycelium demonstrably altered infiltration behaviour and erosion resistance classification in fire-affected soils under controlled conditions. These findings are specific and measured.</div>
+                </div>
+                <span class="evidence-badge">Well grounded</span>
+              </div>
+              <div class="evidence-item">
+                <div class="evidence-strength">★★☆</div>
+                <div class="evidence-body">
+                  <div class="evidence-title">Soil aggregate binding and physical structure improvement</div>
+                  <div class="evidence-desc">Laboratory and mesocosm evidence supports the idea that mycelium growth can alter physical soil structure through hyphal binding — improving aggregate stability in specific substrate conditions.</div>
+                </div>
+                <span class="evidence-badge">Credible</span>
+              </div>
+              <div class="evidence-item">
+                <div class="evidence-strength">★☆☆</div>
+                <div class="evidence-body">
+                  <div class="evidence-title">Bio-mediated performance in field restoration contexts</div>
+                  <div class="evidence-desc">Promising conceptual and experimental support exists, but field performance across different climates, substrates, and operational conditions remains under-validated. Results should not be extrapolated from single-site studies.</div>
+                </div>
+                <span class="evidence-badge">Emerging</span>
+              </div>
+              <div class="evidence-item">
+                <div class="evidence-strength">○○○</div>
+                <div class="evidence-body">
+                  <div class="evidence-title">Wide-scale infrastructure or structural applications</div>
+                  <div class="evidence-desc">Interest is growing in bio-based geotechnical applications beyond restoration — including dust control, slope stabilisation, and material innovation — but operational evidence at this scale remains nascent and context-specific.</div>
+                </div>
+                <span class="evidence-badge">Provisional</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: Soil Applications -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Application Domains</p>
+        <h2 class="khr-h2">Where mycelium is most <em>relevant for soil performance</em></h2>
+
+        <p class="khr-body">
+          The applications below represent the areas where the combination of biological mechanism and geotechnical need is clearest. In each case, the value of mycelium lies not in novelty but in whether the biological action measurably improves performance on a dimension that actually matters for practitioners.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Application Domains</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Six Performance Contexts for Mycelium-Based Interventions</span>
+          </div>
+          <div class="infographic-body">
+            <div class="soil-grid">
+              <div class="soil-card">
+                <span class="soil-icon">🔥</span>
+                <div class="soil-title">Post-Fire Soil Recovery</div>
+                <div class="soil-desc">Fire-affected soils become unstable and erosion-prone. Mycelium can alter infiltration patterns and improve erosion-resistance classification — the most directly evidenced application domain.</div>
+                <span class="soil-status">Best evidenced</span>
+              </div>
+              <div class="soil-card">
+                <span class="soil-icon">💧</span>
+                <div class="soil-title">Infiltration Management</div>
+                <div class="soil-desc">Mycelium growth can both increase and suppress infiltration depending on growth stage and conditions. This dual effect means application requires careful timing and substrate understanding.</div>
+                <span class="soil-status">Credible</span>
+              </div>
+              <div class="soil-card">
+                <span class="soil-icon">⛰</span>
+                <div class="soil-title">Erosion Resistance</div>
+                <div class="soil-desc">Hyphal binding improves surface cohesion and aggregate stability. Promising for slope and embankment protection where conventional seeding is slow or unreliable in disturbed substrates.</div>
+                <span class="soil-status">Credible</span>
+              </div>
+              <div class="soil-card">
+                <span class="soil-icon">🌱</span>
+                <div class="soil-title">Ecological Restoration</div>
+                <div class="soil-desc">As part of restoration planting schemes, mycelium can support plant establishment by improving water retention and aggregate conditions — particularly in degraded or compacted soils.</div>
+                <span class="soil-status">Emerging</span>
+              </div>
+              <div class="soil-card">
+                <span class="soil-icon">🏗</span>
+                <div class="soil-title">Geotechnical Stabilisation</div>
+                <div class="soil-desc">Bio-mediated ground improvement is a growing research direction. Early evidence is promising for crack mitigation and dust control but field-scale performance data remains limited.</div>
+                <span class="soil-status">Provisional</span>
+              </div>
+              <div class="soil-card">
+                <span class="soil-icon">🧪</span>
+                <div class="soil-title">Material Innovation</div>
+                <div class="soil-desc">Mycelium-based leather-like materials and composite systems represent a parallel frontier. Strong design interest, but performance comparability with industrial materials is context-dependent.</div>
+                <span class="soil-status">Exploratory</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: Promise vs Caution -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Honest Assessment</p>
+        <h2 class="khr-h2">Where the promise is real — and where <em>caution is required</em></h2>
+
+        <p class="khr-body">
+          A biologically derived intervention is not automatically better. It may require careful assessment of durability, ecological effects, process control, scalability, and maintenance. But because the material logic is different from conventional approaches, the conversation is forced to become more nuanced — and more interesting.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Balanced Assessment</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">What Can Be Said — and What Should Not Yet Be</span>
+          </div>
+          <div class="infographic-body" style="padding:0">
+            <div class="caution-promise">
+              <div class="cp-col cp-col--promise">
+                <div class="cp-header">
+                  <span class="cp-icon">✓</span>
+                  <span class="cp-label">Where the Promise Is Real</span>
+                </div>
+                <div class="cp-items">
+                  <div class="cp-item"><span class="cp-dot"></span>Engineered fungal growth demonstrably alters infiltration and erosion-resistance behaviour in controlled fire-affected soil contexts</div>
+                  <div class="cp-item"><span class="cp-dot"></span>Mycelium is a serious candidate within nature-based stabilisation research — not a fringe idea</div>
+                  <div class="cp-item"><span class="cp-dot"></span>The biological mechanism is real and measurable — hyphal binding creates physical effects on aggregate structure</div>
+                  <div class="cp-item"><span class="cp-dot"></span>The research is at a stage that justifies serious, bounded pilot exploration and continued translation work</div>
+                </div>
+              </div>
+              <div class="cp-col cp-col--caution">
+                <div class="cp-header">
+                  <span class="cp-icon">⚠</span>
+                  <span class="cp-label">Where Caution Is Required</span>
+                </div>
+                <div class="cp-items">
+                  <div class="cp-item"><span class="cp-dot"></span>Laboratory results do not automatically transfer to field conditions — climate, soil variability, and operational control all affect performance differently</div>
+                  <div class="cp-item"><span class="cp-dot"></span>Ecological monitoring, site compatibility, and deployment governance must be addressed — a nature-based intervention is still an engineered act</div>
+                  <div class="cp-item"><span class="cp-dot"></span>Biological systems introduce variability and time-based change that conventional material evaluation frameworks do not fully capture</div>
+                  <div class="cp-item"><span class="cp-dot"></span>Field-wide effectiveness claims across all conditions, soils, and climates are not currently justified by the evidence</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 5: Claims Discipline Checklist -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Practical Checklist</p>
+        <h2 class="khr-h2">Before describing mycelium as <em>a solution — ask these</em></h2>
+
+        <p class="khr-body">
+          The right next step for most organisations interested in mycelium-based work is not implementation — it is a carefully designed pilot with explicit boundaries, monitoring, and stop-go criteria. Before proceeding to any pilot or procurement conversation, work through this checklist.
+        </p>
+
+        <div class="claims-checklist">
+          <div class="cc-header">
+            <span class="cc-icon" aria-hidden="true">◎</span>
+            <div>
+              <div class="cc-label">Claims Discipline Checklist</div>
+              <div class="cc-title">Five questions before calling mycelium a deployable solution</div>
+            </div>
+          </div>
+          <div class="cc-items">
+            <div class="cc-item">
+              <span class="cc-check" aria-hidden="true">?</span>
+              <span class="cc-text">What evidence supports the intended use — in which conditions, on which substrate, and under which operational constraints?</span>
+            </div>
+            <div class="cc-item">
+              <span class="cc-check" aria-hidden="true">?</span>
+              <span class="cc-text">What is the monitoring plan — how will performance be tracked over time, and what signals will indicate the intervention is or is not working?</span>
+            </div>
+            <div class="cc-item">
+              <span class="cc-check" aria-hidden="true">?</span>
+              <span class="cc-text">What are the stop-go criteria — at what point would the team decide not to proceed or not to scale?</span>
+            </div>
+            <div class="cc-item">
+              <span class="cc-check" aria-hidden="true">?</span>
+              <span class="cc-text">What ecological effects need to be assessed — including effects on local species, soil microbiology, and water behaviour beyond the immediate site?</span>
+            </div>
+            <div class="cc-item">
+              <span class="cc-check" aria-hidden="true">?</span>
+              <span class="cc-text">Is the intervention being called exploratory, or is it being framed as deployment-ready — and does the evidence actually support that framing?</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REFERENCES -->
+      <div class="khr-section reveal">
+        <div class="references">
+          <span class="references-label">References &amp; Source Base</span>
+          <ol>
+            <li>Founder-connected evidence: Effect of Engineered Fungal Mycelium Growth on Infiltration and Erosion Resistance in Fire-Affected Soils.</li>
+            <li>Supporting trajectory: Mycelium-Based Leather-Like Materials for Sustainable Geotechnical Applications — Rankine research synthesis inventory.</li>
+            <li>Companion resource: Screening Framework for Bio-Based Material Innovation — Rankine Knowledge Hub.</li>
+            <li>Rankine Innovation Lab Knowledge Hub research brief: Explainer treatment for mycelium and soil resilience, including editorial stance on evidence boundaries.</li>
+          </ol>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- SIDEBAR -->
+    <aside class="khr-sidebar">
+      <div class="side-card">
+        <div class="side-card-header">Reading Progress</div>
+        <div class="side-card-body">
+          <div class="reading-meter"><div class="reading-meter-fill" id="sidebarMeter"></div></div>
+          <div class="reading-meter-label"><span>Start</span><span id="progressPct">0%</span></div>
+        </div>
+      </div>
+      <div class="side-card">
+        <div class="side-card-header">Resource Details</div>
+        <div class="side-card-body">
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--moss);box-shadow:0 0 8px rgba(61,92,42,0.5)"></span>
+            <div><div class="domain-label">Sustainability &amp; Circularity</div><div class="domain-sub">Core domain · First-wave resource</div></div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--copper)"></span>
+            <div><div class="domain-label">Practitioner · Research Teams</div><div class="domain-sub">Geotechnics · Environmental design</div></div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--sand)"></span>
+            <div><div class="domain-label">6 min read · 4 modules</div><div class="domain-sub">Updated 2025</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="side-card">
+        <div class="side-card-header">Continue Reading</div>
+        <div class="side-card-body">
+          <a href="../frameworks/screening-framework-for-bio-based-material-innovation.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text"><span class="related-link-tag">Framework</span>Screening Framework for Bio-Based Material Innovation</span>
+          </a>
+          <a href="../lab-notes/what-mycelium-based-engineering-changes-about-sustainability-conversations.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text"><span class="related-link-tag">Lab Note</span>What Mycelium-Based Engineering Changes About Sustainability Conversations</span>
+          </a>
+          <a href="what-biogeotechnics-is-and-why-it-matters.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text"><span class="related-link-tag">Explainer</span>What Biogeotechnics Is and Why It Matters</span>
+          </a>
+          <button class="btn-side" onclick="window.location.href='../../knowledge-hub.html'">← Back to Knowledge Hub</button>
+        </div>
+      </div>
+      <div class="side-card">
+        <div class="side-card-header">Engage with Rankine</div>
+        <div class="side-card-body">
+          <p>This explainer connects to our sustainability research and bio-based material programmes. If you are working on mycelium-linked or biogeotechnical interventions, we would like to hear from you.</p>
+          <button class="btn-side" onclick="window.location.href='../../contact.html'">Discuss a Partnership →</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
 
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="footer-logo-icon">
+      <div>
+        <img src="../../Images/rakine_logo.svg" class="footer-logo-icon" alt="Rankine Innovation Lab logo"/>
         <div class="footer-logo-name">Rankine Innovation Lab</div>
         <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
         <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
       </div>
       <div>
-        <h3 class="footer-col-title">Navigation</h3>
+        <div class="footer-col-title">Navigation</div>
         <ul class="footer-links">
           <li><a href="../../about.html">About the Lab</a></li>
-          <li><a href="../../index.html#method">The Rankine Method</a></li>
-          <li><a href="../../index.html#focus">Focus Areas</a></li>
+          <li><a href="../../research.html">Research &amp; Project</a></li>
           <li><a href="../../programmes.html">Programmes</a></li>
-<li><a href="../../team.html">Team</a></li>
+          <li><a href="../../partnership.html">Partnerships</a></li>
+          <li><a href="../../team.html">Team</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Domains</h3>
+        <div class="footer-col-title">Domains</div>
         <ul class="footer-links">
-          <li><a href="../../research.html#ai">AI for STEM</a></li>
-          <li><a href="../../research.html#sustainability">Sustainability</a></li>
-          <li><a href="../../research.html#smart-agriculture">Smart Agriculture</a></li>
-          <li><a href="../../research.html#cross-disciplinary">Cross-Disciplinary</a></li>
+          <li><a href="../../research.html">AI for STEM</a></li>
+          <li><a href="../../research.html">Sustainability</a></li>
+          <li><a href="../../research.html">Smart Agriculture</a></li>
+          <li><a href="../../research.html">Cross-Disciplinary</a></li>
           <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Engage</h3>
+        <div class="footer-col-title">Engage</div>
         <ul class="footer-links">
-<li><a href="../../contact.html">Research Collaboration</a></li>
+          <li><a href="../../contact.html">Partnerships</a></li>
+          <li><a href="../../contact.html">Research Collaboration</a></li>
           <li><a href="../../contact.html">Training Enquiries</a></li>
           <li><a href="../../contact.html">Speaking</a></li>
           <li><a href="mailto:hello@rankineinnovationlab.com">hello@rankineinnovationlab.com</a></li>
@@ -259,7 +735,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Rankine Innovation Lab. All rights reserved.</p>
+      <p class="footer-copy">&copy; 2025 <em>Rankine Innovation Lab</em>. All rights reserved.</p>
       <div class="footer-legal">
         <a href="../../privacy.html">Privacy</a>
         <a href="../../terms.html">Terms</a>
@@ -269,28 +745,47 @@
   </div>
 </footer>
 
-
 <script>
-  const nav = document.getElementById('siteNav');
-  const toggle = document.getElementById('mobileToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  function setNavState(){
-    if(window.scrollY > 24){ nav.classList.remove('transparent'); nav.classList.add('solid'); }
-    else { nav.classList.add('transparent'); nav.classList.remove('solid'); }
-  }
-  setNavState();
-  window.addEventListener('scroll', setNavState, { passive: true });
-  if(toggle && mobileMenu){
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.classList.toggle('open');
-      mobileMenu.classList.toggle('open', isOpen);
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-      document.body.classList.toggle('menu-open', isOpen);
-    });
-  }
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+function closeMobile() {
+  hamburgerBtn.classList.remove('open'); mobileMenu.classList.remove('open');
+  document.body.style.overflow = ''; hamburgerBtn.setAttribute('aria-expanded','false');
+}
+hamburgerBtn.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburgerBtn.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+  hamburgerBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+const progressBar = document.getElementById('progressBar');
+const sidebarMeter = document.getElementById('sidebarMeter');
+const progressPct = document.getElementById('progressPct');
+const articleBody = document.getElementById('articleBody');
+function updateProgress() {
+  const rect = articleBody.getBoundingClientRect();
+  const pct = Math.min(100, Math.round((Math.max(0,-rect.top)/(rect.height-window.innerHeight))*100));
+  progressBar.style.width = sidebarMeter.style.width = pct+'%';
+  progressPct.textContent = pct+'%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+document.querySelectorAll('.cc-item').forEach(item => {
+  let checked = false;
+  item.addEventListener('click', () => {
+    checked = !checked;
+    const check = item.querySelector('.cc-check');
+    check.textContent = checked ? '✓' : '?';
+    check.style.background = checked ? 'rgba(61,92,42,0.3)' : '';
+    check.style.borderColor = checked ? 'var(--moss-lt)' : '';
+    check.style.color = checked ? 'var(--moss-lt)' : '';
+    item.style.borderColor = checked ? 'rgba(61,92,42,0.25)' : '';
+  });
+  item.style.cursor = 'pointer';
+});
 </script>
-
-<script src="../resource-template.js"></script>
 </body>
 </html>
