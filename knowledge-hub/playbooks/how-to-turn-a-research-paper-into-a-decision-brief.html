@@ -1,272 +1,993 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>How to Turn a Research Paper into a Decision Brief — Knowledge Hub | Rankine Innovation Lab</title>
-  <meta name="description" content="A decision brief translates strong research into the form decision-makers need: context, evidence, implications, limits, and practical next moves.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../resource-template.css">
-</head>
-<body class="resource-page resource-playbook">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>How to Turn a Research Paper into a Decision Brief — Knowledge Hub | Rankine Innovation Lab</title>
+<meta name="description" content="A decision brief translates strong research into the form decision-makers need: context, evidence, implications, limits, and practical next moves."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
 
-<nav class="nav transparent" id="siteNav" aria-label="Primary navigation">
-  <div class="container nav-inner">
-    <a class="nav-logo" href="../../index.html" aria-label="Rankine Innovation Lab home">
-      <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="nav-logo-icon">
-      <span class="nav-logo-text">
-        <span class="nav-logo-mark">Rankine</span>
-        <span class="nav-logo-name">Innovation Lab</span>
-      </span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="../../index.html">Home</a></li>
-      <li><a href="../../about.html">About</a></li>
-      <li><a href="../../research.html">Research &amp; Project</a></li>
-      <li><a href="../../programmes.html">Programmes</a></li>
-      <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
-      <li><a href="../../team.html">Team</a></li>
-      <li><a href="../../contact.html">Contact</a></li>
-    </ul>
-    <button class="hamburger" id="mobileToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span><span></span><span></span>
-    </button>
+/* ════════════════════════════════════════════════════════════════════
+   TOKENS — exact Rankine site-wide system
+════════════════════════════════════════════════════════════════════ */
+:root {
+  --chocolate:  #180c06;
+  --espresso:   #241208;
+  --brown:      #3a1c0e;
+  --mahogany:   #5c2d18;
+  --copper:     #a05c38;
+  --copper-lt:  #c47a52;
+  --sand:       #c9ab84;
+  --sand-lt:    #ddc9a8;
+  --cream:      #f4ede0;
+  --cream-lt:   #faf6ef;
+  --sage:       #687558;
+  --sage-lt:    #8e9e78;
+  --amber:      #7a5018;
+  --amber-lt:   #a06e2a;
+  --amber-pale: #c4924a;
+  --white:      #fffcf8;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-label:   'Cinzel', serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-circ: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+}
+
+/* ── RESET ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--cream-lt);
+  color: var(--espresso);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+img { display: block; max-width: 100%; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--amber-lt); border-radius: 2px; }
+.container { width: min(1220px, 100%); margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3rem); }
+
+/* ── READING PROGRESS BAR ───────────────────────────────────────────── */
+.progress-bar {
+  position: fixed; top: 0; left: 0;
+  width: 0%; height: 3px;
+  background: linear-gradient(90deg, var(--amber), var(--amber-pale), var(--sand));
+  z-index: 2000; transition: width 0.1s linear;
+}
+
+/* ── NAV ────────────────────────────────────────────────────────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(24,12,6,0.97);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 1px 0 rgba(201,171,132,0.12);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+.nav-logo { display: inline-flex; align-items: center; gap: 0.75rem; }
+.nav-logo-icon { width: 40px; height: 40px; border-radius: 8px; }
+.nav-logo-mark { display: block; font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.25em; color: var(--copper); text-transform: uppercase; }
+.nav-logo-name { font-family: var(--font-display); font-size: 1.25rem; color: var(--cream); letter-spacing: 0.02em; }
+.nav-links { display: flex; align-items: center; gap: clamp(0.8rem,1.8vw,1.5rem); list-style: none; }
+.nav-links a { font-size: 0.76rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(244,237,224,0.7); transition: color 0.3s; }
+.nav-links a:hover { color: var(--cream); }
+.nav-links a.active-page { color: var(--sand); }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--cream); transition: all 0.3s; }
+.hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; }
+.hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 0; background: rgba(24,12,6,0.98); backdrop-filter: blur(20px); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; transform: translateY(-100%); transition: transform 0.5s var(--ease-out); }
+.mobile-menu.open { display: flex; transform: translateY(0); }
+.mobile-menu a { font-family: var(--font-display); font-size: 2rem; font-weight: 300; color: var(--cream); }
+
+/* ── HERO ───────────────────────────────────────────────────────────── */
+.khr-hero {
+  min-height: 92vh;
+  background:
+    radial-gradient(ellipse 60% 55% at 88% 16%, rgba(122,80,24,0.32), transparent 55%),
+    radial-gradient(ellipse 45% 45% at 10% 80%, rgba(58,28,14,0.3), transparent 55%),
+    linear-gradient(158deg, #120a04 0%, #1e1208 40%, #0e0a04 100%);
+  display: flex; align-items: center;
+  padding-top: 72px; position: relative; overflow: hidden;
+}
+.khr-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 71px, rgba(201,171,132,0.022) 71px, rgba(201,171,132,0.022) 72px);
+  pointer-events: none;
+}
+.khr-hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 256px; opacity: 0.5; pointer-events: none;
+}
+.khr-hero-inner {
+  position: relative; z-index: 2; width: 100%;
+  padding-block: clamp(3rem,6vw,6rem);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem,5vw,6rem); align-items: center;
+}
+
+.breadcrumb { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,237,224,0.3); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.75rem; }
+.breadcrumb a:hover { color: var(--sand); }
+.breadcrumb strong { color: var(--copper); font-weight: 400; }
+.khr-type-badge { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber-pale); border: 1px solid rgba(122,80,24,0.45); background: rgba(122,80,24,0.12); padding: 0.4rem 0.9rem; border-radius: 2px; margin-bottom: 1.5rem; }
+.khr-type-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amber-pale); box-shadow: 0 0 8px rgba(122,80,24,0.6); }
+.khr-title { font-family: var(--font-display); font-size: clamp(2.4rem, 4.5vw, 4.2rem); font-weight: 300; line-height: 1.08; letter-spacing: -0.012em; color: var(--cream-lt); margin-bottom: 1.4rem; }
+.khr-title em { font-style: italic; color: var(--sand); }
+.khr-dek { font-size: clamp(0.92rem,1.35vw,1.05rem); line-height: 1.82; color: rgba(244,237,224,0.55); font-weight: 300; max-width: 560px; margin-bottom: 2.2rem; }
+.khr-meta-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding-top: 1.5rem; border-top: 1px solid rgba(201,171,132,0.1); }
+.khr-meta-item { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(201,171,132,0.4); }
+.khr-meta-item strong { color: var(--amber-pale); font-weight: 400; }
+
+/* Hero SVG animations */
+.hero-diagram-wrap { display: flex; align-items: center; justify-content: center; }
+.hero-diagram { width: 100%; max-width: 480px; aspect-ratio: 1; }
+.pb-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 40px rgba(122,80,24,0.15)); }
+
+.pb-panel { animation: panelIn 0.8s var(--ease-out) both; }
+.pb-panel:nth-child(1){ animation-delay: 0.05s; }
+.pb-panel:nth-child(2){ animation-delay: 0.2s; }
+.pb-panel:nth-child(3){ animation-delay: 0.35s; }
+@keyframes panelIn { from{opacity:0;transform:scale(0.96)} to{opacity:1;transform:none} }
+
+.pb-arrow { animation: arrowDraw 0.6s var(--ease-out) both; }
+.pb-arrow:nth-child(1){ animation-delay: 0.5s; }
+.pb-arrow:nth-child(2){ animation-delay: 0.65s; }
+@keyframes arrowDraw { from{opacity:0} to{opacity:1} }
+
+.pb-line { stroke-dasharray: 200; stroke-dashoffset: 200; animation: lineDraw 1.2s var(--ease-out) forwards; }
+.pb-line:nth-child(1){ animation-delay: 0.1s; }
+.pb-line:nth-child(2){ animation-delay: 0.25s; }
+.pb-line:nth-child(3){ animation-delay: 0.4s; }
+.pb-line:nth-child(4){ animation-delay: 0.55s; }
+.pb-line:nth-child(5){ animation-delay: 0.7s; }
+.pb-line:nth-child(6){ animation-delay: 0.85s; }
+@keyframes lineDraw { to{ stroke-dashoffset: 0; } }
+
+.pb-pulse { animation: pbPulse 3s ease-in-out infinite; }
+.pb-pulse:nth-child(2n){ animation-delay: 1s; }
+@keyframes pbPulse { 0%,100%{opacity:0.5} 50%{opacity:1} }
+
+/* ── LAYOUT ─────────────────────────────────────────────────────────── */
+.khr-layout { display: grid; grid-template-columns: 1fr 340px; gap: 3rem; padding-block: clamp(3rem,6vw,5.5rem); align-items: start; }
+.khr-article { min-width: 0; }
+.khr-section { margin-bottom: clamp(3rem,5vw,4.5rem); padding-bottom: clamp(3rem,5vw,4.5rem); border-bottom: 1px solid rgba(58,28,14,0.08); }
+.khr-section:last-child { border-bottom: none; margin-bottom: 0; }
+.section-eyebrow { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--amber); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.75rem; }
+.section-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--amber); }
+.khr-h2 { font-family: var(--font-display); font-size: clamp(1.6rem,2.8vw,2.2rem); font-weight: 400; line-height: 1.15; color: var(--espresso); letter-spacing: -0.01em; margin-bottom: 1.25rem; }
+.khr-h2 em { font-style: italic; color: var(--amber-lt); }
+.khr-body { font-size: clamp(0.95rem,1.35vw,1.03rem); line-height: 1.88; color: var(--brown); font-weight: 300; }
+.khr-body + .khr-body { margin-top: 1.1rem; }
+
+/* ── PULL QUOTE ─────────────────────────────────────────────────────── */
+.pull-quote { margin: 2.5rem 0; padding: 2rem 2rem 2rem 2.5rem; border-left: 4px solid var(--amber-lt); background: linear-gradient(135deg, rgba(122,80,24,0.06), rgba(201,171,132,0.02)); border-radius: 0 var(--radius-md) var(--radius-md) 0; position: relative; overflow: hidden; }
+.pull-quote::before { content: '"'; position: absolute; top: -1rem; left: 1rem; font-family: var(--font-display); font-size: 8rem; font-weight: 700; color: rgba(122,80,24,0.07); line-height: 1; pointer-events: none; }
+.pull-quote p { font-family: var(--font-display); font-style: italic; font-size: clamp(1.15rem,2vw,1.45rem); font-weight: 300; line-height: 1.55; color: var(--mahogany); position: relative; z-index: 1; }
+.pull-quote cite { display: block; margin-top: 0.75rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber-lt); font-style: normal; }
+
+/* ── INFOGRAPHIC WRAPPER ────────────────────────────────────────────── */
+.infographic { margin: 2.5rem 0; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid rgba(58,28,14,0.1); }
+.infographic-header { background: var(--espresso); padding: 1.25rem 1.75rem; display: flex; align-items: center; gap: 1rem; }
+.infographic-header-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber-pale); }
+.infographic-header-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 400; color: var(--cream); }
+.infographic-header-line { flex: 1; height: 1px; background: rgba(201,171,132,0.12); }
+.infographic-body { background: var(--white); padding: 2rem 1.75rem; }
+
+/* ── SIX-STEP TRANSLATION PROCESS ──────────────────────────────────── */
+.steps-list { display: flex; flex-direction: column; gap: 0; position: relative; }
+.steps-list::before { content: ''; position: absolute; left: 32px; top: 20px; bottom: 20px; width: 2px; background: linear-gradient(to bottom, var(--amber), var(--amber-pale), var(--sand)); opacity: 0.2; }
+
+.pb-step { display: grid; grid-template-columns: 64px 1fr; gap: 1.25rem; align-items: start; padding: 1rem 0; cursor: default; transition: transform 0.3s; }
+.pb-step:hover { transform: translateX(4px); }
+.step-marker { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; }
+.step-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.1em; position: relative; z-index: 1; flex-shrink: 0; }
+.pb-step:nth-child(1) .step-dot { background: rgba(122,80,24,0.15); border: 1.5px solid rgba(122,80,24,0.45); color: var(--amber-pale); }
+.pb-step:nth-child(2) .step-dot { background: rgba(160,110,42,0.14); border: 1.5px solid rgba(160,110,42,0.42); color: var(--amber-pale); }
+.pb-step:nth-child(3) .step-dot { background: rgba(196,146,74,0.12); border: 1.5px solid rgba(196,146,74,0.38); color: var(--amber-pale); }
+.pb-step:nth-child(4) .step-dot { background: rgba(201,171,132,0.15); border: 1.5px solid rgba(201,171,132,0.38); color: var(--sand); }
+.pb-step:nth-child(5) .step-dot { background: rgba(142,158,120,0.12); border: 1.5px solid rgba(142,158,120,0.35); color: var(--sage-lt); }
+.pb-step:nth-child(6) .step-dot { background: rgba(104,117,88,0.12); border: 1.5px solid rgba(104,117,88,0.32); color: var(--sage-lt); }
+
+.step-body { padding-bottom: 0.75rem; border-bottom: 1px solid rgba(58,28,14,0.06); }
+.pb-step:last-child .step-body { border-bottom: none; }
+.step-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.35rem; }
+.step-desc { font-size: 0.82rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+.step-rule { display: inline-block; margin-top: 0.5rem; font-family: var(--font-display); font-style: italic; font-size: 0.82rem; color: var(--amber-lt); }
+
+/* ── FIVE QUESTIONS ─────────────────────────────────────────────────── */
+.questions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.q-card { padding: 1.25rem; background: var(--cream-lt); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); cursor: default; transition: transform 0.35s var(--ease-out), border-color 0.35s; }
+.q-card:hover { transform: translateY(-3px); border-color: rgba(122,80,24,0.3); }
+.q-num { font-family: var(--font-display); font-size: 2.2rem; font-weight: 300; color: rgba(122,80,24,0.15); line-height: 1; margin-bottom: 0.55rem; }
+.q-text { font-family: var(--font-display); font-size: 1rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.4rem; line-height: 1.3; }
+.q-context { font-size: 0.8rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+
+/* ── BRIEF vs SUMMARY TABLE ─────────────────────────────────────────── */
+.compare-table { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: var(--radius-md); overflow: hidden; }
+.compare-col { padding: 1.5rem; }
+.compare-col--brief { background: rgba(122,80,24,0.08); border: 1px solid rgba(122,80,24,0.22); border-right: none; border-radius: var(--radius-md) 0 0 var(--radius-md); }
+.compare-col--summary { background: rgba(92,45,24,0.05); border: 1px solid rgba(92,45,24,0.15); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+.compare-col-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
+.compare-col-icon { font-size: 1.2rem; }
+.compare-col-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; }
+.compare-col--brief .compare-col-label { color: var(--amber-lt); }
+.compare-col--summary .compare-col-label { color: var(--mahogany); }
+.compare-col-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.5rem; }
+.compare-items { display: flex; flex-direction: column; gap: 0.55rem; }
+.compare-item { display: flex; align-items: flex-start; gap: 0.55rem; font-size: 0.82rem; line-height: 1.55; color: var(--espresso); }
+.ci-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 0.42em; }
+.compare-col--brief .ci-dot { background: var(--amber-lt); }
+.compare-col--summary .ci-dot { background: var(--mahogany); }
+
+/* ── BRIEF STRUCTURE LAYOUT ─────────────────────────────────────────── */
+.brief-structure { display: flex; flex-direction: column; gap: 0.75rem; }
+.brief-block { display: grid; grid-template-columns: 40px 1fr; gap: 1rem; align-items: start; padding: 1rem 1.1rem; border-radius: var(--radius-md); border: 1px solid rgba(58,28,14,0.1); background: var(--cream-lt); transition: transform 0.3s var(--ease-out), border-color 0.3s; }
+.brief-block:hover { transform: translateX(4px); border-color: rgba(122,80,24,0.3); }
+.brief-block-num { font-family: var(--font-display); font-size: 1.4rem; font-weight: 300; color: rgba(122,80,24,0.2); line-height: 1; text-align: center; margin-top: 0.15rem; }
+.brief-block-body {}
+.brief-block-title { font-family: var(--font-display); font-size: 1rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.25rem; }
+.brief-block-desc { font-size: 0.82rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+.brief-block-word { display: inline-block; margin-top: 0.45rem; font-family: var(--font-label); font-size: 0.52rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--amber-lt); border: 1px solid rgba(122,80,24,0.2); background: rgba(122,80,24,0.06); padding: 0.22rem 0.5rem; border-radius: 2px; }
+
+/* ── THREE COMMON MISTAKES ─────────────────────────────────────────── */
+.mistakes-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.mistake-tile { padding: 1.5rem 1.25rem; background: var(--espresso); border-radius: var(--radius-md); position: relative; overflow: hidden; cursor: default; transition: transform 0.35s var(--ease-out); }
+.mistake-tile:hover { transform: translateY(-5px); }
+.mistake-tile::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.mistake-tile:nth-child(1)::before { background: linear-gradient(90deg, var(--mahogany), var(--copper)); }
+.mistake-tile:nth-child(2)::before { background: linear-gradient(90deg, var(--amber), var(--amber-pale)); }
+.mistake-tile:nth-child(3)::before { background: linear-gradient(90deg, var(--sage), var(--sage-lt)); }
+.mistake-ghost { font-family: var(--font-display); font-size: 4rem; font-weight: 300; color: rgba(201,171,132,0.05); line-height: 1; position: absolute; bottom: 0.5rem; right: 0.75rem; pointer-events: none; }
+.mistake-icon { font-size: 1.3rem; margin-bottom: 0.85rem; display: block; }
+.mistake-title { font-family: var(--font-display); font-size: 0.98rem; font-weight: 500; color: var(--cream); margin-bottom: 0.5rem; line-height: 1.3; }
+.mistake-desc { font-size: 0.78rem; line-height: 1.65; color: rgba(244,237,224,0.42); font-weight: 300; }
+
+/* ── COMPLETION CHECKLIST ───────────────────────────────────────────── */
+.completion-checklist { background: var(--espresso); border-radius: var(--radius-lg); padding: 2rem; position: relative; overflow: hidden; }
+.completion-checklist::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(201,171,132,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,171,132,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+.cc-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; position: relative; z-index: 1; }
+.cc-icon { font-size: 1.4rem; color: var(--amber-pale); }
+.cc-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--amber-pale); }
+.cc-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 300; color: var(--cream); }
+.cc-items { display: flex; flex-direction: column; gap: 0.75rem; position: relative; z-index: 1; }
+.cc-item { display: flex; align-items: flex-start; gap: 1rem; padding: 0.9rem 1rem; background: rgba(255,252,248,0.035); border: 1px solid rgba(201,171,132,0.08); border-radius: var(--radius-sm); cursor: pointer; transition: background 0.35s, border-color 0.35s; }
+.cc-item:hover { background: rgba(255,252,248,0.07); border-color: rgba(122,80,24,0.25); }
+.cc-check { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(122,80,24,0.4); background: rgba(122,80,24,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.65rem; color: var(--amber-pale); transition: background 0.35s, border-color 0.35s; }
+.cc-item:hover .cc-check { background: rgba(122,80,24,0.22); border-color: var(--amber-pale); }
+.cc-question { font-family: var(--font-display); font-size: 0.95rem; font-weight: 400; color: rgba(244,237,224,0.72); line-height: 1.45; flex: 1; font-style: italic; }
+
+/* ── REFERENCES ─────────────────────────────────────────────────────── */
+.references { background: var(--cream); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); padding: 1.5rem 1.75rem; }
+.references-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1rem; display: block; }
+.references ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.references li { font-size: 0.82rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+
+/* ── SIDEBAR ────────────────────────────────────────────────────────── */
+.khr-sidebar { position: sticky; top: calc(72px + 2rem); display: flex; flex-direction: column; gap: 1.25rem; }
+.side-card { background: var(--white); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); overflow: hidden; }
+.side-card-header { background: var(--espresso); padding: 0.9rem 1.25rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber-pale); }
+.side-card-body { padding: 1.25rem; }
+.side-card-body p { font-size: 0.84rem; line-height: 1.72; color: var(--brown); font-weight: 300; }
+.domain-badge { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1rem; background: var(--cream-lt); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-sm); margin-bottom: 0.75rem; }
+.domain-badge:last-child { margin-bottom: 0; }
+.domain-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.domain-label { font-size: 0.8rem; color: var(--espresso); font-weight: 400; }
+.domain-sub { font-size: 0.72rem; color: var(--mahogany); font-weight: 300; }
+.related-link { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.85rem 0; border-bottom: 1px solid rgba(58,28,14,0.07); transition: transform 0.3s; text-decoration: none; }
+.related-link:last-child { border-bottom: none; padding-bottom: 0; }
+.related-link:hover { transform: translateX(4px); }
+.related-link-arrow { color: var(--copper); flex-shrink: 0; font-size: 0.7rem; margin-top: 0.15em; }
+.related-link-text { font-size: 0.83rem; line-height: 1.5; color: var(--espresso); font-weight: 400; }
+.related-link-tag { display: block; font-family: var(--font-label); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--copper); margin-bottom: 0.2rem; }
+.reading-meter { height: 4px; background: rgba(58,28,14,0.08); border-radius: 2px; overflow: hidden; margin: 0.75rem 0 0.4rem; }
+.reading-meter-fill { height: 100%; background: linear-gradient(90deg, var(--amber), var(--amber-pale), var(--sand)); width: 0%; transition: width 0.2s linear; border-radius: 2px; }
+.reading-meter-label { font-family: var(--font-label); font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(58,28,14,0.35); display: flex; justify-content: space-between; }
+.btn-side { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.85rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; background: var(--espresso); color: var(--cream); border: none; border-radius: var(--radius-sm); cursor: pointer; margin-top: 0.75rem; transition: background 0.3s; }
+.btn-side:hover { background: var(--brown); }
+
+/* ── REVEAL ─────────────────────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: none; }
+.d1{ transition-delay: 0.1s; } .d2{ transition-delay: 0.2s; }
+
+/* ── FOOTER ─────────────────────────────────────────────────────────── */
+.footer { background: var(--chocolate); padding: 4rem 0 2.5rem; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-logo-icon { width: 38px; margin-bottom: 0.75rem; }
+.footer-logo-name { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; color: var(--cream); }
+.footer-logo-sub  { font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.22em; color: var(--copper); text-transform: uppercase; margin: 0.3rem 0 1rem; }
+.footer-tagline   { font-size: 0.83rem; line-height: 1.7; color: rgba(244,237,224,0.35); font-weight: 300; max-width: 240px; }
+.footer-col-title { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1.1rem; }
+.footer-links     { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.footer-links a   { font-size: 0.82rem; color: rgba(244,237,224,0.35); transition: color 0.3s; }
+.footer-links a:hover { color: var(--sand); }
+.footer-bottom    { border-top: 1px solid rgba(201,171,132,0.1); padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-copy      { font-size: 0.76rem; color: rgba(244,237,224,0.2); }
+.footer-copy em   { color: var(--copper); font-style: normal; }
+.footer-legal     { display: flex; gap: 1.5rem; }
+.footer-legal a   { font-size: 0.73rem; color: rgba(244,237,224,0.2); transition: color 0.3s; }
+.footer-legal a:hover { color: var(--sand); }
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .khr-hero-inner { grid-template-columns: 1fr; }
+  .hero-diagram-wrap { display: none; }
+  .khr-layout { grid-template-columns: 1fr; }
+  .khr-sidebar { position: static; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .questions-grid { grid-template-columns: 1fr; }
+  .compare-table { grid-template-columns: 1fr; }
+  .compare-col--brief { border-right: 1px solid rgba(122,80,24,0.22); border-bottom: none; border-radius: var(--radius-md) var(--radius-md) 0 0; }
+  .compare-col--summary { border-radius: 0 0 var(--radius-md) var(--radius-md); }
+  .mistakes-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ════════════ NAV ════════════ -->
+<nav class="nav" id="mainNav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">
+        <img src="../../Images/rakine_logo.svg" class="nav-logo-icon" alt="Rankine Innovation Lab logo"/>
+        <div>
+          <span class="nav-logo-mark">Rankine</span>
+          <span class="nav-logo-name">Innovation Lab</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../../research.html">Research &amp; Project</a></li>
+        <li><a href="../../programmes.html">Programmes</a></li>
+        <li><a href="../../knowledge-hub.html" class="active-page">Knowledge Hub</a></li>
+        <li><a href="../../team.html">Team</a></li>
+        <li><a href="../../contact.html">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
-<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-  <a href="../../index.html">Home</a>
-  <a href="../../about.html">About</a>
-  <a href="../../research.html" onclick="closeMobile()">Research &amp; Project</a>
-  <a href="../../programmes.html">Programmes</a>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../../index.html"         onclick="closeMobile()">Home</a>
+  <a href="../../about.html"         onclick="closeMobile()">About</a>
+  <a href="../../research.html"      onclick="closeMobile()">Research &amp; Project</a>
+  <a href="../../programmes.html"    onclick="closeMobile()">Programmes</a>
   <a href="../../knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
-  <a href="../../team.html">Team</a>
-  <a href="../../contact.html">Contact</a>
+  <a href="../../team.html"          onclick="closeMobile()">Team</a>
+  <a href="../../contact.html"       onclick="closeMobile()">Contact</a>
 </div>
 
-<header class="khr-hero">
-    <div class="container">
-      <div class="breadcrumb"><a href="../../index.html">Home</a><span>—</span><a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span><strong>Playbook</strong></div>
-      <div class="khr-type">Playbook · Cross-Disciplinary Innovation</div>
-      <h1 class="khr-title">How to Turn a Research Paper into a Decision Brief</h1>
-      <p class="khr-dek">A decision brief translates strong research into the form decision-makers need: context, evidence, implications, limits, and practical next moves.</p>
-      <div class="khr-meta">
-        <span><strong>Domain</strong> Cross-Disciplinary Innovation</span>
-        <span><strong>Reading time</strong> 6 min read</span>
-        <span><strong>Level</strong> Practitioner</span>
-      </div>
+<!-- ════════════ HERO ════════════ -->
+<section class="khr-hero">
+  <div class="container">
+    <div class="khr-hero-inner">
 
-    <div class="khr-feature">
-      <div class="khr-feature-head">
-        <div>
-          <div class="khr-feature-kicker">Workflow Visual</div>
-          <div class="khr-feature-title">Paper-to-Brief Flow</div>
+      <!-- Left text -->
+      <div>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="../../index.html">Home</a><span>—</span>
+          <a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span>
+          <strong>Playbook</strong>
+        </nav>
+        <div class="khr-type-badge">
+          <span class="khr-type-badge-dot" aria-hidden="true"></span>
+          Playbook · Cross-Disciplinary Innovation
         </div>
-        <p class="khr-feature-sub">Research evidence translated into decisions.</p>
+        <h1 class="khr-title">
+          How to Turn a Research Paper<br>
+          into a <em>Decision Brief</em>
+        </h1>
+        <p class="khr-dek">
+          Strong research routinely fails to change decisions — not because it is wrong, but because it stays in the form in which it was produced. A decision brief is not a shorter summary. It is a different document with a different purpose: translating what was found into what a decision-maker needs to act, without flattening the evidence or hiding its limits.
+        </p>
+        <div class="khr-meta-row">
+          <div class="khr-meta-item"><strong>Domain</strong> Cross-Disciplinary Innovation</div>
+          <div class="khr-meta-item"><strong>Reading time</strong> 6 min read</div>
+          <div class="khr-meta-item"><strong>Level</strong> Practitioner</div>
+        </div>
       </div>
-      <figure class="khr-diagram khr-hero-visual" role="group" aria-label="Paper-to-Brief Flow">
-        <img class="khr-feature-image" src="../../Images/knowledge/paper-to-brief-flow.svg" alt="Paper-to-Brief Flow visual showing decision context, evidence extraction, limit framing stages" width="1600" height="600">
-      </figure>
-      <div class="khr-feature-tags">
-      <span>Research Translation</span>
-      <span>Briefing</span>
-      <span>Evidence</span>
-      <span>Decisions</span>
-      <span>Plain Language</span>
+
+      <!-- Right: Paper-to-Brief Flow SVG -->
+      <div class="hero-diagram-wrap" aria-hidden="true">
+        <div class="hero-diagram">
+          <svg class="pb-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Background -->
+            <rect x="30" y="30" width="340" height="340" rx="14" fill="rgba(122,80,24,0.05)" stroke="rgba(122,80,24,0.14)" stroke-width="1"/>
+
+            <!-- LEFT: RESEARCH PAPER panel -->
+            <g class="pb-panel">
+              <rect x="48" y="58" width="120" height="160" rx="10" fill="rgba(122,80,24,0.1)" stroke="rgba(122,80,24,0.35)" stroke-width="1.2"/>
+              <!-- Page lines — simulating a dense research paper -->
+              <text x="108" y="82" font-family="Cinzel,serif" font-size="7" letter-spacing="0.8" fill="rgba(196,146,74,0.55)" text-anchor="middle">RESEARCH PAPER</text>
+              <line class="pb-line" x1="62" y1="96"  x2="154" y2="96"  stroke="rgba(122,80,24,0.3)" stroke-width="0.9"/>
+              <line class="pb-line" x1="62" y1="106" x2="148" y2="106" stroke="rgba(122,80,24,0.25)" stroke-width="0.9"/>
+              <line class="pb-line" x1="62" y1="116" x2="154" y2="116" stroke="rgba(122,80,24,0.25)" stroke-width="0.9"/>
+              <line class="pb-line" x1="62" y1="126" x2="140" y2="126" stroke="rgba(122,80,24,0.22)" stroke-width="0.9"/>
+              <line class="pb-line" x1="62" y1="136" x2="154" y2="136" stroke="rgba(122,80,24,0.22)" stroke-width="0.9"/>
+              <line class="pb-line" x1="62" y1="146" x2="150" y2="146" stroke="rgba(122,80,24,0.2)" stroke-width="0.9"/>
+              <line x1="62" y1="156" x2="154" y2="156" stroke="rgba(122,80,24,0.18)" stroke-width="0.9"/>
+              <line x1="62" y1="166" x2="144" y2="166" stroke="rgba(122,80,24,0.16)" stroke-width="0.9"/>
+              <line x1="62" y1="176" x2="154" y2="176" stroke="rgba(122,80,24,0.14)" stroke-width="0.9"/>
+              <line x1="62" y1="186" x2="148" y2="186" stroke="rgba(122,80,24,0.12)" stroke-width="0.9"/>
+              <line x1="62" y1="196" x2="154" y2="196" stroke="rgba(122,80,24,0.1)" stroke-width="0.9"/>
+              <line x1="62" y1="206" x2="142" y2="206" stroke="rgba(122,80,24,0.1)" stroke-width="0.9"/>
+              <!-- Corner fold -->
+              <polygon points="144,58 168,58 168,80" fill="rgba(122,80,24,0.25)"/>
+              <line x1="144" y1="58" x2="144" y2="80" stroke="rgba(122,80,24,0.3)" stroke-width="0.8"/>
+              <line x1="144" y1="80" x2="168" y2="80" stroke="rgba(122,80,24,0.3)" stroke-width="0.8"/>
+            </g>
+
+            <!-- TRANSFORMATION arrow + process label -->
+            <g class="pb-arrow">
+              <line x1="178" y1="138" x2="218" y2="138" stroke="rgba(196,146,74,0.5)" stroke-width="2"/>
+              <polygon points="216,133 228,138 216,143" fill="rgba(196,146,74,0.6)"/>
+              <text x="200" y="128" font-family="Cinzel,serif" font-size="6.5" letter-spacing="0.8" fill="rgba(196,146,74,0.4)" text-anchor="middle">TRANSLATE</text>
+              <text x="200" y="158" font-family="Cinzel,serif" font-size="6" letter-spacing="0.5" fill="rgba(196,146,74,0.3)" text-anchor="middle">responsibly</text>
+            </g>
+
+            <!-- RIGHT: DECISION BRIEF panel -->
+            <g class="pb-panel">
+              <rect x="234" y="58" width="136" height="160" rx="10" fill="rgba(122,80,24,0.08)" stroke="rgba(196,146,74,0.4)" stroke-width="1.5"/>
+              <text x="302" y="78" font-family="Cinzel,serif" font-size="7" letter-spacing="0.8" fill="rgba(196,146,74,0.65)" text-anchor="middle">DECISION BRIEF</text>
+              <!-- Brief sections with colour-coded left bars -->
+              <!-- Context -->
+              <rect x="244" y="88" width="4" height="18" rx="2" fill="rgba(122,80,24,0.5)"/>
+              <text x="254" y="99" font-family="Cinzel,serif" font-size="6.5" fill="rgba(196,146,74,0.6)">Context</text>
+              <line x1="254" y1="104" x2="360" y2="104" stroke="rgba(122,80,24,0.2)" stroke-width="0.8"/>
+              <!-- Evidence -->
+              <rect x="244" y="115" width="4" height="18" rx="2" fill="rgba(160,110,42,0.5)"/>
+              <text x="254" y="126" font-family="Cinzel,serif" font-size="6.5" fill="rgba(196,146,74,0.55)">Evidence</text>
+              <line x1="254" y1="131" x2="360" y2="131" stroke="rgba(122,80,24,0.2)" stroke-width="0.8"/>
+              <!-- Meaning -->
+              <rect x="244" y="142" width="4" height="18" rx="2" fill="rgba(196,146,74,0.5)"/>
+              <text x="254" y="153" font-family="Cinzel,serif" font-size="6.5" fill="rgba(201,171,132,0.55)">Meaning</text>
+              <line x1="254" y1="158" x2="355" y2="158" stroke="rgba(122,80,24,0.2)" stroke-width="0.8"/>
+              <!-- Limits -->
+              <rect x="244" y="169" width="4" height="18" rx="2" fill="rgba(104,117,88,0.5)"/>
+              <text x="254" y="180" font-family="Cinzel,serif" font-size="6.5" fill="rgba(142,158,120,0.55)">Limits</text>
+              <line x1="254" y1="185" x2="352" y2="185" stroke="rgba(104,117,88,0.2)" stroke-width="0.8"/>
+              <!-- Options -->
+              <rect x="244" y="196" width="4" height="18" rx="2" fill="rgba(104,117,88,0.4)"/>
+              <text x="254" y="207" font-family="Cinzel,serif" font-size="6.5" fill="rgba(142,158,120,0.5)">Options</text>
+              <line x1="254" y1="212" x2="358" y2="212" stroke="rgba(104,117,88,0.2)" stroke-width="0.8"/>
+            </g>
+
+            <!-- BOTTOM ROW: Three principles -->
+            <!-- Principle 1: Rigorous -->
+            <g class="pb-panel">
+              <rect x="48" y="244" width="90" height="64" rx="8" fill="rgba(122,80,24,0.08)" stroke="rgba(122,80,24,0.25)" stroke-width="1"/>
+              <text x="93" y="264" font-family="Cinzel,serif" font-size="7.5" fill="rgba(196,146,74,0.65)" text-anchor="middle">RIGOROUS</text>
+              <text x="93" y="278" font-family="DM Sans,sans-serif" font-size="6.5" fill="rgba(244,237,224,0.35)" text-anchor="middle" font-weight="300">Caveats retained</text>
+              <text x="93" y="290" font-family="DM Sans,sans-serif" font-size="6.5" fill="rgba(244,237,224,0.3)" text-anchor="middle" font-weight="300">Evidence bounded</text>
+            </g>
+
+            <!-- Principle 2: Usable -->
+            <g class="pb-panel">
+              <rect x="154" y="244" width="90" height="64" rx="8" fill="rgba(122,80,24,0.08)" stroke="rgba(122,80,24,0.25)" stroke-width="1"/>
+              <text x="199" y="264" font-family="Cinzel,serif" font-size="7.5" fill="rgba(196,146,74,0.65)" text-anchor="middle">USABLE</text>
+              <text x="199" y="278" font-family="DM Sans,sans-serif" font-size="6.5" fill="rgba(244,237,224,0.35)" text-anchor="middle" font-weight="300">Decision-facing</text>
+              <text x="199" y="290" font-family="DM Sans,sans-serif" font-size="6.5" fill="rgba(244,237,224,0.3)" text-anchor="middle" font-weight="300">Plain language</text>
+            </g>
+
+            <!-- Principle 3: Proportionate -->
+            <g class="pb-panel">
+              <rect x="260" y="244" width="110" height="64" rx="8" fill="rgba(122,80,24,0.08)" stroke="rgba(122,80,24,0.25)" stroke-width="1"/>
+              <text x="315" y="264" font-family="Cinzel,serif" font-size="7.5" fill="rgba(196,146,74,0.65)" text-anchor="middle">PROPORTIONATE</text>
+              <text x="315" y="278" font-family="DM Sans,sans-serif" font-size="6.5" fill="rgba(244,237,224,0.35)" text-anchor="middle" font-weight="300">Options, not mandates</text>
+              <text x="315" y="290" font-family="DM Sans,sans-serif" font-size="6.5" fill="rgba(244,237,224,0.3)" text-anchor="middle" font-weight="300">Next steps named</text>
+            </g>
+
+            <!-- Connecting lines bottom row to panels -->
+            <line x1="108" y1="218" x2="93"  y2="244" stroke="rgba(122,80,24,0.15)" stroke-width="1" stroke-dasharray="4 3"/>
+            <line x1="302" y1="218" x2="199" y2="244" stroke="rgba(122,80,24,0.15)" stroke-width="1" stroke-dasharray="4 3"/>
+            <line x1="302" y1="218" x2="315" y2="244" stroke="rgba(122,80,24,0.15)" stroke-width="1" stroke-dasharray="4 3"/>
+
+            <!-- Bottom label -->
+            <text x="200" y="334" font-family="Cinzel,serif" font-size="7.5" letter-spacing="2" fill="rgba(196,146,74,0.28)" text-anchor="middle">PAPER IS SOURCE · DECISION IS DESTINATION</text>
+          </svg>
+        </div>
       </div>
-    </div>
 
     </div>
-  </header>
+  </div>
+</section>
 
-  <main class="khr-main">
-    <div class="container khr-grid">
-      <article class="khr-article">
+<!-- ════════════ CONTENT ════════════ -->
+<div class="container">
+  <div class="khr-layout">
+    <article class="khr-article" id="articleBody">
 
-  <section class="khr-editorial-section" id="what-problem-this-playbook-solves">
-    <div class="khr-section-kicker">Playbook Purpose</div>
-    <h2>What problem this playbook solves</h2>
-    <p>Strong research often fails to influence action because it stays in the form in which it was produced. A paper can be careful, nuanced, and credible, yet remain unusable for people who need to make decisions, allocate resources, shape a pilot, or redesign a workflow.</p>
-    <p>A decision brief solves a translation problem. It reorganises the most decision-relevant parts of a paper for readers who need clarity more than academic form. This does not mean oversimplifying the work; it means translating it responsibly.</p>
-  </section>
+      <!-- SECTION 1: The Problem -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">The Translation Problem</p>
+        <h2 class="khr-h2">Why strong research <em>fails to influence decisions</em></h2>
 
+        <div class="pull-quote">
+          <p>Strong research often fails to change decisions — not because it is wrong, but because it stays in the form in which it was produced. A paper is written for reviewers and the scholarly record. A decision brief is written for someone who needs to act.</p>
+          <cite>— Rankine Innovation Lab · Knowledge Hub</cite>
+        </div>
 
-  <section class="khr-infographic" aria-label="What a Decision Brief Must Answer">
-    <div class="khr-infographic-head">
-      <h3>What a Decision Brief Must Answer</h3>
-      <span>Five questions for a usable brief</span>
-    </div>
-    <div class="khr-infographic-grid">
-      <div class="khr-infographic-cell"><strong>Issue</strong><p>What practical issue does this research speak to?</p></div>
-      <div class="khr-infographic-cell"><strong>Evidence</strong><p>What does the paper actually show?</p></div>
-      <div class="khr-infographic-cell"><strong>Meaning</strong><p>Why does the evidence matter in practice?</p></div>
-      <div class="khr-infographic-cell"><strong>Limits</strong><p>What should the reader be cautious about?</p></div>
-      <div class="khr-infographic-cell"><strong>Options</strong><p>What actions, pilots, or follow-up questions does it open?</p></div>
-      <div class="khr-infographic-cell"><strong>Owner</strong><p>Who is positioned to act or request the next step?</p></div>
-    </div>
-  </section>
-
-
-  <section class="khr-module khr-module--steps khr-procedure">
-    <h3>Six-Step Translation Process</h3>
-    <p>Write for the decision, not for the paper.</p>
-    <ol>
-      <li><strong>Define the decision context</strong><span>Clarify the choice, audience, and practical question before opening the paper.</span></li>
-      <li><strong>Extract the decision-relevant core</strong><span>Identify the problem statement, main finding, evidence boundary, and practical implication.</span></li>
-      <li><strong>Rebuild for a non-academic reader</strong><span>Use context, evidence, meaning, limits, and options rather than the paper’s original structure.</span></li>
-      <li><strong>Translate, do not flatten</strong><span>Remove avoidable complexity while preserving caveats and conditions.</span></li>
-      <li><strong>Add a decision layer</strong><span>Turn findings into options, pilot logic, no-go guidance, or monitoring requirements.</span></li>
-      <li><strong>Review for rigor and usability</strong><span>Check whether the researcher would recognise the work and the decision-maker would understand it.</span></li>
-    </ol>
-  </section>
-
-
-  <section class="khr-editorial-section" id="when-to-use-this-playbook">
-    <div class="khr-section-kicker">Use Case</div>
-    <h2>When to use this playbook</h2>
-    <p>This format works when the underlying research is strong but the audience is not looking for a full academic reading experience. It is especially useful for programme teams, innovation leads, department heads, policy partners, grant managers, and institutional decision-makers.</p>
-    <p>It is not a replacement for a technical review, systematic synthesis, or methodological replication. In those cases, the brief can sit beside the longer document, but should not pretend to contain it all.</p>
-  </section>
-
-
-  <section class="khr-matrix" aria-label="Sample Decision-Brief Structure">
-    <h3>Sample Decision-Brief Structure</h3>
-    <div class="khr-matrix-rows">
-      <div class="khr-matrix-row"><strong>1. Decision context</strong><span>One paragraph explaining the practical question and audience.</span></div>
-      <div class="khr-matrix-row"><strong>2. What the research examined</strong><span>A short description of the study, evidence base, or method.</span></div>
-      <div class="khr-matrix-row"><strong>3. What it found</strong><span>The most decision-relevant result in plain language.</span></div>
-      <div class="khr-matrix-row"><strong>4. What this means</strong><span>Practical implications for the target audience.</span></div>
-      <div class="khr-matrix-row"><strong>5. Limits and cautions</strong><span>What the evidence does not justify yet.</span></div>
-      <div class="khr-matrix-row"><strong>6. Options or next steps</strong><span>Possible actions framed clearly and proportionately.</span></div>
-    </div>
-  </section>
-
-
-  <section class="khr-split-panel">
-    <div class="khr-split-panel-head">Translation Quality Test</div>
-    <div class="khr-split-grid">
-      <div>
-        <h3>The brief is rigorous when</h3>
-        <ul>
-        <li>Necessary uncertainty remains visible.</li>
-        <li>Evidence type and boundary are clear.</li>
-        <li>The original researchers would recognise the claim.</li>
-        <li>The implications do not exceed the evidence.</li>
-        </ul>
+        <p class="khr-body">
+          A decision brief solves a translation problem. It reorganises the most decision-relevant parts of a research paper for readers who need clarity more than academic form. This does not mean oversimplifying the work — it means translating it responsibly. The original researchers should still recognise what their work says. But the decision-maker should understand what it means for them.
+        </p>
+        <p class="khr-body">
+          The distinction between a brief and a summary is critical and consistently missed. A summary reproduces content in a shorter form. A decision brief reconstructs it around a different question: not "what did this paper say?" but "what should someone do differently as a result of this evidence?"
+        </p>
       </div>
-      <div>
-        <h3>The brief is usable when</h3>
-        <ul>
-        <li>A non-specialist can scan it quickly.</li>
-        <li>The decision context is explicit.</li>
-        <li>Options are clear but proportionate.</li>
-        <li>Next steps have owners or conditions.</li>
-        </ul>
+
+      <!-- SECTION 2: Brief vs Summary -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Conceptual Foundation</p>
+        <h2 class="khr-h2">A decision brief is not a <em>shorter summary</em></h2>
+
+        <p class="khr-body">
+          Understanding what distinguishes a brief from a summary is the first prerequisite for writing a good one. The differences are structural, not stylistic — they reflect a genuinely different purpose.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Core Distinction</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Decision Brief vs Summary — What Changes and Why</span>
+          </div>
+          <div class="infographic-body" style="padding:0">
+            <div class="compare-table">
+              <div class="compare-col compare-col--brief">
+                <div class="compare-col-header">
+                  <span class="compare-col-icon">✓</span>
+                  <span class="compare-col-label">Decision Brief</span>
+                </div>
+                <div class="compare-col-title">Written for the person who must act</div>
+                <div class="compare-items">
+                  <div class="compare-item"><span class="ci-dot"></span>Begins with the decision context, not the paper's abstract</div>
+                  <div class="compare-item"><span class="ci-dot"></span>Extracts only the evidence relevant to the specific decision</div>
+                  <div class="compare-item"><span class="ci-dot"></span>Names implications, options, and recommended next moves</div>
+                  <div class="compare-item"><span class="ci-dot"></span>States clearly what the evidence does not yet support</div>
+                  <div class="compare-item"><span class="ci-dot"></span>Can be acted on without reading the original paper</div>
+                </div>
+              </div>
+              <div class="compare-col compare-col--summary">
+                <div class="compare-col-header">
+                  <span class="compare-col-icon">≠</span>
+                  <span class="compare-col-label">Summary Note</span>
+                </div>
+                <div class="compare-col-title">Written around the paper's own structure</div>
+                <div class="compare-items">
+                  <div class="compare-item"><span class="ci-dot"></span>Follows the paper's sequence — introduction through conclusion</div>
+                  <div class="compare-item"><span class="ci-dot"></span>Reproduces findings in shorter form without prioritising them</div>
+                  <div class="compare-item"><span class="ci-dot"></span>Stops at "what was found" without reaching "so what"</div>
+                  <div class="compare-item"><span class="ci-dot"></span>Leaves the decision-maker to draw their own implications</div>
+                  <div class="compare-item"><span class="ci-dot"></span>May be accurate without being decision-ready</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
 
+      <!-- SECTION 3: Six Translation Steps -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Implementation Sequence</p>
+        <h2 class="khr-h2">The six-step <em>translation process</em></h2>
 
-  <section class="khr-editorial-section" id="common-mistakes">
-    <div class="khr-section-kicker">Mistakes to Avoid</div>
-    <h2>Common mistakes</h2>
-    <p>One common mistake is confusing a decision brief with a summary note. A summary reproduces content; a brief supports a decision. Another mistake is stripping away all uncertainty to sound decisive. That weakens trust.</p>
-    <p>A third mistake is making the brief too long. If it recreates the density of the paper, it loses its value. The brief should be lean enough to support action and strong enough to protect rigor.</p>
-  </section>
+        <p class="khr-body">
+          Each step in this sequence has a distinct purpose. Skipping steps does not accelerate the process — it shifts the failure mode from "brief not started" to "brief that looks finished but doesn't work." The order matters because purpose must precede extraction, which must precede framing.
+        </p>
 
-
-  <section class="khr-checklist-panel">
-    <div class="khr-checklist-symbol">◎</div>
-    <div>
-      <h3>Decision Brief Completion Check</h3>
-    <p>If one answer is weak, revise before circulation.</p>
-      <ul>
-      <li>Is the decision context clear?</li>
-      <li>Is the evidence accurately represented?</li>
-      <li>Are implications and limits both visible?</li>
-      <li>Are next steps proportionate to the evidence?</li>
-      <li>Can the target reader act without reading the full paper first?</li>
-      </ul>
-    </div>
-  </section>
-
-
-  <section class="khr-editorial-section" id="references-and-further-reading">
-    <div class="khr-section-kicker">Reading Trail</div>
-    <h2>References and further reading</h2>
-    <p>Pair this playbook with research translation practice, evidence synthesis methods, decision memo formats, and examples from applied innovation teams.</p>
-    <p>The practical takeaway: the paper is the source, but the decision is the destination.</p>
-  </section>
-
-      </article>
-
-  <aside class="khr-sidebar" aria-label="Resource sidebar">
-    <div class="khr-sidecard khr-progress-card">
-      <h3>Reading Progress</h3>
-      <div class="khr-progress-track"><span></span></div>
-      <p>Start with the framing, use the visual modules to compare options, then close with the checklist.</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Resource Details</h3>
-      <p><strong>Cross-Disciplinary Innovation</strong><br>Playbook · Knowledge Hub resource</p>
-      <p><strong>Practitioner</strong><br>Researchers · programme teams · policy and partnership leads</p>
-      <p>6 min read · 6 visual modules</p>
-      <p>Updated April 2026</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Continue Reading</h3>
-      <div class="khr-related">
-      <a href="../explainers/rag-for-stem-decision-support.html">RAG for STEM Decision Support</a>
-      <a href="../frameworks/ai-adoption-readiness-for-research-teams.html">AI Adoption Readiness for Research Teams</a>
-      <a href="../lab-notes/what-repeated-reading-of-genai-papers-is-revealing.html">What Repeated Reading of GenAI Papers Is Revealing</a>
-        <a href="../../knowledge-hub.html">← Back to Knowledge Hub</a>
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Step-by-Step Blueprint</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">From Paper to Actionable Brief — Six Steps</span>
+          </div>
+          <div class="infographic-body">
+            <div class="steps-list">
+              <div class="pb-step">
+                <div class="step-marker"><div class="step-dot">01</div></div>
+                <div class="step-body">
+                  <div class="step-title">Define the decision context before opening the paper</div>
+                  <div class="step-desc">Start by writing down the decision, the audience, and the practical question the brief needs to support. This takes ten minutes and changes every subsequent choice. Without it, the extraction process is directionless and the brief will serve nobody in particular.</div>
+                  <span class="step-rule">"What must this person decide, and what do they need to trust that decision?"</span>
+                </div>
+              </div>
+              <div class="pb-step">
+                <div class="step-marker"><div class="step-dot">02</div></div>
+                <div class="step-body">
+                  <div class="step-title">Extract the decision-relevant core</div>
+                  <div class="step-desc">From the paper, identify and pull out: the problem statement, the main finding, the evidence boundary (what conditions the finding applies to), and the most direct practical implication. Everything else can be referenced but not reproduced.</div>
+                </div>
+              </div>
+              <div class="pb-step">
+                <div class="step-marker"><div class="step-dot">03</div></div>
+                <div class="step-body">
+                  <div class="step-title">Rebuild structure around the decision, not the paper</div>
+                  <div class="step-desc">Use the six-section brief structure: context, what the research examined, what it found, what this means, limits and cautions, and options or next steps. Do not follow the paper's own section order — that structure was designed for peer reviewers, not practitioners.</div>
+                </div>
+              </div>
+              <div class="pb-step">
+                <div class="step-marker"><div class="step-dot">04</div></div>
+                <div class="step-body">
+                  <div class="step-title">Translate without flattening</div>
+                  <div class="step-desc">Remove avoidable complexity while preserving caveats and conditions. The test is whether a researcher would still recognise their finding — if the translation has stripped away the conditions under which it holds, it has become a distortion, not a simplification.</div>
+                  <span class="step-rule">"Uncertainty retained is a sign of quality, not weakness."</span>
+                </div>
+              </div>
+              <div class="pb-step">
+                <div class="step-marker"><div class="step-dot">05</div></div>
+                <div class="step-body">
+                  <div class="step-title">Add a decision layer — options, not conclusions</div>
+                  <div class="step-desc">Turn findings into options, pilot logic, no-go guidance, or monitoring requirements. A brief that names implications but not actions leaves the decision-maker one step short of usefulness. Frame options as contingent on conditions, not as fixed recommendations.</div>
+                </div>
+              </div>
+              <div class="pb-step">
+                <div class="step-marker"><div class="step-dot">06</div></div>
+                <div class="step-body">
+                  <div class="step-title">Review against both tests before sharing</div>
+                  <div class="step-desc">Apply the dual test: would the original researcher recognise their work in this brief? And would the decision-maker be able to act on it without first reading the paper? Both must be true. A brief that passes only one test is either accurate-but-unusable or usable-but-distorted.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="khr-sidecard khr-engage-card">
-      <h3>Engage with Rankine</h3>
-      <p>Use this playbook when research needs to inform pilots, partnerships, funding, policy, or programme decisions.</p>
-      <a class="btn" href="../../contact.html">Discuss a Partnership →</a>
-    </div>
-  </aside>
 
-    </div>
-  </main>
+      <!-- SECTION 4: Brief Structure -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Practical Tool</p>
+        <h2 class="khr-h2">The six-section brief <em>structure that works</em></h2>
 
+        <p class="khr-body">
+          This section structure is not a template to fill in — it is a sequencing logic. Each section does a specific job that the preceding section makes possible. The order reflects how decision-makers actually absorb evidence under time pressure.
+        </p>
 
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Structure Reference</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Six-Section Decision Brief — Purpose of Each Block</span>
+          </div>
+          <div class="infographic-body">
+            <div class="brief-structure">
+              <div class="brief-block">
+                <span class="brief-block-num">1</span>
+                <div class="brief-block-body">
+                  <div class="brief-block-title">Decision Context</div>
+                  <div class="brief-block-desc">One paragraph explaining the practical question and audience. This is what justifies the brief's existence and tells the reader why they are holding it. Without this, the reader has no anchor for interpreting what follows.</div>
+                  <span class="brief-block-word">Why this, why now, for whom</span>
+                </div>
+              </div>
+              <div class="brief-block">
+                <span class="brief-block-num">2</span>
+                <div class="brief-block-body">
+                  <div class="brief-block-title">What the Research Examined</div>
+                  <div class="brief-block-desc">A short, precise description of the study — its scope, method, and conditions. Not a literature review. Just enough to let the reader assess whether the evidence is relevant to their context.</div>
+                  <span class="brief-block-word">Scope and method</span>
+                </div>
+              </div>
+              <div class="brief-block">
+                <span class="brief-block-num">3</span>
+                <div class="brief-block-body">
+                  <div class="brief-block-title">What It Found</div>
+                  <div class="brief-block-desc">The most decision-relevant result in plain language. Not the full findings section — only the finding that connects most directly to the decision context defined in section one. Other findings can be referenced but not foregrounded.</div>
+                  <span class="brief-block-word">The headline evidence</span>
+                </div>
+              </div>
+              <div class="brief-block">
+                <span class="brief-block-num">4</span>
+                <div class="brief-block-body">
+                  <div class="brief-block-title">What This Means</div>
+                  <div class="brief-block-desc">Practical implications for the target audience — what the evidence suggests about how to act, what to change, or what to investigate further. This is where translation becomes interpretation, and where the author's domain knowledge matters most.</div>
+                  <span class="brief-block-word">Implications and significance</span>
+                </div>
+              </div>
+              <div class="brief-block">
+                <span class="brief-block-num">5</span>
+                <div class="brief-block-body">
+                  <div class="brief-block-title">Limits and Cautions</div>
+                  <div class="brief-block-desc">What the evidence does not yet justify. This section is where a brief earns its credibility. Stating limits clearly is not defensive — it is what allows the decision-maker to trust the rest of the brief.</div>
+                  <span class="brief-block-word">What should not be claimed</span>
+                </div>
+              </div>
+              <div class="brief-block">
+                <span class="brief-block-num">6</span>
+                <div class="brief-block-body">
+                  <div class="brief-block-title">Options or Next Steps</div>
+                  <div class="brief-block-desc">Possible actions framed clearly and proportionately. Frame as options with conditions attached, not as recommendations. Name who could act on each option, and what additional evidence would be needed to increase confidence.</div>
+                  <span class="brief-block-word">Conditional actions</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 5: The Five Questions -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Extraction Framework</p>
+        <h2 class="khr-h2">Five questions to answer <em>from the paper first</em></h2>
+
+        <p class="khr-body">
+          Before writing a single word of the brief, work through these five questions using only the paper as a source. If any cannot be answered clearly, the brief is not yet ready to be written — or the paper may not be as decision-relevant as assumed.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Pre-Writing Extraction</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Five Questions to Answer Before Writing Begins</span>
+          </div>
+          <div class="infographic-body">
+            <div class="questions-grid">
+              <div class="q-card">
+                <div class="q-num">01</div>
+                <div class="q-text">What practical issue does this research speak to?</div>
+                <div class="q-context">If the answer is vague ("AI in general" or "sustainability"), narrow it further until it names a specific decision or workflow problem.</div>
+              </div>
+              <div class="q-card">
+                <div class="q-num">02</div>
+                <div class="q-text">What does the paper actually show — not claim?</div>
+                <div class="q-context">Distinguish between the finding and the interpretation the authors place on it. Both belong in the brief, but they should not be conflated.</div>
+              </div>
+              <div class="q-card">
+                <div class="q-num">03</div>
+                <div class="q-text">Under what conditions does this finding hold?</div>
+                <div class="q-context">Every evidence claim has boundary conditions — the specific context, scale, population, or setting in which it was observed. Name them precisely; they constrain what can be claimed.</div>
+              </div>
+              <div class="q-card">
+                <div class="q-num">04</div>
+                <div class="q-text">Why does this finding matter to the specific decision audience?</div>
+                <div class="q-context">This is the translation step. What changes for the decision-maker if this finding is accurate? What does it open, close, or complicate in their situation?</div>
+              </div>
+              <div class="q-card" style="grid-column: 1 / -1">
+                <div class="q-num">05</div>
+                <div class="q-text">What actions, pilots, or further questions does this evidence open — and what does it not yet support?</div>
+                <div class="q-context">Both halves of this question matter equally. A brief that only names what the evidence supports invites overclaiming. The limit statement is what makes the options credible.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 6: Common Mistakes -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Critical Awareness</p>
+        <h2 class="khr-h2">Three mistakes that <em>undermine the brief's value</em></h2>
+
+        <p class="khr-body">
+          These three failure modes account for most poor decision briefs. Each one produces a different kind of unusability — and each is predictable enough to design against in advance.
+        </p>
+
+        <div class="mistakes-row reveal d1">
+          <div class="mistake-tile">
+            <span class="mistake-ghost" aria-hidden="true">1</span>
+            <span class="mistake-icon" aria-hidden="true">📋</span>
+            <h3 class="mistake-title">Confusing a brief with a summary</h3>
+            <p class="mistake-desc">A summary reproduces content; a brief supports a decision. If the document follows the paper's structure, it has become a summary — regardless of how short or clearly written it is. Structure reveals purpose.</p>
+          </div>
+          <div class="mistake-tile">
+            <span class="mistake-ghost" aria-hidden="true">2</span>
+            <span class="mistake-icon" aria-hidden="true">🎭</span>
+            <h3 class="mistake-title">Stripping uncertainty to appear decisive</h3>
+            <p class="mistake-desc">A brief that removes all caveats to sound confident has become a distortion. Uncertainty preserved is what allows the decision-maker to calibrate their confidence appropriately. A brief without limits is not trusted — it is suspected.</p>
+          </div>
+          <div class="mistake-tile">
+            <span class="mistake-ghost" aria-hidden="true">3</span>
+            <span class="mistake-icon" aria-hidden="true">📏</span>
+            <h3 class="mistake-title">Making the brief too long</h3>
+            <p class="mistake-desc">If the brief recreates the density of the paper, it loses its value. The brief should be lean enough to support action and strong enough to protect rigour. If a decision-maker needs to read it twice slowly, it has not been translated — it has been reformatted.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 7: Completion Checklist -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Quality Gate</p>
+        <h2 class="khr-h2">Before sharing — <em>apply this completion check</em></h2>
+
+        <p class="khr-body">
+          Before circulating a decision brief, work through these five checks. If any answer is weak, revise the brief before sharing it. A weak brief shared widely is harder to correct than one caught before distribution.
+        </p>
+
+        <div class="completion-checklist">
+          <div class="cc-header">
+            <span class="cc-icon" aria-hidden="true">◎</span>
+            <div>
+              <div class="cc-label">Decision Brief — Completion Checklist</div>
+              <div class="cc-title">Five checks before the brief leaves your desk</div>
+            </div>
+          </div>
+          <div class="cc-items">
+            <div class="cc-item">
+              <span class="cc-check" aria-hidden="true">?</span>
+              <span class="cc-question">Is the decision context stated clearly — and does everything else in the brief serve that context?</span>
+            </div>
+            <div class="cc-item">
+              <span class="cc-check" aria-hidden="true">?</span>
+              <span class="cc-question">Would the original researchers recognise their finding in the way it has been translated here?</span>
+            </div>
+            <div class="cc-item">
+              <span class="cc-check" aria-hidden="true">?</span>
+              <span class="cc-question">Are the limits and cautions as prominent as the implications — or have they been buried at the end?</span>
+            </div>
+            <div class="cc-item">
+              <span class="cc-check" aria-hidden="true">?</span>
+              <span class="cc-question">Are the options proportionate to the evidence — or do they claim more than the research supports?</span>
+            </div>
+            <div class="cc-item">
+              <span class="cc-check" aria-hidden="true">?</span>
+              <span class="cc-question">Can the target reader act on this brief without first reading the original paper?</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REFERENCES -->
+      <div class="khr-section reveal">
+        <div class="references">
+          <span class="references-label">References &amp; Source Base</span>
+          <ol>
+            <li>Rankine Innovation Lab Knowledge Hub research brief: Playbook direction for research-to-decision translation, with editorial framing for the cross-disciplinary innovation domain.</li>
+            <li>Cross-link: What Repeated Reading of GenAI Papers Is Revealing — Rankine Knowledge Hub. Provides an applied example of reading research for decision-relevance rather than academic form.</li>
+            <li>Cross-link: AI Adoption Readiness for Research Teams — Rankine Knowledge Hub. Shows the kind of decision context that a brief built on AI evidence might be designed to support.</li>
+            <li>Cross-link: RAG for STEM Decision Support — Rankine Knowledge Hub. Illustrates how retrieved evidence can be translated into usable decision-support language.</li>
+          </ol>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="khr-sidebar">
+
+      <div class="side-card">
+        <div class="side-card-header">Reading Progress</div>
+        <div class="side-card-body">
+          <div class="reading-meter">
+            <div class="reading-meter-fill" id="sidebarMeter"></div>
+          </div>
+          <div class="reading-meter-label">
+            <span>Start</span>
+            <span id="progressPct">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-card-header">Resource Details</div>
+        <div class="side-card-body">
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--amber);box-shadow:0 0 8px rgba(122,80,24,0.5)"></span>
+            <div>
+              <div class="domain-label">Cross-Disciplinary Innovation</div>
+              <div class="domain-sub">Core domain · First-wave resource</div>
+            </div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--copper);box-shadow:0 0 8px rgba(160,92,56,0.4)"></span>
+            <div>
+              <div class="domain-label">Researchers · Programme Teams</div>
+              <div class="domain-sub">Policy leads · partnership managers</div>
+            </div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--sand);box-shadow:0 0 8px rgba(201,171,132,0.4)"></span>
+            <div>
+              <div class="domain-label">6 min read · 5 modules</div>
+              <div class="domain-sub">Updated 2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-card-header">Continue Reading</div>
+        <div class="side-card-body">
+          <a href="../explainers/rag-for-stem-decision-support.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text">
+              <span class="related-link-tag">Explainer</span>
+              RAG for STEM Decision Support
+            </span>
+          </a>
+          <a href="../frameworks/ai-adoption-readiness-for-research-teams.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text">
+              <span class="related-link-tag">Framework</span>
+              AI Adoption Readiness for Research Teams
+            </span>
+          </a>
+          <a href="../lab-notes/what-repeated-reading-of-genai-papers-is-revealing.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text">
+              <span class="related-link-tag">Lab Note</span>
+              What Repeated Reading of GenAI Papers Is Revealing
+            </span>
+          </a>
+          <button class="btn-side" onclick="window.location.href='../../knowledge-hub.html'">
+            ← Back to Knowledge Hub
+          </button>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-card-header">Engage with Rankine</div>
+        <div class="side-card-body">
+          <p>This playbook connects to our research translation and cross-disciplinary innovation programmes. If your team needs support turning evidence into decision-ready documents, we would like to hear from you.</p>
+          <button class="btn-side" onclick="window.location.href='../../contact.html'">
+            Discuss a Partnership →
+          </button>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+</div>
+
+<!-- ════════════ FOOTER ════════════ -->
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="footer-logo-icon">
+      <div>
+        <img src="../../Images/rakine_logo.svg" class="footer-logo-icon" alt="Rankine Innovation Lab logo"/>
         <div class="footer-logo-name">Rankine Innovation Lab</div>
         <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
         <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
       </div>
       <div>
-        <h3 class="footer-col-title">Navigation</h3>
+        <div class="footer-col-title">Navigation</div>
         <ul class="footer-links">
           <li><a href="../../about.html">About the Lab</a></li>
-          <li><a href="../../index.html#method">The Rankine Method</a></li>
-          <li><a href="../../index.html#focus">Focus Areas</a></li>
+          <li><a href="../../research.html">Research &amp; Project</a></li>
           <li><a href="../../programmes.html">Programmes</a></li>
-<li><a href="../../team.html">Team</a></li>
+          <li><a href="../../team.html">Team</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Domains</h3>
+        <div class="footer-col-title">Domains</div>
         <ul class="footer-links">
-          <li><a href="../../research.html#ai">AI for STEM</a></li>
-          <li><a href="../../research.html#sustainability">Sustainability</a></li>
-          <li><a href="../../research.html#smart-agriculture">Smart Agriculture</a></li>
-          <li><a href="../../research.html#cross-disciplinary">Cross-Disciplinary</a></li>
+          <li><a href="../../research.html">AI for STEM</a></li>
+          <li><a href="../../research.html">Sustainability</a></li>
+          <li><a href="../../research.html">Smart Agriculture</a></li>
+          <li><a href="../../research.html">Cross-Disciplinary</a></li>
           <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Engage</h3>
+        <div class="footer-col-title">Engage</div>
         <ul class="footer-links">
-<li><a href="../../contact.html">Research Collaboration</a></li>
+          <li><a href="../../contact.html">Research Collaboration</a></li>
           <li><a href="../../contact.html">Training Enquiries</a></li>
           <li><a href="../../contact.html">Speaking</a></li>
           <li><a href="mailto:hello@rankineinnovationlab.com">hello@rankineinnovationlab.com</a></li>
@@ -274,7 +995,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Rankine Innovation Lab. All rights reserved.</p>
+      <p class="footer-copy">&copy; 2025 <em>Rankine Innovation Lab</em>. All rights reserved.</p>
       <div class="footer-legal">
         <a href="../../privacy.html">Privacy</a>
         <a href="../../terms.html">Terms</a>
@@ -284,28 +1005,73 @@
   </div>
 </footer>
 
-
 <script>
-  const nav = document.getElementById('siteNav');
-  const toggle = document.getElementById('mobileToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  function setNavState(){
-    if(window.scrollY > 24){ nav.classList.remove('transparent'); nav.classList.add('solid'); }
-    else { nav.classList.add('transparent'); nav.classList.remove('solid'); }
-  }
-  setNavState();
-  window.addEventListener('scroll', setNavState, { passive: true });
-  if(toggle && mobileMenu){
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.classList.toggle('open');
-      mobileMenu.classList.toggle('open', isOpen);
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-      document.body.classList.toggle('menu-open', isOpen);
-    });
-  }
-</script>
+/* ── MOBILE MENU ─────────────────────────────────────────────────────── */
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu   = document.getElementById('mobileMenu');
+function closeMobile() {
+  hamburgerBtn.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+  hamburgerBtn.setAttribute('aria-expanded','false');
+}
+hamburgerBtn.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburgerBtn.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+  hamburgerBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
 
-<script src="../resource-template.js"></script>
+/* ── READING PROGRESS ────────────────────────────────────────────────── */
+const progressBar  = document.getElementById('progressBar');
+const sidebarMeter = document.getElementById('sidebarMeter');
+const progressPct  = document.getElementById('progressPct');
+const articleBody  = document.getElementById('articleBody');
+
+function updateProgress() {
+  const rect    = articleBody.getBoundingClientRect();
+  const total   = rect.height - window.innerHeight;
+  const scrolled = Math.max(0, -rect.top);
+  const pct     = Math.min(100, Math.round((scrolled / total) * 100));
+  progressBar.style.width  = pct + '%';
+  sidebarMeter.style.width = pct + '%';
+  progressPct.textContent  = pct + '%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+
+/* ── SCROLL REVEALS ──────────────────────────────────────────────────── */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      requestAnimationFrame(() => entry.target.classList.add('visible'));
+      revealObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ── COMPLETION CHECKLIST INTERACTION ───────────────────────────────── */
+document.querySelectorAll('.cc-item').forEach(item => {
+  let checked = false;
+  item.addEventListener('click', () => {
+    checked = !checked;
+    const check = item.querySelector('.cc-check');
+    if (checked) {
+      check.textContent = '✓';
+      check.style.background = 'rgba(122,80,24,0.28)';
+      check.style.borderColor = 'var(--amber-pale)';
+      check.style.color = 'var(--amber-pale)';
+      item.style.borderColor = 'rgba(122,80,24,0.25)';
+    } else {
+      check.textContent = '?';
+      check.style.background = '';
+      check.style.borderColor = '';
+      check.style.color = '';
+      item.style.borderColor = '';
+    }
+  });
+  item.style.cursor = 'pointer';
+});
+</script>
 </body>
 </html>
