@@ -1,270 +1,1048 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>A Screening Framework for Bio-Based Material Innovation — Knowledge Hub | Rankine Innovation Lab</title>
-  <meta name="description" content="Bio-based materials need disciplined screening so teams can distinguish implementation potential from novelty, symbolism, or premature sustainability claims.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../resource-template.css">
-</head>
-<body class="resource-page resource-framework">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>A Screening Framework for Bio-Based Material Innovation — Knowledge Hub | Rankine Innovation Lab</title>
+<meta name="description" content="Bio-based materials need disciplined screening so teams can distinguish implementation potential from novelty, symbolism, or premature sustainability claims."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
 
-<nav class="nav transparent" id="siteNav" aria-label="Primary navigation">
-  <div class="container nav-inner">
-    <a class="nav-logo" href="../../index.html" aria-label="Rankine Innovation Lab home">
-      <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="nav-logo-icon">
-      <span class="nav-logo-text">
-        <span class="nav-logo-mark">Rankine</span>
-        <span class="nav-logo-name">Innovation Lab</span>
-      </span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="../../index.html">Home</a></li>
-      <li><a href="../../about.html">About</a></li>
-      <li><a href="../../research.html">Research &amp; Project</a></li>
-      <li><a href="../../programmes.html">Programmes</a></li>
-      <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
-      <li><a href="../../team.html">Team</a></li>
-      <li><a href="../../contact.html">Contact</a></li>
-    </ul>
-    <button class="hamburger" id="mobileToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span><span></span><span></span>
-    </button>
+/* ════════════════════════════════════════════════════════════════════
+   TOKENS — exact Rankine site-wide system
+════════════════════════════════════════════════════════════════════ */
+:root {
+  --chocolate:  #180c06;
+  --espresso:   #241208;
+  --brown:      #3a1c0e;
+  --mahogany:   #5c2d18;
+  --copper:     #a05c38;
+  --copper-lt:  #c47a52;
+  --sand:       #c9ab84;
+  --sand-lt:    #ddc9a8;
+  --cream:      #f4ede0;
+  --cream-lt:   #faf6ef;
+  --sage:       #687558;
+  --sage-lt:    #8e9e78;
+  --moss:       #3d5c2a;
+  --moss-lt:    #5a7e40;
+  --moss-pale:  #7aaa5a;
+  --umber:      #5c4418;
+  --umber-lt:   #7e6030;
+  --white:      #fffcf8;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-label:   'Cinzel', serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-circ: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+}
+
+/* ── RESET ──────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--cream-lt);
+  color: var(--espresso);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+img { display: block; max-width: 100%; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--moss); border-radius: 2px; }
+.container { width: min(1220px, 100%); margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3rem); }
+
+/* ── READING PROGRESS BAR ───────────────────────────────────────────── */
+.progress-bar {
+  position: fixed; top: 0; left: 0;
+  width: 0%; height: 3px;
+  background: linear-gradient(90deg, var(--moss), var(--moss-pale), var(--sand));
+  z-index: 2000; transition: width 0.1s linear;
+}
+
+/* ── NAV ────────────────────────────────────────────────────────────── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(24,12,6,0.97);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 1px 0 rgba(201,171,132,0.12);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+.nav-logo { display: inline-flex; align-items: center; gap: 0.75rem; }
+.nav-logo-icon { width: 40px; height: 40px; border-radius: 8px; }
+.nav-logo-mark { display: block; font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.25em; color: var(--copper); text-transform: uppercase; }
+.nav-logo-name { font-family: var(--font-display); font-size: 1.25rem; color: var(--cream); letter-spacing: 0.02em; }
+.nav-links { display: flex; align-items: center; gap: clamp(0.8rem,1.8vw,1.5rem); list-style: none; }
+.nav-links a { font-size: 0.76rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(244,237,224,0.7); transition: color 0.3s; }
+.nav-links a:hover { color: var(--cream); }
+.nav-links a.active-page { color: var(--sand); }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--cream); transition: all 0.3s; }
+.hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; }
+.hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 0; background: rgba(24,12,6,0.98); backdrop-filter: blur(20px); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; transform: translateY(-100%); transition: transform 0.5s var(--ease-out); }
+.mobile-menu.open { display: flex; transform: translateY(0); }
+.mobile-menu a { font-family: var(--font-display); font-size: 2rem; font-weight: 300; color: var(--cream); }
+
+/* ── HERO ───────────────────────────────────────────────────────────── */
+.khr-hero {
+  min-height: 92vh;
+  background:
+    radial-gradient(ellipse 60% 55% at 88% 18%, rgba(61,92,42,0.36), transparent 55%),
+    radial-gradient(ellipse 45% 45% at 12% 78%, rgba(92,68,24,0.28), transparent 55%),
+    linear-gradient(158deg, #060e04 0%, #0e1c08 38%, #120e06 72%, #080604 100%);
+  display: flex; align-items: center;
+  padding-top: 72px; position: relative; overflow: hidden;
+}
+.khr-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 71px, rgba(201,171,132,0.022) 71px, rgba(201,171,132,0.022) 72px);
+  pointer-events: none;
+}
+.khr-hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 256px; opacity: 0.5; pointer-events: none;
+}
+.khr-hero-inner {
+  position: relative; z-index: 2; width: 100%;
+  padding-block: clamp(3rem,6vw,6rem);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem,5vw,6rem); align-items: center;
+}
+
+.breadcrumb { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,237,224,0.3); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.75rem; }
+.breadcrumb a:hover { color: var(--sand); }
+.breadcrumb strong { color: var(--copper); font-weight: 400; }
+.khr-type-badge { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--moss-pale); border: 1px solid rgba(61,92,42,0.48); background: rgba(61,92,42,0.12); padding: 0.4rem 0.9rem; border-radius: 2px; margin-bottom: 1.5rem; }
+.khr-type-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--moss-pale); box-shadow: 0 0 8px rgba(61,92,42,0.65); }
+.khr-title { font-family: var(--font-display); font-size: clamp(2.4rem, 4.5vw, 4.2rem); font-weight: 300; line-height: 1.08; letter-spacing: -0.012em; color: var(--cream-lt); margin-bottom: 1.4rem; }
+.khr-title em { font-style: italic; color: var(--sand); }
+.khr-dek { font-size: clamp(0.92rem,1.35vw,1.05rem); line-height: 1.82; color: rgba(244,237,224,0.55); font-weight: 300; max-width: 560px; margin-bottom: 2.2rem; }
+.khr-meta-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding-top: 1.5rem; border-top: 1px solid rgba(201,171,132,0.1); }
+.khr-meta-item { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(201,171,132,0.4); }
+.khr-meta-item strong { color: var(--moss-pale); font-weight: 400; }
+
+/* ── HERO SVG ANIMATIONS ────────────────────────────────────────────── */
+.hero-diagram-wrap { display: flex; align-items: center; justify-content: center; }
+.hero-diagram { width: 100%; max-width: 480px; aspect-ratio: 1; }
+.bio-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 40px rgba(61,92,42,0.15)); }
+
+.bio-seg { stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: bioSegDraw 1.8s var(--ease-out) forwards; }
+.bio-seg:nth-child(1){ animation-delay: 0.1s; }
+.bio-seg:nth-child(2){ animation-delay: 0.3s; }
+.bio-seg:nth-child(3){ animation-delay: 0.5s; }
+.bio-seg:nth-child(4){ animation-delay: 0.7s; }
+.bio-seg:nth-child(5){ animation-delay: 0.9s; }
+.bio-seg:nth-child(6){ animation-delay: 1.1s; }
+@keyframes bioSegDraw { to{ stroke-dashoffset: 0; } }
+
+.bio-node { animation: bioNodePulse 3.5s ease-in-out infinite; }
+.bio-node:nth-child(2n){ animation-delay: 0.8s; }
+.bio-node:nth-child(3n){ animation-delay: 1.6s; }
+@keyframes bioNodePulse { 0%,100%{opacity:0.5;r:5} 50%{opacity:1;r:7.5} }
+
+.bio-orbit { animation: bioOrbitPulse 4s ease-in-out infinite; transform-origin: 200px 200px; }
+.bio-orbit:nth-child(2){ animation-delay: 1.5s; }
+@keyframes bioOrbitPulse { 0%,100%{opacity:0.07} 50%{opacity:0.16} }
+
+/* ── LAYOUT ─────────────────────────────────────────────────────────── */
+.khr-layout { display: grid; grid-template-columns: 1fr 340px; gap: 3rem; padding-block: clamp(3rem,6vw,5.5rem); align-items: start; }
+.khr-article { min-width: 0; }
+.khr-section { margin-bottom: clamp(3rem,5vw,4.5rem); padding-bottom: clamp(3rem,5vw,4.5rem); border-bottom: 1px solid rgba(58,28,14,0.08); }
+.khr-section:last-child { border-bottom: none; margin-bottom: 0; }
+.section-eyebrow { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--moss); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.75rem; }
+.section-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--moss); }
+.khr-h2 { font-family: var(--font-display); font-size: clamp(1.6rem,2.8vw,2.2rem); font-weight: 400; line-height: 1.15; color: var(--espresso); letter-spacing: -0.01em; margin-bottom: 1.25rem; }
+.khr-h2 em { font-style: italic; color: var(--moss); }
+.khr-body { font-size: clamp(0.95rem,1.35vw,1.03rem); line-height: 1.88; color: var(--brown); font-weight: 300; }
+.khr-body + .khr-body { margin-top: 1.1rem; }
+
+/* ── PULL QUOTE ─────────────────────────────────────────────────────── */
+.pull-quote { margin: 2.5rem 0; padding: 2rem 2rem 2rem 2.5rem; border-left: 4px solid var(--moss-lt); background: linear-gradient(135deg, rgba(61,92,42,0.06), rgba(201,171,132,0.02)); border-radius: 0 var(--radius-md) var(--radius-md) 0; position: relative; overflow: hidden; }
+.pull-quote::before { content: '"'; position: absolute; top: -1rem; left: 1rem; font-family: var(--font-display); font-size: 8rem; font-weight: 700; color: rgba(61,92,42,0.08); line-height: 1; pointer-events: none; }
+.pull-quote p { font-family: var(--font-display); font-style: italic; font-size: clamp(1.15rem,2vw,1.45rem); font-weight: 300; line-height: 1.55; color: var(--mahogany); position: relative; z-index: 1; }
+.pull-quote cite { display: block; margin-top: 0.75rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--moss-lt); font-style: normal; }
+
+/* ── INFOGRAPHIC WRAPPER ────────────────────────────────────────────── */
+.infographic { margin: 2.5rem 0; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid rgba(58,28,14,0.1); }
+.infographic-header { background: var(--espresso); padding: 1.25rem 1.75rem; display: flex; align-items: center; gap: 1rem; }
+.infographic-header-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--moss-pale); }
+.infographic-header-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 400; color: var(--cream); }
+.infographic-header-line { flex: 1; height: 1px; background: rgba(201,171,132,0.12); }
+.infographic-body { background: var(--white); padding: 2rem 1.75rem; }
+
+/* ── SIX SCREENING DIMENSIONS ────────────────────────────────────────── */
+/* Matches the "hierarchy" pattern from circular-economy-for-construction.html */
+.dimension-stack { display: flex; flex-direction: column; gap: 0.6rem; }
+.dimension-item {
+  display: flex; align-items: center; gap: 1.25rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: default;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+  position: relative;
+}
+.dimension-item:hover { transform: translateX(6px); box-shadow: 0 4px 20px rgba(24,12,6,0.08); }
+
+.dimension-item:nth-child(1){ background: #0e1c0a; border-color: rgba(61,92,42,0.42); }
+.dimension-item:nth-child(2){ background: #162414; border-color: rgba(61,92,42,0.32); }
+.dimension-item:nth-child(3){ background: #1e2e18; border-color: rgba(61,92,42,0.24); }
+.dimension-item:nth-child(4){ background: #f4ede0; border-color: rgba(58,28,14,0.12); }
+.dimension-item:nth-child(5){ background: #f0e8d8; border-color: rgba(58,28,14,0.1); }
+.dimension-item:nth-child(6){ background: #ebe0cc; border-color: rgba(58,28,14,0.08); }
+
+.d-bar { width: 5px; flex-shrink: 0; border-radius: 3px; align-self: stretch; min-height: 40px; }
+.dimension-item:nth-child(1) .d-bar { background: var(--moss-pale); box-shadow: 0 0 10px rgba(61,92,42,0.45); }
+.dimension-item:nth-child(2) .d-bar { background: var(--moss-lt); }
+.dimension-item:nth-child(3) .d-bar { background: var(--moss); }
+.dimension-item:nth-child(4) .d-bar { background: var(--sage); }
+.dimension-item:nth-child(5) .d-bar { background: var(--sage-lt); }
+.dimension-item:nth-child(6) .d-bar { background: rgba(142,158,120,0.55); }
+
+.d-rank { font-family: var(--font-display); font-size: 1.8rem; font-weight: 300; line-height: 1; flex-shrink: 0; width: 2rem; text-align: center; }
+.dimension-item:nth-child(1) .d-rank,
+.dimension-item:nth-child(2) .d-rank,
+.dimension-item:nth-child(3) .d-rank { color: rgba(122,170,90,0.28); }
+.dimension-item:nth-child(4) .d-rank,
+.dimension-item:nth-child(5) .d-rank,
+.dimension-item:nth-child(6) .d-rank { color: rgba(58,28,14,0.13); }
+
+.d-content { flex: 1; }
+.d-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 500; margin-bottom: 0.25rem; }
+.dimension-item:nth-child(1) .d-title,
+.dimension-item:nth-child(2) .d-title,
+.dimension-item:nth-child(3) .d-title { color: var(--cream); }
+.dimension-item:nth-child(4) .d-title,
+.dimension-item:nth-child(5) .d-title,
+.dimension-item:nth-child(6) .d-title { color: var(--espresso); }
+
+.d-desc { font-size: 0.8rem; line-height: 1.6; font-weight: 300; }
+.dimension-item:nth-child(1) .d-desc,
+.dimension-item:nth-child(2) .d-desc,
+.dimension-item:nth-child(3) .d-desc { color: rgba(244,237,224,0.45); }
+.dimension-item:nth-child(4) .d-desc,
+.dimension-item:nth-child(5) .d-desc,
+.dimension-item:nth-child(6) .d-desc { color: var(--brown); }
+
+.d-badge { font-family: var(--font-label); font-size: 0.52rem; letter-spacing: 0.16em; text-transform: uppercase; padding: 0.3rem 0.65rem; border-radius: 2px; flex-shrink: 0; }
+.dimension-item:nth-child(1) .d-badge { background: rgba(61,92,42,0.22); color: var(--moss-pale); border: 1px solid rgba(61,92,42,0.38); }
+.dimension-item:nth-child(2) .d-badge { background: rgba(90,126,64,0.18); color: var(--moss-pale); border: 1px solid rgba(90,126,64,0.3); }
+.dimension-item:nth-child(3) .d-badge { background: rgba(61,92,42,0.15); color: var(--moss-lt); border: 1px solid rgba(61,92,42,0.25); }
+.dimension-item:nth-child(4) .d-badge { background: rgba(104,117,88,0.1); color: var(--sage-lt); border: 1px solid rgba(104,117,88,0.22); }
+.dimension-item:nth-child(5) .d-badge { background: rgba(142,158,120,0.1); color: var(--sage-lt); border: 1px solid rgba(142,158,120,0.2); }
+.dimension-item:nth-child(6) .d-badge { background: rgba(142,158,120,0.08); color: var(--sage); border: 1px solid rgba(142,158,120,0.16); }
+
+/* ── FOUR RATING LEVELS ─────────────────────────────────────────────── */
+.ratings-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.rating-card { padding: 1.5rem 1.25rem; background: var(--espresso); border-radius: var(--radius-md); position: relative; overflow: hidden; cursor: default; transition: transform 0.35s var(--ease-out); }
+.rating-card:hover { transform: translateY(-5px); }
+.rating-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+.rating-card:nth-child(1)::before { background: linear-gradient(90deg, var(--mahogany), var(--copper)); }
+.rating-card:nth-child(2)::before { background: linear-gradient(90deg, var(--copper), var(--sand)); }
+.rating-card:nth-child(3)::before { background: linear-gradient(90deg, var(--moss-lt), var(--moss-pale)); }
+.rating-card:nth-child(4)::before { background: linear-gradient(90deg, var(--moss), var(--moss-lt)); }
+.rating-ghost { font-family: var(--font-display); font-size: 3.5rem; font-weight: 300; color: rgba(201,171,132,0.05); line-height: 1; position: absolute; bottom: 0.5rem; right: 0.75rem; pointer-events: none; }
+.rating-icon { font-size: 1.3rem; margin-bottom: 0.75rem; display: block; }
+.rating-level { font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.45rem; }
+.rating-card:nth-child(1) .rating-level { color: var(--copper-lt); }
+.rating-card:nth-child(2) .rating-level { color: var(--sand); }
+.rating-card:nth-child(3) .rating-level { color: var(--moss-pale); }
+.rating-card:nth-child(4) .rating-level { color: var(--moss-pale); }
+.rating-desc { font-size: 0.8rem; line-height: 1.65; color: rgba(244,237,224,0.45); font-weight: 300; }
+
+/* ── STAGE-GATE STEPS ────────────────────────────────────────────────── */
+.stages-list { display: flex; flex-direction: column; gap: 0; position: relative; }
+.stages-list::before { content: ''; position: absolute; left: 32px; top: 20px; bottom: 20px; width: 2px; background: linear-gradient(to bottom, var(--moss), var(--sage-lt), var(--copper)); opacity: 0.2; }
+
+.stage-step { display: grid; grid-template-columns: 64px 1fr; gap: 1.25rem; align-items: start; padding: 1rem 0; cursor: default; transition: transform 0.3s; }
+.stage-step:hover { transform: translateX(4px); }
+.stage-marker { display: flex; flex-direction: column; align-items: center; gap: 0.25rem; }
+.stage-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.1em; position: relative; z-index: 1; flex-shrink: 0; }
+.stage-step:nth-child(1) .stage-dot { background: rgba(61,92,42,0.18); border: 1.5px solid rgba(61,92,42,0.5); color: var(--moss-pale); }
+.stage-step:nth-child(2) .stage-dot { background: rgba(90,126,64,0.15); border: 1.5px solid rgba(90,126,64,0.42); color: var(--moss-pale); }
+.stage-step:nth-child(3) .stage-dot { background: rgba(104,117,88,0.14); border: 1.5px solid rgba(104,117,88,0.38); color: var(--sage-lt); }
+.stage-step:nth-child(4) .stage-dot { background: rgba(160,92,56,0.12); border: 1.5px solid rgba(160,92,56,0.35); color: var(--copper-lt); }
+
+.stage-body { padding-bottom: 0.75rem; border-bottom: 1px solid rgba(58,28,14,0.06); }
+.stage-step:last-child .stage-body { border-bottom: none; }
+.stage-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.35rem; }
+.stage-desc { font-size: 0.82rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+.stage-rule { display: inline-block; margin-top: 0.5rem; font-family: var(--font-display); font-style: italic; font-size: 0.82rem; color: var(--moss-lt); }
+
+/* ── WORKED EXAMPLE CARD ─────────────────────────────────────────────── */
+.worked-example { background: var(--espresso); border-radius: var(--radius-lg); padding: 2rem; position: relative; overflow: hidden; margin: 2.5rem 0; }
+.worked-example::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(201,171,132,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,171,132,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+.we-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--moss-pale); margin-bottom: 0.75rem; display: block; position: relative; z-index: 1; }
+.we-title { font-family: var(--font-display); font-size: clamp(1.2rem,2vw,1.6rem); font-weight: 400; color: var(--cream); line-height: 1.25; margin-bottom: 1.25rem; position: relative; z-index: 1; }
+.we-title em { font-style: italic; color: var(--sand); }
+.we-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; position: relative; z-index: 1; }
+.we-cell { background: rgba(255,252,248,0.04); border: 1px solid rgba(201,171,132,0.1); border-radius: var(--radius-sm); padding: 1rem 1.1rem; }
+.we-cell-label { font-family: var(--font-label); font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--moss-pale); margin-bottom: 0.5rem; display: block; }
+.we-cell-text { font-size: 0.82rem; line-height: 1.62; color: rgba(244,237,224,0.65); font-weight: 300; }
+.we-cell-badge { display: inline-block; margin-top: 0.5rem; font-family: var(--font-label); font-size: 0.5rem; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.22rem 0.5rem; border-radius: 2px; }
+.we-cell--strong .we-cell-badge { background: rgba(61,92,42,0.2); color: var(--moss-pale); border: 1px solid rgba(61,92,42,0.32); }
+.we-cell--emerging .we-cell-badge { background: rgba(201,171,132,0.12); color: var(--sand); border: 1px solid rgba(201,171,132,0.22); }
+.we-cell--credible .we-cell-badge { background: rgba(160,92,56,0.12); color: var(--copper-lt); border: 1px solid rgba(160,92,56,0.22); }
+
+/* ── MISUSE PREVENTION SPLIT ─────────────────────────────────────────── */
+.misuse-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: var(--radius-md); overflow: hidden; }
+.misuse-col { padding: 1.5rem; }
+.misuse-col--avoid { background: rgba(92,45,24,0.07); border: 1px solid rgba(92,45,24,0.18); border-right: none; border-radius: var(--radius-md) 0 0 var(--radius-md); }
+.misuse-col--use { background: rgba(61,92,42,0.07); border: 1px solid rgba(61,92,42,0.2); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+.misuse-col-header { display: flex; align-items: center; gap: 0.65rem; margin-bottom: 1rem; }
+.misuse-col-icon { font-size: 1.2rem; }
+.misuse-col-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; }
+.misuse-col--avoid .misuse-col-label { color: var(--mahogany); }
+.misuse-col--use .misuse-col-label { color: var(--moss-lt); }
+.misuse-items { display: flex; flex-direction: column; gap: 0.58rem; }
+.misuse-item { display: flex; align-items: flex-start; gap: 0.55rem; font-size: 0.82rem; line-height: 1.55; color: var(--espresso); }
+.m-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 0.42em; }
+.misuse-col--avoid .m-dot { background: var(--mahogany); }
+.misuse-col--use .m-dot { background: var(--moss-lt); }
+
+/* ── SCREENING QUESTIONS CHECKLIST ──────────────────────────────────── */
+.screening-checklist { background: var(--espresso); border-radius: var(--radius-lg); padding: 2rem; position: relative; overflow: hidden; }
+.screening-checklist::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(201,171,132,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,171,132,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+.sc-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; position: relative; z-index: 1; }
+.sc-icon { font-size: 1.4rem; color: var(--moss-pale); }
+.sc-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--moss-pale); }
+.sc-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 300; color: var(--cream); }
+.sc-items { display: flex; flex-direction: column; gap: 0.75rem; position: relative; z-index: 1; }
+.sc-item { display: flex; align-items: flex-start; gap: 1rem; padding: 0.9rem 1rem; background: rgba(255,252,248,0.035); border: 1px solid rgba(201,171,132,0.08); border-radius: var(--radius-sm); cursor: pointer; transition: background 0.35s, border-color 0.35s; }
+.sc-item:hover { background: rgba(255,252,248,0.07); border-color: rgba(61,92,42,0.28); }
+.sc-check { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(61,92,42,0.42); background: rgba(61,92,42,0.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.65rem; color: var(--moss-pale); transition: background 0.35s, border-color 0.35s; }
+.sc-item:hover .sc-check { background: rgba(61,92,42,0.22); border-color: var(--moss-pale); }
+.sc-question { font-family: var(--font-display); font-size: 0.95rem; font-weight: 400; color: rgba(244,237,224,0.72); line-height: 1.45; flex: 1; font-style: italic; }
+
+/* ── REFERENCES ─────────────────────────────────────────────────────── */
+.references { background: var(--cream); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); padding: 1.5rem 1.75rem; }
+.references-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1rem; display: block; }
+.references ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.references li { font-size: 0.82rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+
+/* ── SIDEBAR ────────────────────────────────────────────────────────── */
+.khr-sidebar { position: sticky; top: calc(72px + 2rem); display: flex; flex-direction: column; gap: 1.25rem; }
+.side-card { background: var(--white); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); overflow: hidden; }
+.side-card-header { background: var(--espresso); padding: 0.9rem 1.25rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--moss-pale); }
+.side-card-body { padding: 1.25rem; }
+.side-card-body p { font-size: 0.84rem; line-height: 1.72; color: var(--brown); font-weight: 300; }
+.domain-badge { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1rem; background: var(--cream-lt); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-sm); margin-bottom: 0.75rem; }
+.domain-badge:last-child { margin-bottom: 0; }
+.domain-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.domain-label { font-size: 0.8rem; color: var(--espresso); font-weight: 400; }
+.domain-sub { font-size: 0.72rem; color: var(--mahogany); font-weight: 300; }
+.related-link { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.85rem 0; border-bottom: 1px solid rgba(58,28,14,0.07); transition: transform 0.3s; text-decoration: none; }
+.related-link:last-child { border-bottom: none; padding-bottom: 0; }
+.related-link:hover { transform: translateX(4px); }
+.related-link-arrow { color: var(--copper); flex-shrink: 0; font-size: 0.7rem; margin-top: 0.15em; }
+.related-link-text { font-size: 0.83rem; line-height: 1.5; color: var(--espresso); font-weight: 400; }
+.related-link-tag { display: block; font-family: var(--font-label); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--copper); margin-bottom: 0.2rem; }
+.reading-meter { height: 4px; background: rgba(58,28,14,0.08); border-radius: 2px; overflow: hidden; margin: 0.75rem 0 0.4rem; }
+.reading-meter-fill { height: 100%; background: linear-gradient(90deg, var(--moss), var(--moss-pale), var(--sand)); width: 0%; transition: width 0.2s linear; border-radius: 2px; }
+.reading-meter-label { font-family: var(--font-label); font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(58,28,14,0.35); display: flex; justify-content: space-between; }
+.btn-side { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.85rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; background: var(--espresso); color: var(--cream); border: none; border-radius: var(--radius-sm); cursor: pointer; margin-top: 0.75rem; transition: background 0.3s; }
+.btn-side:hover { background: var(--brown); }
+
+/* ── REVEAL ─────────────────────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: none; }
+.d1{ transition-delay: 0.1s; } .d2{ transition-delay: 0.2s; }
+
+/* ── FOOTER ─────────────────────────────────────────────────────────── */
+.footer { background: var(--chocolate); padding: 4rem 0 2.5rem; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-logo-icon { width: 38px; margin-bottom: 0.75rem; }
+.footer-logo-name { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; color: var(--cream); }
+.footer-logo-sub  { font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.22em; color: var(--copper); text-transform: uppercase; margin: 0.3rem 0 1rem; }
+.footer-tagline   { font-size: 0.83rem; line-height: 1.7; color: rgba(244,237,224,0.35); font-weight: 300; max-width: 240px; }
+.footer-col-title { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1.1rem; }
+.footer-links     { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.footer-links a   { font-size: 0.82rem; color: rgba(244,237,224,0.35); transition: color 0.3s; }
+.footer-links a:hover { color: var(--sand); }
+.footer-bottom    { border-top: 1px solid rgba(201,171,132,0.1); padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-copy      { font-size: 0.76rem; color: rgba(244,237,224,0.2); }
+.footer-copy em   { color: var(--copper); font-style: normal; }
+.footer-legal     { display: flex; gap: 1.5rem; }
+.footer-legal a   { font-size: 0.73rem; color: rgba(244,237,224,0.2); transition: color 0.3s; }
+.footer-legal a:hover { color: var(--sand); }
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .khr-hero-inner { grid-template-columns: 1fr; }
+  .hero-diagram-wrap { display: none; }
+  .khr-layout { grid-template-columns: 1fr; }
+  .khr-sidebar { position: static; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .ratings-row { grid-template-columns: 1fr 1fr; }
+  .we-grid { grid-template-columns: 1fr; }
+  .misuse-grid { grid-template-columns: 1fr; }
+  .misuse-col--avoid { border-right: 1px solid rgba(92,45,24,0.18); border-bottom: none; border-radius: var(--radius-md) var(--radius-md) 0 0; }
+  .misuse-col--use { border-radius: 0 0 var(--radius-md) var(--radius-md); }
+}
+@media (max-width: 580px) {
+  .ratings-row { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- ════════════ NAV ════════════ -->
+<nav class="nav" id="mainNav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">
+        <img src="../../Images/rakine_logo.svg" class="nav-logo-icon" alt="Rankine Innovation Lab logo"/>
+        <div>
+          <span class="nav-logo-mark">Rankine</span>
+          <span class="nav-logo-name">Innovation Lab</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../../research.html">Research &amp; Project</a></li>
+        <li><a href="../../programmes.html">Programmes</a></li>
+        <li><a href="../../knowledge-hub.html" class="active-page">Knowledge Hub</a></li>
+        <li><a href="../../team.html">Team</a></li>
+        <li><a href="../../contact.html">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
-<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-  <a href="../../index.html">Home</a>
-  <a href="../../about.html">About</a>
-  <a href="../../research.html" onclick="closeMobile()">Research &amp; Project</a>
-  <a href="../../programmes.html">Programmes</a>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../../index.html"         onclick="closeMobile()">Home</a>
+  <a href="../../about.html"         onclick="closeMobile()">About</a>
+  <a href="../../research.html"      onclick="closeMobile()">Research &amp; Project</a>
+  <a href="../../programmes.html"    onclick="closeMobile()">Programmes</a>
   <a href="../../knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
-  <a href="../../team.html">Team</a>
-  <a href="../../contact.html">Contact</a>
+  <a href="../../team.html"          onclick="closeMobile()">Team</a>
+  <a href="../../contact.html"       onclick="closeMobile()">Contact</a>
 </div>
 
-<header class="khr-hero">
-    <div class="container">
-      <div class="breadcrumb"><a href="../../index.html">Home</a><span>—</span><a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span><strong>Framework</strong></div>
-      <div class="khr-type">Framework · Sustainability &amp; Circularity</div>
-      <h1 class="khr-title">A Screening Framework for Bio-Based Material Innovation</h1>
-      <p class="khr-dek">Bio-based materials need disciplined screening so teams can distinguish implementation potential from novelty, symbolism, or premature sustainability claims.</p>
-      <div class="khr-meta">
-        <span><strong>Domain</strong> Sustainability &amp; Circularity</span>
-        <span><strong>Reading time</strong> 8 min read</span>
-        <span><strong>Level</strong> Practitioner</span>
-      </div>
+<!-- ════════════ HERO ════════════ -->
+<section class="khr-hero">
+  <div class="container">
+    <div class="khr-hero-inner">
 
-    <div class="khr-feature">
-      <div class="khr-feature-head">
-        <div>
-          <div class="khr-feature-kicker">Screening Grid</div>
-          <div class="khr-feature-title">Six-Dimension Screening</div>
+      <div>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="../../index.html">Home</a><span>—</span>
+          <a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span>
+          <strong>Framework</strong>
+        </nav>
+        <div class="khr-type-badge">
+          <span class="khr-type-badge-dot" aria-hidden="true"></span>
+          Framework · Sustainability &amp; Circularity
         </div>
-        <p class="khr-feature-sub">From novelty signals to disciplined progression.</p>
+        <h1 class="khr-title">
+          A Screening Framework<br>
+          for Bio-Based<br>
+          <em>Material Innovation</em>
+        </h1>
+        <p class="khr-dek">
+          Bio-based materials attract enthusiasm quickly — they appear to answer several pressures at once. But promising language often arrives before disciplined screening. This framework gives researchers, innovation teams, and practitioners a structured way to judge whether a material is genuinely ready to proceed, merely interesting, or not yet responsible to deploy.
+        </p>
+        <div class="khr-meta-row">
+          <div class="khr-meta-item"><strong>Domain</strong> Sustainability &amp; Circularity</div>
+          <div class="khr-meta-item"><strong>Reading time</strong> 8 min read</div>
+          <div class="khr-meta-item"><strong>Level</strong> Practitioner</div>
+        </div>
       </div>
-      <figure class="khr-diagram khr-hero-visual" role="group" aria-label="Six-Dimension Screening">
-        <img class="khr-feature-image" src="../../Images/knowledge/bio-based-screening-grid.svg" alt="Six-Dimension Screening visual showing feedstock, performance, scalability stages" width="1600" height="600">
-      </figure>
-      <div class="khr-feature-tags">
-      <span>Materials</span>
-      <span>Durability</span>
-      <span>Context Fit</span>
-      <span>Lifecycle</span>
-      <span>Pilot Gates</span>
+
+      <!-- Right: Bio-Based Screening Grid SVG -->
+      <div class="hero-diagram-wrap" aria-hidden="true">
+        <div class="hero-diagram">
+          <svg class="bio-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+            <!-- Orbit rings -->
+            <circle class="bio-orbit" cx="200" cy="200" r="175" stroke="rgba(61,92,42,0.08)" stroke-width="1"/>
+            <circle class="bio-orbit" cx="200" cy="200" r="140" stroke="rgba(90,126,64,0.08)" stroke-width="1"/>
+
+            <!-- SIX SCREENING DIMENSION ARCS — 60° each -->
+            <!-- Performance (top-right, strong moss) -->
+            <path class="bio-seg"
+              d="M 200 30 A 170 170 0 0 1 347.3 115"
+              stroke="#3d5c2a" stroke-width="7" stroke-linecap="round"/>
+            <!-- Durability (right, moss-lt) -->
+            <path class="bio-seg"
+              d="M 347.3 115 A 170 170 0 0 1 347.3 285"
+              stroke="#5a7e40" stroke-width="7" stroke-linecap="round"/>
+            <!-- Scalability (bottom-right, moss-pale) -->
+            <path class="bio-seg"
+              d="M 347.3 285 A 170 170 0 0 1 200 370"
+              stroke="#7aaa5a" stroke-width="7" stroke-linecap="round"/>
+            <!-- Environmental case (bottom-left, sage) -->
+            <path class="bio-seg"
+              d="M 200 370 A 170 170 0 0 1 52.7 285"
+              stroke="#687558" stroke-width="7" stroke-linecap="round"/>
+            <!-- Context fit (left, sage-lt) -->
+            <path class="bio-seg"
+              d="M 52.7 285 A 170 170 0 0 1 52.7 115"
+              stroke="#8e9e78" stroke-width="7" stroke-linecap="round"/>
+            <!-- Governance (top-left, copper) -->
+            <path class="bio-seg"
+              d="M 52.7 115 A 170 170 0 0 1 200 30"
+              stroke="#a05c38" stroke-width="7" stroke-linecap="round"/>
+
+            <!-- Arc labels -->
+            <text x="296" y="64" font-family="Cinzel,serif" font-size="8.5" letter-spacing="0.8" fill="rgba(61,92,42,0.62)" text-anchor="middle">PERFORMANCE</text>
+            <text x="373" y="205" font-family="Cinzel,serif" font-size="8" letter-spacing="0.6" fill="rgba(90,126,64,0.58)" text-anchor="middle" transform="rotate(90,373,205)">DURABILITY</text>
+            <text x="300" y="354" font-family="Cinzel,serif" font-size="8" letter-spacing="0.6" fill="rgba(122,170,90,0.56)" text-anchor="middle">SCALABILITY</text>
+            <text x="100" y="354" font-family="Cinzel,serif" font-size="7.5" letter-spacing="0.5" fill="rgba(104,117,88,0.55)" text-anchor="middle">ENV. CASE</text>
+            <text x="27" y="205" font-family="Cinzel,serif" font-size="8" letter-spacing="0.6" fill="rgba(142,158,120,0.52)" text-anchor="middle" transform="rotate(-90,27,205)">CONTEXT FIT</text>
+            <text x="104" y="64" font-family="Cinzel,serif" font-size="8" letter-spacing="0.6" fill="rgba(160,92,56,0.58)" text-anchor="middle">GOVERNANCE</text>
+
+            <!-- Arrow heads at junctions -->
+            <polygon points="200,22 193,38 207,38" fill="#3d5c2a" opacity="0.8"/>
+            <polygon points="377,200 362,193 362,207" fill="#5a7e40" opacity="0.8"/>
+            <polygon points="329,323 316,310 328,304" fill="#7aaa5a" opacity="0.8"/>
+            <polygon points="71,323 72,308 84,315" fill="#687558" opacity="0.8"/>
+            <polygon points="23,200 38,193 38,207" fill="#8e9e78" opacity="0.8"/>
+            <polygon points="71,77 74,92 86,85" fill="#a05c38" opacity="0.8"/>
+
+            <!-- Inner dashed loops — screening iterations -->
+            <path d="M 200 62 A 138 138 0 0 1 318 278" stroke="rgba(61,92,42,0.14)" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <path d="M 318 278 A 138 138 0 0 1 82 278" stroke="rgba(90,126,64,0.12)" stroke-width="1.5" stroke-dasharray="5 4"/>
+            <path d="M 82 278 A 138 138 0 0 1 200 62" stroke="rgba(61,92,42,0.1)" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+            <!-- Inner loop labels -->
+            <text x="315" y="162" font-family="Cinzel,serif" font-size="7" fill="rgba(61,92,42,0.38)" text-anchor="middle">STAGE</text>
+            <text x="200" y="322" font-family="Cinzel,serif" font-size="7" fill="rgba(61,92,42,0.36)" text-anchor="middle">GATE</text>
+            <text x="85"  y="162" font-family="Cinzel,serif" font-size="7" fill="rgba(61,92,42,0.34)" text-anchor="middle">REVIEW</text>
+
+            <!-- Node dots at 6 arc junctions -->
+            <circle class="bio-node" cx="200" cy="30"  r="5" fill="#3d5c2a"/>
+            <circle class="bio-node" cx="347" cy="115" r="5" fill="#5a7e40" style="animation-delay:0.5s"/>
+            <circle class="bio-node" cx="347" cy="285" r="5" fill="#7aaa5a" style="animation-delay:1s"/>
+            <circle class="bio-node" cx="200" cy="370" r="5" fill="#687558" style="animation-delay:1.5s"/>
+            <circle class="bio-node" cx="53"  cy="285" r="5" fill="#8e9e78" style="animation-delay:2s"/>
+            <circle class="bio-node" cx="53"  cy="115" r="5" fill="#a05c38" style="animation-delay:2.5s"/>
+
+            <!-- Centre emblem -->
+            <circle cx="200" cy="200" r="58" fill="none" stroke="rgba(61,92,42,0.12)" stroke-width="1" stroke-dasharray="4 7"/>
+            <circle cx="200" cy="200" r="42" fill="none" stroke="rgba(90,126,64,0.1)" stroke-width="1"/>
+            <circle cx="200" cy="200" r="35" fill="rgba(14,28,10,0.92)" stroke="rgba(61,92,42,0.3)" stroke-width="1.5"/>
+
+            <!-- Centre icon — leaf-like form -->
+            <path d="M 200 186 Q 212 192 200 214 Q 188 192 200 186 Z" fill="rgba(61,92,42,0.55)" stroke="rgba(122,170,90,0.3)" stroke-width="0.8"/>
+            <line x1="200" y1="195" x2="200" y2="212" stroke="rgba(122,170,90,0.4)" stroke-width="0.8"/>
+
+            <text x="200" y="228" font-family="Cinzel,serif" font-size="7" letter-spacing="1.2" fill="rgba(122,170,90,0.58)" text-anchor="middle">SCREEN</text>
+            <text x="200" y="238" font-family="Cinzel,serif" font-size="7" letter-spacing="1.2" fill="rgba(122,170,90,0.5)" text-anchor="middle">THEN ACT</text>
+          </svg>
+        </div>
       </div>
-    </div>
 
     </div>
-  </header>
+  </div>
+</section>
 
-  <main class="khr-main">
-    <div class="container khr-grid">
-      <article class="khr-article">
+<!-- ════════════ CONTENT ════════════ -->
+<div class="container">
+  <div class="khr-layout">
+    <article class="khr-article" id="articleBody">
 
-  <section class="khr-editorial-section" id="what-problem-this-framework-solves">
-    <div class="khr-section-kicker">Framework Purpose</div>
-    <h2>What problem this framework solves</h2>
-    <p>Bio-based materials attract enthusiasm quickly because they appear to answer several pressures at once: lower embodied impact, circularity, material innovation, and closer alignment with ecological systems. But promising language often arrives before disciplined screening.</p>
-    <p>This framework gives organisations, researchers, and innovation teams a structured way to judge whether a material is genuinely promising, merely interesting, or not ready for responsible use.</p>
-  </section>
+      <!-- SECTION 1: The Problem -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">The Core Problem</p>
+        <h2 class="khr-h2">Why enthusiasm <em>arrives before discipline</em></h2>
 
+        <div class="pull-quote">
+          <p>Bio-based materials are not automatically better because they are biological in origin. A material should be assessed by how it behaves, where it can be used, and what trade-offs accompany it — not by the story it carries.</p>
+          <cite>— Rankine Innovation Lab · Knowledge Hub</cite>
+        </div>
 
-  <section class="khr-matrix" aria-label="Six Screening Dimensions">
-    <h3>Six Screening Dimensions</h3>
-    <div class="khr-matrix-rows">
-      <div class="khr-matrix-row"><strong>Performance</strong><span>Can the material perform the specific job it is being proposed for?</span></div>
-      <div class="khr-matrix-row"><strong>Durability</strong><span>How does it behave over time, weather, loading, contamination, or maintenance gaps?</span></div>
-      <div class="khr-matrix-row"><strong>Scalability</strong><span>Can production or application move beyond demonstration logic into repeatable practice?</span></div>
-      <div class="khr-matrix-row"><strong>Environmental case</strong><span>What is displaced, what inputs are required, and what trade-offs exist?</span></div>
-      <div class="khr-matrix-row"><strong>Context fit</strong><span>Does the material fit the climate, skills, procurement, risk, and maintenance context?</span></div>
-      <div class="khr-matrix-row"><strong>Governance readiness</strong><span>Are claims boundaries, monitoring, permissions, and stop-go criteria explicit?</span></div>
-    </div>
-  </section>
-
-
-  <section class="khr-infographic" aria-label="Four Screening Ratings">
-    <div class="khr-infographic-head">
-      <h3>Four Screening Ratings</h3>
-      <span>Use the pattern, not the average</span>
-    </div>
-    <div class="khr-infographic-grid">
-      <div class="khr-infographic-cell"><strong>Weak</strong><p>Evidence is limited or the mismatch is obvious.</p></div>
-      <div class="khr-infographic-cell"><strong>Emerging</strong><p>There is promise, but significant uncertainty remains.</p></div>
-      <div class="khr-infographic-cell"><strong>Credible</strong><p>The case justifies a bounded next step or pilot.</p></div>
-      <div class="khr-infographic-cell"><strong>Strong</strong><p>Evidence and implementation logic are comparatively well developed.</p></div>
-      <div class="khr-infographic-cell"><strong>Hard constraint</strong><p>Weak durability or governance can block progression even when novelty is high.</p></div>
-      <div class="khr-infographic-cell"><strong>Next action</strong><p>The rating should point to testing, piloting, comparison, redesign, or pause.</p></div>
-    </div>
-  </section>
-
-
-  <section class="khr-editorial-section" id="why-a-screening-framework-is-necessary">
-    <div class="khr-section-kicker">Why It Matters</div>
-    <h2>Why a screening framework is necessary</h2>
-    <p>Material innovation conversations often fail through technical over-optimism or overly narrow skepticism. A material may be celebrated because it looks sustainable, or dismissed because it does not behave like an incumbent industrial product.</p>
-    <p>A screening framework avoids both errors. It asks whether the evidence, intended application, and operating context support a credible next move.</p>
-  </section>
-
-
-  <section class="khr-flow" aria-label="Stage-Gate Use">
-    <div class="khr-flow-head"><h3>Stage-Gate Use</h3><p>The framework works best as staged gating rather than a one-time scorecard.</p></div>
-    <div class="khr-flow-grid">
-    <div class="khr-flow-step"><span>01</span><strong>Research stage</strong><p>Identify promise and evidence gaps without implying deployment readiness.</p></div>
-    <div class="khr-flow-step"><span>02</span><strong>Translation stage</strong><p>Judge whether a bounded pilot is justified and what it must monitor.</p></div>
-    <div class="khr-flow-step"><span>03</span><strong>Partnership stage</strong><p>Decide whether wider implementation discussion is responsible.</p></div>
-    <div class="khr-flow-step"><span>04</span><strong>Review stage</strong><p>Compare observed outcomes against claims, trade-offs, and stop-go criteria.</p></div>
-    </div>
-  </section>
-
-
-  <section class="khr-editorial-section" id="worked-example-mycelium-linked-material-innovation">
-    <div class="khr-section-kicker">Worked Example</div>
-    <h2>Worked example: mycelium-linked material innovation</h2>
-    <p>A mycelium-linked material concept may score strongly on novelty and environmental interest, and emerging to credible on performance in controlled tests. Durability may remain emerging if field conditions are not yet understood. Scalability may also remain emerging if growth conditions require specialised control.</p>
-    <p>Governance readiness could still be credible if the team has a clear pilot boundary, monitoring plan, and claims discipline. That outcome would not mean the material is weak. It would mean the right next step is disciplined translation rather than inflated generalisation.</p>
-  </section>
-
-
-  <section class="khr-split-panel">
-    <div class="khr-split-panel-head">Misuse Prevention</div>
-    <div class="khr-split-grid">
-      <div>
-        <h3>Do not use the framework to</h3>
-        <ul>
-        <li>Signal innovation status without honest scoring.</li>
-        <li>Collapse multiple applications into one judgement.</li>
-        <li>Ignore uncertainty because the material matches sustainability narratives.</li>
-        <li>Treat biological origin as proof of environmental advantage.</li>
-        </ul>
+        <p class="khr-body">
+          Bio-based materials attract enthusiasm quickly because they appear to answer several pressures at once: lower embodied impact, circularity, material innovation, and closer alignment with ecological systems. That enthusiasm is not the problem. The problem is when promising language arrives before disciplined screening — when a material's biological origin is treated as evidence of its sustainability performance, or when laboratory results are described as if they were operational deployments.
+        </p>
+        <p class="khr-body">
+          This framework gives organisations, researchers, and innovation teams a structured way to judge whether a material is genuinely promising, merely interesting, or not yet ready for responsible use. It works by making the screening criteria explicit and applying them systematically rather than intuitively — so that decisions about whether to pilot, pause, or proceed are grounded in evidence rather than appeal.
+        </p>
       </div>
-      <div>
-        <h3>Use it to</h3>
-        <ul>
-        <li>Screen evidence against context and application.</li>
-        <li>Name where a pilot needs controls or monitoring.</li>
-        <li>Compare alternatives proportionately.</li>
-        <li>Keep claims aligned with readiness.</li>
-        </ul>
+
+      <!-- SECTION 2: Six Screening Dimensions -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Framework Structure</p>
+        <h2 class="khr-h2">Six screening dimensions — and what <em>each one actually tests</em></h2>
+
+        <p class="khr-body">
+          The six dimensions below are not a checklist to complete — they are a set of lenses that must be applied together. A material may score well on novelty and environmental narrative while performing poorly on durability or context fit. The pattern of scores across all six dimensions reveals whether a credible next step is justified — and what kind of step that should be.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Screening Architecture</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Six Dimensions — Ordered From Performance to Governance</span>
+          </div>
+          <div class="infographic-body">
+            <p style="font-size:0.82rem;color:var(--brown);font-weight:300;margin-bottom:1.25rem;line-height:1.65;">Rate each dimension on the four-level scale: Weak, Emerging, Credible, Strong. Look for the pattern — not the average. A hard constraint on Durability or Governance blocks progression regardless of how strong the other dimensions appear.</p>
+            <div class="dimension-stack">
+              <div class="dimension-item">
+                <div class="d-bar"></div>
+                <span class="d-rank">1</span>
+                <div class="d-content">
+                  <div class="d-title">Performance</div>
+                  <div class="d-desc">Can the material perform the specific job it is being proposed for — in the conditions in which it will actually be used? This is not a general capability question. It requires naming the exact application, load, environment, and performance standard before assessing the evidence.</div>
+                </div>
+                <span class="d-badge">Primary gate</span>
+              </div>
+              <div class="dimension-item">
+                <div class="d-bar"></div>
+                <span class="d-rank">2</span>
+                <div class="d-content">
+                  <div class="d-title">Durability</div>
+                  <div class="d-desc">How does the material behave over time, under real-world loading, weather, contamination, or maintenance gaps? Durability is the dimension where the gap between laboratory results and field performance is largest — and where optimism is most reliably corrected by evidence.</div>
+                </div>
+                <span class="d-badge">Hard constraint</span>
+              </div>
+              <div class="dimension-item">
+                <div class="d-bar"></div>
+                <span class="d-rank">3</span>
+                <div class="d-content">
+                  <div class="d-title">Scalability</div>
+                  <div class="d-desc">Can production or application move beyond demonstration logic into repeatable practice? Scalability includes supply chain availability, process reproducibility, cost trajectory at volume, and workforce capability — none of which are guaranteed by a successful laboratory demonstration.</div>
+                </div>
+                <span class="d-badge">Growth gate</span>
+              </div>
+              <div class="dimension-item">
+                <div class="d-bar"></div>
+                <span class="d-rank">4</span>
+                <div class="d-content">
+                  <div class="d-title">Environmental Case</div>
+                  <div class="d-desc">What is actually displaced by using this material, what inputs are required to produce it, and what trade-offs exist across its full lifecycle? Biological origin does not guarantee a favourable environmental case — and comparing only a single impact category against a single conventional alternative is almost never sufficient.</div>
+                </div>
+                <span class="d-badge">Credibility test</span>
+              </div>
+              <div class="dimension-item">
+                <div class="d-bar"></div>
+                <span class="d-rank">5</span>
+                <div class="d-content">
+                  <div class="d-title">Context Fit</div>
+                  <div class="d-desc">Does the material fit the specific climate, workforce skills, procurement model, risk tolerance, and maintenance context of the deployment environment? A material that performs well in controlled conditions in one location may fail on all five dimensions in a different operational context.</div>
+                </div>
+                <span class="d-badge">Deployment gate</span>
+              </div>
+              <div class="dimension-item">
+                <div class="d-bar"></div>
+                <span class="d-rank">6</span>
+                <div class="d-content">
+                  <div class="d-title">Governance Readiness</div>
+                  <div class="d-desc">Are the claims boundaries, monitoring requirements, regulatory permissions, and stop-go criteria defined and owned? A material can satisfy all five preceding dimensions and still fail at deployment if there is no clear accountability for what happens when performance diverges from expectation.</div>
+                </div>
+                <span class="d-badge">Accountability</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
 
+      <!-- SECTION 3: Four Rating Levels -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Scoring Reference</p>
+        <h2 class="khr-h2">Four rating levels — and what each one <em>requires</em></h2>
 
-  <section class="khr-checklist-panel">
-    <div class="khr-checklist-symbol">◎</div>
-    <div>
-      <h3>Screening Questions</h3>
-    <p>A promising material becomes credible when its next step is well defined.</p>
-      <ul>
-      <li>What job must this material perform?</li>
-      <li>What evidence shows that performance under relevant conditions?</li>
-      <li>What lifecycle or durability uncertainty remains?</li>
-      <li>Can the process scale at the intended level?</li>
-      <li>What environmental claim is being made and what supports it?</li>
-      <li>Who owns monitoring, governance, and stop-go decisions?</li>
-      </ul>
-    </div>
-  </section>
+        <p class="khr-body">
+          Each dimension should be scored on this four-level scale against evidence, not aspiration. The scores should be backed by a concrete recent example — either a result that illustrates the capability or a gap that illustrates the weakness. Averaging scores across dimensions to produce a composite total is a misuse of the framework: the pattern is more informative than the sum.
+        </p>
 
-
-  <section class="khr-editorial-section" id="references-and-further-reading">
-    <div class="khr-section-kicker">Reading Trail</div>
-    <h2>References and further reading</h2>
-    <p>Use this framework with literature on bio-based materials, mycelium-linked systems, geotechnical material performance, lifecycle assessment, and responsible pilot design.</p>
-    <p>The practical takeaway: excitement is valuable, but screening is what turns possibility into decision-quality innovation.</p>
-  </section>
-
-      </article>
-
-  <aside class="khr-sidebar" aria-label="Resource sidebar">
-    <div class="khr-sidecard khr-progress-card">
-      <h3>Reading Progress</h3>
-      <div class="khr-progress-track"><span></span></div>
-      <p>Start with the framing, use the visual modules to compare options, then close with the checklist.</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Resource Details</h3>
-      <p><strong>Sustainability &amp; Circularity</strong><br>Framework · Knowledge Hub resource</p>
-      <p><strong>Practitioner</strong><br>Material innovators · sustainability teams · research partnerships</p>
-      <p>8 min read · 6 visual modules</p>
-      <p>Updated April 2026</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Continue Reading</h3>
-      <div class="khr-related">
-      <a href="../explainers/mycelium-and-soil-resilience.html">Mycelium and Soil Resilience: What the Evidence Shows</a>
-      <a href="../lab-notes/what-mycelium-based-engineering-changes-about-sustainability-conversations.html">What Mycelium-Based Engineering Changes About Sustainability Conversations</a>
-      <a href="../frameworks/circularity-readiness-model-for-infrastructure-decisions.html">A Circularity Readiness Model for Infrastructure Decisions</a>
-        <a href="../../knowledge-hub.html">← Back to Knowledge Hub</a>
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Rating Scale</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Four Levels — What Each Rating Requires Before It Can Be Assigned</span>
+          </div>
+          <div class="infographic-body">
+            <div class="ratings-row">
+              <div class="rating-card">
+                <span class="rating-ghost" aria-hidden="true">W</span>
+                <span class="rating-icon" aria-hidden="true">◌</span>
+                <div class="rating-level">Weak</div>
+                <div class="rating-desc">Evidence is limited, contradictory, or obviously mismatched to the intended application. A Weak score on Durability or Governance means the material is not yet a candidate for pilot deployment in this context.</div>
+              </div>
+              <div class="rating-card">
+                <span class="rating-ghost" aria-hidden="true">E</span>
+                <span class="rating-icon" aria-hidden="true">◎</span>
+                <div class="rating-level">Emerging</div>
+                <div class="rating-desc">There is genuine promise — early-stage results, plausible mechanism, growing research interest — but significant uncertainty remains. Emerging means a carefully designed exploratory pilot may be justified, not operational deployment.</div>
+              </div>
+              <div class="rating-card">
+                <span class="rating-ghost" aria-hidden="true">C</span>
+                <span class="rating-icon" aria-hidden="true">◉</span>
+                <div class="rating-level">Credible</div>
+                <div class="rating-desc">The evidence base justifies a bounded next step — whether that is a controlled pilot, a supplier evaluation, or a comparative study. Credible does not mean proven; it means the case for investigation is sound and the risk of proceeding is proportionate.</div>
+              </div>
+              <div class="rating-card">
+                <span class="rating-ghost" aria-hidden="true">S</span>
+                <span class="rating-icon" aria-hidden="true">⬡</span>
+                <div class="rating-level">Strong</div>
+                <div class="rating-desc">Evidence and implementation logic are comparatively well developed for this dimension. Strong scores should be supported by data from relevant conditions — not only from controlled settings that do not reflect the intended deployment context.</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="khr-sidecard khr-engage-card">
-      <h3>Engage with Rankine</h3>
-      <p>Use this framework when evaluating mycelium-linked, fibre-based, or other bio-derived material concepts.</p>
-      <a class="btn" href="../../contact.html">Discuss a Partnership →</a>
-    </div>
-  </aside>
 
-    </div>
-  </main>
+      <!-- SECTION 4: Stage-Gate Use -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Application Logic</p>
+        <h2 class="khr-h2">Using the framework as <em>staged gating, not a one-time scorecard</em></h2>
 
+        <p class="khr-body">
+          The framework works best when applied at each transition point in a material's development pathway — not as a single assessment at the beginning. A material that earns Emerging scores at the research stage should not wait for Strong scores before being assessed again at the translation stage. Each stage has different evidence standards and different decision implications.
+        </p>
 
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Stage-Gate Sequence</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Four Development Stages — What the Framework Asks at Each</span>
+          </div>
+          <div class="infographic-body">
+            <div class="stages-list">
+              <div class="stage-step">
+                <div class="stage-marker"><div class="stage-dot">01</div></div>
+                <div class="stage-body">
+                  <div class="stage-title">Research Stage — Identify promise and name evidence gaps</div>
+                  <div class="stage-desc">At this stage, the framework is used to determine whether a material warrants further investigation. Weak or Emerging scores are acceptable here. The question is whether the evidence gaps identified are bridgeable through realistic research — and whether the potential benefit justifies bridging them.</div>
+                  <span class="stage-rule">"Does the evidence gap justify the investigation cost?"</span>
+                </div>
+              </div>
+              <div class="stage-step">
+                <div class="stage-marker"><div class="stage-dot">02</div></div>
+                <div class="stage-body">
+                  <div class="stage-title">Translation Stage — Judge whether a bounded pilot is justified</div>
+                  <div class="stage-desc">At this stage, Credible scores on Performance and Governance are the minimum threshold for a responsible pilot. The pilot must be designed with explicit monitoring requirements, boundary conditions, and stop-go criteria — not simply as a demonstration of interest in the material.</div>
+                  <span class="stage-rule">"What must the pilot monitor, and what will trigger a stop?"</span>
+                </div>
+              </div>
+              <div class="stage-step">
+                <div class="stage-marker"><div class="stage-dot">03</div></div>
+                <div class="stage-body">
+                  <div class="stage-title">Partnership Stage — Decide whether wider implementation discussion is responsible</div>
+                  <div class="stage-desc">At this stage, Credible scores across all six dimensions — and Strong scores on Performance and Durability — are the minimum for responsible partnership conversation. Scaling language before these thresholds are reached is a form of overclaiming that damages the credibility of the material and the organisations behind it.</div>
+                </div>
+              </div>
+              <div class="stage-step">
+                <div class="stage-marker"><div class="stage-dot">04</div></div>
+                <div class="stage-body">
+                  <div class="stage-title">Review Stage — Compare observed outcomes against claims and criteria</div>
+                  <div class="stage-desc">At each review point, the framework should be re-applied with updated evidence. Scores should be updated based on observed performance, not original expectations. A material that performed well in the pilot but fails on Context Fit in a new deployment environment requires a new assessment — not an extension of the original positive result.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 5: Worked Example — Mycelium -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Worked Example</p>
+        <h2 class="khr-h2">Mycelium-linked materials — <em>applying the framework honestly</em></h2>
+
+        <p class="khr-body">
+          Mycelium-linked materials provide a useful worked example precisely because enthusiasm about them runs ahead of the evidence base in some application areas — and the evidence base is genuinely strong in others. Applying the framework to this case illustrates both its power to distinguish and its resistance to oversimplification.
+        </p>
+
+        <div class="worked-example">
+          <span class="we-label">Worked Application — Mycelium-Linked Material Innovation</span>
+          <h3 class="we-title">Soil resilience context — <em>an honest six-dimension snapshot</em></h3>
+          <div class="we-grid">
+            <div class="we-cell we-cell--strong">
+              <span class="we-cell-label">Performance</span>
+              <div class="we-cell-text">Engineered fungal mycelium demonstrably alters infiltration behaviour and erosion-resistance classification in fire-affected soils under controlled conditions. These findings are specific, measured, and repeatable within their stated boundaries.</div>
+              <span class="we-cell-badge">Credible → Strong (controlled)</span>
+            </div>
+            <div class="we-cell we-cell--emerging">
+              <span class="we-cell-label">Durability</span>
+              <div class="we-cell-text">Field performance across different climates, soil types, and operational conditions remains under-validated. Results should not be extrapolated beyond their experimental context. Durability under sustained loading or adverse moisture conditions is not yet well characterised.</div>
+              <span class="we-cell-badge">Emerging</span>
+            </div>
+            <div class="we-cell we-cell--emerging">
+              <span class="we-cell-label">Scalability</span>
+              <div class="we-cell-text">Growth conditions for engineered fungal systems require specialised control that is not yet widely available outside research environments. Process reproducibility at field scale has not been demonstrated. The pathway to scale is conceptually plausible but operationally unproven.</div>
+              <span class="we-cell-badge">Emerging</span>
+            </div>
+            <div class="we-cell we-cell--credible">
+              <span class="we-cell-label">Environmental Case</span>
+              <div class="we-cell-text">The environmental case for mycelium-based stabilisation is conceptually strong — low embodied energy relative to conventional alternatives, potential for in-situ application. But lifecycle evidence across deployment conditions is limited, and input requirements at scale remain uncertain.</div>
+              <span class="we-cell-badge">Credible</span>
+            </div>
+            <div class="we-cell we-cell--emerging">
+              <span class="we-cell-label">Context Fit</span>
+              <div class="we-cell-text">High context-sensitivity — substrate, moisture regime, existing ecology, and maintenance capacity all affect performance significantly. Context fit must be assessed site by site. Claims of general applicability across diverse field conditions are not yet supported.</div>
+              <span class="we-cell-badge">Emerging (site-specific)</span>
+            </div>
+            <div class="we-cell we-cell--credible">
+              <span class="we-cell-label">Governance Readiness</span>
+              <div class="we-cell-text">Credible for teams that have defined pilot boundaries, explicit monitoring plans, and claims discipline. Not credible for teams describing mycelium as a deployment-ready solution without these governance elements in place.</div>
+              <span class="we-cell-badge">Credible (with conditions)</span>
+            </div>
+          </div>
+        </div>
+
+        <p class="khr-body" style="margin-top:1.5rem;">
+          The honest summary: this material warrants a carefully designed, bounded pilot with explicit monitoring in a controlled field context. It does not yet warrant wide-scale deployment language, supplier procurement at volume, or sustainability claims that treat laboratory results as operational performance data.
+        </p>
+      </div>
+
+      <!-- SECTION 6: Misuse Prevention -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Critical Awareness</p>
+        <h2 class="khr-h2">How to use the framework — and how <em>not to</em></h2>
+
+        <p class="khr-body">
+          A screening framework produces its value through honest application. The two most common misuses are using it to confirm a decision already made, and using it to signal innovation status rather than to guide action. Both collapse the framework into a branding exercise.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Misuse Prevention</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">What Undermines the Framework — What Preserves It</span>
+          </div>
+          <div class="infographic-body" style="padding:0">
+            <div class="misuse-grid">
+              <div class="misuse-col misuse-col--avoid">
+                <div class="misuse-col-header">
+                  <span class="misuse-col-icon">⛔</span>
+                  <span class="misuse-col-label">Do Not Use the Framework To</span>
+                </div>
+                <div class="misuse-items">
+                  <div class="misuse-item"><span class="m-dot"></span>Signal innovation status without applying the dimensions honestly</div>
+                  <div class="misuse-item"><span class="m-dot"></span>Treat all applications of a material as one — each application needs its own assessment</div>
+                  <div class="misuse-item"><span class="m-dot"></span>Ignore uncertainty because the material matches a sustainability narrative</div>
+                  <div class="misuse-item"><span class="m-dot"></span>Treat biological origin as proof of environmental advantage without lifecycle evidence</div>
+                  <div class="misuse-item"><span class="m-dot"></span>Average scores to generate a composite "readiness number" that obscures hard constraints</div>
+                </div>
+              </div>
+              <div class="misuse-col misuse-col--use">
+                <div class="misuse-col-header">
+                  <span class="misuse-col-icon">✓</span>
+                  <span class="misuse-col-label">Use It To</span>
+                </div>
+                <div class="misuse-items">
+                  <div class="misuse-item"><span class="m-dot"></span>Screen evidence against a specific context and a specific intended application</div>
+                  <div class="misuse-item"><span class="m-dot"></span>Name where a pilot needs monitoring controls and what the stop-go criteria are</div>
+                  <div class="misuse-item"><span class="m-dot"></span>Compare alternative materials proportionately across the same six dimensions</div>
+                  <div class="misuse-item"><span class="m-dot"></span>Distinguish what can be claimed now from what requires further evidence before it can be claimed</div>
+                  <div class="misuse-item"><span class="m-dot"></span>Create shared language between researchers, programme leads, and deployment partners</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 7: Screening Questions Checklist -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Decision Gate</p>
+        <h2 class="khr-h2">Before calling a material <em>promising — answer these six questions</em></h2>
+
+        <p class="khr-body">
+          A promising material becomes credible when its next step is well defined and its evidence boundaries are stated clearly. Work through these six questions before describing any bio-based material as a candidate for deployment, pilot, or procurement. If any cannot be answered with evidence rather than aspiration, the material is not yet ready for the language being used.
+        </p>
+
+        <div class="screening-checklist">
+          <div class="sc-header">
+            <span class="sc-icon" aria-hidden="true">◎</span>
+            <div>
+              <div class="sc-label">Bio-Based Material Screening — Decision Gate</div>
+              <div class="sc-title">Six questions before deployment or pilot language is used</div>
+            </div>
+          </div>
+          <div class="sc-items">
+            <div class="sc-item">
+              <span class="sc-check" aria-hidden="true">?</span>
+              <span class="sc-question">What specific job must this material perform — in which application, under which conditions, against which performance standard?</span>
+            </div>
+            <div class="sc-item">
+              <span class="sc-check" aria-hidden="true">?</span>
+              <span class="sc-question">What evidence supports that performance in conditions relevant to the intended deployment — not only in controlled settings?</span>
+            </div>
+            <div class="sc-item">
+              <span class="sc-check" aria-hidden="true">?</span>
+              <span class="sc-question">What durability and lifecycle uncertainty remains, and what would need to be true for that uncertainty to be resolved?</span>
+            </div>
+            <div class="sc-item">
+              <span class="sc-check" aria-hidden="true">?</span>
+              <span class="sc-question">Can the process that produces or applies this material scale to the intended level — and is that supported by evidence or assumption?</span>
+            </div>
+            <div class="sc-item">
+              <span class="sc-check" aria-hidden="true">?</span>
+              <span class="sc-question">What environmental claim is being made, and what full-lifecycle evidence — including inputs, displacement, and end-of-life — supports it?</span>
+            </div>
+            <div class="sc-item">
+              <span class="sc-check" aria-hidden="true">?</span>
+              <span class="sc-question">Who owns monitoring, governance, and stop-go decisions — and are those roles clearly assigned before the pilot begins?</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REFERENCES -->
+      <div class="khr-section reveal">
+        <div class="references">
+          <span class="references-label">References &amp; Source Base</span>
+          <ol>
+            <li>Rankine Innovation Lab Knowledge Hub research brief: Framework direction for bio-based material screening, with editorial positioning for the Sustainability &amp; Circularity domain.</li>
+            <li>Founder-connected evidence: Effect of Engineered Fungal Mycelium Growth on Infiltration and Erosion Resistance in Fire-Affected Soils — primary worked-example source.</li>
+            <li>Cross-link: Mycelium and Soil Resilience — Rankine Knowledge Hub. Provides the evidence-graded explainer that underpins the worked example in this framework.</li>
+            <li>Cross-link: What Mycelium-Based Engineering Changes About Sustainability Conversations — Rankine Knowledge Hub. Provides the framing context for applying this screening approach to frontier materials.</li>
+            <li>Cross-link: A Circularity Readiness Model for Infrastructure Decisions — Rankine Knowledge Hub. Complementary readiness framework covering the procurement and lifecycle conditions that bio-based materials must satisfy.</li>
+          </ol>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- ═══ SIDEBAR ═══ -->
+    <aside class="khr-sidebar">
+
+      <div class="side-card">
+        <div class="side-card-header">Reading Progress</div>
+        <div class="side-card-body">
+          <div class="reading-meter">
+            <div class="reading-meter-fill" id="sidebarMeter"></div>
+          </div>
+          <div class="reading-meter-label">
+            <span>Start</span>
+            <span id="progressPct">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-card-header">Resource Details</div>
+        <div class="side-card-body">
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--moss);box-shadow:0 0 8px rgba(61,92,42,0.55)"></span>
+            <div>
+              <div class="domain-label">Sustainability &amp; Circularity</div>
+              <div class="domain-sub">Core domain · First-wave resource</div>
+            </div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--copper);box-shadow:0 0 8px rgba(160,92,56,0.4)"></span>
+            <div>
+              <div class="domain-label">Practitioners · Innovation Teams</div>
+              <div class="domain-sub">Material innovators · sustainability leads</div>
+            </div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--sand);box-shadow:0 0 8px rgba(201,171,132,0.4)"></span>
+            <div>
+              <div class="domain-label">8 min read · 5 modules</div>
+              <div class="domain-sub">Updated 2025</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-card-header">Continue Reading</div>
+        <div class="side-card-body">
+          <a href="../explainers/mycelium-and-soil-resilience.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text">
+              <span class="related-link-tag">Explainer</span>
+              Mycelium and Soil Resilience
+            </span>
+          </a>
+          <a href="../lab-notes/what-mycelium-based-engineering-changes-about-sustainability-conversations.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text">
+              <span class="related-link-tag">Lab Note</span>
+              What Mycelium-Based Engineering Changes About Sustainability Conversations
+            </span>
+          </a>
+          <a href="circularity-readiness-model-for-infrastructure-decisions.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text">
+              <span class="related-link-tag">Framework</span>
+              A Circularity Readiness Model for Infrastructure Decisions
+            </span>
+          </a>
+          <button class="btn-side" onclick="window.location.href='../../knowledge-hub.html'">
+            ← Back to Knowledge Hub
+          </button>
+        </div>
+      </div>
+
+      <div class="side-card">
+        <div class="side-card-header">Engage with Rankine</div>
+        <div class="side-card-body">
+          <p>This framework connects to our sustainability research and bio-based material programmes. If you are evaluating a mycelium-linked, fibre-based, or other bio-derived material concept, we would like to hear from you.</p>
+          <button class="btn-side" onclick="window.location.href='../../contact.html'">
+            Discuss a Partnership →
+          </button>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+</div>
+
+<!-- ════════════ FOOTER ════════════ -->
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="footer-logo-icon">
+      <div>
+        <img src="../../Images/rakine_logo.svg" class="footer-logo-icon" alt="Rankine Innovation Lab logo"/>
         <div class="footer-logo-name">Rankine Innovation Lab</div>
         <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
         <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
       </div>
       <div>
-        <h3 class="footer-col-title">Navigation</h3>
+        <div class="footer-col-title">Navigation</div>
         <ul class="footer-links">
           <li><a href="../../about.html">About the Lab</a></li>
-          <li><a href="../../index.html#method">The Rankine Method</a></li>
-          <li><a href="../../index.html#focus">Focus Areas</a></li>
+          <li><a href="../../research.html">Research &amp; Project</a></li>
           <li><a href="../../programmes.html">Programmes</a></li>
-<li><a href="../../team.html">Team</a></li>
+          <li><a href="../../team.html">Team</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Domains</h3>
+        <div class="footer-col-title">Domains</div>
         <ul class="footer-links">
-          <li><a href="../../research.html#ai">AI for STEM</a></li>
-          <li><a href="../../research.html#sustainability">Sustainability</a></li>
-          <li><a href="../../research.html#smart-agriculture">Smart Agriculture</a></li>
-          <li><a href="../../research.html#cross-disciplinary">Cross-Disciplinary</a></li>
+          <li><a href="../../research.html">AI for STEM</a></li>
+          <li><a href="../../research.html">Sustainability</a></li>
+          <li><a href="../../research.html">Smart Agriculture</a></li>
+          <li><a href="../../research.html">Cross-Disciplinary</a></li>
           <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Engage</h3>
+        <div class="footer-col-title">Engage</div>
         <ul class="footer-links">
-<li><a href="../../contact.html">Research Collaboration</a></li>
+          <li><a href="../../contact.html">Research Collaboration</a></li>
           <li><a href="../../contact.html">Training Enquiries</a></li>
           <li><a href="../../contact.html">Speaking</a></li>
           <li><a href="mailto:hello@rankineinnovationlab.com">hello@rankineinnovationlab.com</a></li>
@@ -272,7 +1050,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Rankine Innovation Lab. All rights reserved.</p>
+      <p class="footer-copy">&copy; 2025 <em>Rankine Innovation Lab</em>. All rights reserved.</p>
       <div class="footer-legal">
         <a href="../../privacy.html">Privacy</a>
         <a href="../../terms.html">Terms</a>
@@ -282,28 +1060,73 @@
   </div>
 </footer>
 
-
 <script>
-  const nav = document.getElementById('siteNav');
-  const toggle = document.getElementById('mobileToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  function setNavState(){
-    if(window.scrollY > 24){ nav.classList.remove('transparent'); nav.classList.add('solid'); }
-    else { nav.classList.add('transparent'); nav.classList.remove('solid'); }
-  }
-  setNavState();
-  window.addEventListener('scroll', setNavState, { passive: true });
-  if(toggle && mobileMenu){
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.classList.toggle('open');
-      mobileMenu.classList.toggle('open', isOpen);
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-      document.body.classList.toggle('menu-open', isOpen);
-    });
-  }
-</script>
+/* ── MOBILE MENU ─────────────────────────────────────────────────────── */
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu   = document.getElementById('mobileMenu');
+function closeMobile() {
+  hamburgerBtn.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  document.body.style.overflow = '';
+  hamburgerBtn.setAttribute('aria-expanded','false');
+}
+hamburgerBtn.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburgerBtn.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+  hamburgerBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
 
-<script src="../resource-template.js"></script>
+/* ── READING PROGRESS ────────────────────────────────────────────────── */
+const progressBar  = document.getElementById('progressBar');
+const sidebarMeter = document.getElementById('sidebarMeter');
+const progressPct  = document.getElementById('progressPct');
+const articleBody  = document.getElementById('articleBody');
+
+function updateProgress() {
+  const rect    = articleBody.getBoundingClientRect();
+  const total   = rect.height - window.innerHeight;
+  const scrolled = Math.max(0, -rect.top);
+  const pct     = Math.min(100, Math.round((scrolled / total) * 100));
+  progressBar.style.width  = pct + '%';
+  sidebarMeter.style.width = pct + '%';
+  progressPct.textContent  = pct + '%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+
+/* ── SCROLL REVEALS ──────────────────────────────────────────────────── */
+const revealObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      requestAnimationFrame(() => entry.target.classList.add('visible'));
+      revealObs.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+/* ── SCREENING CHECKLIST INTERACTION ────────────────────────────────── */
+document.querySelectorAll('.sc-item').forEach(item => {
+  let checked = false;
+  item.addEventListener('click', () => {
+    checked = !checked;
+    const check = item.querySelector('.sc-check');
+    if (checked) {
+      check.textContent = '✓';
+      check.style.background = 'rgba(61,92,42,0.3)';
+      check.style.borderColor = 'var(--moss-pale)';
+      check.style.color = 'var(--moss-pale)';
+      item.style.borderColor = 'rgba(61,92,42,0.28)';
+    } else {
+      check.textContent = '?';
+      check.style.background = '';
+      check.style.borderColor = '';
+      check.style.color = '';
+      item.style.borderColor = '';
+    }
+  });
+  item.style.cursor = 'pointer';
+});
+</script>
 </body>
 </html>
