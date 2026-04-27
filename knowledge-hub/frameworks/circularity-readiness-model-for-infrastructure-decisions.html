@@ -1,270 +1,832 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>A Circularity Readiness Model for Infrastructure Decisions — Knowledge Hub | Rankine Innovation Lab</title>
-  <meta name="description" content="Circularity readiness shifts the question from whether an organisation believes in circularity to whether it is positioned to make credible circular decisions.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../resource-template.css">
-</head>
-<body class="resource-page resource-framework">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>A Circularity Readiness Model for Infrastructure Decisions — Knowledge Hub | Rankine Innovation Lab</title>
+<meta name="description" content="Circularity is often invoked long before the conditions for circular action exist. This six-dimension readiness model shifts the question from 'Do we believe in circularity?' to 'Are we currently positioned to make circular decisions well?'"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --chocolate:  #180c06;
+  --espresso:   #241208;
+  --brown:      #3a1c0e;
+  --mahogany:   #5c2d18;
+  --copper:     #a05c38;
+  --copper-lt:  #c47a52;
+  --sand:       #c9ab84;
+  --sand-lt:    #ddc9a8;
+  --cream:      #f4ede0;
+  --cream-lt:   #faf6ef;
+  --sage:       #687558;
+  --sage-lt:    #8e9e78;
+  --teal:       #1e5050;
+  --teal-lt:    #2e7070;
+  --white:      #fffcf8;
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-label:   'Cinzel', serif;
+  --font-body:    'DM Sans', sans-serif;
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-body); background: var(--cream-lt); color: var(--espresso); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+img { display: block; max-width: 100%; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--teal); border-radius: 2px; }
+.container { width: min(1220px, 100%); margin-inline: auto; padding-inline: clamp(1.25rem, 4vw, 3rem); }
 
-<nav class="nav transparent" id="siteNav" aria-label="Primary navigation">
-  <div class="container nav-inner">
-    <a class="nav-logo" href="../../index.html" aria-label="Rankine Innovation Lab home">
-      <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="nav-logo-icon">
-      <span class="nav-logo-text">
-        <span class="nav-logo-mark">Rankine</span>
-        <span class="nav-logo-name">Innovation Lab</span>
-      </span>
-    </a>
-    <ul class="nav-links">
-      <li><a href="../../index.html">Home</a></li>
-      <li><a href="../../about.html">About</a></li>
-      <li><a href="../../research.html">Research &amp; Project</a></li>
-      <li><a href="../../programmes.html">Programmes</a></li>
-      <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
-      <li><a href="../../team.html">Team</a></li>
-      <li><a href="../../contact.html">Contact</a></li>
-    </ul>
-    <button class="hamburger" id="mobileToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-      <span></span><span></span><span></span>
-    </button>
+.progress-bar { position: fixed; top: 0; left: 0; width: 0%; height: 3px; background: linear-gradient(90deg, var(--teal), var(--copper), var(--sand)); z-index: 2000; transition: width 0.1s linear; }
+
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(24,12,6,0.97); backdrop-filter: blur(18px); box-shadow: 0 1px 0 rgba(201,171,132,0.12); }
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+.nav-logo { display: inline-flex; align-items: center; gap: 0.75rem; }
+.nav-logo-icon { width: 40px; height: 40px; border-radius: 8px; }
+.nav-logo-mark { display: block; font-family: var(--font-label); font-size: 0.78rem; letter-spacing: 0.25em; color: var(--copper); text-transform: uppercase; }
+.nav-logo-name { font-family: var(--font-display); font-size: 1.25rem; color: var(--cream); letter-spacing: 0.02em; }
+.nav-links { display: flex; align-items: center; gap: clamp(0.8rem,1.8vw,1.5rem); list-style: none; }
+.nav-links a { font-size: 0.76rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(244,237,224,0.7); transition: color 0.3s; }
+.nav-links a:hover { color: var(--cream); }
+.nav-links a.active-page { color: var(--sand); }
+.hamburger { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--cream); transition: all 0.3s; }
+.hamburger.open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2){ opacity:0; }
+.hamburger.open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+.mobile-menu { display: none; position: fixed; inset: 0; background: rgba(24,12,6,0.98); backdrop-filter: blur(20px); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.5rem; transform: translateY(-100%); transition: transform 0.5s var(--ease-out); }
+.mobile-menu.open { display: flex; transform: translateY(0); }
+.mobile-menu a { font-family: var(--font-display); font-size: 2rem; font-weight: 300; color: var(--cream); }
+
+/* HERO */
+.khr-hero {
+  min-height: 92vh;
+  background:
+    radial-gradient(ellipse 55% 50% at 86% 18%, rgba(30,80,80,0.32), transparent 55%),
+    radial-gradient(ellipse 45% 45% at 14% 76%, rgba(90,40,12,0.22), transparent 55%),
+    linear-gradient(158deg, #050e0e 0%, #0a1a1a 35%, #100c08 70%, #080604 100%);
+  display: flex; align-items: center;
+  padding-top: 72px; position: relative; overflow: hidden;
+}
+.khr-hero::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 71px, rgba(201,171,132,0.022) 71px, rgba(201,171,132,0.022) 72px); pointer-events: none; }
+.khr-hero::after { content: ''; position: absolute; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='512' height='512' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); background-size: 256px; opacity: 0.5; pointer-events: none; }
+.khr-hero-inner { position: relative; z-index: 2; width: 100%; padding-block: clamp(3rem,6vw,6rem); display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem,5vw,6rem); align-items: center; }
+
+.breadcrumb { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,237,224,0.3); display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.75rem; }
+.breadcrumb a:hover { color: var(--sand); }
+.breadcrumb strong { color: var(--copper); font-weight: 400; }
+.khr-type-badge { display: inline-flex; align-items: center; gap: 0.6rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal-lt); border: 1px solid rgba(30,80,80,0.45); background: rgba(30,80,80,0.12); padding: 0.4rem 0.9rem; border-radius: 2px; margin-bottom: 1.5rem; }
+.khr-type-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal-lt); box-shadow: 0 0 8px rgba(30,80,80,0.6); }
+.khr-title { font-family: var(--font-display); font-size: clamp(2.4rem, 4.5vw, 4.2rem); font-weight: 300; line-height: 1.08; letter-spacing: -0.012em; color: var(--cream-lt); margin-bottom: 1.4rem; }
+.khr-title em { font-style: italic; color: var(--sand); }
+.khr-dek { font-size: clamp(0.92rem,1.35vw,1.05rem); line-height: 1.82; color: rgba(244,237,224,0.55); font-weight: 300; max-width: 560px; margin-bottom: 2.2rem; }
+.khr-meta-row { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; padding-top: 1.5rem; border-top: 1px solid rgba(201,171,132,0.1); }
+.khr-meta-item { display: flex; align-items: center; gap: 0.5rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(201,171,132,0.4); }
+.khr-meta-item strong { color: var(--teal-lt); font-weight: 400; }
+
+/* HERO SVG — Circularity Readiness Matrix */
+.hero-diagram-wrap { display: flex; align-items: center; justify-content: center; }
+.hero-diagram { width: 100%; max-width: 480px; aspect-ratio: 1; }
+.matrix-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 40px rgba(30,80,80,0.12)); }
+
+.dim-bar { animation: barFill 1.4s var(--ease-out) both; transform-origin: left; }
+.dim-bar:nth-child(1){ animation-delay:0.1s }
+.dim-bar:nth-child(2){ animation-delay:0.25s }
+.dim-bar:nth-child(3){ animation-delay:0.4s }
+.dim-bar:nth-child(4){ animation-delay:0.55s }
+.dim-bar:nth-child(5){ animation-delay:0.7s }
+.dim-bar:nth-child(6){ animation-delay:0.85s }
+@keyframes barFill { from{transform:scaleX(0)} to{transform:scaleX(1)} }
+
+.level-dot { animation: dotPulse 3s ease-in-out infinite; }
+.level-dot:nth-child(2n){ animation-delay:0.8s }
+.level-dot:nth-child(3n){ animation-delay:1.6s }
+@keyframes dotPulse { 0%,100%{opacity:0.5;r:4} 50%{opacity:1;r:6} }
+
+.score-line { stroke-dasharray:300; stroke-dashoffset:300; animation: lineDraw 1.8s var(--ease-out) 0.5s both; }
+@keyframes lineDraw { to{ stroke-dashoffset:0 } }
+
+/* LAYOUT */
+.khr-layout { display: grid; grid-template-columns: 1fr 340px; gap: 3rem; padding-block: clamp(3rem,6vw,5.5rem); align-items: start; }
+.khr-article { min-width: 0; }
+.khr-section { margin-bottom: clamp(3rem,5vw,4.5rem); padding-bottom: clamp(3rem,5vw,4.5rem); border-bottom: 1px solid rgba(58,28,14,0.08); }
+.khr-section:last-child { border-bottom: none; margin-bottom: 0; }
+.section-eyebrow { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.24em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.75rem; }
+.section-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--teal); }
+.khr-h2 { font-family: var(--font-display); font-size: clamp(1.6rem,2.8vw,2.2rem); font-weight: 400; line-height: 1.15; color: var(--espresso); letter-spacing: -0.01em; margin-bottom: 1.25rem; }
+.khr-h2 em { font-style: italic; color: var(--teal); }
+.khr-body { font-size: clamp(0.95rem,1.35vw,1.03rem); line-height: 1.88; color: var(--brown); font-weight: 300; }
+.khr-body + .khr-body { margin-top: 1.1rem; }
+
+/* PULL QUOTE */
+.pull-quote { margin: 2.5rem 0; padding: 2rem 2rem 2rem 2.5rem; border-left: 4px solid var(--teal); background: linear-gradient(135deg, rgba(30,80,80,0.06), rgba(201,171,132,0.02)); border-radius: 0 var(--radius-md) var(--radius-md) 0; position: relative; overflow: hidden; }
+.pull-quote::before { content: '"'; position: absolute; top: -1rem; left: 1rem; font-family: var(--font-display); font-size: 8rem; font-weight: 700; color: rgba(30,80,80,0.07); line-height: 1; pointer-events: none; }
+.pull-quote p { font-family: var(--font-display); font-style: italic; font-size: clamp(1.15rem,2vw,1.45rem); font-weight: 300; line-height: 1.55; color: var(--mahogany); position: relative; z-index: 1; }
+.pull-quote cite { display: block; margin-top: 0.75rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); font-style: normal; }
+
+/* INFOGRAPHIC WRAPPER */
+.infographic { margin: 2.5rem 0; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid rgba(58,28,14,0.1); }
+.infographic-header { background: var(--espresso); padding: 1.25rem 1.75rem; display: flex; align-items: center; gap: 1rem; }
+.infographic-header-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal-lt); }
+.infographic-header-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 400; color: var(--cream); }
+.infographic-header-line { flex: 1; height: 1px; background: rgba(201,171,132,0.12); }
+.infographic-body { background: var(--white); padding: 2rem 1.75rem; }
+
+/* SIX DIMENSIONS — vertical hierarchy with scores */
+.dimensions-stack { display: flex; flex-direction: column; gap: 0.85rem; }
+.dim-item { display: grid; grid-template-columns: 44px 1fr 140px; gap: 1.1rem; align-items: center; padding: 1rem 1.25rem; border-radius: var(--radius-md); border: 1px solid transparent; cursor: default; transition: transform 0.35s var(--ease-out), border-color 0.35s; }
+.dim-item:hover { transform: translateX(5px); border-color: rgba(30,80,80,0.25); }
+.dim-item:nth-child(1){ background: rgba(30,80,80,0.1); border-color: rgba(30,80,80,0.25); }
+.dim-item:nth-child(2){ background: rgba(30,80,80,0.08); border-color: rgba(30,80,80,0.18); }
+.dim-item:nth-child(3){ background: rgba(104,117,88,0.08); border-color: rgba(104,117,88,0.18); }
+.dim-item:nth-child(4){ background: rgba(160,92,56,0.07); border-color: rgba(160,92,56,0.16); }
+.dim-item:nth-child(5){ background: rgba(201,171,132,0.07); border-color: rgba(201,171,132,0.15); }
+.dim-item:nth-child(6){ background: rgba(92,45,24,0.06); border-color: rgba(92,45,24,0.13); }
+.dim-num { font-family: var(--font-display); font-size: 1.6rem; font-weight: 300; text-align: center; line-height: 1; }
+.dim-item:nth-child(1) .dim-num { color: rgba(46,112,112,0.55); }
+.dim-item:nth-child(2) .dim-num { color: rgba(46,112,112,0.45); }
+.dim-item:nth-child(3) .dim-num { color: rgba(142,158,120,0.45); }
+.dim-item:nth-child(4) .dim-num { color: rgba(196,122,82,0.45); }
+.dim-item:nth-child(5) .dim-num { color: rgba(201,171,132,0.4); }
+.dim-item:nth-child(6) .dim-num { color: rgba(160,80,53,0.38); }
+.dim-body {}
+.dim-title { font-family: var(--font-display); font-size: 1.02rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.28rem; }
+.dim-desc { font-size: 0.8rem; line-height: 1.62; color: var(--brown); font-weight: 300; }
+.dim-score-track { display: flex; flex-direction: column; gap: 0.45rem; }
+.dim-score-label { font-family: var(--font-label); font-size: 0.52rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(58,28,14,0.38); text-align: right; }
+.dim-bar-wrap { height: 6px; background: rgba(58,28,14,0.08); border-radius: 3px; overflow: hidden; }
+.dim-bar-fill { height: 100%; border-radius: 3px; }
+.dim-item:nth-child(1) .dim-bar-fill { background: rgba(46,112,112,0.6); width: 75%; }
+.dim-item:nth-child(2) .dim-bar-fill { background: rgba(46,112,112,0.5); width: 60%; }
+.dim-item:nth-child(3) .dim-bar-fill { background: rgba(142,158,120,0.6); width: 50%; }
+.dim-item:nth-child(4) .dim-bar-fill { background: rgba(196,122,82,0.55); width: 40%; }
+.dim-item:nth-child(5) .dim-bar-fill { background: rgba(201,171,132,0.5); width: 30%; }
+.dim-item:nth-child(6) .dim-bar-fill { background: rgba(160,80,53,0.45); width: 65%; }
+.dim-score-note { font-size: 0.72rem; color: rgba(58,28,14,0.45); text-align: right; }
+
+/* SCORING SCALE */
+.scoring-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; }
+.score-level { padding: 1.25rem 1rem; border-radius: var(--radius-md); text-align: center; cursor: default; transition: transform 0.35s var(--ease-out); }
+.score-level:hover { transform: translateY(-4px); }
+.score-level:nth-child(1) { background: rgba(92,45,24,0.08); border: 1px solid rgba(92,45,24,0.18); }
+.score-level:nth-child(2) { background: rgba(160,92,56,0.07); border: 1px solid rgba(160,92,56,0.16); }
+.score-level:nth-child(3) { background: rgba(30,80,80,0.08); border: 1px solid rgba(30,80,80,0.2); }
+.score-level:nth-child(4) { background: rgba(30,80,80,0.12); border: 1px solid rgba(30,80,80,0.28); }
+.score-num { font-family: var(--font-display); font-size: 2.2rem; font-weight: 300; line-height: 1; margin-bottom: 0.5rem; }
+.score-level:nth-child(1) .score-num { color: rgba(92,45,24,0.5); }
+.score-level:nth-child(2) .score-num { color: rgba(160,92,56,0.55); }
+.score-level:nth-child(3) .score-num { color: rgba(46,112,112,0.6); }
+.score-level:nth-child(4) .score-num { color: rgba(46,112,112,0.75); }
+.score-label { font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.5rem; display: block; }
+.score-level:nth-child(1) .score-label { color: var(--mahogany); }
+.score-level:nth-child(2) .score-label { color: var(--copper-lt); }
+.score-level:nth-child(3) .score-label { color: var(--teal-lt); }
+.score-level:nth-child(4) .score-label { color: var(--teal-lt); }
+.score-desc { font-size: 0.78rem; line-height: 1.6; color: var(--brown); font-weight: 300; }
+
+/* WORKED EXAMPLE */
+.example-card { background: rgba(30,80,80,0.04); border: 1px solid rgba(30,80,80,0.18); border-radius: var(--radius-md); padding: 1.5rem; }
+.example-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+.example-icon { font-size: 1.3rem; }
+.example-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal); }
+.example-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 500; color: var(--espresso); margin-bottom: 0.6rem; }
+.example-body { font-size: 0.88rem; line-height: 1.78; color: var(--brown); font-weight: 300; }
+.example-outcome { margin-top: 1rem; padding: 0.85rem 1rem; background: rgba(30,80,80,0.06); border-left: 3px solid var(--teal); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.example-outcome-label { font-family: var(--font-label); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.35rem; display: block; }
+.example-outcome-text { font-size: 0.84rem; line-height: 1.65; color: var(--espresso); font-style: italic; }
+
+/* MISUSE CARDS */
+.misuse-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; }
+.misuse-card { padding: 1.35rem 1.15rem; background: var(--espresso); border-radius: var(--radius-md); position: relative; overflow: hidden; cursor: default; transition: transform 0.35s var(--ease-out); }
+.misuse-card:hover { transform: translateY(-4px); }
+.misuse-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--mahogany), var(--copper)); }
+.misuse-icon { font-size: 1.3rem; margin-bottom: 0.75rem; display: block; }
+.misuse-title { font-family: var(--font-display); font-size: 0.95rem; font-weight: 500; color: var(--cream); margin-bottom: 0.45rem; line-height: 1.3; }
+.misuse-desc { font-size: 0.78rem; line-height: 1.65; color: rgba(244,237,224,0.42); font-weight: 300; }
+
+/* READINESS CHECKLIST */
+.readiness-block { background: var(--espresso); border-radius: var(--radius-lg); padding: 2rem; position: relative; overflow: hidden; }
+.readiness-block::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(201,171,132,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(201,171,132,0.03) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+.rb-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; position: relative; z-index: 1; }
+.rb-icon { font-size: 1.4rem; color: var(--teal-lt); }
+.rb-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal-lt); }
+.rb-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 300; color: var(--cream); }
+.rb-items { display: flex; flex-direction: column; gap: 0.75rem; position: relative; z-index: 1; }
+.rb-item { display: flex; align-items: flex-start; gap: 1rem; padding: 0.9rem 1rem; background: rgba(255,252,248,0.035); border: 1px solid rgba(201,171,132,0.08); border-radius: var(--radius-sm); cursor: pointer; transition: background 0.35s, border-color 0.35s; }
+.rb-item:hover { background: rgba(255,252,248,0.07); border-color: rgba(30,80,80,0.25); }
+.rb-check { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(30,80,80,0.4); background: rgba(30,80,80,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.65rem; color: var(--teal-lt); transition: background 0.35s, border-color 0.35s; }
+.rb-item:hover .rb-check { background: rgba(30,80,80,0.2); border-color: var(--teal-lt); }
+.rb-text { font-family: var(--font-display); font-size: 0.95rem; font-weight: 400; color: rgba(244,237,224,0.72); line-height: 1.45; flex: 1; font-style: italic; }
+
+.references { background: var(--cream); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); padding: 1.5rem 1.75rem; }
+.references-label { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1rem; display: block; }
+.references ol { padding-left: 1.25rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.references li { font-size: 0.82rem; line-height: 1.65; color: var(--brown); font-weight: 300; }
+
+/* SIDEBAR */
+.khr-sidebar { position: sticky; top: calc(72px + 2rem); display: flex; flex-direction: column; gap: 1.25rem; }
+.side-card { background: var(--white); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-md); overflow: hidden; }
+.side-card-header { background: var(--espresso); padding: 0.9rem 1.25rem; font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--teal-lt); }
+.side-card-body { padding: 1.25rem; }
+.side-card-body p { font-size: 0.84rem; line-height: 1.72; color: var(--brown); font-weight: 300; }
+.domain-badge { display: flex; align-items: center; gap: 0.75rem; padding: 0.85rem 1rem; background: var(--cream-lt); border: 1px solid rgba(58,28,14,0.1); border-radius: var(--radius-sm); margin-bottom: 0.75rem; }
+.domain-badge:last-child { margin-bottom: 0; }
+.domain-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.domain-label { font-size: 0.8rem; color: var(--espresso); font-weight: 400; }
+.domain-sub { font-size: 0.72rem; color: var(--mahogany); font-weight: 300; }
+.related-link { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.85rem 0; border-bottom: 1px solid rgba(58,28,14,0.07); transition: transform 0.3s; }
+.related-link:last-child { border-bottom: none; padding-bottom: 0; }
+.related-link:hover { transform: translateX(4px); }
+.related-link-arrow { color: var(--copper); flex-shrink: 0; font-size: 0.7rem; margin-top: 0.15em; transition: transform 0.3s; }
+.related-link:hover .related-link-arrow { transform: translateX(3px); }
+.related-link-text { font-size: 0.83rem; line-height: 1.5; color: var(--espresso); font-weight: 400; }
+.related-link-tag { display: block; font-family: var(--font-label); font-size: 0.54rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--copper); margin-bottom: 0.2rem; }
+.reading-meter { height: 4px; background: rgba(58,28,14,0.08); border-radius: 2px; overflow: hidden; margin: 0.75rem 0 0.4rem; }
+.reading-meter-fill { height: 100%; background: linear-gradient(90deg, var(--teal), var(--copper), var(--sand)); width: 0%; transition: width 0.2s linear; border-radius: 2px; }
+.reading-meter-label { font-family: var(--font-label); font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(58,28,14,0.35); display: flex; justify-content: space-between; }
+.btn-side { display: flex; align-items: center; justify-content: center; gap: 0.5rem; width: 100%; padding: 0.85rem; font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; background: var(--espresso); color: var(--cream); border-radius: var(--radius-sm); cursor: pointer; margin-top: 0.75rem; transition: background 0.3s; }
+.btn-side:hover { background: var(--brown); }
+
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.85s cubic-bezier(0.16,1,0.3,1), transform 0.85s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: none; }
+.d1{ transition-delay: 0.1s; } .d2{ transition-delay: 0.2s; } .d3{ transition-delay: 0.3s; }
+
+.footer { background: var(--chocolate); padding: 4rem 0 2.5rem; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 4rem; }
+.footer-logo-icon { width: 38px; margin-bottom: 0.75rem; }
+.footer-logo-name { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; color: var(--cream); }
+.footer-logo-sub  { font-family: var(--font-label); font-size: 0.58rem; letter-spacing: 0.22em; color: var(--copper); text-transform: uppercase; margin: 0.3rem 0 1rem; }
+.footer-tagline   { font-size: 0.83rem; line-height: 1.7; color: rgba(244,237,224,0.35); font-weight: 300; max-width: 240px; }
+.footer-col-title { font-family: var(--font-label); font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--copper); margin-bottom: 1.1rem; }
+.footer-links     { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.footer-links a   { font-size: 0.82rem; color: rgba(244,237,224,0.35); transition: color 0.3s; }
+.footer-links a:hover { color: var(--sand); }
+.footer-bottom    { border-top: 1px solid rgba(201,171,132,0.1); padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-copy      { font-size: 0.76rem; color: rgba(244,237,224,0.2); }
+.footer-copy em   { color: var(--copper); font-style: normal; }
+.footer-legal     { display: flex; gap: 1.5rem; }
+.footer-legal a   { font-size: 0.73rem; color: rgba(244,237,224,0.2); transition: color 0.3s; }
+.footer-legal a:hover { color: var(--sand); }
+
+@media (max-width: 1024px) {
+  .khr-hero-inner { grid-template-columns: 1fr; }
+  .hero-diagram-wrap { display: none; }
+  .khr-layout { grid-template-columns: 1fr; }
+  .khr-sidebar { position: static; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .dim-item { grid-template-columns: 36px 1fr; }
+  .dim-score-track { display: none; }
+  .scoring-grid { grid-template-columns: 1fr 1fr; }
+  .misuse-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) { .scoring-grid { grid-template-columns: 1fr; } .footer-grid { grid-template-columns: 1fr; gap: 2rem; } }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="nav" id="mainNav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="../../index.html" class="nav-logo">
+        <img src="../../Images/rakine_logo.svg" class="nav-logo-icon" alt="Rankine Innovation Lab logo"/>
+        <div><span class="nav-logo-mark">Rankine</span><span class="nav-logo-name">Innovation Lab</span></div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../about.html">About</a></li>
+        <li><a href="../../research.html">Research &amp; Project</a></li>
+        <li><a href="../../programmes.html">Programmes</a></li>
+        <li><a href="../../knowledge-hub.html" class="active-page">Knowledge Hub</a></li>
+        <li><a href="../../team.html">Team</a></li>
+        <li><a href="../../contact.html">Contact</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </nav>
-<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
-  <a href="../../index.html">Home</a>
-  <a href="../../about.html">About</a>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="../../index.html" onclick="closeMobile()">Home</a>
+  <a href="../../about.html" onclick="closeMobile()">About</a>
   <a href="../../research.html" onclick="closeMobile()">Research &amp; Project</a>
-  <a href="../../programmes.html">Programmes</a>
+  <a href="../../programmes.html" onclick="closeMobile()">Programmes</a>
   <a href="../../knowledge-hub.html" onclick="closeMobile()">Knowledge Hub</a>
-  <a href="../../team.html">Team</a>
-  <a href="../../contact.html">Contact</a>
+  <a href="../../team.html" onclick="closeMobile()">Team</a>
+  <a href="../../contact.html" onclick="closeMobile()">Contact</a>
 </div>
 
-<header class="khr-hero">
-    <div class="container">
-      <div class="breadcrumb"><a href="../../index.html">Home</a><span>—</span><a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span><strong>Framework</strong></div>
-      <div class="khr-type">Framework · Sustainability &amp; Circularity</div>
-      <h1 class="khr-title">A Circularity Readiness Model for Infrastructure Decisions</h1>
-      <p class="khr-dek">Circularity readiness shifts the question from whether an organisation believes in circularity to whether it is positioned to make credible circular decisions.</p>
-      <div class="khr-meta">
-        <span><strong>Domain</strong> Sustainability &amp; Circularity</span>
-        <span><strong>Reading time</strong> 6 min read</span>
-        <span><strong>Level</strong> Practitioner</span>
-      </div>
-
-    <div class="khr-feature">
-      <div class="khr-feature-head">
-        <div>
-          <div class="khr-feature-kicker">Decision Matrix</div>
-          <div class="khr-feature-title">Circularity Decision Matrix</div>
+<!-- HERO -->
+<section class="khr-hero">
+  <div class="container">
+    <div class="khr-hero-inner">
+      <div>
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <a href="../../index.html">Home</a><span>—</span>
+          <a href="../../knowledge-hub.html">Knowledge Hub</a><span>—</span>
+          <strong>Framework</strong>
+        </nav>
+        <div class="khr-type-badge">
+          <span class="khr-type-badge-dot" aria-hidden="true"></span>
+          Framework · Sustainability &amp; Circularity
         </div>
-        <p class="khr-feature-sub">Infrastructure readiness across lifecycle checkpoints.</p>
+        <h1 class="khr-title">A Circularity Readiness<br>Model for <em>Infrastructure<br>Decisions</em></h1>
+        <p class="khr-dek">Circularity is now used in many infrastructure conversations — but it is often invoked long before the conditions for circular action actually exist. This framework shifts the question from "Do we believe in circularity?" to "Are we currently positioned to make circular decisions well?" That shift is more useful, more honest, and more actionable.</p>
+        <div class="khr-meta-row">
+          <div class="khr-meta-item"><strong>Domain</strong> Sustainability &amp; Circularity</div>
+          <div class="khr-meta-item"><strong>Reading time</strong> 8 min read</div>
+          <div class="khr-meta-item"><strong>Level</strong> Infrastructure Teams · Procurement Leads</div>
+        </div>
       </div>
-      <figure class="khr-diagram khr-hero-visual" role="group" aria-label="Circularity Decision Matrix">
-        <img class="khr-feature-image" src="../../Images/knowledge/circularity-readiness-gates.svg" alt="Circularity Decision Matrix visual showing design, material loops, procurement stages" width="1600" height="600">
-      </figure>
-      <div class="khr-feature-tags">
-      <span>Lifecycle</span>
-      <span>Procurement</span>
-      <span>Traceability</span>
-      <span>Governance</span>
-      <span>Learning</span>
-      </div>
-    </div>
 
-    </div>
-  </header>
+      <!-- Hero SVG: Readiness Radar / Profile -->
+      <div class="hero-diagram-wrap" aria-hidden="true">
+        <div class="hero-diagram">
+          <svg class="matrix-svg" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
 
-  <main class="khr-main">
-    <div class="container khr-grid">
-      <article class="khr-article">
+            <!-- Background -->
+            <rect x="30" y="30" width="340" height="340" rx="12" fill="rgba(30,80,80,0.04)" stroke="rgba(30,80,80,0.12)" stroke-width="1"/>
 
-  <section class="khr-editorial-section" id="what-problem-this-framework-solves">
-    <div class="khr-section-kicker">Framework Purpose</div>
-    <h2>What problem this framework solves</h2>
-    <p>Circularity is now used in many infrastructure conversations, but the word often appears before the conditions for circular action exist. That creates ambitious language, weak pathways, and little clarity about where to start.</p>
-    <p>A readiness model shifts the question from “do we believe in circularity?” to “are we positioned to make circular decisions well?” That is more useful because circularity depends on design choices, procurement rules, material flows, supplier relationships, operations, and measurement habits.</p>
-  </section>
+            <!-- Title -->
+            <text x="200" y="58" font-family="Cinzel,serif" font-size="9" letter-spacing="1.5" fill="rgba(201,171,132,0.38)" text-anchor="middle">READINESS PROFILE</text>
 
+            <!-- Y axis: dimensions -->
+            <line x1="110" y1="75" x2="110" y2="355" stroke="rgba(30,80,80,0.15)" stroke-width="1"/>
 
-  <section class="khr-matrix" aria-label="Six Readiness Dimensions">
-    <h3>Six Readiness Dimensions</h3>
-    <div class="khr-matrix-rows">
-      <div class="khr-matrix-row"><strong>Strategic intent</strong><span>Circularity is defined clearly enough to guide decisions rather than serve as broad aspiration.</span></div>
-      <div class="khr-matrix-row"><strong>Design and specification</strong><span>Teams compare repair, reuse, modularity, maintenance, and end-of-life implications before options close.</span></div>
-      <div class="khr-matrix-row"><strong>Supply-chain and market fit</strong><span>Suppliers, recovery pathways, reverse logistics, or refurbishment options are credible in context.</span></div>
-      <div class="khr-matrix-row"><strong>Data and traceability</strong><span>Materials, lifecycle histories, asset condition, and recovery pathways can be identified.</span></div>
-      <div class="khr-matrix-row"><strong>Governance and incentives</strong><span>Procurement rules, budgets, contracts, and accountability structures support circular outcomes.</span></div>
-      <div class="khr-matrix-row"><strong>Measurement and learning</strong><span>Teams track whether circular interventions deliver value and adjust future decisions.</span></div>
-    </div>
-  </section>
+            <!-- X axis: score scale 1-4 -->
+            <line x1="110" y1="355" x2="360" y2="355" stroke="rgba(30,80,80,0.15)" stroke-width="1"/>
+            <text x="110" y="370" font-family="Cinzel,serif" font-size="7" fill="rgba(201,171,132,0.3)" text-anchor="middle">1</text>
+            <text x="173" y="370" font-family="Cinzel,serif" font-size="7" fill="rgba(201,171,132,0.3)" text-anchor="middle">2</text>
+            <text x="235" y="370" font-family="Cinzel,serif" font-size="7" fill="rgba(201,171,132,0.3)" text-anchor="middle">3</text>
+            <text x="298" y="370" font-family="Cinzel,serif" font-size="7" fill="rgba(201,171,132,0.3)" text-anchor="middle">4</text>
+            <text x="360" y="370" font-family="Cinzel,serif" font-size="7" fill="rgba(46,112,112,0.45)" text-anchor="middle">5</text>
+            <text x="235" y="382" font-family="Cinzel,serif" font-size="6.5" fill="rgba(201,171,132,0.25)" text-anchor="middle">READINESS SCORE</text>
 
+            <!-- SIX DIMENSION ROWS -->
+            <!-- Row 1: Strategic Intent -->
+            <text x="105" y="101" font-family="Cinzel,serif" font-size="7" fill="rgba(46,112,112,0.6)" text-anchor="end">Strategic</text>
+            <text x="105" y="112" font-family="Cinzel,serif" font-size="7" fill="rgba(46,112,112,0.6)" text-anchor="end">Intent</text>
+            <!-- Track -->
+            <rect x="113" y="88" width="245" height="14" rx="3" fill="rgba(30,80,80,0.06)" stroke="rgba(30,80,80,0.12)" stroke-width="0.8"/>
+            <!-- Fill bar — score 3.5 → width 75% of 245 = 184 -->
+            <g class="dim-bar">
+              <rect x="113" y="88" width="184" height="14" rx="3" fill="rgba(30,80,80,0.45)"/>
+            </g>
+            <circle class="level-dot" cx="297" cy="95" r="4" fill="rgba(46,112,112,0.8)" stroke="rgba(201,171,132,0.4)" stroke-width="1"/>
 
-  <section class="khr-infographic" aria-label="Four-Level Scoring">
-    <div class="khr-infographic-head">
-      <h3>Four-Level Scoring</h3>
-      <span>Use levels to support conversation, not precision theatre</span>
-    </div>
-    <div class="khr-infographic-grid">
-      <div class="khr-infographic-cell"><strong>Level 1</strong><p>Circularity is mainly rhetorical; evidence and ownership are weak.</p></div>
-      <div class="khr-infographic-cell"><strong>Level 2</strong><p>Isolated efforts exist, but integration is limited.</p></div>
-      <div class="khr-infographic-cell"><strong>Level 3</strong><p>Circular choices are operational in selected workflows.</p></div>
-      <div class="khr-infographic-cell"><strong>Level 4</strong><p>Circularity influences design, procurement, operations, and review consistently.</p></div>
-      <div class="khr-infographic-cell"><strong>Evidence rule</strong><p>Every score should be backed by a concrete example or document.</p></div>
-      <div class="khr-infographic-cell"><strong>Action rule</strong><p>The lowest constraining dimension should become the next improvement target.</p></div>
-    </div>
-  </section>
+            <!-- Row 2: Design & Spec -->
+            <text x="105" y="137" font-family="Cinzel,serif" font-size="7" fill="rgba(46,112,112,0.52)" text-anchor="end">Design &amp;</text>
+            <text x="105" y="148" font-family="Cinzel,serif" font-size="7" fill="rgba(46,112,112,0.52)" text-anchor="end">Specification</text>
+            <rect x="113" y="124" width="245" height="14" rx="3" fill="rgba(30,80,80,0.05)" stroke="rgba(30,80,80,0.1)" stroke-width="0.8"/>
+            <g class="dim-bar">
+              <rect x="113" y="124" width="123" height="14" rx="3" fill="rgba(30,80,80,0.35)"/>
+            </g>
+            <circle class="level-dot" cx="236" cy="131" r="4" fill="rgba(46,112,112,0.65)" stroke="rgba(201,171,132,0.35)" stroke-width="1" style="animation-delay:0.4s"/>
 
+            <!-- Row 3: Supply Chain -->
+            <text x="105" y="173" font-family="Cinzel,serif" font-size="7" fill="rgba(104,117,88,0.55)" text-anchor="end">Supply Chain</text>
+            <text x="105" y="184" font-family="Cinzel,serif" font-size="7" fill="rgba(104,117,88,0.55)" text-anchor="end">&amp; Market Fit</text>
+            <rect x="113" y="160" width="245" height="14" rx="3" fill="rgba(104,117,88,0.05)" stroke="rgba(104,117,88,0.12)" stroke-width="0.8"/>
+            <g class="dim-bar">
+              <rect x="113" y="160" width="98" height="14" rx="3" fill="rgba(104,117,88,0.45)"/>
+            </g>
+            <circle class="level-dot" cx="211" cy="167" r="4" fill="rgba(142,158,120,0.75)" stroke="rgba(201,171,132,0.3)" stroke-width="1" style="animation-delay:0.8s"/>
 
-  <section class="khr-editorial-section" id="how-to-apply-the-framework">
-    <div class="khr-section-kicker">Application Logic</div>
-    <h2>How to apply the framework</h2>
-    <p>Start with one infrastructure decision, not a whole organisation. That could be a material substitution choice, asset replacement, building retrofit package, or maintenance strategy.</p>
-    <p>Score the six dimensions against that decision context. Then identify where the lowest-scoring dimensions are blocking the rest. Circularity often fails because one missing condition—procurement flexibility, traceability, supplier capability—quietly undermines the whole initiative.</p>
-  </section>
+            <!-- Row 4: Data & Traceability -->
+            <text x="105" y="209" font-family="Cinzel,serif" font-size="7" fill="rgba(160,92,56,0.55)" text-anchor="end">Data &amp;</text>
+            <text x="105" y="220" font-family="Cinzel,serif" font-size="7" fill="rgba(160,92,56,0.55)" text-anchor="end">Traceability</text>
+            <rect x="113" y="196" width="245" height="14" rx="3" fill="rgba(160,92,56,0.05)" stroke="rgba(160,92,56,0.12)" stroke-width="0.8"/>
+            <g class="dim-bar">
+              <rect x="113" y="196" width="73" height="14" rx="3" fill="rgba(160,92,56,0.4)"/>
+            </g>
+            <circle class="level-dot" cx="186" cy="203" r="4" fill="rgba(196,122,82,0.7)" stroke="rgba(201,171,132,0.28)" stroke-width="1" style="animation-delay:1.2s"/>
 
+            <!-- Row 5: Governance -->
+            <text x="105" y="245" font-family="Cinzel,serif" font-size="7" fill="rgba(201,171,132,0.52)" text-anchor="end">Governance</text>
+            <text x="105" y="256" font-family="Cinzel,serif" font-size="7" fill="rgba(201,171,132,0.52)" text-anchor="end">&amp; Incentives</text>
+            <rect x="113" y="232" width="245" height="14" rx="3" fill="rgba(201,171,132,0.04)" stroke="rgba(201,171,132,0.12)" stroke-width="0.8"/>
+            <g class="dim-bar">
+              <rect x="113" y="232" width="62" height="14" rx="3" fill="rgba(201,171,132,0.38)"/>
+            </g>
+            <circle class="level-dot" cx="175" cy="239" r="4" fill="rgba(201,171,132,0.65)" stroke="rgba(201,171,132,0.25)" stroke-width="1" style="animation-delay:1.6s"/>
 
-  <section class="khr-flow" aria-label="Readiness Gate Sequence">
-    <div class="khr-flow-head"><h3>Readiness Gate Sequence</h3></div>
-    <div class="khr-flow-grid">
-    <div class="khr-flow-step"><span>01</span><strong>Frame the decision</strong><p>Name the asset, material, or lifecycle choice under review.</p></div>
-    <div class="khr-flow-step"><span>02</span><strong>Score dimensions</strong><p>Use evidence to rate readiness across the six dimensions.</p></div>
-    <div class="khr-flow-step"><span>03</span><strong>Identify bottleneck</strong><p>Find the dimension that most constrains credible circular action.</p></div>
-    <div class="khr-flow-step"><span>04</span><strong>Set intervention</strong><p>Choose the policy, data, design, or market action that improves readiness.</p></div>
-    <div class="khr-flow-step"><span>05</span><strong>Review after decision</strong><p>Track whether the circular choice delivered value and what changed.</p></div>
-    </div>
-  </section>
+            <!-- Row 6: Measurement -->
+            <text x="105" y="281" font-family="Cinzel,serif" font-size="7" fill="rgba(160,80,53,0.5)" text-anchor="end">Measurement</text>
+            <text x="105" y="292" font-family="Cinzel,serif" font-size="7" fill="rgba(160,80,53,0.5)" text-anchor="end">&amp; Learning</text>
+            <rect x="113" y="268" width="245" height="14" rx="3" fill="rgba(160,80,53,0.04)" stroke="rgba(160,80,53,0.1)" stroke-width="0.8"/>
+            <g class="dim-bar">
+              <rect x="113" y="268" width="148" height="14" rx="3" fill="rgba(160,80,53,0.38)"/>
+            </g>
+            <circle class="level-dot" cx="261" cy="275" r="4" fill="rgba(196,122,82,0.65)" stroke="rgba(201,171,132,0.25)" stroke-width="1" style="animation-delay:2s"/>
 
+            <!-- Connecting profile line -->
+            <polyline class="score-line" points="297,95 236,131 211,167 186,203 175,239 261,275" stroke="rgba(201,171,132,0.3)" stroke-width="1.5" fill="none" stroke-dasharray="4 3"/>
 
-  <section class="khr-editorial-section" id="worked-example">
-    <div class="khr-section-kicker">Worked Example</div>
-    <h2>Worked example</h2>
-    <p>Imagine a team considering recycled or polymer-enhanced material options in a refurbishment. Strategic intent may be strong because leadership wants lower waste and longer life. Design readiness may be limited if lifecycle comparison tools are absent. Supply-chain fit may be uncertain if recovery or sourcing partners are scarce.</p>
-    <p>The framework shows that the issue is not whether circularity is desirable. The issue is whether the surrounding conditions support a credible decision.</p>
-  </section>
-
-
-  <section class="khr-split-panel">
-    <div class="khr-split-panel-head">Common Misuse</div>
-    <div class="khr-split-grid">
-      <div>
-        <h3>Avoid</h3>
-        <ul>
-        <li>Turning readiness into branding.</li>
-        <li>Treating all dimensions as equally urgent in every context.</li>
-        <li>Ignoring local recovery infrastructure and supply-chain realities.</li>
-        <li>Using the score to claim maturity without evidence.</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Use the model to</h3>
-        <ul>
-        <li>Create shared language for feasibility.</li>
-        <li>Reveal policy, market, data, or design bottlenecks.</li>
-        <li>Avoid overstating circular progress.</li>
-        <li>Decide whether to pilot, prepare, or pause.</li>
-        </ul>
+            <!-- Legend -->
+            <rect x="113" y="310" width="10" height="6" rx="2" fill="rgba(30,80,80,0.5)"/>
+            <text x="129" y="317" font-family="Cinzel,serif" font-size="6.5" fill="rgba(201,171,132,0.35)">Current readiness (illustrative)</text>
+            <circle cx="120" cy="330" r="4" fill="rgba(46,112,112,0.65)" stroke="rgba(201,171,132,0.3)" stroke-width="1"/>
+            <text x="130" y="334" font-family="Cinzel,serif" font-size="6.5" fill="rgba(201,171,132,0.3)">Score position</text>
+          </svg>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
+<!-- CONTENT -->
+<div class="container">
+  <div class="khr-layout">
+    <article class="khr-article" id="articleBody">
 
-  <section class="khr-checklist-panel">
-    <div class="khr-checklist-symbol">◎</div>
-    <div>
-      <h3>Before Calling a Decision Circular</h3>
-    <p>A circularity claim is credible only when its conditions are explicit.</p>
-      <ul>
-      <li>What value is being retained, and at which lifecycle stage?</li>
-      <li>Which mechanism retains that value: repair, reuse, remanufacture, refurbishment, or recycling?</li>
-      <li>What procurement or supply-chain condition must be true?</li>
-      <li>What data proves material identity, condition, or recovery pathway?</li>
-      <li>How will success be measured after implementation?</li>
-      </ul>
-    </div>
-  </section>
+      <!-- SECTION 1 -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">The Core Problem</p>
+        <h2 class="khr-h2">Why "do we believe in circularity?" is the <em>wrong question</em></h2>
 
+        <div class="pull-quote">
+          <p>A readiness model helps by shifting the question from "Do we believe in circularity?" to "Are we currently positioned to make circular decisions well?" — and that shift matters enormously for infrastructure teams that must make capital decisions under real constraints.</p>
+          <cite>— Rankine Innovation Lab · Knowledge Hub</cite>
+        </div>
 
-  <section class="khr-editorial-section" id="references-and-further-reading">
-    <div class="khr-section-kicker">Reading Trail</div>
-    <h2>References and further reading</h2>
-    <p>Use this model alongside circular economy guidance for construction, infrastructure lifecycle analysis, material-passport thinking, procurement reform, and practical studies on circular barriers and drivers.</p>
-    <p>The practical takeaway: circular readiness is a decision-quality tool, not a marketing score.</p>
-  </section>
-
-      </article>
-
-  <aside class="khr-sidebar" aria-label="Resource sidebar">
-    <div class="khr-sidecard khr-progress-card">
-      <h3>Reading Progress</h3>
-      <div class="khr-progress-track"><span></span></div>
-      <p>Start with the framing, use the visual modules to compare options, then close with the checklist.</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Resource Details</h3>
-      <p><strong>Sustainability &amp; Circularity</strong><br>Framework · Knowledge Hub resource</p>
-      <p><strong>Practitioner</strong><br>Infrastructure teams · project owners · procurement leads</p>
-      <p>6 min read · 6 visual modules</p>
-      <p>Updated April 2026</p>
-    </div>
-    <div class="khr-sidecard">
-      <h3>Continue Reading</h3>
-      <div class="khr-related">
-      <a href="../explainers/circular-economy-for-construction.html">Circular Economy for Construction: From Concept to Decisions</a>
-      <a href="../frameworks/screening-framework-for-bio-based-material-innovation.html">A Screening Framework for Bio-Based Material Innovation</a>
-      <a href="../lab-notes/what-mycelium-based-engineering-changes-about-sustainability-conversations.html">What Mycelium-Based Engineering Changes About Sustainability Conversations</a>
-        <a href="../../knowledge-hub.html">← Back to Knowledge Hub</a>
+        <p class="khr-body">
+          Circularity is now used in many infrastructure conversations. It appears in procurement frameworks, sustainability strategies, programme commitments, and bid documentation. The problem is that it is often invoked long before the conditions for circular action actually exist — creating a familiar pattern of ambitious language, weak implementation pathways, and very little clarity about where an organisation should actually start.
+        </p>
+        <p class="khr-body">
+          For infrastructure decisions specifically, this matters enormously. Projects are long-lived, capital-intensive, and path-dependent. A poor decision early in design or procurement can lock in waste, inflexibility, or high-carbon choices for decades. Circularity cannot be retrofitted at delivery stage — it must be addressed at conception, which means readiness must be assessed before the design process closes off the options.
+        </p>
+        <p class="khr-body">
+          This framework measures readiness across six dimensions. The purpose is not a pass–fail verdict. The purpose is to reveal where enabling conditions are strong, where they are weak, and which bottlenecks will most likely block real circular action — so that teams can prioritise intelligently rather than declare ambitiously.
+        </p>
       </div>
-    </div>
-    <div class="khr-sidecard khr-engage-card">
-      <h3>Engage with Rankine</h3>
-      <p>Use this model before major design, procurement, refurbishment, or replacement decisions.</p>
-      <a class="btn" href="../../contact.html">Discuss a Partnership →</a>
-    </div>
-  </aside>
 
-    </div>
-  </main>
+      <!-- SECTION 2: Six Dimensions -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Framework Structure</p>
+        <h2 class="khr-h2">Six dimensions that determine <em>whether circularity is actionable</em></h2>
 
+        <p class="khr-body">
+          Each dimension represents a distinct enabling condition. The pattern of scores — not the average — is where the most diagnostic information sits. A single weak dimension in governance or data may matter more than three credible scores elsewhere. Work through each dimension honestly before moving to scoring.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Readiness Architecture</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Six Dimensions — With Diagnostic Focus for Each</span>
+          </div>
+          <div class="infographic-body">
+            <p style="font-size:0.82rem;color:var(--brown);font-weight:300;margin-bottom:1.25rem;line-height:1.65;">The bar length in each row illustrates a sample readiness profile. Teams should replace this with their own scored assessment. Low-scoring dimensions are the priority for intervention — not the highest-scoring ones.</p>
+            <div class="dimensions-stack">
+              <div class="dim-item">
+                <div class="dim-num">1</div>
+                <div class="dim-body">
+                  <div class="dim-title">Strategic Intent</div>
+                  <div class="dim-desc">Does the organisation define circularity clearly enough to guide real decisions, or is the term still being used as a broad aspiration? High readiness here means circular objectives are specific, measurable, and connected to procurement and design criteria — not just stated in a sustainability policy.</div>
+                </div>
+                <div class="dim-score-track">
+                  <div class="dim-score-label">Sample score</div>
+                  <div class="dim-bar-wrap"><div class="dim-bar-fill"></div></div>
+                  <div class="dim-score-note">3.5 / 5 — Credible</div>
+                </div>
+              </div>
+              <div class="dim-item">
+                <div class="dim-num">2</div>
+                <div class="dim-body">
+                  <div class="dim-title">Design &amp; Specification</div>
+                  <div class="dim-desc">Are designers and technical teams able to compare repair, reuse, modularity, substitution, maintenance, and end-of-life implications before procurement closes the option space? Low readiness here means circular options cannot be evaluated at the stage where they would matter most — during concept and detailed design.</div>
+                </div>
+                <div class="dim-score-track">
+                  <div class="dim-score-label">Sample score</div>
+                  <div class="dim-bar-wrap"><div class="dim-bar-fill"></div></div>
+                  <div class="dim-score-note">2.5 / 5 — Emerging</div>
+                </div>
+              </div>
+              <div class="dim-item">
+                <div class="dim-num">3</div>
+                <div class="dim-body">
+                  <div class="dim-title">Supply Chain &amp; Market Fit</div>
+                  <div class="dim-desc">Are there credible suppliers, recovery pathways, reverse logistics, or refurbishment options that make circular choices feasible in the actual operating context? A circular specification that cannot be met by available supply chains is not a circular decision — it is an aspiration with no delivery route.</div>
+                </div>
+                <div class="dim-score-track">
+                  <div class="dim-score-label">Sample score</div>
+                  <div class="dim-bar-wrap"><div class="dim-bar-fill"></div></div>
+                  <div class="dim-score-note">2.0 / 5 — Weak</div>
+                </div>
+              </div>
+              <div class="dim-item">
+                <div class="dim-num">4</div>
+                <div class="dim-body">
+                  <div class="dim-title">Data &amp; Traceability</div>
+                  <div class="dim-desc">Can the organisation identify materials, lifecycles, failure histories, or asset conditions well enough to support circular decision-making? Without data on what materials exist, where they are, what condition they are in, and what their performance history is, reuse and remanufacture decisions cannot be made credibly.</div>
+                </div>
+                <div class="dim-score-track">
+                  <div class="dim-score-label">Sample score</div>
+                  <div class="dim-bar-wrap"><div class="dim-bar-fill"></div></div>
+                  <div class="dim-score-note">1.5 / 5 — Weak</div>
+                </div>
+              </div>
+              <div class="dim-item">
+                <div class="dim-num">5</div>
+                <div class="dim-body">
+                  <div class="dim-title">Governance &amp; Incentives</div>
+                  <div class="dim-desc">Do procurement rules, budgets, contracts, and accountability structures support circular outcomes — or do they quietly reward linear behaviour? Many circular ambitions fail here: the procurement rulebook specifies lowest unit cost, the contract penalises novel approaches, and no one has accountability for whole-lifecycle outcomes.</div>
+                </div>
+                <div class="dim-score-track">
+                  <div class="dim-score-label">Sample score</div>
+                  <div class="dim-bar-wrap"><div class="dim-bar-fill"></div></div>
+                  <div class="dim-score-note">1.3 / 5 — Weak</div>
+                </div>
+              </div>
+              <div class="dim-item">
+                <div class="dim-num">6</div>
+                <div class="dim-body">
+                  <div class="dim-title">Measurement &amp; Learning</div>
+                  <div class="dim-desc">Is there a way to track whether circular interventions are delivering value — or are decisions being made without feedback? Without measurement, teams cannot learn whether their circular choices are working, cannot improve specifications over time, and cannot demonstrate value to stakeholders who are sceptical about higher upfront costs.</div>
+                </div>
+                <div class="dim-score-track">
+                  <div class="dim-score-label">Sample score</div>
+                  <div class="dim-bar-wrap"><div class="dim-bar-fill"></div></div>
+                  <div class="dim-score-note">3.0 / 5 — Credible</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 3: Scoring Scale -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Scoring Guidance</p>
+        <h2 class="khr-h2">How to score each dimension <em>without flattering yourself</em></h2>
+
+        <p class="khr-body">
+          Teams should score each dimension using this four-level scale, and justify each score with a concrete recent example — either a success that illustrates the capability or a failure that illustrates the gap. Scoring from aspiration rather than evidence is the most common misuse of readiness frameworks.
+        </p>
+        <p class="khr-body">
+          The point of the scale is not precision theatre. It is structured conversation. A score difference of one level between team members is a diagnostic signal worth exploring — it usually reveals a gap in shared understanding of what the dimension actually requires.
+        </p>
+
+        <div class="infographic reveal d1">
+          <div class="infographic-header">
+            <span class="infographic-header-label">Scoring Reference</span>
+            <div class="infographic-header-line"></div>
+            <span class="infographic-header-title">Four-Level Assessment — What Each Level Actually Means</span>
+          </div>
+          <div class="infographic-body">
+            <div class="scoring-grid">
+              <div class="score-level">
+                <div class="score-num">1</div>
+                <span class="score-label">Rhetorical</span>
+                <div class="score-desc">Circularity is claimed but not operationalised. No specific criteria, tools, or processes exist. The language appears in documents but does not shape decisions.</div>
+              </div>
+              <div class="score-level">
+                <div class="score-num">2</div>
+                <span class="score-label">Isolated</span>
+                <div class="score-desc">There are isolated efforts — a pilot project, a willing individual, a one-off specification change — but they depend on champions rather than systems. They have not become repeatable or structural.</div>
+              </div>
+              <div class="score-level">
+                <div class="score-num">3</div>
+                <span class="score-label">Credible</span>
+                <div class="score-desc">Circular choices are becoming operational in selected workflows. The enabling condition exists and is documented, but is not yet consistent across all relevant projects, teams, or procurement processes.</div>
+              </div>
+              <div class="score-level">
+                <div class="score-num">4–5</div>
+                <span class="score-label">Embedded</span>
+                <div class="score-desc">Circularity is embedded well enough to influence design, procurement, operations, and review consistently. It would survive a key person leaving. It can be demonstrated to external stakeholders with evidence.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: Worked Example -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Application in Practice</p>
+        <h2 class="khr-h2">A worked example — and what the <em>framework actually produces</em></h2>
+
+        <p class="khr-body">
+          The framework works best when applied to one specific infrastructure decision, not to an entire organisation at once. Start narrow: a material substitution choice, an asset-replacement question, a building retrofit package, or a maintenance strategy. Score the six dimensions against that decision context rather than against an ideal future state.
+        </p>
+
+        <div class="example-card reveal d1">
+          <div class="example-header">
+            <span class="example-icon">⚙</span>
+            <span class="example-label">Worked Example</span>
+          </div>
+          <div class="example-title">Infrastructure team considering recycled polymer-enhanced material options in a road surface refurbishment project</div>
+          <div class="example-body">
+            A highways team has been asked to consider recycled or polymer-enhanced material options as part of a lifecycle-cost analysis for a refurbishment programme across 40 kilometres of secondary road network. The team applies the framework to this specific procurement decision.
+            <br/><br/>
+            Strategic intent scores 3: leadership wants lower waste and longer asset life, and this is stated in the programme brief. But it is not yet translated into specific technical criteria that procurement staff can use to evaluate bids.
+            <br/><br/>
+            Design and specification scores 2: the technical team can identify recycled-content options, but lacks lifecycle comparison tools that would allow them to evaluate performance, durability, and whole-life cost on equal terms with conventional specification. There is no internal guidance document covering this material class.
+            <br/><br/>
+            Supply chain and market fit scores 1.5: only two regional suppliers have confirmed availability of compliant recycled-content materials at programme volumes, and lead times are 30% longer than the conventional supply chain. There is no recovery pathway for materials at end of life.
+            <br/><br/>
+            Data and traceability scores 1: the programme does not have a systematic record of existing materials in the network by type, age, or condition. Reuse decisions cannot be made without this baseline.
+            <br/><br/>
+            Governance and incentives scores 2: the procurement process uses lowest-price-technically-compliant evaluation, which systematically disadvantages materials with higher upfront cost but lower whole-life cost. No evaluation weighting exists for lifecycle performance.
+            <br/><br/>
+            Measurement and learning scores 2.5: two pilot sections were completed under a previous programme, but no formal monitoring protocol was applied, and outcomes were not systematically recorded.
+          </div>
+          <div class="example-outcome">
+            <span class="example-outcome-label">Framework Output</span>
+            <div class="example-outcome-text">The diagnosis is not that the team lacks commitment to circularity. It is that data traceability and governance structures are blocking real circular action — and those are the dimensions that should be addressed before the next procurement round, not the strategic intent statement.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 5: Common Misuse -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Critical Awareness</p>
+        <h2 class="khr-h2">Three ways this framework is <em>commonly misused</em></h2>
+
+        <p class="khr-body">
+          The framework loses its value when teams use it to confirm existing assumptions rather than challenge them. Three misuses account for most of the cases where readiness assessments produce useless or misleading results.
+        </p>
+
+        <div class="misuse-row reveal d1">
+          <div class="misuse-card">
+            <span class="misuse-icon" aria-hidden="true">🎭</span>
+            <div class="misuse-title">Turning it into a branding device</div>
+            <div class="misuse-desc">If teams use the maturity language only to signal innovation status — without honest scoring — the framework produces a flattering narrative rather than a diagnostic. The score should be justifiable with specific recent examples, not with aspirational policy language.</div>
+          </div>
+          <div class="misuse-card">
+            <span class="misuse-icon" aria-hidden="true">🗺</span>
+            <div class="misuse-title">Ignoring context specificity</div>
+            <div class="misuse-desc">Circularity looks different in settings with weak recovery infrastructure, unstable supply chains, or limited traceability. The framework should help adapt expectations to context — not erase it. A score of 3 in a well-resourced European context may represent stronger real conditions than a score of 3 in a resource-constrained setting with different market structures.</div>
+          </div>
+          <div class="misuse-card">
+            <span class="misuse-icon" aria-hidden="true">⚖</span>
+            <div class="misuse-title">Treating all dimensions as equally urgent</div>
+            <div class="misuse-desc">In practice, a low score in governance or data traceability may be far more constraining than two moderate scores elsewhere. The framework should produce a prioritised intervention list — starting with the dimension whose weakness most directly blocks circular action in the current decision context.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 6: Decision Gate Checklist -->
+      <div class="khr-section reveal">
+        <p class="section-eyebrow">Decision Gate</p>
+        <h2 class="khr-h2">Before committing to a circular approach — <em>six questions</em></h2>
+
+        <p class="khr-body">
+          These questions function as a minimum gate for circular infrastructure decisions. If any question cannot be answered clearly and specifically — with reference to real conditions rather than programme aspirations — the readiness is not yet sufficient for the circular approach to be described as a credible decision rather than a stated preference.
+        </p>
+
+        <div class="readiness-block">
+          <div class="rb-header">
+            <span class="rb-icon" aria-hidden="true">◎</span>
+            <div>
+              <div class="rb-label">Readiness Gate</div>
+              <div class="rb-title">Six questions before any circular infrastructure commitment</div>
+            </div>
+          </div>
+          <div class="rb-items">
+            <div class="rb-item">
+              <span class="rb-check" aria-hidden="true">?</span>
+              <span class="rb-text">What value are we retaining — and through what specific mechanism, at which lifecycle stage?</span>
+            </div>
+            <div class="rb-item">
+              <span class="rb-check" aria-hidden="true">?</span>
+              <span class="rb-text">Are there credible supply chain options that can meet circular specifications at required volumes and timescales?</span>
+            </div>
+            <div class="rb-item">
+              <span class="rb-check" aria-hidden="true">?</span>
+              <span class="rb-text">Does our data on existing materials and assets support reuse or remanufacturing decisions — or are we working from assumptions?</span>
+            </div>
+            <div class="rb-item">
+              <span class="rb-check" aria-hidden="true">?</span>
+              <span class="rb-text">Does our procurement process evaluate lifecycle value — or does it systematically select against circular options through lowest-price criteria?</span>
+            </div>
+            <div class="rb-item">
+              <span class="rb-check" aria-hidden="true">?</span>
+              <span class="rb-text">Are there standards or testing pathways for secondary or recycled materials in this specific application class?</span>
+            </div>
+            <div class="rb-item">
+              <span class="rb-check" aria-hidden="true">?</span>
+              <span class="rb-text">How will we know whether it worked — what monitoring will we apply and who is accountable for reporting the outcome?</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- REFERENCES -->
+      <div class="khr-section reveal">
+        <div class="references">
+          <span class="references-label">References &amp; Source Base</span>
+          <ol>
+            <li>Rankine Innovation Lab Knowledge Hub research synthesis: Framework treatment for circularity readiness in infrastructure and built environment decision contexts.</li>
+            <li>Companion resource: Circular Economy for Construction — Explainer · Rankine Knowledge Hub.</li>
+            <li>Ellen MacArthur Foundation: Circular economy framework overview and infrastructure applications.</li>
+            <li>European Commission: Circular Economy Action Plan — built environment sector application.</li>
+          </ol>
+        </div>
+      </div>
+
+    </article>
+
+    <!-- SIDEBAR -->
+    <aside class="khr-sidebar">
+      <div class="side-card">
+        <div class="side-card-header">Reading Progress</div>
+        <div class="side-card-body">
+          <div class="reading-meter"><div class="reading-meter-fill" id="sidebarMeter"></div></div>
+          <div class="reading-meter-label"><span>Start</span><span id="progressPct">0%</span></div>
+        </div>
+      </div>
+      <div class="side-card">
+        <div class="side-card-header">Resource Details</div>
+        <div class="side-card-body">
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--teal);box-shadow:0 0 8px rgba(30,80,80,0.5)"></span>
+            <div><div class="domain-label">Sustainability &amp; Circularity</div><div class="domain-sub">Core domain · First-wave resource</div></div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--copper)"></span>
+            <div><div class="domain-label">Infrastructure Teams · Procurement Leads</div><div class="domain-sub">Project directors · Asset managers</div></div>
+          </div>
+          <div class="domain-badge">
+            <span class="domain-dot" style="background:var(--sand)"></span>
+            <div><div class="domain-label">8 min read · 5 modules</div><div class="domain-sub">Updated 2025</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="side-card">
+        <div class="side-card-header">Continue Reading</div>
+        <div class="side-card-body">
+          <a href="../explainers/circular-economy-for-construction.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text"><span class="related-link-tag">Explainer</span>Circular Economy for Construction</span>
+          </a>
+          <a href="../frameworks/screening-framework-for-bio-based-material-innovation.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text"><span class="related-link-tag">Framework</span>Screening Framework for Bio-Based Material Innovation</span>
+          </a>
+          <a href="../lab-notes/what-mycelium-based-engineering-changes-about-sustainability-conversations.html" class="related-link">
+            <span class="related-link-arrow">→</span>
+            <span class="related-link-text"><span class="related-link-tag">Lab Note</span>What Mycelium-Based Engineering Changes About Sustainability Conversations</span>
+          </a>
+          <button class="btn-side" onclick="window.location.href='../../knowledge-hub.html'">← Back to Knowledge Hub</button>
+        </div>
+      </div>
+      <div class="side-card">
+        <div class="side-card-header">Engage with Rankine</div>
+        <div class="side-card-body">
+          <p>This framework connects to our Circularity Readiness programmes and infrastructure research partnerships. If you are assessing or improving circular readiness in your organisation, we would like to hear from you.</p>
+          <button class="btn-side" onclick="window.location.href='../../contact.html'">Discuss a Partnership →</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
 
 <footer class="footer">
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand">
-        <img src="../../Images/rakine_logo.svg" alt="Rankine Innovation Lab logo" class="footer-logo-icon">
+      <div>
+        <img src="../../Images/rakine_logo.svg" class="footer-logo-icon" alt="Rankine Innovation Lab logo"/>
         <div class="footer-logo-name">Rankine Innovation Lab</div>
         <div class="footer-logo-sub">Intelligence for a Liveable Future</div>
         <p class="footer-tagline">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
       </div>
       <div>
-        <h3 class="footer-col-title">Navigation</h3>
+        <div class="footer-col-title">Navigation</div>
         <ul class="footer-links">
           <li><a href="../../about.html">About the Lab</a></li>
-          <li><a href="../../index.html#method">The Rankine Method</a></li>
-          <li><a href="../../index.html#focus">Focus Areas</a></li>
+          <li><a href="../../research.html">Research &amp; Project</a></li>
           <li><a href="../../programmes.html">Programmes</a></li>
-<li><a href="../../team.html">Team</a></li>
+          <li><a href="../../partnership.html">Partnerships</a></li>
+          <li><a href="../../team.html">Team</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Domains</h3>
+        <div class="footer-col-title">Domains</div>
         <ul class="footer-links">
-          <li><a href="../../research.html#ai">AI for STEM</a></li>
-          <li><a href="../../research.html#sustainability">Sustainability</a></li>
-          <li><a href="../../research.html#smart-agriculture">Smart Agriculture</a></li>
-          <li><a href="../../research.html#cross-disciplinary">Cross-Disciplinary</a></li>
+          <li><a href="../../research.html">AI for STEM</a></li>
+          <li><a href="../../research.html">Sustainability</a></li>
+          <li><a href="../../research.html">Smart Agriculture</a></li>
+          <li><a href="../../research.html">Cross-Disciplinary</a></li>
           <li><a href="../../knowledge-hub.html">Knowledge Hub</a></li>
         </ul>
       </div>
       <div>
-        <h3 class="footer-col-title">Engage</h3>
+        <div class="footer-col-title">Engage</div>
         <ul class="footer-links">
-<li><a href="../../contact.html">Research Collaboration</a></li>
+          <li><a href="../../contact.html">Partnerships</a></li>
+          <li><a href="../../contact.html">Research Collaboration</a></li>
           <li><a href="../../contact.html">Training Enquiries</a></li>
           <li><a href="../../contact.html">Speaking</a></li>
           <li><a href="mailto:hello@rankineinnovationlab.com">hello@rankineinnovationlab.com</a></li>
@@ -272,7 +834,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy">© 2025 Rankine Innovation Lab. All rights reserved.</p>
+      <p class="footer-copy">&copy; 2025 <em>Rankine Innovation Lab</em>. All rights reserved.</p>
       <div class="footer-legal">
         <a href="../../privacy.html">Privacy</a>
         <a href="../../terms.html">Terms</a>
@@ -282,28 +844,47 @@
   </div>
 </footer>
 
-
 <script>
-  const nav = document.getElementById('siteNav');
-  const toggle = document.getElementById('mobileToggle');
-  const mobileMenu = document.getElementById('mobileMenu');
-  function setNavState(){
-    if(window.scrollY > 24){ nav.classList.remove('transparent'); nav.classList.add('solid'); }
-    else { nav.classList.add('transparent'); nav.classList.remove('solid'); }
-  }
-  setNavState();
-  window.addEventListener('scroll', setNavState, { passive: true });
-  if(toggle && mobileMenu){
-    toggle.addEventListener('click', () => {
-      const isOpen = toggle.classList.toggle('open');
-      mobileMenu.classList.toggle('open', isOpen);
-      toggle.setAttribute('aria-expanded', String(isOpen));
-      mobileMenu.setAttribute('aria-hidden', String(!isOpen));
-      document.body.classList.toggle('menu-open', isOpen);
-    });
-  }
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+function closeMobile() {
+  hamburgerBtn.classList.remove('open'); mobileMenu.classList.remove('open');
+  document.body.style.overflow = ''; hamburgerBtn.setAttribute('aria-expanded','false');
+}
+hamburgerBtn.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburgerBtn.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+  hamburgerBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+});
+const progressBar = document.getElementById('progressBar');
+const sidebarMeter = document.getElementById('sidebarMeter');
+const progressPct = document.getElementById('progressPct');
+const articleBody = document.getElementById('articleBody');
+function updateProgress() {
+  const rect = articleBody.getBoundingClientRect();
+  const pct = Math.min(100, Math.round((Math.max(0,-rect.top)/(rect.height-window.innerHeight))*100));
+  progressBar.style.width = sidebarMeter.style.width = pct+'%';
+  progressPct.textContent = pct+'%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); revealObs.unobserve(e.target); } });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+document.querySelectorAll('.rb-item').forEach(item => {
+  let checked = false;
+  item.addEventListener('click', () => {
+    checked = !checked;
+    const check = item.querySelector('.rb-check');
+    check.textContent = checked ? '✓' : '?';
+    check.style.background = checked ? 'rgba(30,80,80,0.3)' : '';
+    check.style.borderColor = checked ? 'var(--teal-lt)' : '';
+    check.style.color = checked ? 'var(--teal-lt)' : '';
+    item.style.borderColor = checked ? 'rgba(30,80,80,0.25)' : '';
+  });
+  item.style.cursor = 'pointer';
+});
 </script>
-
-<script src="../resource-template.js"></script>
 </body>
 </html>
