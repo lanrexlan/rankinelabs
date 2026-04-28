@@ -1,605 +1,1321 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Partnerships — Rankine Innovation Lab</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Cinzel:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Cinzel:wght@400;500;600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          chocolate: '#3B2418',
+          espresso: '#1F120B',
+          brown: '#5C3A24',
+          mahogany: '#4E2A1B',
+          copper: '#C89A5A',
+          'copper-dark': '#8B4A28',
+          'copper-lt': '#E4BC84',
+          sand: '#F0E4D0',
+          cream: '#FAF5EC',
+          sage: '#8A9A7B'
+        },
+        fontFamily: {
+          display: ['"Cormorant Garamond"', 'serif'],
+          label: ['Cinzel', 'serif'],
+          body: ['"DM Sans"', 'sans-serif']
+        }
+      }
+    }
+  }
+</script>
 <style>
-:root {
-  --chocolate: #180c06;
-  --espresso: #241208;
-  --brown: #3a1c0e;
-  --mahogany: #5c2d18;
-  --copper: #a05c38;
-  --copper-lt: #c47a52;
-  --sand: #c9ab84;
-  --sand-lt: #ddc9a8;
-  --cream: #f4ede0;
-  --cream-lt: #faf6ef;
-  --sage: #687558;
-  --sage-lt: #8e9e78;
-  --white: #fffcf8;
+  body { font-family: 'DM Sans', sans-serif; background: #FAF5EC; color: #3B2418; overflow-x: hidden; }
+  .font-display { font-family: 'Cormorant Garamond', serif; }
+  .font-label { font-family: 'Cinzel', serif; letter-spacing: 0.2em; }
 
-  --font-display: 'Cormorant Garamond', Georgia, serif;
-  --font-label: 'Cinzel', serif;
-  --font-body: 'DM Sans', sans-serif;
+  /* Section label with line */
+  .section-label {
+    display: inline-flex; align-items: center; gap: 1rem;
+    font-family: 'Cinzel', serif; font-size: 0.7rem;
+    letter-spacing: 0.32em; text-transform: uppercase;
+  }
+  .section-label::before {
+    content: ''; width: 2.5rem; height: 1px; background: currentColor; opacity: 0.6;
+  }
 
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-circ: cubic-bezier(0.4, 0, 0.2, 1);
-  --section-pad: clamp(5rem, 9vw, 8.5rem);
-}
+  /* Section heading */
+  .section-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  font-family: var(--font-body);
-  background: var(--cream-lt);
-  color: var(--espresso);
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-a { text-decoration: none; color: inherit; }
+  /* Reveal animation */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 1.1s ease, transform 1.1s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.15s; }
+  .reveal-delay-2 { transition-delay: 0.3s; }
+  .reveal-delay-3 { transition-delay: 0.45s; }
 
-.container {
-  width: min(1340px, 100%);
-  margin-inline: auto;
-  padding-inline: clamp(1.25rem, 4vw, 3.5rem);
-}
+  /* Nav */
+  .nav-fixed {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    transition: background 0.4s ease, backdrop-filter 0.4s ease, padding 0.4s ease, border-color 0.4s ease;
+    border-bottom: 1px solid transparent;
+  }
+  .nav-fixed.scrolled {
+    background: rgba(31, 18, 11, 0.92);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    padding-top: 0.6rem; padding-bottom: 0.6rem;
+    border-bottom-color: rgba(200, 154, 90, 0.15);
+  }
+  .nav-link {
+    position: relative; cursor: pointer; padding: 0.5rem 0;
+    transition: color 0.3s ease;
+    display: inline-flex; align-items: center; gap: 0.35rem;
+  }
+  .nav-link::after {
+    content: ''; position: absolute; left: 0; bottom: 0;
+    width: 0; height: 1px; background: #C89A5A;
+    transition: width 0.35s ease;
+  }
+  .nav-link:hover::after { width: 100%; }
+  .nav-link:hover { color: #E4BC84; }
+  .has-dropdown { position: relative; }
+  .dropdown {
+    position: absolute; top: 100%; left: -1rem;
+    background: rgba(20, 11, 6, 0.97);
+    backdrop-filter: blur(14px);
+    min-width: 17rem; padding: 0.75rem 0;
+    opacity: 0; visibility: hidden; transform: translateY(-8px);
+    transition: all 0.3s ease;
+    border-top: 1px solid rgba(200, 154, 90, 0.25);
+    border-bottom: 1px solid rgba(200, 154, 90, 0.05);
+  }
+  .has-dropdown:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
+  .dropdown a {
+    display: flex; align-items: center; gap: 0.6rem;
+    padding: 0.7rem 1.5rem; color: #F0E4D0;
+    font-size: 0.85rem; transition: all 0.3s ease;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .dropdown a:hover { background: rgba(200, 154, 90, 0.08); color: #E4BC84; padding-left: 2rem; }
+  .dropdown a span.dot { width: 4px; height: 4px; background: #C89A5A; border-radius: 50%; opacity: 0.5; }
 
-.reveal {
-  opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out);
-}
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.d1 { transition-delay: 0.08s; }
-.d2 { transition-delay: 0.16s; }
-.d3 { transition-delay: 0.24s; }
-.d4 { transition-delay: 0.32s; }
-.d5 { transition-delay: 0.40s; }
+  /* Buttons */
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    background: #C89A5A; color: #1F120B;
+    padding: 1rem 2rem; font-family: 'Cinzel', serif;
+    font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase;
+    transition: all 0.35s ease; border: 1px solid #C89A5A; cursor: pointer;
+  }
+  .btn-primary:hover { background: #E4BC84; border-color: #E4BC84; transform: translateY(-2px); box-shadow: 0 12px 30px -10px rgba(200,154,90,0.5); }
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    background: transparent; color: #FAF5EC;
+    padding: 1rem 2rem; font-family: 'Cinzel', serif;
+    font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase;
+    border: 1px solid rgba(250, 245, 236, 0.3); transition: all 0.35s ease; cursor: pointer;
+  }
+  .btn-ghost:hover { background: rgba(250,245,236,0.05); border-color: #C89A5A; color: #E4BC84; }
+  .btn-dark {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    background: #1F120B; color: #FAF5EC;
+    padding: 1rem 2rem; font-family: 'Cinzel', serif;
+    font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase;
+    border: 1px solid #1F120B; transition: all 0.35s ease; cursor: pointer;
+  }
+  .btn-dark:hover { background: #3B2418; border-color: #C89A5A; }
+  .btn-outline-dark {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    background: transparent; color: #1F120B;
+    padding: 1rem 2rem; font-family: 'Cinzel', serif;
+    font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase;
+    border: 1px solid #1F120B; transition: all 0.35s ease; cursor: pointer;
+  }
+  .btn-outline-dark:hover { background: #1F120B; color: #FAF5EC; }
 
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.9rem;
-  font-family: var(--font-label);
-  font-size: 0.68rem;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-}
-.eyebrow::before {
-  content: '';
-  width: 32px;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.5;
-}
+  /* Hero */
+  .hero-bg {
+    background:
+      radial-gradient(ellipse at 80% 20%, rgba(200, 154, 90, 0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at 15% 85%, rgba(139, 74, 40, 0.25) 0%, transparent 55%),
+      linear-gradient(135deg, #1F120B 0%, #2A1810 40%, #3B2418 100%);
+  }
+  .hero-grid {
+    background-image:
+      linear-gradient(rgba(200, 154, 90, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200, 154, 90, 0.06) 1px, transparent 1px);
+    background-size: 80px 80px;
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, #E4BC84 0%, #C89A5A 50%, #8B4A28 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .text-gradient-light {
+    background: linear-gradient(135deg, #FAF5EC 0%, #E4BC84 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
 
-.nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  transition: background 0.45s var(--ease-circ), box-shadow 0.45s var(--ease-circ);
-}
-.nav.transparent { background: transparent; }
-.nav.solid {
-  background: rgba(24, 12, 6, 0.97);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 1px 0 rgba(201,171,132,0.15);
-}
-.nav-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: clamp(68px, 7.6vw, 86px);
-}
-.nav-logo { display: inline-flex; align-items: center; gap: clamp(0.62rem,1.05vw,0.88rem); line-height: 1; }
-.nav-logo-icon { width: clamp(46px,4.6vw,50px); height: clamp(46px,4.6vw,50px); flex-shrink: 0; display: block; object-fit: cover; object-position: center; border-radius: 10px; filter: drop-shadow(0 6px 14px rgba(0,0,0,0.18)); }
-.nav-logo-text { display: flex; flex-direction: column; }
-.nav-logo-mark {
-  font-family: var(--font-label);
-  font-size: clamp(0.84rem, 1.12vw, 0.96rem);
-  letter-spacing: 0.25em;
-  color: var(--copper);
-  text-transform: uppercase;
-}
-.nav-logo-name {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(1.14rem, 1.72vw, 1.45rem);
-  color: var(--cream);
-}
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: clamp(1rem, 2.2vw, 2rem);
-  list-style: none;
-}
-.nav-links a {
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: rgba(244,237,224,0.92);
-  position: relative;
-}
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 0; bottom: -3px;
-  height: 1px;
-  background: var(--sand);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.35s var(--ease-out);
-}
-.nav-links a:hover::after,
-.nav-links a.active-page::after { transform: scaleX(1); }
-.nav-links a.active-page { color: var(--sand); }
-.nav-cta {
-  font-size: 0.84rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-weight: 600;
-  padding: 0.55rem 1.4rem;
-  border: 1px solid var(--copper);
-  color: var(--cream) !important;
-}
-.nav-cta::after { display: none !important; }
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  padding: 8px;
-  border: 0;
-  background: transparent;
-}
-.hamburger span { width: 26px; height: 2px; background: var(--cream); }
-.mobile-menu {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(24,12,6,0.98);
-  backdrop-filter: blur(20px);
-  z-index: 999;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  transform: translateY(-100%);
-  transition: transform 0.45s var(--ease-out);
-}
-.mobile-menu.open { display: flex; transform: translateY(0); }
-.mobile-menu a {
-  font-family: var(--font-display);
-  font-size: clamp(1.7rem, 6vw, 2.8rem);
-  color: var(--cream);
-}
+  /* Drift / float */
+  @keyframes drift {
+    0%, 100% { transform: translate(0,0) rotate(0); }
+    50% { transform: translate(30px,-25px) rotate(8deg); }
+  }
+  .drift { animation: drift 18s ease-in-out infinite; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-22px); } }
+  .float { animation: float 7s ease-in-out infinite; }
 
-.hero {
-  padding: clamp(9rem, 15vw, 11.5rem) 0 clamp(6rem, 10vw, 8rem);
-  color: var(--cream);
-  background: linear-gradient(rgba(20,10,7,.72), rgba(20,10,7,.72)), url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
-}
-.hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
-  gap: clamp(2rem, 4vw, 4rem);
-  align-items: end;
-}
-.hero h1 {
-  margin-top: 1.1rem;
-  font-family: var(--font-display);
-  font-size: clamp(2.5rem, 6vw, 5.5rem);
-  font-weight: 300;
-  letter-spacing: -0.015em;
-  line-height: 1.03;
-}
-.hero h1 em { color: var(--sand); font-style: italic; }
-.hero p {
-  margin-top: 1.4rem;
-  max-width: 60ch;
-  color: rgba(244,237,224,0.9);
-  line-height: 1.9;
-}
-.hero-panel {
-  border: 1px solid rgba(201,171,132,0.28);
-  background: rgba(201,171,132,0.08);
-  padding: clamp(1.25rem, 2vw, 1.8rem);
-}
-.hero-panel h3 {
-  font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(1.4rem, 2vw, 1.9rem);
-  color: var(--sand-lt);
-  margin-bottom: 0.55rem;
-}
-.hero-panel p { font-size: 0.95rem; color: rgba(244,237,224,0.74); line-height: 1.75; }
+  /* Scroll indicator */
+  @keyframes scrollDown { 0% { transform: translateY(0); opacity: 0.4; } 50% { opacity: 1; } 100% { transform: translateY(10px); opacity: 0.3; } }
+  .scroll-arrow { animation: scrollDown 2s ease-in-out infinite; }
 
-.section { padding: var(--section-pad) 0; }
-.section--alt { background: linear-gradient(180deg, #f7efdf 0%, #f4e7d4 100%); }
-.section-head h2 {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, 3.7rem);
-  font-weight: 300;
-  letter-spacing: -0.01em;
-  line-height: 1.08;
-}
-.section-head p {
-  margin-top: 1rem;
-  max-width: 66ch;
-  color: var(--brown);
-  line-height: 1.86;
-}
+  /* Tier card */
+  .tier-card {
+    position: relative; overflow: hidden;
+    background: linear-gradient(180deg, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0) 100%);
+    border: 1px solid rgba(200, 154, 90, 0.18);
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .tier-card::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent 0%, #C89A5A 50%, transparent 100%);
+    transform: scaleX(0.3); transform-origin: center;
+    transition: transform 0.6s ease;
+  }
+  .tier-card:hover { transform: translateY(-10px); border-color: rgba(200, 154, 90, 0.5); background: linear-gradient(180deg, rgba(200,154,90,0.06) 0%, rgba(200,154,90,0) 100%); }
+  .tier-card:hover::before { transform: scaleX(1); }
+  .tier-featured { background: linear-gradient(180deg, rgba(200,154,90,0.12) 0%, rgba(200,154,90,0.02) 100%); border-color: rgba(200,154,90,0.5); }
+  .tier-featured::before { transform: scaleX(1); }
 
-.cards-5 { margin-top: 2.3rem; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; }
-.card {
-  background: linear-gradient(180deg, #fffdf8, #f8f0e3);
-  border: 1px solid rgba(58,28,14,0.14);
-  padding: 1.2rem;
-}
-.card h3 {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 500;
-  color: var(--mahogany);
-  margin-bottom: 0.5rem;
-}
-.card p { font-size: 0.94rem; line-height: 1.76; color: var(--brown); }
+  /* Engagement card */
+  .engagement-card {
+    position: relative; overflow: hidden;
+    background: #FAF5EC;
+    border: 1px solid rgba(59, 36, 24, 0.1);
+    transition: all 0.45s ease;
+  }
+  .engagement-card::after {
+    content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px;
+    background: #C89A5A; transition: width 0.55s ease;
+  }
+  .engagement-card:hover {
+    background: #FFFCF5; transform: translateY(-6px);
+    box-shadow: 0 30px 50px -25px rgba(59, 36, 24, 0.25);
+    border-color: rgba(200, 154, 90, 0.3);
+  }
+  .engagement-card:hover::after { width: 100%; }
+  .engagement-card .arrow { transition: transform 0.4s ease; }
+  .engagement-card:hover .arrow { transform: translateX(8px); }
 
-.cards-2 { margin-top: 2.3rem; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-.cards-2 .card { background: #fffcf6; }
-.cards-2 .card h3 { font-size: 1.45rem; color: var(--espresso); }
+  /* Partner card */
+  .partner-card {
+    background: rgba(59, 36, 24, 0.5);
+    border: 1px solid rgba(200, 154, 90, 0.15);
+    backdrop-filter: blur(8px);
+    transition: all 0.5s ease;
+    position: relative; overflow: hidden;
+  }
+  .partner-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(200,154,90,0.15) 0%, transparent 50%);
+    opacity: 0; transition: opacity 0.4s ease;
+  }
+  .partner-card:hover { border-color: rgba(200, 154, 90, 0.45); transform: translateY(-4px); }
+  .partner-card:hover::before { opacity: 1; }
 
-.process {
-  background:
-    radial-gradient(ellipse 90% 80% at 88% 10%, rgba(160,92,56,0.22), transparent 62%),
-    linear-gradient(145deg, #150a04 0%, #241208 55%, #120803 100%);
-  color: var(--cream);
-}
-.process .section-head p { color: rgba(244,237,224,0.92); }
-.process .section-head h2 { color: var(--cream); }
-.steps { margin-top: 2.2rem; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1rem; }
-.step {
-  padding: 1.2rem;
-  border: 1px solid rgba(201,171,132,0.24);
-  background: rgba(201,171,132,0.06);
-}
-.step small {
-  font-family: var(--font-label);
-  font-size: 0.65rem;
-  letter-spacing: 0.22em;
-  color: rgba(201,171,132,0.75);
-}
-.step h3 {
-  margin-top: 0.45rem;
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 500;
-  color: var(--sand);
-  text-transform: capitalize;
-}
-.step p { margin-top: 0.35rem; color: rgba(244,237,224,0.76); font-size: 0.93rem; line-height: 1.72; }
+  /* Process timeline */
+  .timeline-step { transition: all 0.35s ease; cursor: pointer; }
+  .step-number {
+    transition: all 0.4s ease;
+    border: 1px solid rgba(200,154,90,0.4);
+  }
+  .timeline-step.active .step-number,
+  .timeline-step:hover .step-number {
+    background: #C89A5A; color: #1F120B; border-color: #C89A5A;
+    transform: scale(1.08);
+  }
+  .timeline-step.active .step-title { color: #E4BC84; }
+  .timeline-progress {
+    position: absolute; top: 50%; left: 0; height: 1px;
+    background: linear-gradient(90deg, #C89A5A 0%, rgba(200,154,90,0.1) 100%);
+    transform: translateY(-50%);
+  }
 
-.partners { margin-top: 2.3rem; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
-.partner {
-  background: rgba(255,255,255,0.62);
-  border: 1px solid rgba(58,28,14,0.16);
-  padding: 1.25rem;
-}
-.partner h3 {
-  font-family: var(--font-display);
-  font-size: 1.45rem;
-  font-weight: 500;
-  color: var(--mahogany);
-}
-.partner p { margin-top: 0.35rem; font-size: 0.95rem; line-height: 1.76; color: var(--brown); }
+  /* Marquee */
+  .marquee-wrap { overflow: hidden; mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%); -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 10%, #000 90%, transparent 100%); }
+  .marquee { display: flex; gap: 4rem; animation: marquee 35s linear infinite; white-space: nowrap; }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-.cta {
-  padding: clamp(4.3rem, 8vw, 6.2rem) 0;
-  text-align: center;
-  color: var(--cream);
-  background: linear-gradient(140deg, #160b05 0%, #30190c 50%, #1b0d06 100%);
-}
-.cta h2 {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 4.3vw, 3.7rem);
-  font-weight: 300;
-}
-.cta p {
-  margin: 1rem auto 2rem;
-  max-width: 64ch;
-  color: rgba(244,237,224,0.76);
-  line-height: 1.88;
-}
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 1rem 2.1rem;
-  border: 1px solid var(--copper);
-  background: var(--copper);
-  color: var(--white);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-size: 0.82rem;
-  font-weight: 600;
-  transition: background 0.35s, transform 0.35s;
-}
-.btn:hover { background: var(--copper-lt); border-color: var(--copper-lt); transform: translateY(-2px); }
+  /* Pulse */
+  @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 0.7; } 100% { transform: scale(2.4); opacity: 0; } }
+  .pulse-ring { position: absolute; inset: 0; border-radius: 50%; border: 1px solid #C89A5A; animation: pulse-ring 2.4s ease-out infinite; }
 
-.footer {
-  padding: 1.5rem 0;
-  text-align: center;
-  background: #110803;
-  color: rgba(244,237,224,0.58);
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.footer-brand-line {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-}
-.footer-logo-icon {
-  width: 30px;
-  height: auto;
-}
+  /* Network */
+  .network-node { transition: all 0.4s ease; cursor: pointer; }
+  .network-node:hover { fill: #E4BC84; }
+  .network-line { transition: stroke 0.5s ease, opacity 0.5s ease; }
 
+  /* Counter */
+  .counter-num { font-family: 'Cormorant Garamond', serif; font-weight: 300; line-height: 0.95; }
 
-/* ── IA NAV ENHANCEMENTS ─────────────────────────────────────────── */
-.nav-links .has-dropdown { position: relative; }
-.nav-links .dropdown-toggle { display: inline-flex; align-items: center; gap: .35rem; }
-.nav-links .dropdown-toggle::before { content: '\25BE'; font-size: .62rem; opacity: .7; order: 2; }
-.nav-links .dropdown-menu {
-  list-style: none;
-  position: absolute;
-  top: calc(100% + 10px);
-  left: 0;
-  min-width: 220px;
-  background: rgba(24, 12, 6, 0.98);
-  border: 1px solid rgba(201,171,132,0.2);
-  box-shadow: 0 20px 44px rgba(0,0,0,0.28);
-  padding: .5rem 0;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(8px);
-  transition: opacity .25s ease, transform .25s ease, visibility .25s;
-  z-index: 1001;
-}
-.nav-links .has-dropdown:hover .dropdown-menu,
-.nav-links .has-dropdown:focus-within .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-.nav-links .dropdown-menu a {
-  display: block;
-  padding: .68rem 1rem;
-  font-size: .74rem;
-  letter-spacing: .08em;
-  color: rgba(244,237,224,0.92);
-}
-.nav-links .dropdown-menu a:hover { color: var(--sand); background: rgba(201,171,132,0.08); }
-.mobile-group { width: min(86vw, 420px); border: 1px solid rgba(201,171,132,0.18); }
-.mobile-group summary {
-  list-style: none;
-  cursor: pointer;
-  padding: .9rem 1rem;
-  font-family: var(--font-label);
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  font-size: .7rem;
-  color: rgba(244,237,224,0.78);
-}
-.mobile-group summary::-webkit-details-marker { display: none; }
-.mobile-group summary::after { content: '+'; float: right; font-size: 1rem; color: var(--sand); }
-.mobile-group[open] summary::after { content: '\2212'; }
-.mobile-group-links { display: flex; flex-direction: column; gap: .2rem; padding: 0 1rem 1rem; }
-.mobile-group-links a { font-size: 1.05rem; line-height: 1.35; color: var(--cream); }
+  /* Quote frame */
+  .quote-frame {
+    position: relative;
+  }
+  .quote-frame::before, .quote-frame::after {
+    content: ''; position: absolute; width: 60px; height: 60px;
+    border: 1px solid rgba(200,154,90,0.5);
+  }
+  .quote-frame::before { top: -1.5rem; left: -1.5rem; border-right: none; border-bottom: none; }
+  .quote-frame::after { bottom: -1.5rem; right: -1.5rem; border-left: none; border-top: none; }
 
+  /* Mobile menu */
+  .mobile-menu { transform: translateX(100%); transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
+  .mobile-menu.open { transform: translateX(0); }
 
-@media (max-width: 1080px) {
-  .cards-5, .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 900px) {
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
-  .hero-grid, .cards-2, .partners { grid-template-columns: 1fr; }
-}
-@media (max-width: 640px) {
-  .cards-5, .steps { grid-template-columns: 1fr; }
-}
+  /* Decorative divider */
+  .divider-line {
+    height: 1px; background: linear-gradient(90deg, transparent, rgba(200,154,90,0.4), transparent);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #1F120B; }
+  ::-webkit-scrollbar-thumb { background: #8B4A28; }
+  ::-webkit-scrollbar-thumb:hover { background: #C89A5A; }
+
+  /* Hero particles */
+  @keyframes particle-float {
+    0% { transform: translate(0,0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translate(40px, -120px); opacity: 0; }
+  }
+  .particle { animation: particle-float 8s ease-in-out infinite; }
+
+  /* Process card content */
+  .process-detail { display: none; }
+  .process-detail.active { display: block; animation: fadeIn 0.5s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 </style>
-  <link rel="icon" type="image/svg+xml" href="Images/rakine_logo.svg" />
 </head>
-<body>
-<header class="nav transparent" id="nav">
-  <div class="container nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="Rankine Innovation Lab Home">
-      <img src="Images/rakine_logo.svg" class="nav-logo-icon" alt="Rankine Innovation Lab logo" />
-        <div class="nav-logo-text">
-          <span class="nav-logo-mark">Rankine</span>
-          <span class="nav-logo-name">Innovation Lab</span>
-        </div>
+<body class="font-body bg-cream text-chocolate antialiased">
+
+<!-- ============ NAVIGATION ============ -->
+<nav id="navbar" class="nav-fixed py-6">
+  <div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-3 text-cream group">
+      <div class="relative w-9 h-9 flex items-center justify-center">
+        <div class="absolute inset-0 border border-copper rotate-45 group-hover:rotate-90 transition-transform duration-700"></div>
+        <span class="font-display text-xl text-copper-lt italic">R</span>
+      </div>
+      <div class="leading-tight">
+        <div class="font-display text-xl">Rankine</div>
+        <div class="text-copper text-[0.55rem] font-label hidden sm:block">INNOVATION LAB</div>
+      </div>
     </a>
-
-          <ul class="nav-links" aria-label="Primary navigation">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="research.html">Research &amp; Project</a></li>
-        <li><a href="programmes.html">Programmes</a></li>
-        <li><a href="knowledge-hub.html">Knowledge Hub</a></li>
-        <li><a href="team.html">Team</a></li>
-        <li><a href="contact.html" class="nav-cta">Contact</a></li>
-      </ul>
-
-    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false">
-      <span></span><span></span><span></span>
+    <ul class="hidden lg:flex items-center gap-8 text-cream text-sm">
+      <li><a href="#" class="nav-link">Home</a></li>
+      <li class="has-dropdown">
+        <a class="nav-link">About <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6" stroke-width="2"/></svg></a>
+        <div class="dropdown">
+          <a href="#"><span class="dot"></span>The Lab</a>
+          <a href="#"><span class="dot"></span>The Rankine Method</a>
+          <a href="#"><span class="dot"></span>Mission & Vision</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a class="nav-link">Research & Project <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6" stroke-width="2"/></svg></a>
+        <div class="dropdown">
+          <a href="#"><span class="dot"></span>AquaPulse — AP-100</a>
+          <a href="#"><span class="dot"></span>Active Projects</a>
+          <a href="#"><span class="dot"></span>Research Hub</a>
+          <a href="#"><span class="dot"></span>Publications</a>
+        </div>
+      </li>
+      <li class="has-dropdown">
+        <a class="nav-link">Programmes <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M6 9l6 6 6-6" stroke-width="2"/></svg></a>
+        <div class="dropdown">
+          <a href="#"><span class="dot"></span>AI for STEM</a>
+          <a href="#"><span class="dot"></span>Sustainability Training</a>
+          <a href="#"><span class="dot"></span>Innovation Sprints</a>
+          <a href="#"><span class="dot"></span>Custom Programmes</a>
+        </div>
+      </li>
+      <li><a href="#" class="nav-link">Knowledge Hub</a></li>
+      <li><a href="#" class="nav-link">Team</a></li>
+      <li><a href="#contact" class="nav-link text-copper-lt">Contact</a></li>
+    </ul>
+    <a href="#contact" class="hidden lg:inline-flex btn-primary py-3 px-5 text-[0.65rem]">Partner With Us</a>
+    <button id="mobileToggle" class="lg:hidden text-cream" aria-label="menu">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
     </button>
   </div>
-</header>
-
-<nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="research.html">Research &amp; Project</a>
-  <a href="programmes.html">Programmes</a>
-  <a href="knowledge-hub.html">Knowledge Hub</a>
-  <a href="team.html">Team</a>
-  <a href="contact.html">Contact</a>
 </nav>
 
-<main>
-  <section class="hero">
-    <div class="container hero-grid">
-      <div class="reveal">
-        <span class="eyebrow" style="color: rgba(244,237,224,0.7)">Solutions & Partnerships</span>
-        <h1>Partnerships for innovation <em>that can be applied.</em></h1>
-        <p>Rankine Innovation Lab partners with organisations, institutions, and collaborators to turn strategy into execution. We design practical systems that combine learning, innovation, and research insight so teams can build real capability and sustained impact.</p>
+<!-- Mobile menu -->
+<div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-full sm:w-96 h-screen bg-espresso z-[60] p-8 overflow-y-auto">
+  <div class="flex justify-between items-center mb-12">
+    <span class="font-display text-2xl text-cream">Menu</span>
+    <button id="mobileClose" class="text-cream">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+  </div>
+  <ul class="space-y-6 text-cream font-display text-2xl">
+    <li><a href="#" class="hover:text-copper-lt transition">Home</a></li>
+    <li><a href="#" class="hover:text-copper-lt transition">About</a></li>
+    <li><a href="#" class="hover:text-copper-lt transition">Research & Project</a></li>
+    <li><a href="#" class="hover:text-copper-lt transition">Programmes</a></li>
+    <li><a href="#" class="hover:text-copper-lt transition">Knowledge Hub</a></li>
+    <li><a href="#" class="hover:text-copper-lt transition">Team</a></li>
+    <li><a href="#contact" class="text-copper-lt">Contact</a></li>
+  </ul>
+  <div class="mt-12 pt-8 border-t border-copper-dark/30">
+    <p class="font-label text-xs text-copper tracking-widest mb-4">GET IN TOUCH</p>
+    <p class="text-sand text-sm">hello@rankineinnovationlab.com</p>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="relative min-h-screen hero-bg flex items-center overflow-hidden">
+  <div class="absolute inset-0 hero-grid opacity-40"></div>
+
+  <!-- Background SVG network -->
+  <svg class="absolute inset-0 w-full h-full opacity-30" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#C89A5A" stop-opacity="0.6"/>
+        <stop offset="100%" stop-color="#C89A5A" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <g stroke="url(#lineGrad)" stroke-width="0.6" fill="none">
+      <path d="M100,200 Q400,100 800,300 T1100,200"/>
+      <path d="M0,500 Q300,400 600,600 T1200,550"/>
+      <path d="M200,700 Q500,500 900,650 T1200,400"/>
+    </g>
+    <g fill="#C89A5A">
+      <circle cx="100" cy="200" r="2"/>
+      <circle cx="400" cy="150" r="3"/>
+      <circle cx="800" cy="300" r="2"/>
+      <circle cx="600" cy="600" r="3"/>
+      <circle cx="900" cy="650" r="2"/>
+      <circle cx="1100" cy="200" r="2"/>
+    </g>
+  </svg>
+
+  <!-- Floating orbs -->
+  <div class="absolute top-1/4 right-1/5 w-72 h-72 rounded-full bg-copper-dark opacity-15 blur-3xl drift"></div>
+  <div class="absolute bottom-1/4 left-1/5 w-96 h-96 rounded-full bg-copper opacity-10 blur-3xl drift" style="animation-delay: -8s;"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6 py-32 grid lg:grid-cols-12 gap-12 items-center w-full">
+    <div class="lg:col-span-7 reveal">
+      <span class="section-label text-copper-lt mb-6">Solutions & Partnerships</span>
+      <h1 class="section-heading text-cream text-5xl md:text-7xl lg:text-[5.5rem] mt-8">
+        Partnerships<br>
+        for innovation<br>
+        <em class="font-display italic gradient-text">that endures.</em>
+      </h1>
+      <div class="divider-line my-10 max-w-md"></div>
+      <p class="text-sand text-lg leading-relaxed max-w-xl">
+        We partner with organisations, institutions, and collaborators to turn strategy into execution — designing practical systems that combine learning, innovation, and research insight.
+      </p>
+      <div class="flex flex-wrap items-center gap-3 mt-6">
+        <span class="font-label text-xs text-copper-lt tracking-widest">CREDIBLE</span>
+        <span class="w-1 h-1 bg-copper rounded-full"></span>
+        <span class="font-label text-xs text-copper-lt tracking-widest">PRACTICAL</span>
+        <span class="w-1 h-1 bg-copper rounded-full"></span>
+        <span class="font-label text-xs text-copper-lt tracking-widest">FUTURE-FACING</span>
       </div>
-      <aside class="hero-panel reveal d2" aria-label="Positioning statement">
-        <h3>Credible. Practical. Future-facing.</h3>
-        <p>Our engagements support decision-makers who need outcomes that are implementable in real institutions, not just persuasive in presentations.</p>
-      </aside>
-    </div>
-  </section>
-
-  <section class="section" id="why-partner">
-    <div class="container">
-      <header class="section-head reveal">
-        <span class="eyebrow" style="color: var(--copper)">Why partner with Rankine</span>
-        <h2>A partner built for complex innovation work</h2>
-        <p>We work across disciplines and organisational levels to help leadership teams move from strategic ambition to operational delivery through a sustainability-rooted and research-informed approach.</p>
-      </header>
-
-      <div class="cards-5">
-        <article class="card reveal d1"><h3>Interdisciplinary perspective</h3><p>We integrate education, organisational strategy, systems thinking, and innovation practice to frame better options.</p></article>
-        <article class="card reveal d2"><h3>Practical delivery</h3><p>Our work translates insight into implementation plans, team routines, and decisions that can be acted on immediately.</p></article>
-        <article class="card reveal d3"><h3>Research-informed approach</h3><p>We combine evidence and contextual intelligence to shape interventions that are both rigorous and relevant.</p></article>
-        <article class="card reveal d4"><h3>Sustainability-rooted innovation</h3><p>We embed resilience, responsible systems design, and long-horizon value into partnership outcomes.</p></article>
-        <article class="card reveal d5"><h3>Future-facing learning systems</h3><p>We help institutions build adaptive learning structures that keep capabilities current in changing conditions.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="partnership-types">
-    <div class="container">
-      <header class="section-head reveal">
-        <span class="eyebrow" style="color: var(--copper)">Partnership types</span>
-        <h2>Engagement models tailored to your context</h2>
-        <p>Whether your need is focused capability-building or long-term transformation support, we design the partnership format around your goals, capacity, and timeline.</p>
-      </header>
-
-      <div class="cards-2">
-        <article class="card reveal d1"><h3>Institutional training</h3><p>High-impact programmes for leadership teams, educators, and operational units focused on practical innovation capability.</p></article>
-        <article class="card reveal d2"><h3>Collaborative research</h3><p>Joint research initiatives that generate useful evidence, sharpen strategy, and strengthen implementation choices.</p></article>
-        <article class="card reveal d3"><h3>Innovation sprints</h3><p>Intensive, outcomes-oriented cycles for opportunity mapping, rapid design, and prototype-to-action pathways.</p></article>
-        <article class="card reveal d4"><h3>Strategic learning partnerships</h3><p>Ongoing collaboration that aligns leadership priorities with organisational learning and delivery systems.</p></article>
-        <article class="card reveal d5"><h3>Custom programme development</h3><p>Bespoke programme and curriculum design for institutions that need contextual relevance and measurable outcomes.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section process" id="process">
-    <div class="container">
-      <header class="section-head reveal">
-        <span class="eyebrow" style="color: var(--sand)">Partnership process</span>
-        <h2>A refined pathway from strategy to sustained outcomes</h2>
-        <p>Every engagement follows a disciplined workflow to ensure clarity, delivery quality, and continuous improvement.</p>
-      </header>
-
-      <div class="steps">
-        <article class="step reveal d1"><small>01</small><h3>discover</h3><p>Understand context, ambition, and constraints with key stakeholders.</p></article>
-        <article class="step reveal d2"><small>02</small><h3>scope</h3><p>Define outcomes, responsibilities, milestones, and success metrics.</p></article>
-        <article class="step reveal d3"><small>03</small><h3>design</h3><p>Craft intervention architecture, delivery plans, and learning systems.</p></article>
-        <article class="step reveal d4"><small>04</small><h3>deliver</h3><p>Execute with facilitation excellence, practical tools, and team support.</p></article>
-        <article class="step reveal d5"><small>05</small><h3>evolve</h3><p>Review progress, adapt strategy, and strengthen long-term institutional capability.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--alt" id="ideal-partners">
-    <div class="container">
-      <header class="section-head reveal">
-        <span class="eyebrow" style="color: var(--copper)">Ideal partners</span>
-        <h2>Who we partner with</h2>
-        <p>We collaborate with organisations committed to meaningful innovation, rigorous learning, and credible implementation.</p>
-      </header>
-
-      <div class="partners">
-        <article class="partner reveal d1"><h3>Universities</h3><p>Institutions building stronger links between research, learning innovation, and societal impact.</p></article>
-        <article class="partner reveal d2"><h3>Schools</h3><p>School systems and networks developing future-ready models for teaching, leadership, and culture.</p></article>
-        <article class="partner reveal d3"><h3>NGOs</h3><p>Mission-driven organisations strengthening programme design, evidence use, and execution quality.</p></article>
-        <article class="partner reveal d4"><h3>Public sector actors</h3><p>Government teams improving policy-to-delivery pathways through practical innovation capability.</p></article>
-        <article class="partner reveal d5"><h3>Foundations</h3><p>Funders and ecosystem builders shaping learning agendas that improve systemic impact.</p></article>
-        <article class="partner reveal d5"><h3>Private organisations</h3><p>Companies and enterprises seeking stronger innovation systems and strategic learning capacity.</p></article>
+      <div class="flex flex-wrap gap-4 mt-12">
+        <a href="#contact" class="btn-primary">Begin a Partnership <span>→</span></a>
+        <a href="#models" class="btn-ghost">View Engagement Models</a>
       </div>
     </div>
-  </section>
 
-  <section class="cta">
-    <div class="container reveal">
-      <h2>Let’s explore what a strong partnership could make possible.</h2>
-      <p>If your organisation is seeking innovation partnerships, organisational training, research-informed capacity building, or strategy-to-implementation support, we are ready to begin the conversation.</p>
-      <a class="btn" href="contact.html">Start a conversation</a>
-    </div>
-  </section>
+    <!-- Right: Bridge visual card -->
+    <div class="lg:col-span-5 reveal reveal-delay-2">
+      <div class="relative">
+        <!-- Decorative circle -->
+        <div class="absolute -top-8 -right-8 w-40 h-40 border border-copper/30 rounded-full"></div>
+        <div class="absolute -bottom-8 -left-8 w-24 h-24 border border-copper/20 rounded-full"></div>
 
-  <!-- IA role: Partnerships explains collaboration pathways for institutions and organisations. -->
-  <section class="section" id="partnership-bridges">
-    <div class="container">
-      <header class="section-head reveal">
-        <span class="eyebrow" style="color: var(--copper)">Collaboration pathways</span>
-        <h2>Connected routes from strategy to delivery</h2>
-        <p>Partnership engagements connect directly to programme delivery, applied research, and practical project outcomes.</p>
-      </header>
-      <div style="display:flex; gap:.8rem; flex-wrap:wrap; margin-top:1.2rem;">
-        <a href="programmes.html" class="btn">Programmes</a>
-        <a href="research.html" class="btn">Research &amp; Project</a>
-        <a href="partnership.html" class="btn">Partnerships</a>
+        <div class="relative bg-chocolate/40 backdrop-blur-md border border-copper/20 p-10">
+          <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-copper to-transparent"></div>
+
+          <div class="font-label text-xs text-copper tracking-widest mb-4">PARTNERSHIP ETHOS</div>
+          <h3 class="font-display text-3xl md:text-4xl text-cream font-light italic leading-tight mb-6">
+            "We build bridges between intent and outcome — where serious work becomes lasting capability."
+          </h3>
+
+          <div class="grid grid-cols-3 gap-6 mt-8 pt-8 border-t border-copper/15">
+            <div>
+              <div class="counter-num text-4xl text-copper-lt">12+</div>
+              <div class="font-label text-[0.6rem] text-sand/70 tracking-widest mt-2">INSTITUTIONS</div>
+            </div>
+            <div>
+              <div class="counter-num text-4xl text-copper-lt">5</div>
+              <div class="font-label text-[0.6rem] text-sand/70 tracking-widest mt-2">CONTINENTS</div>
+            </div>
+            <div>
+              <div class="counter-num text-4xl text-copper-lt">∞</div>
+              <div class="font-label text-[0.6rem] text-sand/70 tracking-widest mt-2">LONG-HORIZON</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 
-</main>
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-copper-lt flex flex-col items-center gap-2">
+    <span class="font-label text-[0.6rem] tracking-[0.4em]">SCROLL</span>
+    <svg class="scroll-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 5v14M19 12l-7 7-7-7" stroke-width="1.2"/></svg>
+  </div>
+</section>
 
-<footer class="footer"><div class="footer-brand-line"><img src="Images/rakine_logo.svg" class="footer-logo-icon" alt="Rankine Innovation Lab logo" /><span>© <span id="year"></span> Rankine Innovation Lab · Intelligence for a Liveable Future</span></div></footer>
+<!-- ============ MARQUEE ============ -->
+<section class="bg-espresso py-8 border-y border-copper/10">
+  <div class="marquee-wrap">
+    <div class="marquee text-cream/40 font-display italic text-2xl md:text-3xl">
+      <span>Universities</span><span class="text-copper">✦</span>
+      <span>Schools</span><span class="text-copper">✦</span>
+      <span>NGOs</span><span class="text-copper">✦</span>
+      <span>Foundations</span><span class="text-copper">✦</span>
+      <span>Public Sector</span><span class="text-copper">✦</span>
+      <span>Private Enterprise</span><span class="text-copper">✦</span>
+      <span>Research Institutes</span><span class="text-copper">✦</span>
+      <span>Multilaterals</span><span class="text-copper">✦</span>
+      <span>Universities</span><span class="text-copper">✦</span>
+      <span>Schools</span><span class="text-copper">✦</span>
+      <span>NGOs</span><span class="text-copper">✦</span>
+      <span>Foundations</span><span class="text-copper">✦</span>
+      <span>Public Sector</span><span class="text-copper">✦</span>
+      <span>Private Enterprise</span><span class="text-copper">✦</span>
+      <span>Research Institutes</span><span class="text-copper">✦</span>
+      <span>Multilaterals</span><span class="text-copper">✦</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY PARTNER ============ -->
+<section class="bg-cream py-24 md:py-32 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid lg:grid-cols-12 gap-12 mb-20">
+      <div class="lg:col-span-5 reveal">
+        <span class="section-label text-copper-dark mb-6">Why Partner With Rankine</span>
+        <h2 class="section-heading text-chocolate text-4xl md:text-6xl mt-6">
+          A partner built<br>for <em class="italic gradient-text">complex<br>innovation work.</em>
+        </h2>
+      </div>
+      <div class="lg:col-span-6 lg:col-start-7 reveal reveal-delay-1 self-end">
+        <p class="text-chocolate/80 text-lg leading-relaxed">
+          We work across disciplines and organisational levels to help leadership teams move from strategic ambition to operational delivery — through a sustainability-rooted, research-informed approach designed for institutions that demand outcomes, not optics.
+        </p>
+      </div>
+    </div>
+
+    <!-- 5 differentiators -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-px bg-chocolate/10">
+      <div class="bg-cream p-8 reveal hover:bg-sand/40 transition-colors duration-500">
+        <div class="font-label text-[0.65rem] text-copper-dark tracking-widest mb-4">01</div>
+        <div class="text-3xl text-copper-dark mb-4">⬡</div>
+        <h3 class="font-display text-2xl text-chocolate mb-3 leading-tight">Interdisciplinary perspective</h3>
+        <p class="text-sm text-chocolate/70 leading-relaxed">We integrate education, organisational strategy, systems thinking, and innovation practice to frame better options.</p>
+      </div>
+      <div class="bg-cream p-8 reveal reveal-delay-1 hover:bg-sand/40 transition-colors duration-500">
+        <div class="font-label text-[0.65rem] text-copper-dark tracking-widest mb-4">02</div>
+        <div class="text-3xl text-copper-dark mb-4">◈</div>
+        <h3 class="font-display text-2xl text-chocolate mb-3 leading-tight">Practical delivery</h3>
+        <p class="text-sm text-chocolate/70 leading-relaxed">Our work translates insight into implementation plans, team routines, and decisions that act immediately.</p>
+      </div>
+      <div class="bg-cream p-8 reveal reveal-delay-2 hover:bg-sand/40 transition-colors duration-500">
+        <div class="font-label text-[0.65rem] text-copper-dark tracking-widest mb-4">03</div>
+        <div class="text-3xl text-copper-dark mb-4">◎</div>
+        <h3 class="font-display text-2xl text-chocolate mb-3 leading-tight">Research-informed</h3>
+        <p class="text-sm text-chocolate/70 leading-relaxed">We combine evidence and contextual intelligence to shape interventions that are rigorous and relevant.</p>
+      </div>
+      <div class="bg-cream p-8 reveal reveal-delay-3 hover:bg-sand/40 transition-colors duration-500">
+        <div class="font-label text-[0.65rem] text-copper-dark tracking-widest mb-4">04</div>
+        <div class="text-3xl text-copper-dark mb-4">⟐</div>
+        <h3 class="font-display text-2xl text-chocolate mb-3 leading-tight">Sustainability-rooted</h3>
+        <p class="text-sm text-chocolate/70 leading-relaxed">We embed resilience, responsible systems design, and long-horizon value into partnership outcomes.</p>
+      </div>
+      <div class="bg-cream p-8 reveal hover:bg-sand/40 transition-colors duration-500">
+        <div class="font-label text-[0.65rem] text-copper-dark tracking-widest mb-4">05</div>
+        <div class="text-3xl text-copper-dark mb-4">⚙</div>
+        <h3 class="font-display text-2xl text-chocolate mb-3 leading-tight">Future-facing learning</h3>
+        <p class="text-sm text-chocolate/70 leading-relaxed">We help institutions build adaptive learning structures that keep capabilities current in changing conditions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVE PARTNERSHIP NETWORK ============ -->
+<section class="bg-espresso py-24 md:py-32 relative overflow-hidden">
+  <div class="absolute inset-0 hero-grid opacity-20"></div>
+  <div class="max-w-7xl mx-auto px-6 relative">
+    <div class="text-center mb-16">
+      <span class="section-label text-copper-lt justify-center mb-6 inline-flex">Living Network</span>
+      <h2 class="section-heading text-cream text-4xl md:text-6xl mt-6">
+        The shape of <em class="italic gradient-text">collaboration.</em>
+      </h2>
+      <p class="text-sand/70 mt-6 max-w-2xl mx-auto">Hover the constellation. Each node is a partner type — each thread an active pathway between disciplines, institutions, and outcomes.</p>
+    </div>
+
+    <div class="relative w-full" style="min-height: 500px;">
+      <svg id="networkSvg" viewBox="0 0 800 500" class="w-full h-auto" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <radialGradient id="nodeGlow">
+            <stop offset="0%" stop-color="#E4BC84" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#C89A5A" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Connecting lines -->
+        <g id="netLines" stroke="#C89A5A" stroke-width="0.5" opacity="0.35" fill="none">
+          <line x1="400" y1="250" x2="180" y2="120"/>
+          <line x1="400" y1="250" x2="620" y2="120"/>
+          <line x1="400" y1="250" x2="120" y2="280"/>
+          <line x1="400" y1="250" x2="680" y2="280"/>
+          <line x1="400" y1="250" x2="220" y2="400"/>
+          <line x1="400" y1="250" x2="580" y2="400"/>
+          <line x1="180" y1="120" x2="620" y2="120"/>
+          <line x1="120" y1="280" x2="680" y2="280"/>
+          <line x1="220" y1="400" x2="580" y2="400"/>
+          <line x1="180" y1="120" x2="120" y2="280"/>
+          <line x1="620" y1="120" x2="680" y2="280"/>
+          <line x1="120" y1="280" x2="220" y2="400"/>
+          <line x1="680" y1="280" x2="580" y2="400"/>
+        </g>
+
+        <!-- Center node: Rankine -->
+        <g>
+          <circle cx="400" cy="250" r="50" fill="url(#nodeGlow)"/>
+          <circle cx="400" cy="250" r="32" fill="#C89A5A" class="network-node" data-label="Rankine Lab" data-desc="The integrative core — connecting all partners through the Rankine Method." />
+          <text x="400" y="255" text-anchor="middle" fill="#1F120B" font-family="Cinzel" font-size="9" font-weight="600">RANKINE</text>
+        </g>
+
+        <!-- Outer nodes -->
+        <g>
+          <circle cx="180" cy="120" r="22" fill="#3B2418" stroke="#C89A5A" stroke-width="1" class="network-node" data-label="Universities" data-desc="Bridging research, learning innovation, and societal impact." />
+          <text x="180" y="124" text-anchor="middle" fill="#E4BC84" font-family="Cinzel" font-size="7">UNI</text>
+
+          <circle cx="620" cy="120" r="22" fill="#3B2418" stroke="#C89A5A" stroke-width="1" class="network-node" data-label="Schools" data-desc="School systems building future-ready models for teaching and leadership." />
+          <text x="620" y="124" text-anchor="middle" fill="#E4BC84" font-family="Cinzel" font-size="7">SCH</text>
+
+          <circle cx="120" cy="280" r="22" fill="#3B2418" stroke="#C89A5A" stroke-width="1" class="network-node" data-label="NGOs" data-desc="Mission-driven organisations strengthening evidence use and execution." />
+          <text x="120" y="284" text-anchor="middle" fill="#E4BC84" font-family="Cinzel" font-size="7">NGO</text>
+
+          <circle cx="680" cy="280" r="22" fill="#3B2418" stroke="#C89A5A" stroke-width="1" class="network-node" data-label="Public Sector" data-desc="Government teams improving policy-to-delivery pathways." />
+          <text x="680" y="284" text-anchor="middle" fill="#E4BC84" font-family="Cinzel" font-size="7">PUB</text>
+
+          <circle cx="220" cy="400" r="22" fill="#3B2418" stroke="#C89A5A" stroke-width="1" class="network-node" data-label="Foundations" data-desc="Funders shaping learning agendas that improve systemic impact." />
+          <text x="220" y="404" text-anchor="middle" fill="#E4BC84" font-family="Cinzel" font-size="7">FND</text>
+
+          <circle cx="580" cy="400" r="22" fill="#3B2418" stroke="#C89A5A" stroke-width="1" class="network-node" data-label="Private Sector" data-desc="Enterprises seeking stronger innovation systems and learning capacity." />
+          <text x="580" y="404" text-anchor="middle" fill="#E4BC84" font-family="Cinzel" font-size="7">PRV</text>
+        </g>
+
+        <!-- Floating decorative nodes -->
+        <g fill="#C89A5A" opacity="0.4">
+          <circle cx="80" cy="60" r="2"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="3s" repeatCount="indefinite"/></circle>
+          <circle cx="720" cy="50" r="2"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="4s" repeatCount="indefinite"/></circle>
+          <circle cx="50" cy="450" r="2"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="3.5s" repeatCount="indefinite"/></circle>
+          <circle cx="750" cy="450" r="2"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="2.8s" repeatCount="indefinite"/></circle>
+          <circle cx="400" cy="40" r="2"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="3.2s" repeatCount="indefinite"/></circle>
+          <circle cx="400" cy="470" r="2"><animate attributeName="opacity" values="0.2;0.7;0.2" dur="2.5s" repeatCount="indefinite"/></circle>
+        </g>
+      </svg>
+
+      <!-- Node info display -->
+      <div id="nodeInfo" class="absolute top-4 left-4 md:left-8 bg-chocolate/80 backdrop-blur-md border border-copper/30 p-6 max-w-xs transition-opacity duration-300">
+        <div class="font-label text-[0.65rem] text-copper tracking-widest mb-2">CURRENT NODE</div>
+        <div id="nodeTitle" class="font-display text-2xl text-cream mb-2">Rankine Lab</div>
+        <div id="nodeDesc" class="text-sm text-sand/80 leading-relaxed">The integrative core — connecting all partners through the Rankine Method.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PARTNERSHIP TIERS (UNIQUE ELEMENT) ============ -->
+<section class="bg-chocolate py-24 md:py-32 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid lg:grid-cols-12 gap-12 mb-16">
+      <div class="lg:col-span-7 reveal">
+        <span class="section-label text-copper-lt mb-6">Engagement Tiers</span>
+        <h2 class="section-heading text-cream text-4xl md:text-6xl mt-6">
+          Four ways<br>to <em class="italic gradient-text">work with us.</em>
+        </h2>
+      </div>
+      <div class="lg:col-span-5 self-end reveal reveal-delay-1">
+        <p class="text-sand/80 leading-relaxed">From a single intensive engagement to a multi-year strategic partnership — every tier is calibrated to the depth, ambition, and timeline of the work ahead.</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Tier 1: Catalyst -->
+      <div class="tier-card p-8 reveal">
+        <div class="flex items-center justify-between mb-6">
+          <span class="font-label text-[0.65rem] text-copper tracking-widest">TIER 01</span>
+          <span class="text-copper text-sm">◎</span>
+        </div>
+        <h3 class="font-display text-3xl text-cream mb-3">Catalyst</h3>
+        <p class="text-sand/60 text-sm mb-6">Single-engagement</p>
+        <p class="text-sand/80 text-sm leading-relaxed mb-8">A short, focused intervention to unlock momentum — ideal for opportunity framing or rapid capability injection.</p>
+        <ul class="space-y-3 text-sm text-sand/70 mb-8">
+          <li class="flex items-start gap-2"><span class="text-copper mt-0.5">▸</span>2–6 week engagement</li>
+          <li class="flex items-start gap-2"><span class="text-copper mt-0.5">▸</span>Single-team focus</li>
+          <li class="flex items-start gap-2"><span class="text-copper mt-0.5">▸</span>Clear deliverable</li>
+        </ul>
+        <div class="pt-6 border-t border-copper/15">
+          <div class="font-label text-[0.65rem] text-copper-lt tracking-widest">BEST FOR</div>
+          <div class="text-sand text-sm mt-2">Innovation sprints, audits, framing</div>
+        </div>
+      </div>
+
+      <!-- Tier 2: Collaborator -->
+      <div class="tier-card p-8 reveal reveal-delay-1">
+        <div class="flex items-center justify-between mb-6">
+          <span class="font-label text-[0.65rem] text-copper tracking-widest">TIER 02</span>
+          <span class="text-copper text-sm">⬡</span>
+        </div>
+        <h3 class="font-display text-3xl text-cream mb-3">Collaborator</h3>
+        <p class="text-sand/60 text-sm mb-6">Programme-based</p>
+        <p class="text-sand/80 text-sm leading-relaxed mb-8">A structured programme delivering capability and outcomes — for institutions investing in defined transformation.</p>
+        <ul class="space-y-3 text-sm text-sand/70 mb-8">
+          <li class="flex items-start gap-2"><span class="text-copper mt-0.5">▸</span>3–9 month engagement</li>
+          <li class="flex items-start gap-2"><span class="text-copper mt-0.5">▸</span>Multi-team coverage</li>
+          <li class="flex items-start gap-2"><span class="text-copper mt-0.5">▸</span>Measurable outcomes</li>
+        </ul>
+        <div class="pt-6 border-t border-copper/15">
+          <div class="font-label text-[0.65rem] text-copper-lt tracking-widest">BEST FOR</div>
+          <div class="text-sand text-sm mt-2">Training programmes, applied research</div>
+        </div>
+      </div>
+
+      <!-- Tier 3: Strategic (FEATURED) -->
+      <div class="tier-card tier-featured p-8 reveal reveal-delay-2 relative">
+        <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-copper text-espresso px-4 py-1 font-label text-[0.6rem] tracking-widest">FLAGSHIP</div>
+        <div class="flex items-center justify-between mb-6">
+          <span class="font-label text-[0.65rem] text-copper-lt tracking-widest">TIER 03</span>
+          <span class="text-copper-lt text-sm">◈</span>
+        </div>
+        <h3 class="font-display text-3xl text-cream mb-3">Strategic</h3>
+        <p class="text-copper-lt text-sm mb-6">Multi-year partnership</p>
+        <p class="text-sand/85 text-sm leading-relaxed mb-8">An ongoing alliance aligning leadership priorities with organisational learning, research, and delivery systems.</p>
+        <ul class="space-y-3 text-sm text-sand/80 mb-8">
+          <li class="flex items-start gap-2"><span class="text-copper-lt mt-0.5">▸</span>12–36 month horizon</li>
+          <li class="flex items-start gap-2"><span class="text-copper-lt mt-0.5">▸</span>Cross-institution scope</li>
+          <li class="flex items-start gap-2"><span class="text-copper-lt mt-0.5">▸</span>Embedded advisory</li>
+        </ul>
+        <div class="pt-6 border-t border-copper/30">
+          <div class="font-label text-[0.65rem] text-copper-lt tracking-widest">BEST FOR</div>
+          <div class="text-cream text-sm mt-2">Universities, foundations, public sector</div>
+        </div>
+      </div>
+
+      <!-- Tier 4: Transformative -->
+      <div class="tier-card p-8 reveal reveal-delay-3">
+        <div class="flex items-center justify-between mb-6">
+          <span class="font-label text-[0.65rem] text-copper tracking-widest">TIER 04</span>
+          <span class="text-copper text-sm">⟐</span>
+        </div>
+        <h3 class="font-display text-3xl text-cream mb-3">Transformative</h3>
+        <p class="text-sand/60 text-sm mb-6">Systems-level alliance</p>
+        <p class="text-sand/80 text-sm leading-relaxed mb-8">A deep, systems-level partnership co-creating ecosystems of innovation, research, and capability at sector scale.</p>
+        <ul class="space-y-3 text-sm text-sand/70 mb-8">
+          <li class="flex items-start gap-2"><span class="text-copper mt-0.5">▸</span>3–5+ year horizon</li>
+          <li class="flex items-start gap-2"><span class="text-copper mt-0.5">▸</span>Sector-wide reach</li>
+          <li class="flex items-start gap-2"><span class="text-copper mt-0.5">▸</span>Joint IP & infrastructure</li>
+        </ul>
+        <div class="pt-6 border-t border-copper/15">
+          <div class="font-label text-[0.65rem] text-copper-lt tracking-widest">BEST FOR</div>
+          <div class="text-sand text-sm mt-2">Multilaterals, ecosystem builders</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-16 reveal">
+      <p class="text-sand/60 text-sm mb-6 italic font-display text-xl">All tiers can be adapted, blended, or evolved over time — no two partnerships are alike.</p>
+      <a href="#contact" class="btn-primary">Discuss Your Tier <span>→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ENGAGEMENT MODELS ============ -->
+<section id="models" class="bg-cream py-24 md:py-32 relative">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid lg:grid-cols-12 gap-12 mb-16">
+      <div class="lg:col-span-6 reveal">
+        <span class="section-label text-copper-dark mb-6">Engagement Models</span>
+        <h2 class="section-heading text-chocolate text-4xl md:text-6xl mt-6">
+          Five formats.<br><em class="italic gradient-text">One purpose.</em>
+        </h2>
+      </div>
+      <div class="lg:col-span-5 lg:col-start-8 self-end reveal reveal-delay-1">
+        <p class="text-chocolate/75 leading-relaxed">Whether your need is focused capability-building or long-term transformation support, we design the partnership format around your goals, capacity, and timeline.</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Model 1 -->
+      <div class="engagement-card p-10 reveal">
+        <div class="flex items-start justify-between mb-8">
+          <span class="font-label text-[0.65rem] text-copper-dark tracking-widest">MODEL 01</span>
+          <span class="text-3xl text-copper-dark">⚙</span>
+        </div>
+        <h3 class="font-display text-3xl text-chocolate mb-4 leading-tight">Institutional Training</h3>
+        <p class="text-chocolate/70 text-sm leading-relaxed mb-8">High-impact programmes for leadership teams, educators, and operational units focused on practical innovation capability.</p>
+        <div class="flex items-center justify-between pt-6 border-t border-chocolate/10">
+          <span class="font-label text-[0.6rem] text-chocolate/60 tracking-widest">3–6 MONTHS</span>
+          <span class="arrow text-copper-dark">→</span>
+        </div>
+      </div>
+
+      <!-- Model 2 -->
+      <div class="engagement-card p-10 reveal reveal-delay-1">
+        <div class="flex items-start justify-between mb-8">
+          <span class="font-label text-[0.65rem] text-copper-dark tracking-widest">MODEL 02</span>
+          <span class="text-3xl text-copper-dark">◎</span>
+        </div>
+        <h3 class="font-display text-3xl text-chocolate mb-4 leading-tight">Collaborative Research</h3>
+        <p class="text-chocolate/70 text-sm leading-relaxed mb-8">Joint research initiatives that generate useful evidence, sharpen strategy, and strengthen implementation choices.</p>
+        <div class="flex items-center justify-between pt-6 border-t border-chocolate/10">
+          <span class="font-label text-[0.6rem] text-chocolate/60 tracking-widest">6–24 MONTHS</span>
+          <span class="arrow text-copper-dark">→</span>
+        </div>
+      </div>
+
+      <!-- Model 3 -->
+      <div class="engagement-card p-10 reveal reveal-delay-2">
+        <div class="flex items-start justify-between mb-8">
+          <span class="font-label text-[0.65rem] text-copper-dark tracking-widest">MODEL 03</span>
+          <span class="text-3xl text-copper-dark">◈</span>
+        </div>
+        <h3 class="font-display text-3xl text-chocolate mb-4 leading-tight">Innovation Sprints</h3>
+        <p class="text-chocolate/70 text-sm leading-relaxed mb-8">Intensive, outcomes-oriented cycles for opportunity mapping, rapid design, and prototype-to-action pathways.</p>
+        <div class="flex items-center justify-between pt-6 border-t border-chocolate/10">
+          <span class="font-label text-[0.6rem] text-chocolate/60 tracking-widest">2–6 WEEKS</span>
+          <span class="arrow text-copper-dark">→</span>
+        </div>
+      </div>
+
+      <!-- Model 4 -->
+      <div class="engagement-card p-10 reveal reveal-delay-3">
+        <div class="flex items-start justify-between mb-8">
+          <span class="font-label text-[0.65rem] text-copper-dark tracking-widest">MODEL 04</span>
+          <span class="text-3xl text-copper-dark">⬡</span>
+        </div>
+        <h3 class="font-display text-3xl text-chocolate mb-4 leading-tight">Strategic Learning Partnership</h3>
+        <p class="text-chocolate/70 text-sm leading-relaxed mb-8">Ongoing collaboration that aligns leadership priorities with organisational learning and delivery systems.</p>
+        <div class="flex items-center justify-between pt-6 border-t border-chocolate/10">
+          <span class="font-label text-[0.6rem] text-chocolate/60 tracking-widest">12+ MONTHS</span>
+          <span class="arrow text-copper-dark">→</span>
+        </div>
+      </div>
+
+      <!-- Model 5 -->
+      <div class="engagement-card p-10 reveal">
+        <div class="flex items-start justify-between mb-8">
+          <span class="font-label text-[0.65rem] text-copper-dark tracking-widest">MODEL 05</span>
+          <span class="text-3xl text-copper-dark">⟐</span>
+        </div>
+        <h3 class="font-display text-3xl text-chocolate mb-4 leading-tight">Custom Programme Development</h3>
+        <p class="text-chocolate/70 text-sm leading-relaxed mb-8">Bespoke programme and curriculum design for institutions that need contextual relevance and measurable outcomes.</p>
+        <div class="flex items-center justify-between pt-6 border-t border-chocolate/10">
+          <span class="font-label text-[0.6rem] text-chocolate/60 tracking-widest">CUSTOM SCOPE</span>
+          <span class="arrow text-copper-dark">→</span>
+        </div>
+      </div>
+
+      <!-- CTA Card -->
+      <div class="bg-chocolate p-10 reveal reveal-delay-1 relative overflow-hidden group cursor-pointer">
+        <div class="absolute -bottom-12 -right-12 w-40 h-40 border border-copper/20 rounded-full group-hover:scale-110 transition-transform duration-700"></div>
+        <div class="absolute -top-8 -right-8 w-24 h-24 border border-copper/10 rounded-full"></div>
+        <div class="relative">
+          <span class="font-label text-[0.65rem] text-copper tracking-widest">NOT SURE WHICH FITS?</span>
+          <h3 class="font-display text-3xl text-cream mt-4 mb-6 leading-tight">Let's design the right format together.</h3>
+          <p class="text-sand/70 text-sm leading-relaxed mb-8">Most engagements blend formats. Tell us your context and we'll architect the partnership shape.</p>
+          <a href="#contact" class="inline-flex items-center gap-3 text-copper-lt font-label text-xs tracking-widest hover:gap-5 transition-all">START A CONVERSATION <span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INTERACTIVE PROCESS TIMELINE (UNIQUE ELEMENT) ============ -->
+<section class="bg-mahogany py-24 md:py-32 relative overflow-hidden">
+  <div class="absolute top-0 right-0 w-full h-full opacity-10">
+    <div class="absolute top-1/4 right-0 w-96 h-96 rounded-full bg-copper blur-3xl"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-6 relative">
+    <div class="text-center mb-20 reveal">
+      <span class="section-label text-copper-lt mb-6 inline-flex justify-center">Partnership Process</span>
+      <h2 class="section-heading text-cream text-4xl md:text-6xl mt-6">
+        From strategy to <em class="italic gradient-text">sustained outcome.</em>
+      </h2>
+      <p class="text-sand/70 mt-6 max-w-2xl mx-auto">A disciplined five-phase pathway designed for clarity, delivery quality, and continuous improvement. Click any step to explore.</p>
+    </div>
+
+    <!-- Steps row -->
+    <div class="relative mb-16">
+      <div class="absolute top-8 left-0 right-0 h-px bg-copper/20 hidden md:block"></div>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-4 relative">
+        <div class="timeline-step active text-center" data-step="1">
+          <div class="step-number w-16 h-16 mx-auto rounded-full bg-mahogany flex items-center justify-center font-display text-2xl text-cream relative z-10">01</div>
+          <div class="step-title font-label text-[0.7rem] text-cream/70 tracking-widest mt-4">DISCOVER</div>
+        </div>
+        <div class="timeline-step text-center" data-step="2">
+          <div class="step-number w-16 h-16 mx-auto rounded-full bg-mahogany flex items-center justify-center font-display text-2xl text-cream relative z-10">02</div>
+          <div class="step-title font-label text-[0.7rem] text-cream/70 tracking-widest mt-4">SCOPE</div>
+        </div>
+        <div class="timeline-step text-center" data-step="3">
+          <div class="step-number w-16 h-16 mx-auto rounded-full bg-mahogany flex items-center justify-center font-display text-2xl text-cream relative z-10">03</div>
+          <div class="step-title font-label text-[0.7rem] text-cream/70 tracking-widest mt-4">DESIGN</div>
+        </div>
+        <div class="timeline-step text-center" data-step="4">
+          <div class="step-number w-16 h-16 mx-auto rounded-full bg-mahogany flex items-center justify-center font-display text-2xl text-cream relative z-10">04</div>
+          <div class="step-title font-label text-[0.7rem] text-cream/70 tracking-widest mt-4">DELIVER</div>
+        </div>
+        <div class="timeline-step text-center" data-step="5">
+          <div class="step-number w-16 h-16 mx-auto rounded-full bg-mahogany flex items-center justify-center font-display text-2xl text-cream relative z-10">05</div>
+          <div class="step-title font-label text-[0.7rem] text-cream/70 tracking-widest mt-4">EVOLVE</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step content panels -->
+    <div class="grid lg:grid-cols-12 gap-8 max-w-5xl mx-auto">
+      <div class="process-detail active lg:col-span-12" data-step-content="1">
+        <div class="bg-espresso/60 backdrop-blur-md border border-copper/20 p-10 md:p-14">
+          <div class="grid md:grid-cols-12 gap-8 items-center">
+            <div class="md:col-span-7">
+              <span class="font-label text-[0.65rem] text-copper-lt tracking-widest">PHASE ONE</span>
+              <h3 class="font-display text-4xl md:text-5xl text-cream mt-3 mb-6 italic">Discover.</h3>
+              <p class="text-sand/85 leading-relaxed mb-6">We open every partnership by listening. Through structured conversations with key stakeholders, we map context, ambition, and constraints — surfacing what's said, what's unsaid, and what's possible.</p>
+              <ul class="space-y-2 text-sand/70 text-sm">
+                <li class="flex items-start gap-3"><span class="text-copper mt-1">◆</span>Stakeholder discovery sessions</li>
+                <li class="flex items-start gap-3"><span class="text-copper mt-1">◆</span>Context and constraint mapping</li>
+                <li class="flex items-start gap-3"><span class="text-copper mt-1">◆</span>Ambition framing</li>
+              </ul>
+            </div>
+            <div class="md:col-span-5">
+              <div class="aspect-square border border-copper/20 flex items-center justify-center text-9xl text-copper/30 font-display">◎</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-detail lg:col-span-12" data-step-content="2">
+        <div class="bg-espresso/60 backdrop-blur-md border border-copper/20 p-10 md:p-14">
+          <div class="grid md:grid-cols-12 gap-8 items-center">
+            <div class="md:col-span-7">
+              <span class="font-label text-[0.65rem] text-copper-lt tracking-widest">PHASE TWO</span>
+              <h3 class="font-display text-4xl md:text-5xl text-cream mt-3 mb-6 italic">Scope.</h3>
+              <p class="text-sand/85 leading-relaxed mb-6">We translate ambition into definition. Outcomes, responsibilities, milestones, and success metrics are agreed in writing — so the work has shape, accountability, and a measurable horizon.</p>
+              <ul class="space-y-2 text-sand/70 text-sm">
+                <li class="flex items-start gap-3"><span class="text-copper mt-1">◆</span>Outcome definition</li>
+                <li class="flex items-start gap-3"><span class="text-copper mt-1">◆</span>Milestone architecture</li>
+                <li class="flex items-start gap-3"><span class="text-copper mt-1">◆</span>Success metrics charter</li>
+              </ul>
+            </div>
+            <div class="md:col-span-5">
+              <div class="aspect-square border border-copper/20 flex items-center justify-center text-9xl text-copper/30 font-display">⬡</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-detail lg:col-span-12" data-step-content="3">
+        <div class="bg-espresso/60 backdrop-blur-md border border-copper/20 p-10 md:p-14">
+          <div class="grid md:grid-cols-12 gap-8 items-center">
+            <div class="md:col-span-7">
+              <span class="font-label text-[0.65rem] text-copper-lt tracking-widest">PHASE THREE</span>
+              <h3 class="font-display text-4xl md:text-5xl text-cream mt-3 mb-6 italic">Design.</h3>
+              <p class="text-sand/85 leading-relaxed mb-6">We craft intervention architecture, delivery plans, and learning systems. Every component is designed to be implementable in your real institution, not aspirational on paper.</p>
+              <ul class="space-y-2 text-sand/70 text-sm">
+                <li class="flex items-start gap-3"><span class="text-copper mt-1">◆</span>Intervention architecture</li>
+                <li class="flex items-start gap-3"><span class="text-copper mt-1">◆</span>Delivery and facilitation plans</li>
+                <li class="flex items-start gap-3"><span class="text-copper mt-1">◆</span>Learning system design</li>
+              </ul>
+            </div>
+            <div class="md:col-span-5">
+              <div class="aspect-square border border-copper/20 flex items-center justify-center text-9xl text-copper/30 font-display">◈</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-detail lg:col-span-12" data-step-content="4">
+        <div class="bg-espresso/60 backdrop-blur-md border border-copper/20 p-10 md:p-14">
+          <div class="grid md:grid-cols-12 gap-8 items-center">
+            <div class="md:col-span-7">
+              <span class="font-label text-[0.65rem] text-copper-lt tracking-widest">PHASE FOUR</span>
+              <h3 class="font-display text-4xl md:text-5xl text-cream mt-3 mb-6 italic">Deliver.</h3>
+              <p class="text-sand/85 leading-relaxed mb-6">We execute with facilitation excellence, practical tools, and team support. Delivery is rigorous, well-documented, and built so capability transfers — not just outputs.</p>
+              <ul class="space-y-2 text-sand/70 text-sm">
+                <li class="flex items-start gap-3"><span class="text-copper mt-1">◆</span>Facilitated programme delivery</li>
+                <li class="flex items-start gap-3"><span class="text-copper mt-1">◆</span>Tools, templates, and toolkits</li>
+                <li class="flex items-start gap-3"><span class="text-copper mt-1">◆</span>In-team coaching support</li>
+              </ul>
+            </div>
+            <div class="md:col-span-5">
+              <div class="aspect-square border border-copper/20 flex items-center justify-center text-9xl text-copper/30 font-display">⚙</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="process-detail lg:col-span-12" data-step-content="5">
+        <div class="bg-espresso/60 backdrop-blur-md border border-copper/20 p-10 md:p-14">
+          <div class="grid md:grid-cols-12 gap-8 items-center">
+            <div class="md:col-span-7">
+              <span class="font-label text-[0.65rem] text-copper-lt tracking-widest">PHASE FIVE</span>
+              <h3 class="font-display text-4xl md:text-5xl text-cream mt-3 mb-6 italic">Evolve.</h3>
+              <p class="text-sand/85 leading-relaxed mb-6">We review, adapt, and strengthen. Long-term institutional capability is the real outcome — and it requires deliberate evolution beyond the formal engagement window.</p>
+              <ul class="space-y-2 text-sand/70 text-sm">
+                <li class="flex items-start gap-3"><span class="text-copper mt-1">◆</span>Outcome and capability review</li>
+                <li class="flex items-start gap-3"><span class="text-copper mt-1">◆</span>Strategic adaptation cycles</li>
+                <li class="flex items-start gap-3"><span class="text-copper mt-1">◆</span>Long-term capability anchoring</li>
+              </ul>
+            </div>
+            <div class="md:col-span-5">
+              <div class="aspect-square border border-copper/20 flex items-center justify-center text-9xl text-copper/30 font-display">⟐</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="bg-cream py-20 md:py-28">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-chocolate/10">
+      <div class="bg-cream p-8 md:p-10 reveal">
+        <div class="counter-num text-6xl md:text-7xl text-copper-dark">94<span class="text-copper">%</span></div>
+        <div class="font-label text-[0.65rem] text-chocolate/70 tracking-widest mt-3">PARTNERSHIPS RENEWED</div>
+        <div class="divider-line my-4"></div>
+        <p class="text-xs text-chocolate/60">Long-term retention rate across multi-year engagements</p>
+      </div>
+      <div class="bg-cream p-8 md:p-10 reveal reveal-delay-1">
+        <div class="counter-num text-6xl md:text-7xl text-copper-dark">5<span class="text-copper">×</span></div>
+        <div class="font-label text-[0.65rem] text-chocolate/70 tracking-widest mt-3">CAPABILITY UPLIFT</div>
+        <div class="divider-line my-4"></div>
+        <p class="text-xs text-chocolate/60">Average measured improvement in partner-team innovation capability</p>
+      </div>
+      <div class="bg-cream p-8 md:p-10 reveal reveal-delay-2">
+        <div class="counter-num text-6xl md:text-7xl text-copper-dark">12<span class="text-copper">+</span></div>
+        <div class="font-label text-[0.65rem] text-chocolate/70 tracking-widest mt-3">ACTIVE INSTITUTIONS</div>
+        <div class="divider-line my-4"></div>
+        <p class="text-xs text-chocolate/60">Universities, NGOs, foundations, and public-sector partners</p>
+      </div>
+      <div class="bg-cream p-8 md:p-10 reveal reveal-delay-3">
+        <div class="counter-num text-6xl md:text-7xl text-copper-dark">5<span class="text-copper">·</span></div>
+        <div class="font-label text-[0.65rem] text-chocolate/70 tracking-widest mt-3">CONTINENTS REACHED</div>
+        <div class="divider-line my-4"></div>
+        <p class="text-xs text-chocolate/60">Working across Africa, Europe, Americas, Asia, and Oceania</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IDEAL PARTNERS ============ -->
+<section class="bg-espresso py-24 md:py-32 relative overflow-hidden">
+  <div class="absolute inset-0 hero-grid opacity-15"></div>
+  <div class="max-w-7xl mx-auto px-6 relative">
+    <div class="grid lg:grid-cols-12 gap-12 mb-16">
+      <div class="lg:col-span-6 reveal">
+        <span class="section-label text-copper-lt mb-6">Ideal Partners</span>
+        <h2 class="section-heading text-cream text-4xl md:text-6xl mt-6">
+          Who we partner<br>with <em class="italic gradient-text">— and why.</em>
+        </h2>
+      </div>
+      <div class="lg:col-span-5 lg:col-start-8 self-end reveal reveal-delay-1">
+        <p class="text-sand/75 leading-relaxed">We collaborate with organisations committed to meaningful innovation, rigorous learning, and credible implementation — partners who are serious about lasting change.</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="partner-card p-8 reveal">
+        <div class="flex items-start justify-between mb-6">
+          <div class="text-4xl text-copper">⬡</div>
+          <span class="font-label text-[0.65rem] text-copper-lt/70 tracking-widest">P-01</span>
+        </div>
+        <h3 class="font-display text-2xl text-cream mb-3">Universities</h3>
+        <p class="text-sand/70 text-sm leading-relaxed">Institutions building stronger links between research, learning innovation, and societal impact.</p>
+      </div>
+      <div class="partner-card p-8 reveal reveal-delay-1">
+        <div class="flex items-start justify-between mb-6">
+          <div class="text-4xl text-copper">◎</div>
+          <span class="font-label text-[0.65rem] text-copper-lt/70 tracking-widest">P-02</span>
+        </div>
+        <h3 class="font-display text-2xl text-cream mb-3">Schools</h3>
+        <p class="text-sand/70 text-sm leading-relaxed">School systems and networks developing future-ready models for teaching, leadership, and culture.</p>
+      </div>
+      <div class="partner-card p-8 reveal reveal-delay-2">
+        <div class="flex items-start justify-between mb-6">
+          <div class="text-4xl text-copper">◈</div>
+          <span class="font-label text-[0.65rem] text-copper-lt/70 tracking-widest">P-03</span>
+        </div>
+        <h3 class="font-display text-2xl text-cream mb-3">NGOs</h3>
+        <p class="text-sand/70 text-sm leading-relaxed">Mission-driven organisations strengthening programme design, evidence use, and execution quality.</p>
+      </div>
+      <div class="partner-card p-8 reveal">
+        <div class="flex items-start justify-between mb-6">
+          <div class="text-4xl text-copper">⚙</div>
+          <span class="font-label text-[0.65rem] text-copper-lt/70 tracking-widest">P-04</span>
+        </div>
+        <h3 class="font-display text-2xl text-cream mb-3">Public Sector</h3>
+        <p class="text-sand/70 text-sm leading-relaxed">Government teams improving policy-to-delivery pathways through practical innovation capability.</p>
+      </div>
+      <div class="partner-card p-8 reveal reveal-delay-1">
+        <div class="flex items-start justify-between mb-6">
+          <div class="text-4xl text-copper">⟐</div>
+          <span class="font-label text-[0.65rem] text-copper-lt/70 tracking-widest">P-05</span>
+        </div>
+        <h3 class="font-display text-2xl text-cream mb-3">Foundations</h3>
+        <p class="text-sand/70 text-sm leading-relaxed">Funders and ecosystem builders shaping learning agendas that improve systemic impact.</p>
+      </div>
+      <div class="partner-card p-8 reveal reveal-delay-2">
+        <div class="flex items-start justify-between mb-6">
+          <div class="text-4xl text-copper">✦</div>
+          <span class="font-label text-[0.65rem] text-copper-lt/70 tracking-widest">P-06</span>
+        </div>
+        <h3 class="font-display text-2xl text-cream mb-3">Private Organisations</h3>
+        <p class="text-sand/70 text-sm leading-relaxed">Companies and enterprises seeking stronger innovation systems and strategic learning capacity.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUOTE / TESTIMONIAL ============ -->
+<section class="bg-sand py-24 md:py-32 relative">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="quote-frame reveal">
+      <div class="text-center">
+        <div class="text-6xl text-copper-dark/40 font-display mb-4">"</div>
+        <blockquote class="font-display text-3xl md:text-5xl text-chocolate font-light italic leading-tight">
+          Rankine doesn't deliver decks. They deliver capability that stays in the institution long after the engagement ends — and that distinction is everything.
+        </blockquote>
+        <div class="divider-line my-10 mx-auto max-w-xs"></div>
+        <div class="font-label text-xs text-copper-dark tracking-widest">RESEARCH PARTNER · TIER 03 STRATEGIC</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section id="contact" class="bg-chocolate py-24 md:py-32 relative overflow-hidden">
+  <div class="absolute inset-0 hero-grid opacity-15"></div>
+  <div class="absolute top-1/3 right-0 w-96 h-96 rounded-full bg-copper/10 blur-3xl"></div>
+  <div class="absolute bottom-0 left-0 w-72 h-72 rounded-full bg-copper-dark/20 blur-3xl"></div>
+
+  <div class="max-w-5xl mx-auto px-6 relative text-center">
+    <div class="reveal">
+      <span class="section-label text-copper-lt mb-6 inline-flex justify-center">Begin the Work</span>
+      <h2 class="section-heading text-cream text-5xl md:text-7xl lg:text-8xl mt-8">
+        Let's explore<br>what a strong<br><em class="italic gradient-text">partnership</em><br>could make possible.
+      </h2>
+      <div class="divider-line my-12 mx-auto max-w-md"></div>
+      <p class="text-sand/80 text-lg max-w-2xl mx-auto leading-relaxed">
+        If your organisation is seeking innovation partnerships, organisational training, research-informed capacity building, or strategy-to-implementation support — we are ready to begin the conversation.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 mt-12">
+        <a href="mailto:hello@rankineinnovationlab.com" class="btn-primary">Start a Conversation <span>→</span></a>
+        <a href="#" class="btn-ghost">View Programmes</a>
+      </div>
+
+      <div class="grid sm:grid-cols-3 gap-px bg-copper/10 mt-20 max-w-3xl mx-auto">
+        <div class="bg-chocolate p-6">
+          <div class="font-label text-[0.6rem] text-copper-lt tracking-widest mb-2">EMAIL</div>
+          <div class="text-cream text-sm">hello@rankineinnovationlab.com</div>
+        </div>
+        <div class="bg-chocolate p-6">
+          <div class="font-label text-[0.6rem] text-copper-lt tracking-widest mb-2">RESPONSE</div>
+          <div class="text-cream text-sm">Within 48 hours</div>
+        </div>
+        <div class="bg-chocolate p-6">
+          <div class="font-label text-[0.6rem] text-copper-lt tracking-widest mb-2">FIRST MEETING</div>
+          <div class="text-cream text-sm">Discovery call · 45 min</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-espresso text-cream pt-20 pb-8 relative overflow-hidden">
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-copper to-transparent"></div>
+
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+      <!-- Col 1: Brand -->
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <div class="relative w-9 h-9 flex items-center justify-center">
+            <div class="absolute inset-0 border border-copper rotate-45"></div>
+            <span class="font-display text-xl text-copper-lt italic">R</span>
+          </div>
+          <div class="leading-tight">
+            <div class="font-display text-xl">Rankine</div>
+            <div class="text-copper text-[0.55rem] font-label">INNOVATION LAB</div>
+          </div>
+        </div>
+        <p class="font-display text-lg italic text-sand/70 mb-6 leading-snug">Intelligence for a Liveable Future</p>
+        <p class="text-sm text-sand/60 leading-relaxed">Bridging the gap between advanced technology and sustainable development through applied research, education, and systems innovation.</p>
+        <div class="flex gap-3 mt-6">
+          <a href="#" class="w-9 h-9 border border-copper/30 flex items-center justify-center text-copper hover:bg-copper hover:text-espresso transition-colors">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.8 0-5 2.2-5 5v14c0 2.8 2.2 5 5 5h14c2.8 0 5-2.2 5-5v-14c0-2.8-2.2-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.3c-1 0-1.7-.8-1.7-1.7s.8-1.7 1.7-1.7c1 0 1.7.8 1.7 1.7s-.7 1.7-1.7 1.7zm13.5 12.3h-3v-5.6c0-3.4-4-3.1-4 0v5.6h-3v-11h3v1.8c1.4-2.6 7-2.8 7 2.5v6.7z"/></svg>
+          </a>
+          <a href="#" class="w-9 h-9 border border-copper/30 flex items-center justify-center text-copper hover:bg-copper hover:text-espresso transition-colors">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg>
+          </a>
+          <a href="#" class="w-9 h-9 border border-copper/30 flex items-center justify-center text-copper hover:bg-copper hover:text-espresso transition-colors">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="0.5" fill="currentColor"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Col 2: Navigation -->
+      <div>
+        <div class="font-label text-[0.7rem] text-copper tracking-widest mb-6">NAVIGATION</div>
+        <ul class="space-y-3 text-sm text-sand/80">
+          <li><a href="#" class="hover:text-copper-lt transition">About the Lab</a></li>
+          <li><a href="#" class="hover:text-copper-lt transition">The Rankine Method</a></li>
+          <li><a href="#" class="hover:text-copper-lt transition">Focus Areas</a></li>
+          <li><a href="#" class="hover:text-copper-lt transition">Programmes</a></li>
+          <li><a href="#" class="hover:text-copper-lt transition">Team</a></li>
+          <li><a href="#" class="hover:text-copper-lt transition">Knowledge Hub</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Domains -->
+      <div>
+        <div class="font-label text-[0.7rem] text-copper tracking-widest mb-6">DOMAINS</div>
+        <ul class="space-y-3 text-sm text-sand/80">
+          <li><a href="#" class="hover:text-copper-lt transition">AI for STEM</a></li>
+          <li><a href="#" class="hover:text-copper-lt transition">Sustainability</a></li>
+          <li><a href="#" class="hover:text-copper-lt transition">Smart Agriculture</a></li>
+          <li><a href="#" class="hover:text-copper-lt transition">Cross-Disciplinary</a></li>
+          <li><a href="#" class="hover:text-copper-lt transition">AquaPulse Project</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Engage -->
+      <div>
+        <div class="font-label text-[0.7rem] text-copper tracking-widest mb-6">ENGAGE</div>
+        <ul class="space-y-3 text-sm text-sand/80 mb-8">
+          <li><a href="#" class="hover:text-copper-lt transition">Research Collaboration</a></li>
+          <li><a href="#" class="hover:text-copper-lt transition">Training Enquiries</a></li>
+          <li><a href="#" class="hover:text-copper-lt transition">Speaking</a></li>
+          <li><a href="#" class="hover:text-copper-lt transition">Partnerships</a></li>
+        </ul>
+        <div class="pt-6 border-t border-copper/15">
+          <div class="font-label text-[0.65rem] text-copper tracking-widest mb-2">CONTACT</div>
+          <a href="mailto:hello@rankineinnovationlab.com" class="text-sand/90 text-sm hover:text-copper-lt transition">hello@rankineinnovationlab.com</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="pt-8 border-t border-copper/15 flex flex-col md:flex-row justify-between items-center gap-4">
+      <div class="text-xs text-sand/50">© 2025 <span class="text-copper-lt">Rankine Innovation Lab</span>. All rights reserved.</div>
+      <div class="flex gap-6 text-xs text-sand/60">
+        <a href="#" class="hover:text-copper-lt transition">Privacy</a>
+        <a href="#" class="hover:text-copper-lt transition">Terms</a>
+        <a href="#" class="hover:text-copper-lt transition">Sitemap</a>
+      </div>
+    </div>
+  </div>
+</footer>
 
 <script>
-const nav = document.getElementById('nav');
-const hamburger = document.getElementById('hamburger');
-const mobileMenu = document.getElementById('mobileMenu');
-
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('solid', window.scrollY > 10);
-  nav.classList.toggle('transparent', window.scrollY <= 10);
-});
-
-hamburger.addEventListener('click', () => {
-  const expanded = hamburger.getAttribute('aria-expanded') === 'true';
-  hamburger.setAttribute('aria-expanded', String(!expanded));
-  mobileMenu.classList.toggle('open');
-});
-
-document.querySelectorAll('.mobile-menu a').forEach(link => {
-  link.addEventListener('click', () => {
-    mobileMenu.classList.remove('open');
-    hamburger.setAttribute('aria-expanded', 'false');
+  // Nav scroll behavior
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
   });
-});
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('visible');
+  // Mobile menu
+  const mobileToggle = document.getElementById('mobileToggle');
+  const mobileClose = document.getElementById('mobileClose');
+  const mobileMenu = document.getElementById('mobileMenu');
+  mobileToggle.addEventListener('click', () => mobileMenu.classList.add('open'));
+  mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  document.querySelectorAll('#mobileMenu a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => revealObs.observe(r));
+
+  // Network nodes
+  const nodes = document.querySelectorAll('.network-node');
+  const nodeTitle = document.getElementById('nodeTitle');
+  const nodeDesc = document.getElementById('nodeDesc');
+  nodes.forEach(n => {
+    n.addEventListener('mouseenter', () => {
+      nodeTitle.textContent = n.dataset.label;
+      nodeDesc.textContent = n.dataset.desc;
+    });
   });
-}, { threshold: 0.18 });
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  // Process timeline
+  const steps = document.querySelectorAll('.timeline-step');
+  const details = document.querySelectorAll('.process-detail');
+  steps.forEach(step => {
+    step.addEventListener('click', () => {
+      steps.forEach(s => s.classList.remove('active'));
+      details.forEach(d => d.classList.remove('active'));
+      step.classList.add('active');
+      const stepNum = step.dataset.step;
+      document.querySelector(`[data-step-content="${stepNum}"]`).classList.add('active');
+    });
+  });
 
-document.getElementById('year').textContent = new Date().getFullYear();
+  // Partner card mouse-tracked glow
+  document.querySelectorAll('.partner-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--mx', x + '%');
+      card.style.setProperty('--my', y + '%');
+    });
+  });
+
+  // Smooth scroll for anchors
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const href = this.getAttribute('href');
+      if (href === '#' || href.length <= 1) return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
 </script>
+
 </body>
 </html>
