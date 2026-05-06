@@ -258,6 +258,7 @@ img { display: block; max-width: 100%; }
 }
 @media (max-width: 640px) { .footer-grid { grid-template-columns: 1fr; gap: 2rem; } }
 </style>
+<link rel="stylesheet" href="../../assets/css/site.css" />
 </head>
 <body>
 
@@ -717,5 +718,6 @@ const revealObs = new IntersectionObserver(entries => {
 }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 </script>
+<script src="../../assets/js/site.js"></script>
 </body>
 </html>
