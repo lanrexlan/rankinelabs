@@ -1,5 +1,6 @@
 :root {
   --chocolate:#24150F;--espresso:#2B1A14;--brown:#3a1c0e;--mahogany:#5c2d18;--copper:#C89A5A;--copper-dark:#8B4A28;--copper-lt:#E4BC84;--sand:#c9ab84;--sand-lt:#ddc9a8;--cream:#F6F0E8;--cream-lt:#FBF7F1;--sage:#687558;--sage-lt:#8e9e78;--white:#fffcf8;--ink:#1a0f08;
+  --text-on-dark:var(--cream);--text-on-dark-muted:#E8D9C8;--text-on-dark-subtle:#D8C5AF;--text-on-light:#3a2114;--text-on-light-muted:#5a3a2a;--focus-ring:#A85F38;
   --label-color:var(--copper-dark);--font-display:'Cormorant Garamond',Georgia,serif;--font-label:'Cinzel',serif;--font-body:'DM Sans',sans-serif;
   --ease-out:cubic-bezier(0.16,1,0.3,1);--ease-in:cubic-bezier(0.7,0,0.84,0);--ease-circ:cubic-bezier(0.4,0,0.2,1);
   --radius-sm:6px;--radius-md:14px;--radius-lg:24px;--radius-xl:40px;--section-pad:clamp(5rem,10vw,9rem);
@@ -9,7 +10,7 @@ html{scroll-behavior:smooth}
 body{font-family:var(--font-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
 img{display:block;max-width:100%}a{text-decoration:none;color:inherit}
 button{cursor:pointer;border:none;background:none;font-family:inherit}
-:focus-visible{outline:2px solid var(--copper-dark);outline-offset:3px}
+:focus-visible{outline:2px solid var(--focus-ring);outline-offset:3px}
 .container{width:min(1340px,100%);margin-inline:auto;padding-inline:clamp(1.25rem,4vw,3.5rem)}
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
 .reveal{opacity:0;transform:translateY(32px);transition:opacity .85s var(--ease-out),transform .85s var(--ease-out)}
