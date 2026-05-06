@@ -2173,25 +2173,6 @@ const syncNav = () => {
 window.addEventListener('scroll', syncNav, { passive: true });
 syncNav(); // run once on load
 
-/* ── MOBILE MENU ────────────────────────────────────────────────────── */
-const hamburger = document.getElementById('hamburgerBtn');
-const mobileMenu = document.getElementById('mobileMenu');
-let menuOpen = false;
-function closeMobile() {
-  menuOpen = false;
-  hamburger.classList.remove('open');
-  mobileMenu.classList.remove('open');
-  hamburger.setAttribute('aria-expanded', 'false');
-  document.body.style.overflow = '';
-}
-hamburger.addEventListener('click', () => {
-  menuOpen = !menuOpen;
-  hamburger.classList.toggle('open', menuOpen);
-  mobileMenu.classList.toggle('open', menuOpen);
-  hamburger.setAttribute('aria-expanded', String(menuOpen));
-  document.body.style.overflow = menuOpen ? 'hidden' : '';
-});
-
 /* ── INTERSECTION OBSERVER — scroll reveals ─────────────────────────── */
 // Handles both .reveal (fade-up) and .reveal-left (fade-left)
 const allRevealEls = document.querySelectorAll('.reveal, .reveal-left');

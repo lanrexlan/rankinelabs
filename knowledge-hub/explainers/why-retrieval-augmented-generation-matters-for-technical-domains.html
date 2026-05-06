@@ -948,22 +948,6 @@ img { display: block; max-width: 100%; }
 </footer>
 
 <script>
-/* ── MOBILE MENU ─────────────────────────────────────────────────────── */
-const hamburgerBtn = document.getElementById('hamburgerBtn');
-const mobileMenu   = document.getElementById('mobileMenu');
-function closeMobile() {
-  hamburgerBtn.classList.remove('open');
-  mobileMenu.classList.remove('open');
-  document.body.style.overflow = '';
-  hamburgerBtn.setAttribute('aria-expanded','false');
-}
-hamburgerBtn.addEventListener('click', () => {
-  const open = mobileMenu.classList.toggle('open');
-  hamburgerBtn.classList.toggle('open', open);
-  document.body.style.overflow = open ? 'hidden' : '';
-  hamburgerBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-});
-
 /* ── READING PROGRESS ────────────────────────────────────────────────── */
 const progressBar  = document.getElementById('progressBar');
 const sidebarMeter = document.getElementById('sidebarMeter');

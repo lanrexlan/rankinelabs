@@ -1584,25 +1584,6 @@ const syncNav = () => {
 window.addEventListener('scroll', syncNav, { passive: true });
 syncNav();
 
-/* ── MOBILE MENU ─────────────────────────────────────────────────────── */
-const hamburger  = document.getElementById('hamburgerBtn');
-const mobileMenu = document.getElementById('mobileMenu');
-let menuOpen = false;
-function closeMobile() {
-  menuOpen = false;
-  hamburger.classList.remove('open');
-  mobileMenu.classList.remove('open');
-  hamburger.setAttribute('aria-expanded', 'false');
-  document.body.style.overflow = '';
-}
-hamburger.addEventListener('click', () => {
-  menuOpen = !menuOpen;
-  hamburger.classList.toggle('open', menuOpen);
-  mobileMenu.classList.toggle('open', menuOpen);
-  hamburger.setAttribute('aria-expanded', String(menuOpen));
-  document.body.style.overflow = menuOpen ? 'hidden' : '';
-});
-
 /* ── SET ENQUIRY TYPE FROM HERO PILLS / OPTION CARDS ───────────────── */
 /*
   When a user clicks a contact type pill in the hero or an option card,
