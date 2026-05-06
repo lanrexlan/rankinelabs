@@ -8,6 +8,7 @@
   if(hamburger&&mobileMenu){
     const menuId=mobileMenu.id||'mobileMenu';
     if(!mobileMenu.id) mobileMenu.id=menuId;
+    hamburger.setAttribute('type','button');
     hamburger.setAttribute('aria-controls',menuId);
     hamburger.setAttribute('aria-expanded','false');
     if(!hamburger.getAttribute('aria-label')) hamburger.setAttribute('aria-label','Open menu');
