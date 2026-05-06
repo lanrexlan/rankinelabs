@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Rankine Innovation Lab logo</title>
+  <desc id="desc">Stylized Rankine Innovation Lab monogram</desc>
+  <defs>
+    <linearGradient id="ring" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#0d3b66"/>
+      <stop offset="100%" stop-color="#1b9aaa"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="24" fill="#ffffff"/>
+  <circle cx="64" cy="64" r="44" fill="none" stroke="url(#ring)" stroke-width="10"/>
+  <path d="M46 94V34h25c15 0 24 9 24 21 0 10-6 16-14 19l16 20H83L69 76h-9v18H46zm14-30h9c7 0 12-3 12-9s-5-9-12-9h-9v18z" fill="#0d3b66"/>
+</svg>
