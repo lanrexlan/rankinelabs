@@ -770,131 +770,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 /* Width is set inline on each element — see HTML */
 
 /* ══════════════════════════════════════════════════════════════════════
-   5. FUTURE FELLOWS, COLLABORATORS & ADVISORS
-   A beautifully designed "coming soon" section with four placeholder
-   slots — each inviting a specific type of future contributor.
-   Uses dashed borders and a muted colour treatment to distinguish
-   clearly from active pioneer profiles, while still looking designed
-   and intentional rather than empty.
-══════════════════════════════════════════════════════════════════════ */
-.pi-fellows {
-  padding-block: var(--section-pad);
-  background: var(--cream);
-  position: relative; overflow: hidden;
-}
-.pi-fellows::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse 70% 55% at 50% 50%, rgba(160,92,56,0.04), transparent 60%);
-  pointer-events: none;
-}
-
-.pi-fellows-header {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 4rem; align-items: end;
-  margin-bottom: clamp(3.5rem,7vw,6rem);
-}
-
-/* Upper "next pioneer" teaser */
-.pi-teaser {
-  background: var(--white);
-  border: 1px dashed rgba(58,28,14,0.18);
-  border-radius: var(--radius-lg);
-  padding: clamp(2rem,4vw,3.5rem);
-  display: flex; align-items: center; gap: clamp(1.5rem,3vw,3rem);
-  margin-bottom: 2rem;
-  position: relative; overflow: hidden; z-index: 1;
-  transition: border-color 0.4s, background 0.4s;
-}
-.pi-teaser:hover { border-color: rgba(160,92,56,0.3); background: var(--cream-lt); }
-
-.pi-teaser-avatar {
-  width: 72px; height: 72px; border-radius: 50%;
-  border: 1.5px dashed rgba(58,28,14,0.2);
-  background: rgba(58,28,14,0.03);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.4rem; color: rgba(58,28,14,0.2);
-  flex-shrink: 0; transition: border-color 0.4s;
-}
-.pi-teaser:hover .pi-teaser-avatar { border-color: rgba(160,92,56,0.35); }
-
-.pi-teaser-text { flex: 1; }
-.pi-teaser-label {
-  font-family: var(--font-label); font-size: 0.58rem;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: rgba(58,28,14,0.3); margin-bottom: 0.4rem;
-}
-.pi-teaser-title {
-  font-family: var(--font-display); font-size: clamp(1.1rem,1.8vw,1.4rem);
-  font-weight: 400; color: rgba(58,28,14,0.45); line-height: 1.25;
-  font-style: italic;
-}
-.pi-teaser-desc {
-  margin-top: 0.4rem; font-size: 0.8rem; line-height: 1.65;
-  color: rgba(58,28,14,0.3); font-weight: 300;
-}
-
-/* Four contributor type cards */
-.pi-fellows-grid {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;
-  position: relative; z-index: 1;
-}
-
-.pi-fellow-card {
-  background: var(--white);
-  border: 1.5px dashed rgba(58,28,14,0.14);
-  border-radius: var(--radius-md);
-  padding: clamp(1.75rem,3vw,2.5rem);
-  position: relative; overflow: hidden;
-  cursor: default;
-  transition: border-color 0.4s, transform 0.4s var(--ease-out), box-shadow 0.4s;
-}
-.pi-fellow-card:hover {
-  border-color: rgba(160,92,56,0.28);
-  transform: translateY(-4px);
-  box-shadow: 0 18px 50px rgba(24,12,6,0.08);
-}
-.pi-fellow-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, rgba(160,92,56,0.3), rgba(201,171,132,0.58));
-  transform: scaleX(0); transform-origin: left;
-  transition: transform 0.5s var(--ease-out);
-}
-.pi-fellow-card:hover::before { transform: scaleX(1); }
-
-/* Ghost "?" or "+" */
-.pi-fellow-ghost {
-  position: absolute; bottom: -0.5rem; right: 1rem;
-  font-family: var(--font-display); font-size: 7rem; font-weight: 300;
-  color: rgba(58,28,14,0.04); line-height: 1;
-  pointer-events: none; user-select: none;
-}
-
-.pi-fellow-type {
-  font-family: var(--font-label); font-size: 0.58rem;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: rgba(160,92,56,0.55); margin-bottom: 0.8rem; display: block;
-}
-.pi-fellow-title {
-  font-family: var(--font-display); font-size: clamp(1.2rem,2vw,1.6rem);
-  font-weight: 400; color: rgba(58,28,14,0.78); line-height: 1.2;
-  margin-bottom: 0.9rem; font-style: italic;
-}
-.pi-fellow-desc {
-  font-size: 0.92rem; line-height: 1.8; color: rgba(58,28,14,0.38); font-weight: 300;
-  margin-bottom: 1.5rem;
-}
-.pi-fellow-cta {
-  display: inline-flex; align-items: center; gap: 0.45rem;
-  font-family: var(--font-body); font-size: 0.74rem; font-weight: 600;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: rgba(160,92,56,0.55);
-  border-top: 1px solid rgba(58,28,14,0.07); padding-top: 1.1rem; width: 100%;
-  transition: color 0.3s, gap 0.35s;
-}
-.pi-fellow-card:hover .pi-fellow-cta { color: var(--copper); gap: 0.75rem; }
-.pi-fellow-cta span { font-size: 0.9rem; }
+   3b. EXTENDED TEAM
 
 /* ══════════════════════════════════════════════════════════════════════
    6. CLOSING CTA
@@ -1008,6 +884,174 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 }
 
 /* ══════════════════════════════════════════════════════════════════════
+   3b. EXTENDED TEAM — compact card grid
+   Replaces large portrait layout for non-founder team members.
+   Uses a tight card format: small avatar (photo or SVG silhouette),
+   name, role, brief bio line and focus tags — enough to communicate
+   contribution without dominating the page.
+══════════════════════════════════════════════════════════════════════ */
+.pi-team {
+  padding-block: var(--section-pad);
+  background: var(--cream);
+  position: relative; overflow: hidden;
+}
+.pi-team::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 80% 30%, rgba(160,92,56,0.045), transparent 60%);
+  pointer-events: none;
+}
+
+.pi-team-header {
+  text-align: center;
+  margin-bottom: clamp(3rem,6vw,5rem);
+  position: relative; z-index: 1;
+}
+
+/* Team grid — two columns on desktop, single column on mobile */
+.pi-team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  position: relative; z-index: 1;
+}
+
+/* Individual card */
+.pi-team-card {
+  background: var(--white);
+  border: 1px solid rgba(58,28,14,0.09);
+  border-radius: var(--radius-md);
+  padding: clamp(1.75rem,3vw,2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative; overflow: hidden;
+  transition: transform 0.4s var(--ease-out), box-shadow 0.4s, border-color 0.4s;
+}
+.pi-team-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 54px rgba(24,12,6,0.09);
+  border-color: rgba(160,92,56,0.25);
+}
+.pi-team-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--copper), var(--sand));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.5s var(--ease-out);
+}
+.pi-team-card:hover::before { transform: scaleX(1); }
+
+/* Avatar — either a photo or an SVG silhouette */
+.pi-team-card-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-bottom: 1.4rem;
+}
+
+.pi-team-avatar {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 2px solid rgba(160,92,56,0.18);
+  background: var(--cream);
+  position: relative;
+}
+.pi-team-avatar img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center 10%;
+  display: block;
+  filter: sepia(0.1) contrast(1.04) brightness(0.97);
+}
+
+/* SVG silhouette for members without photos */
+.pi-team-avatar-svg {
+  width: 100%; height: 100%;
+  display: flex; align-items: flex-end; justify-content: center;
+  background: linear-gradient(160deg, var(--cream) 0%, var(--sand-lt) 100%);
+  overflow: hidden;
+}
+
+.pi-team-identity { flex: 1; min-width: 0; }
+.pi-team-role {
+  font-family: var(--font-label);
+  font-size: 0.57rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 0.35rem;
+  display: block;
+}
+.pi-team-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem,1.8vw,1.45rem);
+  font-weight: 500;
+  color: var(--espresso);
+  line-height: 1.15;
+  margin-bottom: 0;
+}
+.pi-team-name em { font-style: italic; color: var(--mahogany); }
+
+/* Separator line under header */
+.pi-team-card-body {
+  border-top: 1px solid rgba(58,28,14,0.07);
+  padding-top: 1.25rem;
+}
+
+.pi-team-desc {
+  font-size: 0.875rem;
+  line-height: 1.78;
+  color: var(--brown);
+  font-weight: 300;
+  margin-bottom: 1.2rem;
+}
+
+/* Focus tags */
+.pi-team-tags {
+  display: flex; flex-wrap: wrap; gap: 0.45rem;
+}
+.pi-team-tag {
+  font-family: var(--font-label);
+  font-size: 0.52rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.75rem;
+  border-radius: 2px;
+  border: 1px solid rgba(160,92,56,0.2);
+  color: var(--copper);
+  background: rgba(160,92,56,0.04);
+  transition: background 0.3s, border-color 0.3s;
+}
+.pi-team-card:hover .pi-team-tag { background: rgba(160,92,56,0.08); border-color: rgba(160,92,56,0.35); }
+
+/* Section sub-headers within the team grid */
+.pi-team-sub-label {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+}
+.pi-team-sub-label span {
+  font-family: var(--font-label);
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--copper);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+.pi-team-sub-line {
+  flex: 1;
+  height: 1px;
+  background: rgba(58,28,14,0.1);
+}
+
+/* ══════════════════════════════════════════════════════════════════════
    FOOTER
 ══════════════════════════════════════════════════════════════════════ */
 .footer { background: var(--chocolate); padding: 4rem 0 2.5rem; }
@@ -1095,12 +1139,11 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   .pi-portrait { min-height: 340px; }
   .pi-portrait-photo { object-position: center 10%; }
   .pi-expertise-header { grid-template-columns: 1fr; gap: 2rem; }
-  .pi-fellows-header { grid-template-columns: 1fr; gap: 2rem; }
-  .pi-fellows-grid { grid-template-columns: 1fr; }
   .pi-cta-band { grid-template-columns: 1fr; gap: 2rem; }
   .pi-hero-names-inner { flex-wrap: wrap; }
   .pi-hero-name-item { flex: 1 1 45%; }
   .pi-hero-name-item:nth-child(2n){ border-right: none; }
+  .pi-team-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 680px) {
   :root { --section-pad: 4rem; }
@@ -1205,7 +1248,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
       <div class="pi-hero-actions">
         <a href="#pi-profiles" class="btn btn--copper">Meet the Team</a>
-        <a href="#pi-fellows"  class="btn btn--ghost-light">Future Fellows</a>
+        <a href="#pi-team"  class="btn btn--ghost-light">Extended Team</a>
       </div>
     </div>
   </div>
@@ -1226,6 +1269,20 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
           <div class="pi-hero-name-text">
             <div class="pi-hero-name-label">Co-Founder</div>
             <div class="pi-hero-name-full">Adesola Habeeb Adegoke</div>
+          </div>
+        </div>
+        <div class="pi-hero-name-item">
+          <div class="pi-hero-name-initials" aria-hidden="true">NO</div>
+          <div class="pi-hero-name-text">
+            <div class="pi-hero-name-label">CTO</div>
+            <div class="pi-hero-name-full">Nathaniel Olaniyan</div>
+          </div>
+        </div>
+        <div class="pi-hero-name-item">
+          <div class="pi-hero-name-initials" aria-hidden="true">OA</div>
+          <div class="pi-hero-name-text">
+            <div class="pi-hero-name-label">COO</div>
+            <div class="pi-hero-name-full">Olanrewaju Akande</div>
           </div>
         </div>
       </div>
@@ -1452,79 +1509,6 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 
     </article>
 
-    <!-- ── PIONEER 3: HAFSAT ALABERE ── -->
-    <article class="pi-profile reveal" aria-labelledby="ha-name">
-
-      <!-- Portrait panel -->
-      <div class="pi-portrait">
-        <div class="pi-portrait-media">
-          <img src="Images/alabere-hafsat.jpg" alt="Portrait of Hafsat Alabere, Research Associate at Rankine Innovation Lab" class="pi-portrait-photo" />
-        </div>
-        <div class="pi-portrait-grad"></div>
-        <div class="pi-portrait-cross"></div>
-        <div class="pi-portrait-rings" aria-hidden="true">
-          <div class="pi-portrait-ring"></div>
-          <div class="pi-portrait-ring"></div>
-          <div class="pi-portrait-ring"></div>
-        </div>
-        <div class="pi-portrait-node" aria-hidden="true"></div>
-        <div class="pi-portrait-content">
-          <span class="pi-portrait-num" aria-hidden="true">Pioneer 03</span>
-          <h2 class="pi-portrait-name" id="ha-name">
-            Hafsat<br><em>Alabere</em>
-          </h2>
-          <div class="pi-portrait-role">Research Associate · Biomedical &amp; Cross-Disciplinary Innovation</div>
-        </div>
-      </div>
-
-      <!-- Bio panel -->
-      <div class="pi-bio">
-        <blockquote class="pi-bio-tagline">
-          "The transition from laboratory evidence to responsible field application is one of the hardest moves in bio-based innovation."
-        </blockquote>
-
-        <div class="pi-bio-body">
-          <p>Hafsat Alabere is a Research Associate at Rankine Innovation Lab, contributing to biomedical and cross-disciplinary innovation across the lab's sustainability and AI-enabled research agenda.</p>
-          <p>She is a PhD Candidate at West Virginia University School of Medicine and a biomedical scientist and microbiologist whose work spans microbiology, infectious disease, and AI-applied research.</p>
-        </div>
-
-        <!-- Focus areas -->
-        <div class="pi-bio-areas">
-          <span class="pi-bio-areas-label">Areas of Focus</span>
-          <div class="pi-bio-area-list">
-            <span class="pi-bio-area">Microbiology</span>
-            <span class="pi-bio-area">Biomedical Science</span>
-            <span class="pi-bio-area">Infectious Disease</span>
-            <span class="pi-bio-area">AI-Applied Research</span>
-            <span class="pi-bio-area">Bio-Based Materials</span>
-            <span class="pi-bio-area">Cross-Disciplinary Innovation</span>
-          </div>
-        </div>
-
-        <!-- Working principles -->
-        <div class="pi-bio-principles" aria-label="Working principles">
-          <div class="pi-bio-principle">
-            <span class="pi-bio-principle-icon" aria-hidden="true">→</span>
-            <span>Scientific rigour in laboratory systems is essential for credible real-world innovation.</span>
-          </div>
-          <div class="pi-bio-principle">
-            <span class="pi-bio-principle-icon" aria-hidden="true">→</span>
-            <span>Cross-disciplinary collaboration strengthens how research translates into practice.</span>
-          </div>
-          <div class="pi-bio-principle">
-            <span class="pi-bio-principle-icon" aria-hidden="true">→</span>
-            <span>AI-assisted methods are most valuable when grounded in domain expertise.</span>
-          </div>
-        </div>
-
-        <div class="pi-bio-footer">
-          <a href="#pi-cta" class="btn btn--copper">Collaborate with Hafsat</a>
-          <a href="contact.html" class="btn btn--ghost-dark">Get in Touch</a>
-        </div>
-      </div>
-
-    </article>
-
 
   </div>
 </section>
@@ -1690,73 +1674,184 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   </div>
 </section>
 
+
+
 <!-- ════════════════════════════════════════════════════════════════════
-     5. FUTURE FELLOWS, ADVISORS & COLLABORATORS
+     5. EXTENDED TEAM — compact card grid
 ════════════════════════════════════════════════════════════════════ -->
-<section class="pi-fellows" id="pi-fellows" aria-labelledby="fellowsHeading">
+<section class="pi-team" id="pi-team" aria-labelledby="teamHeading">
   <div class="container">
 
-    <div class="pi-fellows-header">
-      <div>
-        <div class="eyebrow reveal">
-          <span class="eyebrow-line"></span>
-          Growing the Circle
+    <div class="pi-team-header">
+      <div class="eyebrow reveal" style="justify-content:center">
+        <span class="eyebrow-line"></span>
+        The Full Team
+        <span class="eyebrow-line"></span>
+      </div>
+      <h2 class="display display--dark reveal d1" id="teamHeading" style="font-size:clamp(2rem,3.8vw,3.4rem); text-align:center; margin-inline:auto">
+        Every Role. <em>One Direction.</em>
+      </h2>
+      <p class="reveal d2" style="font-size:clamp(0.92rem,1.35vw,1rem); line-height:1.85; color:var(--brown); font-weight:300; max-width:540px; margin:1.25rem auto 0; text-align:center">
+        Rankine operates through a team of founders, technology leaders, and research specialists whose expertise spans clinical science, technology systems, and applied knowledge delivery.
+      </p>
+    </div>
+
+    <div class="pi-team-grid">
+
+      <!-- ── SUB-LABEL: Technology & Operations ── -->
+      <div class="pi-team-sub-label reveal">
+        <div class="pi-team-sub-line"></div>
+        <span>Technology &amp; Operations</span>
+        <div class="pi-team-sub-line"></div>
+      </div>
+
+      <!-- Nathaniel Olaniyan — CTO -->
+      <article class="pi-team-card reveal d1" aria-label="Nathaniel Olaniyan, Chief Technology Officer">
+        <div class="pi-team-card-head">
+          <div class="pi-team-avatar">
+            <!-- No public photo available; using initials-based placeholder -->
+            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,var(--espresso),var(--brown));font-family:var(--font-display);font-size:1.5rem;font-weight:400;color:var(--sand);letter-spacing:0.04em;">NO</div>
+          </div>
+          <div class="pi-team-identity">
+            <span class="pi-team-role">Chief Technology Officer</span>
+            <h3 class="pi-team-name">Nathaniel <em>Olaniyan</em></h3>
+          </div>
         </div>
-        <h2 class="display display--dark reveal d1" id="fellowsHeading" style="font-size:clamp(2.2rem,4vw,3.8rem)">
-          Future Fellows<br>&amp; <em>Collaborators</em>
-        </h2>
-      </div>
-      <div>
-        <p class="reveal d2" style="font-size:clamp(0.95rem,1.4vw,1.05rem); line-height:1.85; color:var(--brown); font-weight:300; margin-top:0">
-          Rankine is a growing intellectual community. As the lab's work expands, we will add fellows, research advisors, visiting contributors, and collaborative partners who bring depth and diversity to the domains we work in. These positions are being designed carefully — they will be filled by the right people, not just available ones.
-        </p>
-      </div>
-    </div>
+        <div class="pi-team-card-body">
+          <p class="pi-team-desc">Nathaniel leads Rankine's technology architecture and digital infrastructure. A product designer and technologist with a microbiology foundation from the University of Ibadan, he brings a rare combination of scientific literacy and systems-level design thinking to the lab's platforms and tools.</p>
+          <div class="pi-team-tags">
+            <span class="pi-team-tag">Product Design</span>
+            <span class="pi-team-tag">Technology Systems</span>
+            <span class="pi-team-tag">Digital Infrastructure</span>
+            <span class="pi-team-tag">UX &amp; Interface</span>
+          </div>
+        </div>
+      </article>
 
-    <!-- Next pioneer teaser -->
-    <div class="pi-teaser reveal" aria-label="Team growth update">
-      <div class="pi-teaser-avatar" aria-hidden="true">◎</div>
-      <div class="pi-teaser-text">
-        <div class="pi-teaser-label">Coming Soon</div>
-        <div class="pi-teaser-title">Additional team members are joining across research and delivery</div>
-        <div class="pi-teaser-desc">Rankine is in the process of formally welcoming a third founding contributor whose expertise in environmental systems and applied data science will deepen the lab's reach in the domains of ecological intelligence and climate adaptation.</div>
-      </div>
-    </div>
+      <!-- Olanrewaju Akande — COO -->
+      <article class="pi-team-card reveal d2" aria-label="Olanrewaju Akande, Chief Operating Officer">
+        <div class="pi-team-card-head">
+          <div class="pi-team-avatar">
+            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,var(--mahogany),var(--copper));font-family:var(--font-display);font-size:1.5rem;font-weight:400;color:var(--cream);letter-spacing:0.04em;">OA</div>
+          </div>
+          <div class="pi-team-identity">
+            <span class="pi-team-role">Chief Operating Officer</span>
+            <h3 class="pi-team-name">Olanrewaju <em>Akande</em></h3>
+          </div>
+        </div>
+        <div class="pi-team-card-body">
+          <p class="pi-team-desc">Olanrewaju leads operations, commercial partnerships, and market expansion at Rankine. With active focus on business development across West Africa and South Asia, he manages the lab's investor relations and regulatory strategy — translating Rankine's research mission into durable commercial ground.</p>
+          <div class="pi-team-tags">
+            <span class="pi-team-tag">Operations</span>
+            <span class="pi-team-tag">Business Development</span>
+            <span class="pi-team-tag">Investor Relations</span>
+            <span class="pi-team-tag">Regulatory Strategy</span>
+          </div>
+        </div>
+      </article>
 
-    <!-- Four contributor type cards -->
-    <div class="pi-fellows-grid">
-
-      <div class="pi-fellow-card reveal">
-        <span class="pi-fellow-ghost" aria-hidden="true">?</span>
-        <span class="pi-fellow-type">Team Research Fellow</span>
-        <h3 class="pi-fellow-title">Expert in Residence: AI &amp; Applied Science</h3>
-        <p class="pi-fellow-desc">We are seeking a research fellow with deep expertise in applied machine learning for scientific discovery — someone committed to translational research and the design of tools that genuinely extend scientific capability. This is not a conventional academic position; it is a home for researchers who want their work to reach beyond the journal.</p>
-        <a href="mailto:admin@rankineinnovationlab.com" class="pi-fellow-cta">Express Interest <span aria-hidden="true">→</span></a>
-      </div>
-
-      <div class="pi-fellow-card reveal d1">
-        <span class="pi-fellow-ghost" aria-hidden="true">?</span>
-        <span class="pi-fellow-type">Advisory Board</span>
-        <h3 class="pi-fellow-title">Strategic Advisor: Sustainability Systems</h3>
-        <p class="pi-fellow-desc">Rankine's advisory structure will include senior figures from sustainability science, circular economy practice, and environmental governance — individuals whose perspective and network help the lab remain intellectually ambitious and practically credible as it grows.</p>
-        <a href="mailto:admin@rankineinnovationlab.com" class="pi-fellow-cta">Enquire About Advisory Roles <span aria-hidden="true">→</span></a>
-      </div>
-
-      <div class="pi-fellow-card reveal d1">
-        <span class="pi-fellow-ghost" aria-hidden="true">?</span>
-        <span class="pi-fellow-type">Visiting Contributor</span>
-        <h3 class="pi-fellow-title">Visiting Scholar: Smart Agriculture &amp; Food Systems</h3>
-        <p class="pi-fellow-desc">The lab is building a visiting contributor programme for researchers whose work in precision agronomy, food security, and agricultural data systems can be advanced through collaboration with Rankine — and whose presence would enrich the lab's own research direction.</p>
-        <a href="mailto:admin@rankineinnovationlab.com" class="pi-fellow-cta">Learn More <span aria-hidden="true">→</span></a>
+      <!-- ── SUB-LABEL: Research Associates ── -->
+      <div class="pi-team-sub-label reveal">
+        <div class="pi-team-sub-line"></div>
+        <span>Research Associates</span>
+        <div class="pi-team-sub-line"></div>
       </div>
 
-      <div class="pi-fellow-card reveal d2">
-        <span class="pi-fellow-ghost" aria-hidden="true">?</span>
-        <span class="pi-fellow-type">Institutional Collaborator</span>
-        <h3 class="pi-fellow-title">Partner Institution Collaboration</h3>
-        <p class="pi-fellow-desc">We are actively building institutional research partnerships with universities, think tanks, and applied research bodies whose work in knowledge translation, science communication, and research-to-practice infrastructure aligns with Rankine's core mission.</p>
-        <a href="mailto:admin@rankineinnovationlab.com" class="pi-fellow-cta">Discuss a Partnership <span aria-hidden="true">→</span></a>
-      </div>
+      <!-- Hafsat Alabere — Research Associate -->
+      <article class="pi-team-card reveal d1" aria-label="Hafsat Alabere, Research Associate">
+        <div class="pi-team-card-head">
+          <div class="pi-team-avatar">
+            <img src="Images/alabere-hafsat.jpg" alt="Hafsat Alabere" />
+          </div>
+          <div class="pi-team-identity">
+            <span class="pi-team-role">Research Associate · Biomedical &amp; Cross-Disciplinary</span>
+            <h3 class="pi-team-name">Hafsat <em>Alabere</em></h3>
+          </div>
+        </div>
+        <div class="pi-team-card-body">
+          <p class="pi-team-desc">A biomedical scientist and microbiologist currently completing her PhD at West Virginia University School of Medicine. Hafsat contributes to the lab's biomedical and cross-disciplinary innovation agenda, working at the intersection of microbiology, infectious disease, and AI-applied research.</p>
+          <div class="pi-team-tags">
+            <span class="pi-team-tag">Microbiology</span>
+            <span class="pi-team-tag">Biomedical Science</span>
+            <span class="pi-team-tag">Infectious Disease</span>
+            <span class="pi-team-tag">AI-Applied Research</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Olatunji Ameenat — Clinical Research Fellow -->
+      <article class="pi-team-card reveal d2" aria-label="Olatunji Ameenat, Clinical Research Fellow">
+        <div class="pi-team-card-head">
+          <div class="pi-team-avatar">
+            <!-- Cyllocate-style SVG silhouette: abstract, no eyes -->
+            <div class="pi-team-avatar-svg" aria-hidden="true">
+              <svg viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+                <!-- Abstract body silhouette — soft, no facial features -->
+                <defs>
+                  <linearGradient id="sil-grad-a" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#c9ab84" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="#a05c38" stop-opacity="0.55"/>
+                  </linearGradient>
+                </defs>
+                <!-- Head — smooth oval, no features -->
+                <ellipse cx="36" cy="26" rx="13" ry="15" fill="url(#sil-grad-a)"/>
+                <!-- Shoulders / body shape -->
+                <path d="M8 72 Q8 50 22 46 Q28 44 36 44 Q44 44 50 46 Q64 50 64 72Z" fill="url(#sil-grad-a)"/>
+                <!-- Single copper accent node — brand signature -->
+                <circle cx="36" cy="26" r="2.5" fill="#a05c38" opacity="0.6"/>
+              </svg>
+            </div>
+          </div>
+          <div class="pi-team-identity">
+            <span class="pi-team-role">Clinical Research Fellow</span>
+            <h3 class="pi-team-name">Olatunji <em>Ameenat</em></h3>
+          </div>
+        </div>
+        <div class="pi-team-card-body">
+          <p class="pi-team-desc">A Registered Nurse with over three years of hands-on clinical experience, Ameenat holds a Diploma in Nursing from Osun State School of Nursing and a BSc (Hons) in International Nursing from the University of Suffolk, UK. She bridges frontline clinical practice with Rankine's health-oriented research.</p>
+          <div class="pi-team-tags">
+            <span class="pi-team-tag">Clinical Practice</span>
+            <span class="pi-team-tag">Health Research</span>
+            <span class="pi-team-tag">International Nursing</span>
+            <span class="pi-team-tag">Evidence-Based Care</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Jimoh Damilola — Research & Teaching Associate -->
+      <article class="pi-team-card reveal d1" aria-label="Jimoh Damilola, Research and Teaching Associate">
+        <div class="pi-team-card-head">
+          <div class="pi-team-avatar">
+            <!-- Cyllocate-style SVG silhouette -->
+            <div class="pi-team-avatar-svg" aria-hidden="true">
+              <svg viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" width="72" height="72">
+                <defs>
+                  <linearGradient id="sil-grad-b" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#8e9e78" stop-opacity="0.4"/>
+                    <stop offset="100%" stop-color="#687558" stop-opacity="0.6"/>
+                  </linearGradient>
+                </defs>
+                <ellipse cx="36" cy="26" rx="13" ry="15" fill="url(#sil-grad-b)"/>
+                <path d="M8 72 Q8 50 22 46 Q28 44 36 44 Q44 44 50 46 Q64 50 64 72Z" fill="url(#sil-grad-b)"/>
+                <circle cx="36" cy="26" r="2.5" fill="#687558" opacity="0.7"/>
+              </svg>
+            </div>
+          </div>
+          <div class="pi-team-identity">
+            <span class="pi-team-role">Research &amp; Teaching Associate</span>
+            <h3 class="pi-team-name">Jimoh <em>Damilola</em></h3>
+          </div>
+        </div>
+        <div class="pi-team-card-body">
+          <p class="pi-team-desc">With a background in Anatomy and experience as a trained tutor, Damilola contributes across Rankine's research and education functions. Her dual grounding in life sciences and knowledge delivery makes her central to the lab's mission of translating research into teachable, actionable insight.</p>
+          <div class="pi-team-tags">
+            <span class="pi-team-tag">Anatomy</span>
+            <span class="pi-team-tag">Knowledge Translation</span>
+            <span class="pi-team-tag">Teaching &amp; Pedagogy</span>
+            <span class="pi-team-tag">Life Sciences</span>
+          </div>
+        </div>
+      </article>
 
     </div>
   </div>
@@ -1871,8 +1966,8 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
         <ul class="footer-links">
           <li><a href="#pi-profiles">Ridwan Taiwo</a></li>
           <li><a href="#pi-profiles">Habeeb Adegoke</a></li>
+          <li><a href="#pi-team">Extended Team</a></li>
           <li><a href="#pi-expertise">Areas of Expertise</a></li>
-          <li><a href="#pi-fellows">Future Fellows</a></li>
           <li><a href="#pi-cta">Collaborate</a></li>
         </ul>
       </div>
