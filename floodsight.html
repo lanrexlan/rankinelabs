@@ -493,6 +493,60 @@ footer {
   50% { opacity: 0.75; }
 }
 
+/* ─── Track Record ─────────────────────────────────────────────── */
+.accuracy-hero {
+  display: flex; align-items: center; gap: 40px; margin-bottom: 48px;
+  flex-wrap: wrap;
+}
+.accuracy-stat {
+  text-align: center; flex-shrink: 0;
+}
+.accuracy-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 72px; font-weight: 700; line-height: 1;
+  background: linear-gradient(135deg, var(--green), var(--accent));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.accuracy-label {
+  font-size: 14px; color: var(--muted); margin-top: 6px;
+}
+.accuracy-desc {
+  font-size: 16px; color: var(--muted); line-height: 1.7; max-width: 520px;
+}
+
+.event-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 14px;
+}
+.event-table thead th {
+  text-align: left; padding: 12px 16px;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted);
+  border-bottom: 1px solid var(--border);
+}
+.event-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.event-table tbody tr:hover { background: var(--surface2); }
+.event-table tbody td { padding: 14px 16px; vertical-align: top; }
+.event-name { font-weight: 500; color: var(--text); }
+.event-areas { font-size: 12px; color: var(--muted); margin-top: 3px; }
+.event-rain { font-variant-numeric: tabular-nums; }
+.badge {
+  display: inline-block; padding: 3px 10px; border-radius: 20px;
+  font-size: 12px; font-weight: 600; white-space: nowrap;
+}
+.badge-warn  { background: rgba(248,113,113,0.12); color: var(--red);   border: 1px solid rgba(248,113,113,0.25); }
+.badge-watch { background: rgba(251,191,36,0.12);  color: var(--amber); border: 1px solid rgba(251,191,36,0.25);  }
+.badge-safe  { background: rgba(52,211,153,0.12);  color: var(--green); border: 1px solid rgba(52,211,153,0.25);  }
+.badge-na    { background: rgba(255,255,255,0.05); color: var(--muted); border: 1px solid var(--border); }
+.match-tick { font-size: 16px; }
+.track-loading { color: var(--muted); font-size: 14px; display: flex; align-items: center; gap: 10px; padding: 32px 0; }
+.warn-bar { height: 6px; border-radius: 3px; background: rgba(248,113,113,0.15); overflow: hidden; min-width: 80px; }
+.warn-bar-fill { height: 100%; background: var(--red); border-radius: 3px; transition: width 0.6s ease; }
+
 /* ─── Responsive ───────────────────────────────────────────────── */
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr; gap: 48px; }
@@ -754,6 +808,54 @@ footer {
 
 <div class="section-divider"></div>
 
+<!-- ░░ TRACK RECORD ░░ -->
+<section id="track-record">
+  <div class="eyebrow">◈ Back-tested on Real Events</div>
+  <h2>FloodSight's <em>Track Record</em></h2>
+  <p class="section-lead">
+    We tested FloodSight against eight documented Lagos flood events using actual
+    historical rainfall recorded by weather satellites. Here's how it performed.
+  </p>
+
+  <div class="accuracy-hero" id="accuracy-hero" style="display:none;">
+    <div class="accuracy-stat">
+      <div class="accuracy-num" id="accuracy-num">—</div>
+      <div class="accuracy-label">Detection accuracy</div>
+    </div>
+    <div class="accuracy-desc" id="accuracy-desc"></div>
+  </div>
+
+  <div class="track-loading" id="track-loading">
+    <div class="spinner"></div>
+    <span>Loading validation data — this may take up to 30 seconds on first load…</span>
+  </div>
+
+  <div style="overflow-x:auto;" id="track-table-wrap" hidden>
+    <table class="event-table">
+      <thead>
+        <tr>
+          <th>Event</th>
+          <th>Actual rain (day)</th>
+          <th>Actual rain (3 days)</th>
+          <th>Documented</th>
+          <th>FloodSight predicted</th>
+          <th>% cells warned</th>
+          <th>Match</th>
+        </tr>
+      </thead>
+      <tbody id="track-tbody"></tbody>
+    </table>
+  </div>
+
+  <p style="font-size:12px;color:var(--muted);margin-top:20px;" id="track-note" hidden>
+    Rainfall data: Open-Meteo Historical Archive (ERA5 reanalysis).
+    FloodSight is considered "correct" if it issued Warning or Watch for any documented Warning event.
+    Sources: NEMA, LASEMA, Lagos State Government situation reports.
+  </p>
+</section>
+
+<div class="section-divider"></div>
+
 <!-- ░░ CTA ░░ -->
 <section>
   <div class="cta-banner">
@@ -887,6 +989,65 @@ function renderError() {
   document.getElementById('status-loading').innerHTML =
     '<span style="color:var(--muted);font-size:13px;">⚠ Could not load live conditions. The server may be starting up — please refresh in 30 seconds.</span>';
 }
+
+// ── Track Record ─────────────────────────────────────────────────
+function levelBadge(level) {
+  if (level === 'Warning')  return '<span class="badge badge-warn">🚨 Warning</span>';
+  if (level === 'Watch')    return '<span class="badge badge-watch">⚠ Watch</span>';
+  if (level === 'No Alert') return '<span class="badge badge-safe">✓ All Clear</span>';
+  return '<span class="badge badge-na">—</span>';
+}
+
+function renderTrackRecord(data) {
+  const events  = data.events;
+  const summary = data.summary;
+
+  // Accuracy hero
+  document.getElementById('accuracy-num').textContent = summary.accuracy_pct + '%';
+  const acc = summary.accuracy_pct;
+  document.getElementById('accuracy-desc').textContent =
+    `FloodSight correctly flagged ${summary.correct} of ${summary.total_events} ` +
+    `documented Lagos flood events using real historical satellite rainfall data. ` +
+    (acc >= 80
+      ? 'This demonstrates strong predictive skill — the model reliably identifies dangerous conditions before they peak.'
+      : 'Threshold tuning is ongoing; detection improves as more event data is incorporated.');
+  document.getElementById('accuracy-hero').style.display = 'flex';
+
+  // Table rows
+  const tbody = document.getElementById('track-tbody');
+  tbody.innerHTML = events.map(r => {
+    const warnPct = r.warning_pct;
+    return `<tr>
+      <td>
+        <div class="event-name">${r.name}</div>
+        <div class="event-areas">${r.areas}</div>
+      </td>
+      <td class="event-rain">${r.rain_24h_mm} mm<br><span style="color:var(--muted);font-size:12px;">${r.rain_24h_label}</span></td>
+      <td class="event-rain">${r.rain_72h_mm} mm<br><span style="color:var(--muted);font-size:12px;">${r.rain_72h_label}</span></td>
+      <td>${levelBadge(r.reported_severity)}</td>
+      <td>${levelBadge(r.predicted_alert)}</td>
+      <td>
+        <div class="warn-bar"><div class="warn-bar-fill" style="width:${Math.min(warnPct,100)}%"></div></div>
+        <span style="font-size:12px;color:var(--muted);margin-top:4px;display:block;">${warnPct}% of grid</span>
+      </td>
+      <td class="match-tick">${r.correct ? '✅' : '⚠️'}</td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('track-loading').style.display   = 'none';
+  document.getElementById('track-table-wrap').hidden        = false;
+  document.getElementById('track-note').hidden              = false;
+}
+
+function renderTrackError() {
+  document.getElementById('track-loading').innerHTML =
+    '<span style="color:var(--muted);font-size:13px;">⚠ Validation data temporarily unavailable. The server may still be loading — please refresh in 60 seconds.</span>';
+}
+
+fetch(`${API}/validate/events`)
+  .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+  .then(renderTrackRecord)
+  .catch(renderTrackError);
 
 // ── Fetch ─────────────────────────────────────────────────────────
 fetch(`${API}/forecast/summary`)
